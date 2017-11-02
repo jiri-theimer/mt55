@@ -460,7 +460,7 @@ Public Class p31_approving_step3
     Private Sub RefreshSubform(strPID As String)
         If strPID = "" Or _IsShowSubform = False Then Return
 
-        Me.fraSubform.Attributes.Item("src") = "p31_approving_step3_subform.aspx?pid=" & strPID & "&guid=" & ViewState("guid")
+        Me.fraRecord.Attributes.Item("src") = "p31_approving_step3_subform.aspx?pid=" & strPID & "&guid=" & ViewState("guid")
 
     End Sub
 

@@ -338,13 +338,13 @@ Partial Public Class p31_approving_step3
     Protected WithEvents td1 As Global.System.Web.UI.HtmlControls.HtmlTableCell
 
     '''<summary>
-    '''fraSubform control.
+    '''fraRecord control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents fraSubform As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents fraRecord As Global.System.Web.UI.HtmlControls.HtmlIframe
 
     '''<summary>
     '''grid1 control.

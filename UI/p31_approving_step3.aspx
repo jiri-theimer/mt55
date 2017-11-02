@@ -55,7 +55,7 @@
 
             h1 = $(window).height();
 
-            var ss = self.document.getElementById("<%=fraSubform.ClientID%>");
+            var ss = self.document.getElementById("<%=fraRecord.ClientID%>");
             var offset = $(ss).offset();
 
             h2 = offset.top;
@@ -63,7 +63,7 @@
             h3 = h1 - h2 - 40;
 
 
-            document.getElementById("<%=fraSubform.ClientID%>").style.height = h3 + "px";
+            document.getElementById("<%=fraRecord.ClientID%>").style.height = h3 + "px";
             <%End If%>
 
 
@@ -77,7 +77,7 @@
             document.getElementById("<%=hiddatapid.clientid%>").value = pid;
             
             <%If td1.Visible Then%>
-            self.document.getElementById("<%=fraSubform.ClientID%>").src = "p31_approving_step3_subform.aspx?guid=<%=ViewState("guid")%>&pid=" + pid;
+            self.document.getElementById("<%=fraRecord.ClientID%>").src = "p31_approving_step3_subform.aspx?guid=<%=ViewState("guid")%>&pid=" + pid;
             <%End If%>
         }
 
@@ -378,11 +378,11 @@
         <tr valign="top">
             <td style="min-width: 400px; min-height: 450px;" id="td1" runat="server">
                 
+                
 
-
-                        <iframe id="fraSubform" runat="server" width="100%" height="460px" frameborder="0" src=""></iframe>
+                        <iframe id="fraRecord" runat="server" width="100%" height="460px" frameborder="0" src=""></iframe>
                     
-
+               
             </td>
             <td>
                 <uc:datagrid ID="grid1" runat="server" ClientDataKeyNames="pid" OnRowSelected="RowSelected" OnRowDblClick="RowDoubleClick"></uc:datagrid>
