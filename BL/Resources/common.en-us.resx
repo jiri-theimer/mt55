@@ -1,0 +1,393 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="p32Name" xml:space="preserve">
+    <value>Activity</value>
+  </data>
+  <data name="TimeFrom" xml:space="preserve">
+    <value>Time from</value>
+  </data>
+  <data name="TimeUntil" xml:space="preserve">
+    <value>Time until</value>
+  </data>
+  <data name="Datum" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Aktualizace" xml:space="preserve">
+    <value>Updated when</value>
+  </data>
+  <data name="Aktualizoval" xml:space="preserve">
+    <value>Updated by</value>
+  </data>
+  <data name="BillingDavka" xml:space="preserve">
+    <value>Billing batch</value>
+  </data>
+  <data name="CastkaBezDPH" xml:space="preserve">
+    <value>Amount VAT exclude</value>
+  </data>
+  <data name="Dodavatel" xml:space="preserve">
+    <value>Supplier</value>
+  </data>
+  <data name="FA" xml:space="preserve">
+    <value>Billable</value>
+  </data>
+  <data name="Faktura" xml:space="preserve">
+    <value>Invoice</value>
+  </data>
+  <data name="FakturacniOddil" xml:space="preserve">
+    <value>Invoice row</value>
+  </data>
+  <data name="Fakturovat" xml:space="preserve">
+    <value>Bill</value>
+  </data>
+  <data name="KlientProjektu" xml:space="preserve">
+    <value>Project client</value>
+  </data>
+  <data name="KodDokladu" xml:space="preserve">
+    <value>Record code</value>
+  </data>
+  <data name="KodUkolu" xml:space="preserve">
+    <value>Task code</value>
+  </data>
+  <data name="KontaktniOsoba" xml:space="preserve">
+    <value>Contact person</value>
+  </data>
+  <data name="Mena" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="NakladovaCastka" xml:space="preserve">
+    <value>Internal amount</value>
+  </data>
+  <data name="NakladovaSazba" xml:space="preserve">
+    <value>Internal rate</value>
+  </data>
+  <data name="NavrhFakturacnihoStatusu" xml:space="preserve">
+    <value>Proposed status</value>
+  </data>
+  <data name="NazevUkolu" xml:space="preserve">
+    <value>Task name</value>
+  </data>
+  <data name="Osoba" xml:space="preserve">
+    <value>Person</value>
+  </data>
+  <data name="Projekt" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="SazbaDPH" xml:space="preserve">
+    <value>VAT rate</value>
+  </data>
+  <data name="SchvalenaHodnota" xml:space="preserve">
+    <value>Approved value</value>
+  </data>
+  <data name="SchvalenaSazba" xml:space="preserve">
+    <value>Approved rate</value>
+  </data>
+  <data name="SchvaleneHodiny" xml:space="preserve">
+    <value>Approved hours</value>
+  </data>
+  <data name="Schvaleno" xml:space="preserve">
+    <value>Approved</value>
+  </data>
+  <data name="SchvalenoBezDPH" xml:space="preserve">
+    <value>Approved Amount</value>
+  </data>
+  <data name="SchvalenoHHMM" xml:space="preserve">
+    <value>Approved HH:MM</value>
+  </data>
+  <data name="SchvalenoKdy" xml:space="preserve">
+    <value>Approved When</value>
+  </data>
+  <data name="SchvalenoVcDPH" xml:space="preserve">
+    <value>Approved Amount VAT incl.</value>
+  </data>
+  <data name="Sesit" xml:space="preserve">
+    <value>Sheet</value>
+  </data>
+  <data name="SkrytyOdpis" xml:space="preserve">
+    <value>Hidden write off</value>
+  </data>
+  <data name="ViditelnyOdpis" xml:space="preserve">
+    <value>Visible write off</value>
+  </data>
+  <data name="VlastnikZaznamu" xml:space="preserve">
+    <value>Record owner</value>
+  </data>
+  <data name="VychoziSazba" xml:space="preserve">
+    <value>Default rate</value>
+  </data>
+  <data name="VyfakturovanaHodnota" xml:space="preserve">
+    <value>Invoiced value</value>
+  </data>
+  <data name="VyfakturovanaSazba" xml:space="preserve">
+    <value>Invoiced rate</value>
+  </data>
+  <data name="VyfakturovaneHodiny" xml:space="preserve">
+    <value>Invoiced hours</value>
+  </data>
+  <data name="VyfakturovanoBezDPH" xml:space="preserve">
+    <value>Invoiced Amount</value>
+  </data>
+  <data name="VyfakturovanoVcDPH" xml:space="preserve">
+    <value>Invoiced Amount VAT incl.</value>
+  </data>
+  <data name="VykazanaHodnota" xml:space="preserve">
+    <value>Tracked value</value>
+  </data>
+  <data name="VykazaneHodiny" xml:space="preserve">
+    <value>Tracked hours</value>
+  </data>
+  <data name="VykazaneHodinyHHMM" xml:space="preserve">
+    <value>Tracked HH:MM</value>
+  </data>
+  <data name="ZahrnoutDoPausalu" xml:space="preserve">
+    <value>Fixed price</value>
+  </data>
+  <data name="Zalozeno" xml:space="preserve">
+    <value>Created when</value>
+  </data>
+  <data name="Zalozil" xml:space="preserve">
+    <value>Created by</value>
+  </data>
+  <data name="ExterniKod" xml:space="preserve">
+    <value>External code</value>
+  </data>
+  <data name="FakturacniCenik" xml:space="preserve">
+    <value>Invoice rates</value>
+  </data>
+  <data name="KlientPlusProjekt" xml:space="preserve">
+    <value>Client+Project</value>
+  </data>
+  <data name="Kod" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="LimitHodin" xml:space="preserve">
+    <value>Hours limit</value>
+  </data>
+  <data name="LimitniHonorar" xml:space="preserve">
+    <value>Limit Fee</value>
+  </data>
+  <data name="NakladovyCenik" xml:space="preserve">
+    <value>Cost rates</value>
+  </data>
+  <data name="NazevProjektu" xml:space="preserve">
+    <value>Project name</value>
+  </data>
+  <data name="PlanEnd" xml:space="preserve">
+    <value>Plan end</value>
+  </data>
+  <data name="PlanStart" xml:space="preserve">
+    <value>Plan start</value>
+  </data>
+  <data name="Stredisko" xml:space="preserve">
+    <value>Cost centre</value>
+  </data>
+  <data name="TypFaktury" xml:space="preserve">
+    <value>Invoice type</value>
+  </data>
+  <data name="TypProjektu" xml:space="preserve">
+    <value>Project type</value>
+  </data>
+  <data name="Zkratka" xml:space="preserve">
+    <value>Shortcut</value>
+  </data>
+  <data name="DIC" xml:space="preserve">
+    <value>TAX ID</value>
+  </data>
+  <data name="FakturacniJazyk" xml:space="preserve">
+    <value>Billing language</value>
+  </data>
+  <data name="IC" xml:space="preserve">
+    <value>Registration ID</value>
+  </data>
+  <data name="KodDodavatele" xml:space="preserve">
+    <value>Supplier code</value>
+  </data>
+  <data name="Nazev" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Spolecnost" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="Typ" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="AutoRozbaleneSouhrny" xml:space="preserve">
+    <value>Groups default expanded</value>
+  </data>
+  <data name="BezSouhrnu" xml:space="preserve">
+    <value>No groupping</value>
+  </data>
+  <data name="Klient" xml:space="preserve">
+    <value>Client</value>
+  </data>
+  <data name="Milnik" xml:space="preserve">
+    <value>Milestone</value>
+  </data>
+  <data name="Prijemce" xml:space="preserve">
+    <value>Receiver</value>
+  </data>
+  <data name="TypUkolu" xml:space="preserve">
+    <value>Task type</value>
+  </data>
+  <data name="VychoziDatovyPrehled" xml:space="preserve">
+    <value>Default grid template</value>
+  </data>
+  <data name="VychoziPrehled" xml:space="preserve">
+    <value>Default grid</value>
+  </data>
+  <data name="VychoziPrehledFaktury" xml:space="preserve">
+    <value>Default grid in invoice page</value>
+  </data>
+  <data name="VychoziPrehledKlienta" xml:space="preserve">
+    <value>Default grid in client page</value>
+  </data>
+  <data name="VychoziPrehledOsoby" xml:space="preserve">
+    <value>Default grid in person page</value>
+  </data>
+  <data name="VychoziPrehledProjektu" xml:space="preserve">
+    <value>Default grid in project page</value>
+  </data>
+  <data name="VychoziPrehledZapisovaniUkonu" xml:space="preserve">
+    <value>Default grid in worksheet tracking</value>
+  </data>
+  <data name="FakturacniStatus" xml:space="preserve">
+    <value>Billing status</value>
+  </data>
+  <data name="KodProjektu" xml:space="preserve">
+    <value>Project code</value>
+  </data>
+  <data name="PlanHodin" xml:space="preserve">
+    <value>Hours plan</value>
+  </data>
+  <data name="PlanVydaju" xml:space="preserve">
+    <value>Expense plan</value>
+  </data>
+  <data name="PrioritaZadavatele" xml:space="preserve">
+    <value>Issuer priority</value>
+  </data>
+  <data name="Termin" xml:space="preserve">
+    <value>Deadline</value>
+  </data>
+  <data name="VykazaneVydaje" xml:space="preserve">
+    <value>Tracked expenses</value>
+  </data>
+  <data name="Stitky" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+</root>

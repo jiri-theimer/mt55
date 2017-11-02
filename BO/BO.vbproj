@@ -1,0 +1,342 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>
+    </SchemaVersion>
+    <ProjectGuid>{2081B1EA-B426-4107-898F-E953AECD89AA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>BO</RootNamespace>
+    <AssemblyName>BO</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>BO.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>BO.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BAS\clsArabicNumber.vb" />
+    <Compile Include="BAS\clsHandleHtml.vb" />
+    <Compile Include="BAS\clsMergeContent.vb" />
+    <Compile Include="BAS\Crypto.vb" />
+    <Compile Include="DBNative\b01WorkflowTemplate.vb" />
+    <Compile Include="DBNative\b02WorkflowStatus.vb" />
+    <Compile Include="DBNative\b05Workflow_History.vb" />
+    <Compile Include="DBNative\b06WorkflowStep.vb" />
+    <Compile Include="DBNative\b07Comment.vb" />
+    <Compile Include="DBNative\b08WorkflowReceiverToStep.vb" />
+    <Compile Include="DBNative\b09WorkflowCommandCatalog.vb" />
+    <Compile Include="DBNative\b10WorkflowCommandCatalog_Binding.vb" />
+    <Compile Include="DBNative\b11WorkflowMessageToStep.vb" />
+    <Compile Include="DBNative\b65WorkflowMessage.vb" />
+    <Compile Include="DBNative\c11StatPeriod.vb" />
+    <Compile Include="DBNative\c21FondCalendar.vb" />
+    <Compile Include="DBNative\c22FondCalendar_Date.vb" />
+    <Compile Include="DBNative\c26Holiday.vb" />
+    <Compile Include="DBNative\f01Folder.vb" />
+    <Compile Include="DBNative\f02FolderType.vb" />
+    <Compile Include="DBNative\j05MasterSlave.vb" />
+    <Compile Include="DBNative\j07PersonPosition.vb" />
+    <Compile Include="DBNative\j17Country.vb" />
+    <Compile Include="DBNative\j18Region.vb" />
+    <Compile Include="DBNative\j60MenuTemplate.vb" />
+    <Compile Include="DBNative\j61TextTemplate.vb" />
+    <Compile Include="DBNative\j62MenuHome.vb" />
+    <Compile Include="DBNative\j70QueryTemplate.vb" />
+    <Compile Include="DBNative\j71QueryTemplate_Item.vb" />
+    <Compile Include="DBNative\j91RobotLog.vb" />
+    <Compile Include="DBNative\m62ExchangeRate.vb" />
+    <Compile Include="DBNative\o20Milestone_Receiver.vb" />
+    <Compile Include="DBNative\o21MilestoneType.vb" />
+    <Compile Include="DBNative\o40SmtpAccount.vb" />
+    <Compile Include="DBNative\o41InboxAccount.vb" />
+    <Compile Include="DBNative\o42ImapRule.vb" />
+    <Compile Include="DBNative\o43ImapRobotHistory.vb" />
+    <Compile Include="DBNative\o48IsirMonitoring.vb" />
+    <Compile Include="DBNative\o51Tag.vb" />
+    <Compile Include="DBNative\o52TagBinding.vb" />
+    <Compile Include="DBNative\p11Attendance.vb" />
+    <Compile Include="DBNative\p27ContactPersonRole.vb" />
+    <Compile Include="DBNative\p39WorkSheet_Recurrence_Plan.vb" />
+    <Compile Include="DBNative\p40WorkSheet_Recurrence.vb" />
+    <Compile Include="DBNative\p44CapacityPlan_Exception.vb" />
+    <Compile Include="DBNative\p45Budget.vb" />
+    <Compile Include="DBNative\p46BudgetPerson.vb" />
+    <Compile Include="DBNative\p50OfficePriceList.vb" />
+    <Compile Include="DBNative\p59Priority.vb" />
+    <Compile Include="DBNative\p61ActivityCluster.vb" />
+    <Compile Include="DBNative\p63Overhead.vb" />
+    <Compile Include="DBNative\p65Recurrence.vb" />
+    <Compile Include="DBNative\p80InvoiceAmountStructure.vb" />
+    <Compile Include="DBNative\p82Proforma_Payment.vb" />
+    <Compile Include="DBNative\p98Invoice_Round_Setting_Template.vb" />
+    <Compile Include="DBNative\x16EntityCategory_FieldSetting.vb" />
+    <Compile Include="DBNative\x18EntityCategory.vb" />
+    <Compile Include="DBNative\p47CapacityPlan.vb" />
+    <Compile Include="DBNative\p48OperativePlan.vb" />
+    <Compile Include="DBNative\p49FinancialPlan.vb" />
+    <Compile Include="DBNative\x19EntityCategory_Binding.vb" />
+    <Compile Include="DBNative\x20EntiyToCategory.vb" />
+    <Compile Include="DBNative\x23EntityField_Combo.vb" />
+    <Compile Include="DBNative\o23Doc.vb" />
+    <Compile Include="DBNative\x26EntityField_Binding.vb" />
+    <Compile Include="DBNative\x28EntityField.vb" />
+    <Compile Include="DBNative\x27EntityFieldGroup.vb" />
+    <Compile Include="DBNative\x38CodeLogic.vb" />
+    <Compile Include="DBNative\x45Event.vb" />
+    <Compile Include="DBNative\x46EventNotification.vb" />
+    <Compile Include="DBNative\x47EventLog.vb" />
+    <Compile Include="DBNative\x48SqlTask.vb" />
+    <Compile Include="DBNative\x50Help.vb" />
+    <Compile Include="DBNative\x55HtmlSnippet.vb" />
+    <Compile Include="DBNative\x56SnippetProperty.vb" />
+    <Compile Include="DBNative\x57UserPageBinding.vb" />
+    <Compile Include="DBNative\x58UserPage.vb" />
+    <Compile Include="DBNative\x61PageTab.vb" />
+    <Compile Include="Helpers\AresRecord.vb" />
+    <Compile Include="Helpers\ContextMenuItem.vb" />
+    <Compile Include="Helpers\DateTimeByQuerystring.vb" />
+    <Compile Include="Helpers\FullTextQueryInput.vb" />
+    <Compile Include="Helpers\FullTextRecord.vb" />
+    <Compile Include="Helpers\MsOfficeBinding.vb" />
+    <Compile Include="Helpers\p56TaskSum.vb" />
+    <Compile Include="Helpers\PersonOrTeam.vb" />
+    <Compile Include="Helpers\QueryByTags.vb" />
+    <Compile Include="Helpers\Query\myQueryO23.vb" />
+    <Compile Include="Helpers\Query\myQueryP66.vb" />
+    <Compile Include="Helpers\RecurrenceCalculation.vb" />
+    <Compile Include="Helpers\Roles4Notification.vb" />
+    <Compile Include="Helpers\SchedulerItem.vb" />
+    <Compile Include="Helpers\SearchBoxItem.vb" />
+    <Compile Include="Helpers\SetupDataGrid.vb" />
+    <Compile Include="Helpers\SubjectMonitoring.vb" />
+    <Compile Include="Helpers\j02PersonSum.vb" />
+    <Compile Include="Helpers\p28ContactSum.vb" />
+    <Compile Include="Helpers\Query\myQueryX40.vb" />
+    <Compile Include="Helpers\WebService\ComboSource.vb" />
+    <Compile Include="Helpers\WorkflowStepPossible4User.vb" />
+    <Compile Include="Helpers\DatesDuration.vb" />
+    <Compile Include="Helpers\FondHours.vb" />
+    <Compile Include="Helpers\GetDouble.vb" />
+    <Compile Include="Helpers\GridColumn.vb" />
+    <Compile Include="Helpers\FreeField.vb" />
+    <Compile Include="Helpers\GetInteger.vb" />
+    <Compile Include="Helpers\GetString.vb" />
+    <Compile Include="Helpers\j03UserSYS.vb" />
+    <Compile Include="Helpers\o23RecordDisposition.vb" />
+    <Compile Include="Helpers\OperativePlanSumPerPerson.vb" />
+    <Compile Include="Helpers\p28RecordDisposition.vb" />
+    <Compile Include="Helpers\p41ProjectSum.vb" />
+    <Compile Include="Helpers\p56RecordDisposition.vb" />
+    <Compile Include="Helpers\p91Create.vb" />
+    <Compile Include="Helpers\p91InvoiceSum.vb" />
+    <Compile Include="Helpers\p91RecordDisposition.vb" />
+    <Compile Include="Helpers\PivotRecord.vb" />
+    <Compile Include="Helpers\Query\myQueryP47.vb" />
+    <Compile Include="Helpers\Query\myQueryP48.vb" />
+    <Compile Include="Helpers\Query\myQueryP49.vb" />
+    <Compile Include="Helpers\Query\myQueryP90.vb" />
+    <Compile Include="Helpers\Query\myQueryX47.vb" />
+    <Compile Include="Helpers\p41RecordDisposition.vb" />
+    <Compile Include="Helpers\RecordDisposition.vb" />
+    <Compile Include="Helpers\WebService\ServiceBOMother.vb" />
+    <Compile Include="Helpers\WebService\ServiceResult.vb" />
+    <Compile Include="Helpers\EasyStringColletion.vb" />
+    <Compile Include="Helpers\Sys\SysDbObject.vb" />
+    <Compile Include="Helpers\WebService\p56TaskWsExtended.vb" />
+    <Compile Include="Helpers\Worksheet\ActivityHandler.vb" />
+    <Compile Include="Helpers\Worksheet\ApprovingFramework.vb" />
+    <Compile Include="Helpers\Worksheet\HoursInMonth.vb" />
+    <Compile Include="Helpers\Worksheet\p31HoursPerPersonAndDay.vb" />
+    <Compile Include="Helpers\Worksheet\p31DataSourceForTimeline.vb" />
+    <Compile Include="Helpers\Worksheet\p31WorksheetApproveInput.vb" />
+    <Compile Include="Helpers\Worksheet\p31WorksheetBigSummary.vb" />
+    <Compile Include="Helpers\Worksheet\p31WorksheetCalendarHours.vb" />
+    <Compile Include="Helpers\Worksheet\p31WorksheetDisposition.vb" />
+    <Compile Include="Helpers\Worksheet\p31WorksheetInvoiceChange.vb" />
+    <Compile Include="Helpers\Worksheet\p31WorksheetSum.vb" />
+    <Compile Include="Helpers\PluginDataTable.vb" />
+    <Compile Include="Helpers\Query\myQuery.vb" />
+    <Compile Include="Helpers\Query\myQueryB07.vb" />
+    <Compile Include="Helpers\Query\myQueryJ02.vb" />
+    <Compile Include="Helpers\Query\myQueryJ03.vb" />
+    <Compile Include="Helpers\Query\myQueryO22.vb" />
+    <Compile Include="Helpers\Query\myQueryO27.vb" />
+    <Compile Include="Helpers\Query\myQueryO38.vb" />
+    <Compile Include="Helpers\Query\myQueryP28.vb" />
+    <Compile Include="Helpers\Query\myQueryP31.vb" />
+    <Compile Include="Helpers\Query\myQueryP32.vb" />
+    <Compile Include="Helpers\Query\myQueryP41.vb" />
+    <Compile Include="Helpers\Query\myQueryP56.vb" />
+    <Compile Include="Helpers\Query\myQueryP91.vb" />
+    <Compile Include="BAS\ASS.vb" />
+    <Compile Include="BAS\BAS.vb" />
+    <Compile Include="BAS\clsFile.vb" />
+    <Compile Include="BAS\clsTime.vb" />
+    <Compile Include="Helpers\Worksheet\p31ValidateBeforeSave.vb" />
+    <Compile Include="DBNative\j77WorksheetStatTemplate.vb" />
+    <Compile Include="Helpers\x18RecordDisposition.vb" />
+    <Compile Include="Helpers\x20_join_x18.vb" />
+    <Compile Include="Mother\BOMother.vb" />
+    <Compile Include="Mother\BOMotherFT.vb" />
+    <Compile Include="Mother\BOMotherNN.vb" />
+    <Compile Include="DBNative\j02Person.vb" />
+    <Compile Include="DBNative\j03User.vb" />
+    <Compile Include="DBNative\j04UserRole.vb" />
+    <Compile Include="DBNative\j11Team.vb" />
+    <Compile Include="DBNative\j12Team_Person.vb" />
+    <Compile Include="DBNative\j19PaymentType.vb" />
+    <Compile Include="DBNative\j27Currency.vb" />
+    <Compile Include="DBNative\j90LoginAccessLog.vb" />
+    <Compile Include="DBNative\o13AttachmentType.vb" />
+    <Compile Include="DBNative\o22Milestone.vb" />
+    <Compile Include="DBNative\o27Attachment.vb" />
+    <Compile Include="DBNative\o28ProjectRole_Workload.vb" />
+    <Compile Include="DBNative\o32Contact_Medium.vb" />
+    <Compile Include="DBNative\o33MediumType.vb" />
+    <Compile Include="DBNative\o36AddressType.vb" />
+    <Compile Include="DBNative\o37Contact_Address.vb" />
+    <Compile Include="DBNative\o38Address.vb" />
+    <Compile Include="DBNative\o39Project_Address.vb" />
+    <Compile Include="DBNative\p28Contact.vb" />
+    <Compile Include="DBNative\p29ContactType.vb" />
+    <Compile Include="DBNative\p30Contact_Person.vb" />
+    <Compile Include="DBNative\p31Worksheet.vb" />
+    <Compile Include="Helpers\Worksheet\p31WorksheetEntryInput.vb" />
+    <Compile Include="DBNative\p32Activity.vb" />
+    <Compile Include="DBNative\p33ActivityInputType.vb" />
+    <Compile Include="DBNative\p34ActivityGroup.vb" />
+    <Compile Include="DBNative\p35Unit.vb" />
+    <Compile Include="DBNative\p36LockPeriod.vb" />
+    <Compile Include="DBNative\p37LockPeriod_Sheet.vb" />
+    <Compile Include="DBNative\p41Project.vb" />
+    <Compile Include="DBNative\p42ProjectType.vb" />
+    <Compile Include="DBNative\p43ProjectType_Workload.vb" />
+    <Compile Include="DBNative\p51PriceList.vb" />
+    <Compile Include="DBNative\p52PriceList_Item.vb" />
+    <Compile Include="DBNative\p53VatRate.vb" />
+    <Compile Include="DBNative\p56Task.vb" />
+    <Compile Include="DBNative\p57TaskType.vb" />
+    <Compile Include="DBNative\p70BillingStatus.vb" />
+    <Compile Include="DBNative\p71ApproveStatus.vb" />
+    <Compile Include="DBNative\p72PreBillingStatus.vb" />
+    <Compile Include="DBNative\p86BankAccount.vb" />
+    <Compile Include="DBNative\p87BillingLanguage.vb" />
+    <Compile Include="DBNative\p88InvoiceHeader_BankAccount.vb" />
+    <Compile Include="DBNative\p89ProformaType.vb" />
+    <Compile Include="DBNative\p90Proforma.vb" />
+    <Compile Include="DBNative\p91Invoice.vb" />
+    <Compile Include="DBNative\p92InvoiceType.vb" />
+    <Compile Include="DBNative\p93InvoiceHeader.vb" />
+    <Compile Include="DBNative\p94Invoice_Payment.vb" />
+    <Compile Include="DBNative\p95InvoiceRow.vb" />
+    <Compile Include="DBNative\p97Invoice_Round_Setting.vb" />
+    <Compile Include="DBNative\p99Invoice_Proforma.vb" />
+    <Compile Include="DBNative\x15VatRateType.vb" />
+    <Compile Include="DBNative\x21DatePeriod.vb" />
+    <Compile Include="DBNative\x36UserParam.vb" />
+    <Compile Include="DBNative\x40MailQueue.vb" />
+    <Compile Include="DBNative\x43MailQueue_Recepient.vb" />
+    <Compile Include="DBNative\x53Permission.vb" />
+    <Compile Include="DBNative\j25ReportCategory.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="DBNative\x24DataType.vb" />
+    <Compile Include="DBNative\x29Entity.vb" />
+    <Compile Include="DBNative\x31Report.vb" />
+    <Compile Include="DBNative\x35GlobalParam.vb" />
+    <Compile Include="DBNative\x67EntityRole.vb" />
+    <Compile Include="DBNative\x69EntityRole_Assign.vb" />
+    <Compile Include="DBNative\p85TempBox.vb" />
+    <Compile Include="DBNative\p66PersonalPlan.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

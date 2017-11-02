@@ -1,0 +1,960 @@
+﻿/* Snaha o css pro mobilní zařízení
+    font-size: 2vmin;
+----------------------------------------------------------*/
+body {
+    background: #F1F1F1;
+    font-size: 100%;
+    font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana, sans-serif;
+    margin: 0px;
+    padding: 0px;
+    color: #696969;
+}
+
+div.left_panel {
+    width: 250px;
+    float: left;
+}
+
+div.right_panel {
+    margin-left: 250px;
+}
+
+
+a:link, a:visited {
+    color: #034af3;
+}
+
+a:hover {
+    color: #1d60ff;
+    text-decoration: none;
+}
+
+a:active {
+    color: #034af3;
+}
+
+p {
+    margin-bottom: 10px;
+    line-height: 1.6em;
+}
+
+
+/* HEADINGS   
+----------------------------------------------------------*/
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 1.5em;
+    color: #666666;
+    font-variant: small-caps;
+    text-transform: none;
+    font-weight: 200;
+    margin-bottom: 0px;
+}
+
+h1 {
+    font-size: 1.6em;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+h2 {
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.2em;
+}
+
+h4 {
+    font-size: 1.1em;
+}
+
+h5, h6 {
+    font-size: 1em;
+}
+
+/* this rule styles <h1> and <h2> tags that are the 
+first child of the left and right table columns */
+.rightColumn > h1, .rightColumn > h2, .leftColumn > h1, .leftColumn > h2 {
+    margin-top: 0px;
+}
+
+
+
+
+
+
+/* FORM ELEMENTS   
+----------------------------------------------------------*/
+
+fieldset {
+    margin: 1em 0px;
+    padding: 1em;
+    border: 1px solid #ccc;
+}
+
+    fieldset p {
+        margin: 2px 12px 10px 10px;
+    }
+
+    fieldset.login label, fieldset.register label, fieldset.changePassword label {
+        display: block;
+    }
+
+    fieldset label.inline {
+        display: inline;
+    }
+
+legend {
+    font-size: 110%;
+    font-weight: bold;
+    padding: 2px 2px 2px 6px;
+}
+
+fieldset {
+    padding: 2px;
+    margin: 0px;
+}
+
+
+
+input.cmd {
+    font-size: 100%;
+    font-family: Arial;
+}
+
+    input.cmd:hover {
+        color: red;
+        cursor: pointer;
+        cursor: hand;
+    }
+
+button {
+    font-size: 100%;
+    font-family: Arial;
+}
+
+    button:hover {
+        color: red;
+        cursor: pointer;
+        cursor: hand;
+    }
+
+textarea {
+    background-color: #ffffcc;
+}
+
+
+span.timestamp {
+    font-size: 85%;
+    font-style: italic;
+}
+
+
+td.frif {
+    width: 110px;
+}
+
+
+
+
+span.lbl {
+    font-size: 100%;
+    color: #696969;
+}
+
+
+
+span.val {
+    font-size: 100%;
+    font-weight: normal;
+    color: black;
+}
+
+span.valbold {
+    font-size: 100%;
+    font-weight: bold;
+    color: black;
+}
+
+span.valboldblue {
+    font-size: 100%;
+    font-weight: bold;
+    color: blue;
+}
+
+span.valboldred {
+    font-size: 100%;
+    font-weight: bold;
+    color: red;
+}
+
+span.lblReq {
+    font-size: 100%;
+    color: #696969;
+}
+
+
+    span.lblReq:after {
+        color: Red;
+        content: " *";
+    }
+
+
+label.lbl {
+    font-size: 100%;
+    color: #696969;
+}
+
+
+
+label.lblReq {
+    font-size: 100%;
+    color: #696969;
+}
+
+    label.lblReq:after {
+        color: Red;
+        content: " *";
+    }
+
+
+.chk label {
+    color: Black;
+    font-size: 100%;
+}
+
+div.bigtext {
+    min-width: 99%;
+    border: dashed 1px gray;
+    background-color: #ffffcc;
+    margin-top: 5px;
+    color: Black;
+}
+
+.important_text {
+    background-color: #FFE5B4;
+}
+
+
+a.toplink {
+    color: white;
+    margin-left: 10px;
+}
+
+
+
+/* ClueTip - ZOOM vybraného záznamu  
+----------------------------------------------------------*/
+A.reczoom {
+    font-weight: normal;
+    font-family: Calibri;
+    font-size: 130%;
+    padding-left: 3px;
+    padding-right: 3px;
+    color: blue !Important;
+    border-top: solid 1px #FFFAFA;
+    border-left: solid 1px #FFFAFA;
+    border-bottom: solid 1px #D3D3D3;
+    border-right: solid 1px #D3D3D3;
+    text-decoration: none;
+    cursor: help;
+}
+
+    A.reczoom:hover {
+        background: #ffe79c;
+        border-top: solid 1px silver;
+        border-left: solid 1px silver;
+        border-bottom: solid 2px gray;
+        border-right: solid 1px gray;
+        text-decoration: none;
+    }
+
+
+A.queryzoom {
+    font-weight: normal;
+    font-family: Calibri;
+    font-size: 150%;
+    padding-left: 3px;
+    padding-right: 3px;
+    color: blue !Important;
+    border-top: solid 1px #FFFAFA;
+    border-left: solid 1px #FFFAFA;
+    border-bottom: solid 1px #D3D3D3;
+    border-right: solid 1px #D3D3D3;
+    text-decoration: none;
+    cursor: help;
+}
+
+    A.queryzoom:hover {
+        background: #ffe79c;
+        border-top: solid 1px silver;
+        border-left: solid 1px silver;
+        border-bottom: solid 2px gray;
+        border-right: solid 1px gray;
+        text-decoration: none;
+    }
+
+
+/* MISC  
+----------------------------------------------------------*/
+
+.failureNotification {
+    font-size: 110%;
+    color: Red;
+}
+
+.infoNotification {
+    font-size: 110%;
+    color: navy;
+}
+
+.infoNotificationRed {
+    font-size: 110%;
+    color: red;
+}
+
+.infoInForm {
+    font-style: italic;
+    color: #DCDCDC;
+    word-wrap: break-word;
+    display: block;
+    white-space: pre-wrap;
+}
+
+    .infoInForm:hover {
+        color: black;
+    }
+
+span.framework_header_span {
+    color: Black;
+    font-weight: bold;
+    font-variant: small-caps;
+    font-family: Arial;
+    font-size: 115%;
+}
+
+a.page_header_span {
+    color: gray;
+    font-weight: bold;
+    font-variant: small-caps;
+    font-size: 140%;
+    word-break: keep-all;
+}
+
+span.page_header_span {
+    color: Black;
+    font-weight: bold;
+    font-variant: small-caps;
+    font-family: Arial;
+    font-size: 180%;
+}
+
+span.clue_header_span {
+    color: navy;
+    font-weight: bold;
+    font-variant: small-caps;
+    font-family: Arial;
+    font-size: 150%;
+}
+
+div.div6 {
+    padding: 6px;
+}
+
+
+
+
+
+
+
+div.innerform {
+    border-radius: 5px 5px 5px 5px;
+    background-color: #D0D0D0;
+    padding: 6px;
+    border-bottom: solid 1px gray;
+    border-right: solid 1px gray;
+    border-top: solid 1px silver;
+    border-left: solid 1px silver;
+}
+
+.innerform span {
+    color: Black;
+}
+
+div.innerform_light {
+    border-radius: 5px 5px 5px 5px;
+    background-color: #F1F1F1;
+    padding: 6px;
+    border-bottom: solid 1px gray;
+    border-right: solid 1px gray;
+    border-top: solid 1px silver;
+    border-left: solid 1px silver;
+}
+
+
+
+div.innerform_square {
+    background-color: #D0D0D0;
+    padding: 6px;
+    border-bottom: solid 1px gray;
+    border-right: solid 1px gray;
+    border-top: solid 1px silver;
+    border-left: solid 1px silver;
+}
+
+
+TABLE.tabulka {
+    border-collapse: collapse;
+    border-color: silver;
+    color: Black;
+}
+
+.tabulka TH {
+    font-weight: bold;
+    padding-top: 2px;
+    padding-right: 2px;
+    padding-bottom: 2px;
+    padding-left: 2px;
+    background: #F1F1F1;
+    color: black;
+    font-size: 100%;
+}
+
+TABLE {
+    border-collapse: collapse;
+    color: Black;
+}
+
+TH {
+    font-weight: bold;
+    padding-top: 2px;
+    padding-right: 2px;
+    padding-bottom: 2px;
+    padding-left: 2px;
+    color: black;
+    font-size: 100%;
+}
+
+
+
+/* Kvůli RadMenu, aby se zobrazoval hand cursor u hover položky  
+----------------------------------------------------------*/
+.RadMenu .rmLink:hover {
+    cursor: pointer;
+}
+
+html .RadMenu_Silk .rmRootGroup {
+    background-image: none;
+}
+
+html .RadMenu_Silk ul.rmRootGroup {
+    background: white !important;
+}
+
+.RadMenu_Silk .rmLink:hover,
+.RadMenu_Silk .rmFocused, .rmLink .RadMenu_Default .rmSelected {
+    background-color: transparent !important;
+    background-image: none !important;
+    background-position: 0px 0px !important;
+    background-border: none;
+}
+
+.RadMenu_Silk .rmItem :hover {
+    border-top-color: transparent !important;
+}
+
+.RadMenu_Silk .rmSelected .rmLink {
+    border-top-color: transparent !important;
+}
+
+
+
+/* Kvůli cursoru u treeview
+----------------------------------------------------------*/
+.nc {
+    cursor: pointer;
+}
+
+
+
+
+/* tlačítko [více]
+----------------------------------------------------------*/
+.show_hide1 {
+    display: none;
+}
+
+.show_hide2 {
+    display: none;
+}
+
+.show_hide3 {
+    display: none;
+}
+
+.show_hide4 {
+    display: none;
+}
+
+.show_hide5 {
+    display: none;
+}
+
+.show_hide6 {
+    display: none;
+}
+
+.slidinHeader {
+    font-size: 1.3em;
+    color: #666666;
+    font-variant: small-caps;
+    text-transform: none;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+
+.button-link {
+    font: normal 12px/19px Arial !important;
+    white-space: pre;
+    padding: 2px 2px;
+    background: buttonface;
+    color: black;
+    border-top: solid 1px silver;
+    border-left: solid 1px silver;
+    border-bottom: solid 1px gray;
+    border-right: solid 1px gray;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+    .button-link:hover {
+        background-color: #ffe79c;
+        border-top: solid 1px silver;
+        border-left: solid 1px silver;
+        border-bottom: solid 1px gray;
+        border-right: solid 1px gray;
+        text-decoration: none;
+        color: Black;
+    }
+
+    .button-link:active {
+        -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+        -moz-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+        box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+        background: #ffa517;
+        border: solid 1px #c98400;
+    }
+
+
+
+/* Timesheet Calendar
+----------------------------------------------------------*/
+.hhmm_null {
+    font-size: 11px;
+    font-family: Arial;
+    color: silver;
+}
+
+.hhmm_notnull {
+    font-size: 11px;
+    font-family: Arial;
+    color: red;
+    font-weight: bold;
+}
+
+.attachment {
+    background-image: url('../Images/attachment.png');
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
+.o21_1 {
+    background-image: url('../Images/milestone.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.o21_2 {
+    background-image: url('../Images/event.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.o21_3 {
+    background-image: url('../Images/notepad.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Stavy worksheet úkonů
+----------------------------------------------------------*/
+.a12 {
+    background-image: url('../Images/a12.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.a13 {
+    background-image: url('../Images/a13.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.a14 {
+    background-image: url('../Images/a14.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.a16 {
+    background-image: url('../Images/a16.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.corr_236 {
+    background-image: url('../Images/correction_down.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.corr_4 {
+    background-image: url('../Images/correction.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.future {
+    background-image: url('../Images/future.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.draft {
+    background-image: url('../Images/draft.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.favourite {
+    background-image: url('../Images/favourite.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.overtime {
+    background-image: url('../Images/overtime.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.locked {
+    background-image: url('../Images/lock.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.spy {
+    background-image: url('../Images/spy.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.a2 {
+    background-color: red;
+}
+
+.a3 {
+    background-color: brown;
+}
+
+.a4 {
+    background-color: green;
+}
+
+.a6 {
+    background-color: pink;
+}
+
+.box_comment {
+    padding-bottom: 6px;
+}
+
+    .box_comment:hover {
+        background-color: whitesmoke;
+    }
+
+tr.trHover:hover {
+    background-color: whitesmoke;
+}
+
+.calcell {
+    color: red;
+    width: 30px;
+    height: 15px;
+    font-size: 90%;
+}
+
+.p91_red {
+    background-color: red;
+}
+
+.p91_pink {
+    background-color: pink;
+}
+
+.p91_creditnote {
+    background-image: url('../Images/correction_down.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.p91_yellow {
+    background-color: yellow;
+}
+
+div.div_radiolist_metro {
+    width: 100%;
+    background-color: #25a0da;
+    text-transform: lowercase;
+    font-family: Segoe UI;
+}
+
+div.content-box1 {
+    float: left;
+    margin-top: 3px;
+    margin-left: 6px;
+    min-width: 300px;
+}
+
+    div.content-box1 .content {
+        overflow: hidden;
+        padding: 5px;
+        border-bottom-left-radius: 3px;
+        border-bottom-right-radius: 3px;
+        border: 1px solid silver;
+    }
+
+    div.content-box1 .title {
+        cursor: default;
+        height: 16px;
+        line-height: 13px;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        background: #F1F1F1;
+        font-family: Arial;
+        text-transform: lowercase;
+        display: block;
+        color: black;
+        padding: 6px;
+        border: 1px solid silver;
+        border-bottom: none;
+    }
+
+
+
+
+div.content-box2 .content {
+    overflow: hidden;
+    padding: 5px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border: 1px solid silver;
+}
+
+div.content-box2 .title {
+    cursor: default;
+    height: 20px;
+    line-height: 20px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    background: #F1F1F1;
+    font-family: Arial;
+    font-weight: bold;
+    text-transform: lowercase;
+    display: block;
+    color: black;
+    padding: 6px;
+    border: 1px solid silver;
+    border-bottom: none;
+}
+
+
+
+div.menu-group-title {
+    height: 13px;
+    line-height: 13px;
+    background: #F1F1F1;
+    font-family: Arial;
+    text-transform: lowercase;
+    display: block;
+    color: black;
+    padding: 6px;
+    text-align: center;
+    border-top: 1px solid silver;
+    border-bottom: 1px solid silver;
+}
+
+div.menu-group-item {
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 6px;
+}
+
+.badge1 {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: pre-wrap;
+    vertical-align: middle;
+    background-color: #777;
+    border-radius: 10px;
+    margin-left: 7px;
+}
+
+.badgebox1 {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-weight: normal;
+    line-height: 1;
+    color: white;
+    text-align: center;
+    white-space: pre-wrap;
+    vertical-align: middle;
+    background-color: #25a0da;
+    border-radius: 10px;
+    margin-left: 7px;
+}
+
+.badgebox1red {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-weight: normal;
+    line-height: 1;
+    color: white;
+    text-align: center;
+    white-space: pre-wrap;
+    vertical-align: middle;
+    background-color: red;
+    border-radius: 10px;
+    margin-left: 7px;
+}
+
+
+.RadGrid .rgSelectedRow td {
+    color: white;
+}
+
+
+.panelmenu_selectedrow {
+    color: black !important;
+    font-weight: bold !important;
+    text-decoration: underline !important;
+}
+
+div.commandcell {
+    float: left;
+    margin-top: 10px;
+}
+
+
+
+/* Responsivní styly pro šířku menší než 600px
+----------------------------------------------------------*/
+@media screen and (max-width: 600px) {
+  
+
+    table#responsive {
+        border: 0;
+        width: 100%;
+    }
+
+        table#responsive thead {
+            display: none;
+        }
+
+        table#responsive tr {
+            margin-bottom: 10px;
+            display: block;
+            border-bottom: 2px solid #ddd;
+        }
+
+    td#rlbl {
+        background-color: #F1F1F1;
+        text-transform: uppercase;
+        color: black;
+    }
+
+    span.lbl {
+        text-transform: uppercase;
+        color: black;
+    }
+
+    table#responsive td {
+        display: block;
+        text-align: left;
+        border-bottom: 1px dotted #ccc;
+    }
+
+        table#responsive td:last-child {
+            border-bottom: 0;
+        }
+
+        table#responsive td:before {
+            content: attr(collbl);
+            float: left;
+            text-transform: uppercase;
+            font-weight: bold;
+            min-width: 150px;
+        }
+
+    div.content-box1 {
+        float: left;
+        margin-top: 3px;
+        margin-left: 6px;
+        max-width: 600px;
+        width: 100%;
+    }
+
+    input[type="text"] {
+    width:100%;
+    }
+    input[type="password"] {
+    width:100%;
+    }
+}
+
+
+/* Responsivní styly pro šířku menší než 790px
+----------------------------------------------------------*/
+@media screen and (max-width: 790px) {
+    div.content-box1 {
+        float: left;
+        margin-top: 3px;
+        margin-left: 6px;
+        max-width: 790px;
+        width: 100%;
+    }
+}

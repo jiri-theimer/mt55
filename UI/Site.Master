@@ -1,0 +1,486 @@
+﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="Site.master.vb" Inherits="UI.Site" %>
+
+<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+<%@ Register TagPrefix="uc" TagName="main_menu" Src="~/main_menu.ascx" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="myHead" runat="server">
+    <title runat="server" id="title1" enableviewstate="true">MARKTIME 5.0</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="~/Styles/Site_v11.css" rel="stylesheet" type="text/css" />
+    <link href="Scripts/jquery.qtip.min.css" rel="stylesheet" type="text/css" />
+
+
+    <link href="~/Images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <script src="Scripts/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="Scripts/jquery.qtip.min.js"></script>
+    <script type="text/javascript" src="Scripts/jquery.msgbox.min.js"></script>
+
+
+
+    <style type="text/css">
+      
+
+        html .RadNavigation_Windows7 .rnvRootGroupWrapper {
+            background-color: #25a0da;
+            background-image: none;
+            color: white;
+        }
+
+        html .RadNavigation .rnvMore,
+        html .RadNavigation .rnvRootLink  {
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+
+        
+        .rnvPopup {            
+            border-bottom-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+        box-shadow: 3px 2px 10px silver;
+        
+        }
+        
+
+
+        html .RadMenu_Metro .rmRootGroup {
+            background-image: none;
+            color: white;
+        }
+
+        html .RadMenu_Metro ul.rmRootGroup {
+            background-color: #25a0da;
+            color: white;
+        }
+
+        html .RadMenu_Metro .rmGroup {
+            background-color: #F0F8FF !important;
+            border-color: #A9A9A9 !important;
+        }
+    </style>
+
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <script type="text/javascript">
+
+
+        function help(page) {
+            window.open("help.aspx?page=" + page, "_blank");
+        }
+
+        function messages() {
+            sw_master("j03_messages.aspx", "Images/messages.png", false)
+
+        }
+
+        function handleSAW() {
+            //pokud je rozlišení displeje menší než 1280px, automaticky  nahodit režim SAW
+            if (screen.availWidth <= 1280) {
+                if (readCookie("MT50-SAW") == "1") {
+                    return;
+                }
+                else {
+                    createCookie('MT50-SAW', "1", 30);
+                    return;
+                }
+            }
+            if (screen.availWidth > 1280) {
+                if (readCookie("MT50-SAW") == "1") {
+                    createCookie('MT50-SAW', "0", 30);
+                }
+            }
+        }
+
+        function setlang(value) {
+
+            createCookie('MT50-CultureInfo', value, 30);
+            location.replace(window.location.href);
+        }
+
+        function createCookie(name, value, days) {
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                var expires = "; expires=" + date.toGMTString();
+            }
+            else var expires = "";
+            document.cookie = name + "=" + value + expires + "; path=/";
+        }
+
+        function readCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        function okno1_OnClientBeforeClose(sender, args) {                        
+            if (sender.argument == "need2save") {
+                if (confirm("Chcete zavřít formulář bez uložení změn?")) {
+                    sender.argument = null;
+                    //args.set_cancel(false);  //zavřít formulář
+                }
+                else {
+                    args.set_cancel(true);  //zrušit zavření formuláře
+                }
+            }
+            
+
+            
+        }
+    </script>
+
+</head>
+<body style="margin: 0px; height: 100%;">
+    <form runat="server" style="height: 100%; margin: 0px;">
+        <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
+        <telerik:RadNotification ID="notify1" runat="server" ShowCloseButton="true" Position="Center" Title="Info" EnableRoundedCorners="true" EnableShadow="true" Animation="Fade" Skin="BlackMetroTouch"></telerik:RadNotification>
+
+        <uc:main_menu ID="mm1" runat="server" MasterPageName="Site"></uc:main_menu>
+        <div>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </div>
+
+        <telerik:RadWindow ID="okno1" runat="server" ShowOnTopWhenMaximized="true" RenderMode="Auto" Modal="false" KeepInScreenBounds="true" VisibleStatusbar="false" Skin="MetroTouch" IconUrl="Images/setting.png" ShowContentDuringLoad="false" InitialBehaviors="None" Behaviors="Close,Reload" Style="z-index: 9000;">
+            <Shortcuts>
+                <telerik:WindowShortcut CommandName="Close" Shortcut="Esc" />
+            </Shortcuts>
+            <Localization Close="Zavřít" Restore="Základní velikost" Maximize="Maximalizovat" />
+        </telerik:RadWindow>
+
+        <asp:HiddenField ID="hidSiteMenuValue" runat="server" />
+        <asp:HiddenField ID="hidPageTitle" runat="server" Value="MARKTIME 5.0" />
+        
+       
+        <script type="text/javascript">
+            $telerik.getViewPortSize = function () {
+                var width = 0;
+                var height = 0;
+
+                var canvas = document.body;
+
+                if ((!$telerik.quirksMode && !$telerik.isSafari) ||
+                    (Telerik.Web.Browser.chrome && Telerik.Web.Browser.version >= 61)) {
+                    canvas = document.documentElement;
+                }
+
+                if (window.innerWidth) {
+                    // Seems there's no completely reliable way to get the viewport size in Gecko, this should be the best one
+                    // Check https://bugzilla.mozilla.org/show_bug.cgi?id=189112#c7
+                    width = Math.max(document.documentElement.clientWidth, document.body.clientWidth);
+                    height = Math.max(document.documentElement.clientHeight, document.body.clientHeight);
+
+                    if (width > window.innerWidth)
+                        width = document.documentElement.clientWidth;
+                    if (height > window.innerHeight)
+                        height = document.documentElement.clientHeight;
+                }
+                else {
+                    width = canvas.clientWidth;
+                    height = canvas.clientHeight;
+                }
+
+                width += canvas.scrollLeft;
+                height += canvas.scrollTop;
+
+                if ($telerik.isMobileSafari) {
+                    width += window.pageXOffset;
+                    height += window.pageYOffset;
+                }
+
+                return { width: width - 6, height: height - 6 };
+            }
+        </script>
+        <telerik:RadContextMenu ID="RadContextMenu1" runat="server" EnableViewState="false" Skin="Metro" ExpandDelay="0" RenderMode="Lightweight" OnClientHidden="RadContextMenu1_Hidden" OnClientShown="RadContextMenu1_Shown">            
+            <CollapseAnimation Type="None" />
+            <ExpandAnimation Type="None" />                
+        </telerik:RadContextMenu>
+    </form>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var iframeWidth = '100%';
+            var iframeHeight = '270';
+
+            $("a.reczoom").each(function () {
+
+                // Extract your variables here:
+                var $this = $(this);
+                var myurl = $this.attr('rel');
+
+                var mytitle = $this.attr('title');
+                if (mytitle == null)
+                    mytitle = 'Detail';
+
+
+                $this.qtip({
+                    content: {
+                        text: '<iframe src="' + myurl + '"' + ' width=' + iframeWidth + '"' + ' height=' + '"' + iframeHeight + '"  frameborder="0"><p>Your browser does not support iframes.</p></iframe>',
+                        title: {
+                            text: mytitle
+                        },
+
+                    },
+                    position: {
+                        my: 'top center',  // Position my top left...
+                        at: 'bottom center', // at the bottom right of...
+                        viewport: $(window)
+                    },
+                    hide: {
+
+                        fixed: true,
+                        delay: 100
+
+                    },
+                    style: {
+                        classes: 'qtip-tipped',
+                        width: 700,
+                        height: 300
+
+                    }
+                });
+            });
+
+            
+
+
+
+
+
+        });
+
+        $(window).load(function () {
+            if (window.innerWidth < 768) {   //extra malá šířka -> mobilní zařízení
+
+                sw_master("alertbox.aspx?a=" + encodeURI("mobile_start.aspx") + "&q=" + encodeURI("Chcete se přepnout do rozhraní pro mobilní zařízení?"), "Images/mobile.png", true);
+
+            }
+
+
+        });
+
+        function sw_master(url, iconUrl, is_maximize) {
+            var wnd = $find("<%=okno1.clientid%>");
+            wnd.argument = null;
+            wnd.setUrl(url);
+            if (iconUrl != null)
+                wnd.set_iconUrl(iconUrl);
+            else
+                wnd.set_iconUrl("Images/window.png");
+
+            wnd.show();
+
+            wnd.maximize();
+
+
+
+        }
+
+        function sw_master_more(url, iconUrl, window_width, window_height, is_modal) {
+            var wnd = $find("<%=okno1.ClientID%>");
+            wnd.argument = null;
+            wnd.setUrl(url);
+            if (iconUrl != null)
+                wnd.set_iconUrl(iconUrl);
+            else
+                wnd.set_iconUrl("Images/window.png");
+            if (window_width != null)
+                wnd.setSize(window_width, window_height);
+
+            if (is_modal == true) {
+                wnd.set_modal(true);
+            }
+
+            wnd.show();
+            wnd.center();
+
+        }
+
+
+        function sw_everywhere(url, iconUrl, is_maximize) {
+            sw_master(url, iconUrl, is_maximize);
+        }
+
+        function Handle_Project_Favourite(p41id) {
+            $.post("Handler/handler_project.ashx", { pid: p41id, oper: "favourite" }, function (data) {
+                if (data = "1") {
+                    hardrefresh(p41id, "p41-save");
+                    return;
+                }
+
+
+            });
+
+        }
+
+        function ContextMenu_Approve(p72id,pid) {            
+            $.post("Handler/handler_approve.ashx", { pids: pid, p72id: p72id }, function (data) {                
+                if (data != "1") {
+                    alert(data);
+                }
+                if (data.substring(0, 1) == "_") {
+                    return; //v každém záznamu jsou chyby
+                }
+
+                //schváleno
+                hardrefresh(pid, "p31-save");
+
+            });
+
+        }
+
+        function contMenu(url, isTopWindow) {
+            sw_everywhere(url, "", true);
+        }
+        function contReload(url, target) {
+            if (target == "_self") {
+                location.href = url;
+                return;
+            }
+            if (target == "_top") {
+                var isInIFrame = (window.location != window.parent.location);
+                if (isInIFrame == false) {                    
+                    location.href=url;  //stránka není ve frame
+                    return;
+                }
+            }
+            
+            window.open(url, target);
+        }
+        
+
+        var _lastCmClosedTime = null;
+        var _CmIsClosed = null;
+        var _CmLastGuid = null;
+
+        function Handle_Click_From_SubForm() {
+            if (_CmIsClosed == 0) {
+                var contextMenu = $find("<%= RadContextMenu1.ClientID %>");
+                contextMenu.get_items().clear();                
+            }
+            
+
+        }
+        
+        function RadContextMenu1_Hidden(menu) {
+            var d = new Date();
+            _lastCmClosedTime = d.getTime();
+            _CmIsClosed = 1;
+            
+        }
+        function RadContextMenu1_Shown(menu) {
+            _CmIsClosed = 0;
+        }
+
+       
+        function RCM(curPREFIX, curPID, ctl, strFlag) {            
+            if (strFlag == "p31_grid") {
+                SelectGridRow(curPID);
+            }
+            
+            if (_CmLastGuid != curPREFIX + curPID) {
+                _CmIsClosed = 1;
+            }
+            var d = new Date();
+            var n = d.getTime();
+           
+            var contextMenu = $find("<%= RadContextMenu1.ClientID %>");
+            if (_CmIsClosed == 0 || n - _lastCmClosedTime < 2) {
+                return;     //n - _lastCmClosedTime < 2 - je tam kvůli newrec menu, které nefunguje přes onclick, ale přes href
+            }
+
+            _CmIsClosed = 0;
+            _CmLastGuid = curPREFIX + curPID;
+            
+            $.ajax({
+                method: "POST",
+                url: "Handler/handler_popupmenu.ashx",
+                beforeSend: function () {
+
+                },
+                async: true,
+                timeout: 3000,
+                data: { prefix: curPREFIX, pid: curPID, flag: strFlag },
+                success: function (data) {
+                    //alert("načítání");
+                    //$('#html5menu').html('');
+                    
+                    contextMenu.get_items().clear();
+                    
+                    var x = 180
+                    var y = 30
+
+                    if (ctl != null) {
+                        x = $(ctl).offset().left;
+                        y = $(ctl).offset().top;
+                    }
+                    
+                    
+                    var miLastRoot = null;
+
+                    for (var i in data) {
+                        var c = data[i];
+                        var mi = new Telerik.Web.UI.RadMenuItem();
+                        
+
+                        if (c.IsSeparator == true) {
+                            mi.set_isSeparator(true);
+                        }
+
+                        if (c.IsSeparator == false) {
+                            mi.set_text(c.Text);
+                                                        
+                            mi.set_navigateUrl(c.NavigateUrl);                            
+                                
+                        }
+                        
+                        if (c.ImageUrl != "") {
+                            mi.set_imageUrl(c.ImageUrl);
+                        }
+                        
+                        if (c.IsDisabled == true) {
+                            mi.disable();
+                        }
+                        
+                        if (c.IsChildOfPrevious == true) {
+                            miLastRoot.get_items().add(mi);
+                        }
+
+                        if (c.IsChildOfPrevious == false) {                            
+                            contextMenu.get_items().add(mi);
+                            miLastRoot = mi;
+                        }
+
+                        
+                    }
+
+                    contextMenu.showAt(x + 20, y);
+
+                    
+
+                },
+                complete: function () {
+                    // do the job here
+
+                }
+            });
+
+            
+
+        }
+
+        
+    </script>
+</body>
+</html>

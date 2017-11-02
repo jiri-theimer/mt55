@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="Windows-1250"?>
+<dat:dataPack id="001" ico="27222861" application="MARKTIME" version="1.0" note="import faktury" xmlns:dat="http://www.stormware.cz/schema/data.xsd" xmlns:inv="http://www.stormware.cz/schema/invoice.xsd" xmlns:vch="http://www.stormware.cz/schema/voucher.xsd" xmlns:int="http://www.stormware.cz/schema/intDoc.xsd" xmlns:typ="http://www.stormware.cz/schema/type.xsd">
+</dat:dataPack>

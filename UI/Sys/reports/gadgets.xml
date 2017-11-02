@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x55HtmlSnippet>
+  <record>
+    <x55code>vykazovane_projekty</x55code>
+    <x55name>Projekty, v kterých jsem naposledy vykazoval úkony</x55name>
+    <x55typeflag>1</x55typeflag>
+    <x55content>#tab1#</x55content>
+    <x55recordsql>select * from j02Person where j02ID=@pid</x55recordsql>
+    <x55height></x55height>
+    <x56>
+      <sql x56control="tab1">
+        select min(p28Name)
+        ,'[[a href='+char(34)+'p41_framework.aspx?pid='+convert(varchar(10),a.p41ID)+char(34)+' ]]'+min(p41Name)+'[[/a]]'
+        ,min(p41Code),max(p31dateinsert)
+        ,'[[a href='+char(34)+'javascript:p31_record(0,'+convert(varchar(10),a.p41ID)+')'+char(34)+']]Zapsat úkon[[/a]]'
+        from
+        p31Worksheet a INNER JOIN p41Project p41 ON a.p41ID=p41.p41ID
+        LEFT OUTER JOIN p28Contact p28 ON p41.p28ID_Client=p28.p28ID
+        WHERE a.p31ID IN (SELECT TOP 30 p31ID FROM p31Worksheet WHERE j02ID=@pid ORDER BY p31ID DESC)
+        GROUP BY a.p41ID
+        order by max(p31dateinsert) DESC
+      </sql>
+      <colheaders x56control="tab1">Klient|Projekt|Kód projektu|Kdy naposledy|</colheaders>
+      <coltypes x56control="tab1">S|S|S|DT|S</coltypes>
+      <NoDataMessage x56control="tab1">Zatím žádné vykázané úkony.</NoDataMessage>
+    </x56>
+  </record>
+  <record>
+    <x55code>pocasi_v_praze</x55code>
+    <x55name>Počasí v Praze</x55name>
+    <x55typeflag>2</x55typeflag>
+    <x55content>
+      <img src="http://meteosluzby.e-pocasi.cz/pocasi/54d8f0c574d7a.png" style="border:0px; width=178px; height=106px;" alt="Počasí"/>
+      <a href="http://www.e-pocasi.cz/pocasi-mesto-praha/" title="Počasí pro město Praha">Více počasí</a>
+    </x55content>
+    <x55recordsql></x55recordsql>
+    <x55height></x55height>
+  </record>
+  <record>
+    <x55code>calculator1</x55code>
+    <x55name>Základní kalkulačka</x55name>
+    <x55typeflag>2</x55typeflag>
+    <x55content>
+      <iframe width="320" height="390" src="http://web2.0calc.com/widgets/minimal/" scrolling="no" style="border: 1px solid #silver; ">
+      </iframe>
+      <br />
+      <a href="http://web2.0calc.com/">Web 2.0 scientific calculator</a>
+    </x55content>
+  </record>
+  <record>
+    <x55code>calculator2</x55code>
+    <x55name>Vědecká kalkulačka</x55name>
+    <x55typeflag>2</x55typeflag>
+    <x55content>
+      <iframe width="590" height="390" src="http://web2.0calc.com/widgets/horizontal/" scrolling="no" style="border: 1px solid #silver; ">
+      </iframe>
+      <br />
+      <a href="http://web2.0calc.com/">Web 2.0 scientific calculator</a>
+    </x55content>
+  </record>
+  <record>
+    <x55code>cnb</x55code>
+    <x55name>Kurzovní lístek ČNB</x55name>
+    <x55typeflag>3</x55typeflag>
+    <x55content>
+      kurzy_cnb.aspx
+    </x55content>
+  </record>
+  <record>
+    <x55code>clue_j02_month</x55code>
+    <x55name>Měsíční statistika vykázaných hodin</x55name>
+    <x55typeflag>3</x55typeflag>
+    <x55content>
+      clue_j02_month.aspx?noclue=1
+    </x55content>
+    <x55height>400px</x55height>
+  </record>
+  <record>
+    <x55code>clue_j02_oplan</x55code>
+    <x55name>Srovnání plánu hodin se skutečností</x55name>
+    <x55typeflag>3</x55typeflag>
+    <x55content>
+      clue_j02_oplan.aspx?noclue=1
+    </x55content>
+    <x55height>400px</x55height>
+  </record>
+  <record>
+    <x55code>ukoly</x55code>
+    <x55name>Otevřené úkoly</x55name>
+    <x55typeflag>1</x55typeflag>
+    <x55content>#tab1#</x55content>
+    <x55recordsql>select * from j02Person where j02ID=@pid</x55recordsql>
+    <x55height></x55height>
+    <x56>
+      <SQL x56control="tab1">
+        select p57Name
+        ,'[[a href='+char(34)+'javascript:p56_record('+convert(varchar(10),a.p56ID)+')'+char(34)+']]'+p56Name+'[[/a]]'
+        ,isnull(p28.p28Name+' - ','')+p41Name,p56PlanUntil,dbo.p56_getroles_inline(a.p56id)
+        ,'[[a href='+char(34)+'javascript:p56_ukon('+convert(varchar(10),a.p56ID)+')'+char(34)+']]Zapsat úkon[[/a]]'
+        from
+        p56Task a INNER JOIN p41Project p41 ON a.p41ID=p41.p41ID INNER JOIN p57TaskType p57 ON a.p57ID=p57.p57ID
+        LEFT OUTER JOIN p28Contact p28 ON p41.p28ID_Client=p28.p28ID
+        WHERE a.p56ID IN (SELECT x69RecordPID FROM x69EntityRole_Assign WHERE j02ID=@pid or j02ID IN (select j02id from j12Team_Person where j02id=@pid))
+        AND getdate() BETWEEN a.p56ValidFrom AND a.p56ValidUntil
+      </SQL>
+      <ColHeaders x56control="tab1">Typ|Název|Projekt|Termín|Řešitelé|</ColHeaders>
+      <ColTypes x56control="tab1">S|S|S|DT|SX|S</ColTypes>
+      <NoDataMessage x56control="tab1">Nejsem řešitelem žádného otevřeného úkolu.</NoDataMessage>
+    </x56>
+  </record>
+  <record>
+    <x55code>udalosti</x55code>
+    <x55name>Události v kalendáři</x55name>
+    <x55typeflag>1</x55typeflag>
+    <x55content>#tab1#</x55content>
+    <x55recordsql>select * from j02Person where j02ID=@pid</x55recordsql>
+    <x55height></x55height>
+    <x56>
+      <SQL x56control="tab1">
+        select '[[a href='+char(34)+'javascript:o22_record('+convert(varchar(10),a.o22ID)+')'+char(34)+']]'+o21Name+'[[/a]]'
+        ,o22Name
+        ,o22DateFrom,o22DateUntil
+        from
+        o22Milestone a INNER JOIN o21MilestoneType o21 ON a.o21ID=o21.o21ID
+        WHERE a.o22ID IN (SELECT o22ID FROM o20Milestone_Receiver WHERE j02ID=@pid or j02ID IN (select j02id from j12Team_Person where j02id=@pid))
+        AND getdate() BETWEEN a.o22ValidFrom AND a.o22ValidUntil
+      </SQL>
+      <ColHeaders x56control="tab1">Událost|Název|Začátek|Konec</ColHeaders>
+      <ColTypes x56control="tab1">S|S|DT|DT</ColTypes>
+      <NoDataMessage x56control="tab1">Žádné události.</NoDataMessage>
+    </x56>
+  </record>
+</x55HtmlSnippet>

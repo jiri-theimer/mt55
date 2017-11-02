@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>
+    </SchemaVersion>
+    <ProjectGuid>{B23B29F6-03BD-4A6F-9B4A-5749C329EEB5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>BL</RootNamespace>
+    <AssemblyName>BL</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>BL.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>BL.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Independentsoft.Msg">
+      <HintPath>..\UI\bin\Independentsoft.Msg.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\UI\bin\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Rebex.Common">
+      <HintPath>..\UI\bin\Rebex.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Rebex.Imap">
+      <HintPath>..\UI\bin\Rebex.Imap.dll</HintPath>
+    </Reference>
+    <Reference Include="Rebex.Mail">
+      <HintPath>..\UI\bin\Rebex.Mail.dll</HintPath>
+    </Reference>
+    <Reference Include="Rebex.Networking, Version=3.5.6426.0, Culture=neutral, PublicKeyToken=1c4638788972655d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\UI\bin\Rebex.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="Rebex.Smtp">
+      <HintPath>..\..\MARKTIME50_EXTERNAL_DLLS\Rebex.Smtp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="f01FolderBL.vb" />
+    <Compile Include="j77WorksheetStatTemplateBL.vb" />
+    <Compile Include="Mother\b01WorkflowTemplateBL.vb" />
+    <Compile Include="b02WorkflowStatusBL.vb" />
+    <Compile Include="b05Workflow_HistoryBL.vb" />
+    <Compile Include="b06WorkflowStepBL.vb" />
+    <Compile Include="b07CommentBL.vb" />
+    <Compile Include="b65WorkflowMessageBL.vb" />
+    <Compile Include="BAS\AppAssembly.vb" />
+    <Compile Include="BAS\basBL.vb" />
+    <Compile Include="c21FondCalendarBL.vb" />
+    <Compile Include="c26HolidayBL.vb" />
+    <Compile Include="DataCopyManagerBL.vb" />
+    <Compile Include="Factory.vb" />
+    <Compile Include="FtBL.vb" />
+    <Compile Include="j02PersonBL.vb" />
+    <Compile Include="j03UserBL.vb" />
+    <Compile Include="j04UserRoleBL.vb" />
+    <Compile Include="j05MasterSlaveBL.vb" />
+    <Compile Include="j07PersonPositionBL.vb" />
+    <Compile Include="j11TeamBL.vb" />
+    <Compile Include="j17CountryBL.vb" />
+    <Compile Include="j18RegionBL.vb" />
+    <Compile Include="j25ReportCategoryBL.vb" />
+    <Compile Include="j61TextTemplateBL.vb" />
+    <Compile Include="j62MenuHomeBL.vb" />
+    <Compile Include="j70QueryTemplateBL.vb" />
+    <Compile Include="m62ExchangeRateBL.vb" />
+    <Compile Include="Mother\BLMother.vb" />
+    <Compile Include="Mother\IFMother.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="o13AttachmentTypeBL.vb" />
+    <Compile Include="o21MilestoneTypeBL.vb" />
+    <Compile Include="o22MilestoneBL.vb" />
+    <Compile Include="o27AttachmentBL.vb" />
+    <Compile Include="o38AddressBL.vb" />
+    <Compile Include="o40SmtpAccountBL.vb" />
+    <Compile Include="o41InboxAccountBL.vb" />
+    <Compile Include="o42ImapRuleBL.vb" />
+    <Compile Include="o51TagBL.vb" />
+    <Compile Include="p11AttendanceBL.vb" />
+    <Compile Include="p28ContactBL.vb" />
+    <Compile Include="p29ContactTypeBL.vb" />
+    <Compile Include="p30Contact_PersonBL.vb" />
+    <Compile Include="p31WorksheetBL.vb" />
+    <Compile Include="p32ActivityBL.vb" />
+    <Compile Include="p34ActivityGroupBL.vb" />
+    <Compile Include="p35UnitBL.vb" />
+    <Compile Include="p36LockPeriodBL.vb" />
+    <Compile Include="p40WorkSheet_RecurrenceBL.vb" />
+    <Compile Include="p41ProjectBL.vb" />
+    <Compile Include="p42ProjectTypeBL.vb" />
+    <Compile Include="p45BudgetBL.vb" />
+    <Compile Include="p50OfficePriceListBL.vb" />
+    <Compile Include="p59PriorityBL.vb" />
+    <Compile Include="p61ActivityClusterBL.vb" />
+    <Compile Include="p63OverheadBL.vb" />
+    <Compile Include="p65RecurrenceBL.vb" />
+    <Compile Include="p80InvoiceAmountStructureBL.vb" />
+    <Compile Include="p98Invoice_Round_Setting_TemplateBL.vb" />
+    <Compile Include="Resources\common.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>common.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\p31.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>p31.resx</DependentUpon>
+    </Compile>
+    <Compile Include="x18EntityCategoryBL.vb" />
+    <Compile Include="p47CapacityPlanBL.vb" />
+    <Compile Include="p48OperativePlanBL.vb" />
+    <Compile Include="p49FinancialPlanBL.vb" />
+    <Compile Include="p51PriceListBL.vb" />
+    <Compile Include="p53VatRateBL.vb" />
+    <Compile Include="p56TaskBL.vb" />
+    <Compile Include="p57TaskTypeBL.vb" />
+    <Compile Include="p85TempBoxBL.vb" />
+    <Compile Include="p86BankAccountBL.vb" />
+    <Compile Include="p89ProformaTypeBL.vb" />
+    <Compile Include="p90ProformaBL.vb" />
+    <Compile Include="p91InvoiceBL.vb" />
+    <Compile Include="p92InvoiceTypeBL.vb" />
+    <Compile Include="p93InvoiceHeaderBL.vb" />
+    <Compile Include="p95InvoiceRowBL.vb" />
+    <Compile Include="PluginSupportBL.vb" />
+    <Compile Include="SysDbUpdateBL.vb" />
+    <Compile Include="SysObjectBL.vb" />
+    <Compile Include="x23EntityField_ComboBL.vb" />
+    <Compile Include="o23DocBL.vb" />
+    <Compile Include="x27EntityFieldGroupBL.vb" />
+    <Compile Include="x28EntityFieldBL.vb" />
+    <Compile Include="x31ReportBL.vb" />
+    <Compile Include="x35GlobalParamBL.vb" />
+    <Compile Include="x38CodeLogicBL.vb" />
+    <Compile Include="x40MailQueueBL.vb" />
+    <Compile Include="x46EventNotificationBL.vb" />
+    <Compile Include="x47EventLogBL.vb" />
+    <Compile Include="x48SqlTaskBL.vb" />
+    <Compile Include="x50HelpBL.vb" />
+    <Compile Include="x55HtmlSnippetBL.vb" />
+    <Compile Include="x58UserPageBL.vb" />
+    <Compile Include="x67EntityRoleBL.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>PublicVbMyResourcesResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\common.en-us.resx" />
+    <EmbeddedResource Include="Resources\common.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>common.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\p31.en-us.resx" />
+    <EmbeddedResource Include="Resources\p31.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>p31.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BO\BO.vbproj">
+      <Project>{2081B1EA-B426-4107-898F-E953AECD89AA}</Project>
+      <Name>BO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DL\DL.vbproj">
+      <Project>{35B69E7F-166B-43EC-AA41-0AE09B0A2B0E}</Project>
+      <Name>DL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

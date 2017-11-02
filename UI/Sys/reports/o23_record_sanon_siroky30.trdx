@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report DataSourceName="sqlDataSource1" Width="19.4773005726294cm" Name="report1" ShowSnapGrid="True" SnapToGrid="False" SnapToSnapLines="False" SnapGridSize="0.1cm" xmlns="http://schemas.telerik.com/reporting/2012/4.2">
+  <Style>
+    <Font Name="Calibri" Size="9pt" />
+  </Style>
+  <DataSources>
+    <SqlDataSource QueryDesignerState="null" ConnectionString="ApplicationPrimary" SelectCommand="select a.*&#xD;&#xA;,p41.p41Code&#xD;&#xA;,p41.p41Name&#xD;&#xA;,p28.p28Code&#xD;&#xA;,isnull(p28.p28CompanyName,p28.p28Name) as Client&#xD;&#xA;,isnull(a.o23ArabicCode,a.o23Code) as DocCode&#xD;&#xA;FROM&#xD;&#xA;o23Doc a INNER JOIN p41Project p41 ON dbo.stitek_entity_pid(a.o23ID,141)=p41.p41ID&#xD;&#xA;LEFT OUTER JOIN p28Contact p28 ON p41.p28ID_Client=p28.p28ID&#xD;&#xA;WHERE a.o23ID=@pid" Name="sqlDataSource1" ParameterValues="{&quot;@pid&quot;:&quot;8&quot;}">
+      <Parameters>
+        <SqlDataSourceParameter DbType="Int32" Name="@pid">
+          <Value>
+            <String>=Parameters.pid.Value</String>
+          </Value>
+        </SqlDataSourceParameter>
+      </Parameters>
+    </SqlDataSource>
+  </DataSources>
+  <Items>
+    <DetailSection Height="15.3081478692808cm" Name="detail">
+      <Items>
+        <Panel Width="3cm" Height="14cm" Left="0.213650551257317cm" Top="0.245740807373581cm" Name="panel1">
+          <Style>
+            <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+            <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+            <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+          </Style>
+          <Items>
+            <TextBox Width="2.9cm" Height="0.6cm" Left="0.0875003090997451cm" Top="0.176250138148662cm" Value="{Fields.Client}" Name="textBox2">
+              <Style TextAlign="Center">
+                <Font Size="11pt" Bold="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="2.9cm" Height="0.620883250210847cm" Left="0.0793749977921447cm" Top="0.873124975713591cm" Value="({Fields.p28Code})" Name="textBox3">
+              <Style TextAlign="Center">
+                <Font Size="10pt" Bold="False" />
+              </Style>
+            </TextBox>
+            <TextBox Width="2.9cm" Height="0.620883238021698cm" Left="0cm" Top="4.04812488739938cm" Value="= Fields.p41Name" Name="textBox4" StyleName="">
+              <Style TextAlign="Center">
+                <Font Size="10pt" Bold="True" />
+              </Style>
+            </TextBox>
+            <TextBox Width="2.9cm" Height="0.5859080250495cm" Left="0cm" Top="4.76249986752868cm" Value="({Fields.p41Code})" Name="textBox5" StyleName="">
+              <Style TextAlign="Center" VerticalAlign="Middle">
+                <Font Size="10pt" Bold="False" />
+              </Style>
+            </TextBox>
+            <TextBox Width="2.9cm" Height="2.89342308044434cm" Left="0cm" Top="9.55145806765474cm" Value="= Fields.o23BigText" Format="{0:d}" Name="textBox6" StyleName="">
+              <Style TextAlign="Center" VerticalAlign="Middle">
+                <Font Size="10pt" Bold="False" />
+              </Style>
+            </TextBox>
+            <TextBox Width="1.85416674026184cm" Height="0.620883226394653cm" Left="0.476249986752868cm" Top="13.2556246312882cm" Value="= Fields.DocCode" Name="textBox1" StyleName="">
+              <Style TextAlign="Center">
+                <Font Size="16pt" Bold="True" />
+              </Style>
+            </TextBox>
+          </Items>
+        </Panel>
+      </Items>
+    </DetailSection>
+  </Items>
+  <PageSettings PaperKind="A4" Landscape="False">
+    <Margins>
+      <MarginsU Left="10mm" Right="5mm" Top="15mm" Bottom="5mm" />
+    </Margins>
+  </PageSettings>
+  <StyleSheet>
+    <StyleRule>
+      <Style Color="Black">
+        <Font Name="Tahoma" Size="18pt" Bold="True" Italic="False" Underline="False" Strikeout="False" />
+      </Style>
+      <Selectors>
+        <StyleSelector Type="ReportItemBase" StyleName="Title" />
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style Color="Black" VerticalAlign="Middle">
+        <Font Name="Tahoma" Size="10pt" />
+      </Style>
+      <Selectors>
+        <StyleSelector Type="ReportItemBase" StyleName="Caption" />
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style VerticalAlign="Middle">
+        <Font Name="Tahoma" Size="9pt" />
+      </Style>
+      <Selectors>
+        <StyleSelector Type="ReportItemBase" StyleName="Data" />
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style VerticalAlign="Middle">
+        <Font Name="Tahoma" Size="8pt" />
+      </Style>
+      <Selectors>
+        <StyleSelector Type="ReportItemBase" StyleName="PageInfo" />
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style Color="20, 34, 77">
+        <Font Name="Calibri" Size="9pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <StyleSelector Type="Table" StyleName="Office.TableNormal" />
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style BackgroundColor="121, 167, 227" Color="20, 34, 77" VerticalAlign="Middle">
+        <Font Name="Calibri" Size="10pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="Office.TableHeader" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style>
+        <Font Name="Calibri" Size="9pt" />
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="Office.TableBody" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+  </StyleSheet>
+  <ReportParameters>
+    <ReportParameter Name="pid" Type="Integer">
+      <Value>
+        <String>1</String>
+      </Value>
+    </ReportParameter>
+  </ReportParameters>
+</Report>

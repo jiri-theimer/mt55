@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<winstrom version="1.0">
+  <adresar update="ignore">
+    <kod>WINSTROM</kod>
+    <id>code:WINSTROM</id>
+    <id>in:28019920</id>
+    <id>vatid:CZ28019920</id>
+
+    <!-- Název (řetězec) - max. délka: 255 -->
+    <nazev>WinStrom s.r.o.</nazev>
+    <!-- Ulice (řetězec) - max. délka: 255 -->
+    <ulice>Lochotínská 18</ulice>
+    <!-- Město (řetězec) - max. délka: 255 -->
+    <mesto>Plzeň</mesto>
+    <!-- PSČ (řetězec) - max. délka: 255 -->
+    <psc>301 00</psc>
+    <!-- IČ (řetězec) - max. délka: 20 -->
+    <ic>28019920</ic>
+    <!-- DIČ (řetězec) - max. délka: 20 -->
+    <dic>CZ28019920</dic>
+    <!-- Stát (objekt) - max. délka: 3 -->
+    <stat>code:CZ</stat>
+  </adresar>
+  
+  <!-- Doklady faktur -->
+  <faktura-prijata>
+
+    <!-- Typ faktury (objekt) - max. délka: 20 -->
+    <typDokl>code:FAKTURA</typDokl>
+
+    <!-- Firma (objekt) - max. délka: 20 -->
+    <firma>code:SUPER</firma>
+
+    <!-- Číslo došlé (řetězec) - max. délka: 30 -->
+    <cisDosle>89755</cisDosle>
+
+    <!-- Variabilní symbol (řetězec) - -->
+    <varSym>89755</varSym>
+
+  </faktura-prijata>
+</winstrom>
+

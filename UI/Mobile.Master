@@ -1,0 +1,275 @@
+﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="Mobile.master.vb" Inherits="UI.Mobile" %>
+
+<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head runat="server">
+    <title runat="server" id="title1" enableviewstate="true">MARKTIME 5.0</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="~/Scripts/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Styles/bootstrap_custom.css" />
+    
+    <link href="Scripts/jquery.qtip.min.css" rel="stylesheet" type="text/css" />
+    <link href="Scripts/datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="Scripts/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <style type="text/css">
+        .badge1 {
+            display: inline-block;
+            min-width: 10px;
+            padding: 3px 7px;
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: pre-wrap;
+            vertical-align: middle;
+            background-color: #777;
+            border-radius: 10px;
+            margin-left: 7px;
+        }
+
+
+
+        /* ClueTip - ZOOM vybraného záznamu  
+----------------------------------------------------------*/
+        A.reczoom {
+            font-weight: normal;
+            font-family: Calibri;
+            font-size: 130%;
+            padding-left: 3px;
+            padding-right: 3px;
+            color: blue !Important;
+            border-top: solid 1px #FFFAFA;
+            border-left: solid 1px #FFFAFA;
+            border-bottom: solid 1px #D3D3D3;
+            border-right: solid 1px #D3D3D3;
+            text-decoration: none;
+            cursor: help;
+        }
+
+            A.reczoom:hover {
+                background: #ffe79c;
+                border-top: solid 1px silver;
+                border-left: solid 1px silver;
+                border-bottom: solid 2px gray;
+                border-right: solid 1px gray;
+                text-decoration: none;
+            }
+
+        .thumbnail {
+            box-shadow: 0;
+            border-radius: 4px;
+            padding: 0px;
+        }
+
+            .thumbnail .caption {
+                background-color: whitesmoke;
+            }
+
+
+        .nav-pills > li > a {
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+
+
+        span.val {
+            font-size: 100%;
+            font-weight: normal;
+            color: black;
+        }
+
+        span.valbold {
+            font-size: 100%;
+            font-weight: bold;
+            color: black;
+        }
+
+        span.valboldblue {
+            font-size: 100%;
+            font-weight: bold;
+            color: blue;
+        }
+
+        span.valboldred {
+            font-size: 100%;
+            font-weight: bold;
+            color: red;
+        }
+
+        a.alinked {
+            text-decoration: underline;
+        }
+       
+       
+    </style>
+
+
+
+    <script src="Scripts/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="Scripts/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="Scripts/jquery.qtip.min.js"></script>
+    
+
+    <script src="Scripts/datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+    <script src="Scripts/datepicker/locales/bootstrap-datepicker.cs.min.js" type="text/javascript"></script>
+
+    <script src="Scripts/select2/js/select2.min.js" type="text/javascript"></script>
+
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var iframeWidth = '100%';
+            var iframeHeight = '270';
+
+
+            $("a.reczoom").each(function () {
+
+                // Extract your variables here:
+                var $this = $(this);
+                var myurl = $this.attr('rel');
+
+                var mytitle = $this.attr('title');
+                if (mytitle == null)
+                    mytitle = 'Detail';
+
+
+                $this.qtip({
+                    content: {
+                        text: '<iframe src="' + myurl + '"' + ' width=' + iframeWidth + '"' + ' height=' + '"' + iframeHeight + '"  frameborder="0"><p>Your browser does not support iframes.</p></iframe>',
+                        title: {
+                            text: mytitle
+                        },
+
+                    },
+                    position: {
+                        my: 'left top',  // Position my top left...
+                        at: 'left bottom', // at the bottom right of...
+                        viewport: $(window)
+                    },
+
+                    hide: {
+
+                        fixed: true,
+                        delay: 100
+
+                    },
+                    style: {
+                        classes: 'qtip-tipped',
+                        width: false,
+                        height: false
+
+                    }
+                });
+            });
+
+
+
+            
+
+
+
+        });
+
+        
+
+        function rp(url) {
+            var h = screen.availHeight;
+            if (screen.height < h)
+                h = screen.height;
+
+            if (url.indexOf("?") > 0)
+                url = url + "&";
+            else
+                url=url+"?"
+            
+
+           location.replace(url + "h=" + h);
+        }
+        
+
+    </script>
+
+
+</head>
+<body>
+    <form runat="server">
+        <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
+        <telerik:RadNotification ID="notify1" runat="server" RenderMode="Mobile" ShowCloseButton="true" Position="Center" Title="Info" EnableRoundedCorners="true" EnableShadow="true" Animation="Fade" Skin="BlackMetroTouch"></telerik:RadNotification>
+
+        <div class="container-fluid" style="padding: 0px;">
+            <nav class="navbar navbar-custom navbar-static-top" style="margin-bottom: 0px;">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="mobile_start.aspx" class="navbar-brand"><img src="Images/logo_metro.png" border="0"  /></a>
+                
+               
+                
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                
+                <ul class="nav navbar-nav"> 
+
+                    <li <%=IIf(Me.hidMenuPrefix.Value = "p31", "class='active'", "")%>><a href="mobile_p31_calendar.aspx">WORKSHEET</a></li>
+                    
+                    <li <%=IIf(Me.hidMenuPrefix.Value = "home", "class='active'", "")%>><a href="mobile_start.aspx">ÚKOLY</a></li>
+
+                    
+                    <li <%=IIf(Me.hidMenuPrefix.Value = "scheduler", "class='active'", "")%>><a href="mobile_scheduler.aspx">KALENDÁŘ</a></li>
+                
+                    <li <%=IIf(Me.hidMenuPrefix.Value = "search", "class='active'", "")%>><a href="mobile_search.aspx">NAJÍT</a></li>
+                                       
+                    
+                   
+                    <%If _Factory.SysUser.j04IsMenu_Report Then%>
+                    <li <%=IIf(Me.hidMenuPrefix.Value = "report", "class='active'", "")%>><a href="javascript:rp('mobile_report.aspx')">SESTAVY</a></li>
+                    <%End If%>
+                    <%If _Factory.TestPermission(BO.x53PermValEnum.GR_X31_Personal) Then%>
+                    <li <%=IIf(Me.hidMenuPrefix.Value = "report_personal", "class='active'", "")%>><a href="javascript:rp('mobile_report.aspx?prefix=j02&pid=<%=_Factory.SysUser.j02ID%>')">OSOBNÍ SESTAVY</a></li>
+                    <%End If%>
+                    
+                    <li><a href="mobile_changepassword.aspx">ZMĚNIT HESLO</a></li>
+                    <li class="divider" role="separator"></li>
+                    <li><a href="Account/Login.aspx?logout=1&mobile=1">ODHLÁSIT SE</a></li>
+                    <li class="divider" role="separator"></li>
+                    
+                    
+                    <li><a href="default.aspx?quitmobile=1">PŘEPNOUT</a></li>
+
+                    
+                </ul>
+                
+            </div>
+          
+            </nav>
+
+           
+            <div>
+                <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+        <asp:HiddenField ID="hidDataPID" runat="server" />
+        <asp:HiddenField ID="hidMenuPrefix" runat="server" />
+    </form>
+</body>
+
+    
+</html>

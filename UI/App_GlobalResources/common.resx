@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="close" xml:space="preserve">
+    <value>Zavřít</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>Odstranit</value>
+  </data>
+  <data name="Fakturovat" xml:space="preserve">
+    <value>Fakturovat</value>
+  </data>
+  <data name="help" xml:space="preserve">
+    <value>Nápověda</value>
+  </data>
+  <data name="klient_projektu" xml:space="preserve">
+    <value>Klient projektu</value>
+  </data>
+  <data name="move_from_archive" xml:space="preserve">
+    <value>Obnovit z archivu</value>
+  </data>
+  <data name="move_to_archive" xml:space="preserve">
+    <value>Přesunout do archivu</value>
+  </data>
+  <data name="ostatni" xml:space="preserve">
+    <value>Ostatní</value>
+  </data>
+  <data name="refresh" xml:space="preserve">
+    <value>Obnovit</value>
+  </data>
+  <data name="save_changes" xml:space="preserve">
+    <value>Uložit změny</value>
+  </data>
+  <data name="SkrytyOdpis" xml:space="preserve">
+    <value>Skrytý odpis</value>
+  </data>
+  <data name="uzivatelska_pole" xml:space="preserve">
+    <value>Uživatelská pole</value>
+  </data>
+  <data name="ViditelnyOdpis" xml:space="preserve">
+    <value>Viditelný odpis</value>
+  </data>
+  <data name="vlastnosti" xml:space="preserve">
+    <value>Vlastnosti</value>
+  </data>
+  <data name="ZahrnoutDoPausalu" xml:space="preserve">
+    <value>Zahrnout do paušálu</value>
+  </data>
+  <data name="Grid_ZadneZaznamy" xml:space="preserve">
+    <value>Žádné záznamy</value>
+  </data>
+  <data name="Dalsi" xml:space="preserve">
+    <value>DALŠÍ</value>
+  </data>
+  <data name="ExportPrehledu" xml:space="preserve">
+    <value>Export přehledu do MS EXCEL</value>
+  </data>
+  <data name="Kopirovat" xml:space="preserve">
+    <value>Kopírovat</value>
+  </data>
+  <data name="Novy" xml:space="preserve">
+    <value>Nový</value>
+  </data>
+  <data name="PocetZaznamuNaStranku" xml:space="preserve">
+    <value>Počet záznamů na stránku:</value>
+  </data>
+  <data name="Upravit" xml:space="preserve">
+    <value>Upravit</value>
+  </data>
+  <data name="Zaznam" xml:space="preserve">
+    <value>ZÁZNAM</value>
+  </data>
+  <data name="Aktivita" xml:space="preserve">
+    <value>Aktivita</value>
+  </data>
+  <data name="BezSouhrnu" xml:space="preserve">
+    <value>Bez souhrnů</value>
+  </data>
+  <data name="DatoveSouhrny" xml:space="preserve">
+    <value>Datové souhrny</value>
+  </data>
+  <data name="FaktStatus" xml:space="preserve">
+    <value>Fakt.status</value>
+  </data>
+  <data name="Faktura" xml:space="preserve">
+    <value>Faktura</value>
+  </data>
+  <data name="Klient" xml:space="preserve">
+    <value>Klient</value>
+  </data>
+  <data name="Osoba" xml:space="preserve">
+    <value>Osoba</value>
+  </data>
+  <data name="Projekt" xml:space="preserve">
+    <value>Projekt</value>
+  </data>
+  <data name="Schvalovani" xml:space="preserve">
+    <value>Schvalování</value>
+  </data>
+  <data name="Sesit" xml:space="preserve">
+    <value>Sešit</value>
+  </data>
+  <data name="Strankovani" xml:space="preserve">
+    <value>Stránkování</value>
+  </data>
+  <data name="Ukol" xml:space="preserve">
+    <value>Úkol</value>
+  </data>
+  <data name="Dokument" xml:space="preserve">
+    <value>Dokument</value>
+  </data>
+  <data name="FiltrObdobi" xml:space="preserve">
+    <value>Filtr období</value>
+  </data>
+  <data name="ZalohovaFaktura" xml:space="preserve">
+    <value>Zálohová faktura</value>
+  </data>
+</root>

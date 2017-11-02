@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report DataSourceName="sqlDataSource1" Width="15.8499985011817cm" Name="report1" ShowSnapGrid="True" SnapToGrid="False" SnapToSnapLines="False" SnapGridSize="0.1cm" xmlns="http://schemas.telerik.com/reporting/2012/3.9">
+  <DataSources>
+    <SqlDataSource ConnectionString="ApplicationPrimary" SelectCommand="select a.*,p89.p89Name,p93.*,p28.p28Name,p28.p28RegID,p28.p28VatID&#xD;&#xA;,p86.*,j27.j27Code&#xD;&#xA;,adresa.o38City,adresa.o38Country,adresa.o38Street,adresa.o38Name,adresa.o38ZIP&#xD;&#xA;from&#xD;&#xA;p90Proforma a INNER JOIN p89ProformaType p89 ON a.p89ID=p89.p89ID&#xD;&#xA;LEFT OUTER JOIN p93InvoiceHeader p93 ON p89.p93ID=p93.p93ID&#xD;&#xA;LEFT OUTER JOIN p28Contact p28 ON a.p28ID=p28.p28ID&#xD;&#xA;LEFT OUTER JOIN j27Currency j27 ON a.j27ID=j27.j27ID&#xD;&#xA;LEFT OUTER JOIN (&#xD;&#xA;&#x9;SELECT TOP 1 o37.o37ID,o37.p28ID,o38.*&#xD;&#xA;&#x9;FROM o37Contact_Address o37 INNER JOIN o38Address o38 ON o37.o38ID=o38.o38ID INNER JOIN p28Contact x1 ON o37.p28ID=x1.p28ID INNER JOIN p90Proforma x2 ON x1.p28ID=x2.p28ID&#xD;&#xA;&#x9;WHERE o37.o36ID=1 AND x2.p90ID=@pid&#xD;&#xA;&#x9;) adresa ON p28.p28ID=adresa.p28ID&#xD;&#xA;LEFT OUTER JOIN (select @pid as p90ID,* FROM p86BankAccount WHERE p86ID=dbo.p90_get_p86id(@pid)) p86 ON a.p90ID=p86.p90ID&#xD;&#xA;WHERE a.p90ID=@pid" Name="sqlDataSource1" ParameterValues="{@pid:8}">
+      <Parameters>
+        <SqlDataSourceParameter DbType="Int32" Name="@pid">
+          <Value>
+            <String>=Parameters.pid.Value</String>
+          </Value>
+        </SqlDataSourceParameter>
+      </Parameters>
+    </SqlDataSource>
+    <SqlDataSource ConnectionString="ApplicationPrimary" SelectCommand="select sum(p31Amount_WithoutVat_Invoiced) as BezDPH&#xD;&#xA;,sum(p31Amount_WithVat_Invoiced) as VcDPH,a.p31VatRate_Invoiced as DPHSazba&#xD;&#xA;,sum(p31Amount_Vat_Invoiced) as DPH&#xD;&#xA;,min(p95Name) as Oddil&#xD;&#xA;,min(j27.j27Code) as j27Code&#xD;&#xA;from&#xD;&#xA;p31Worksheet a INNER JOIN p32Activity p32 ON a.p32ID=p32.p32ID&#xD;&#xA;LEFT OUTER JOIN p95InvoiceRow p95 ON p32.p95ID=p95.p95ID&#xD;&#xA;LEFT OUTER JOIN j27Currency j27 ON a.j27ID_Billing_Invoiced=j27.j27ID&#xD;&#xA;where a.p91ID=@pid&#xD;&#xA;GROUP BY a.p31VatRate_Invoiced,p32.p95ID&#xD;&#xA;ORDER BY a.p31VatRate_Invoiced,min(p95.p95Ordinary)" Name="sqlDataSource2" ParameterValues="{@pid:8}">
+      <Parameters>
+        <SqlDataSourceParameter DbType="Int32" Name="@pid">
+          <Value>
+            <String>=Parameters.pid.Value</String>
+          </Value>
+        </SqlDataSourceParameter>
+      </Parameters>
+    </SqlDataSource>
+  </DataSources>
+  <Items>
+    <PageHeaderSection Height="2.06374994259577cm" Name="pageHeader">
+      <Items>
+        <TextBox Width="6.11679184239092cm" Height="0.70366665472322cm" Left="0.211666660779052cm" Top="0.634999982337157cm" Value="PROFORMA INVOICE" Name="textBox17">
+          <Style>
+            <Font Name="Calibri" Size="16pt" Bold="True" Italic="False" />
+          </Style>
+        </TextBox>
+        <PictureBox Url="Plugins/company_logo.png" Width="6.82095794026637cm" Height="2.06374994259577cm" Left="9.02904056091533cm" Top="0cm" Sizing="Center" MimeType="" Docking="Right" Name="pictureBox1" />
+        <PictureBox Value="R0lGODlhSwAqAIUAAJkzAPXq5cSJa6NIGuDBsbFkPdKlj+vXzbt3Vfz59549Ddmyn6pVKsqVevHi27dwTN28q5s2BP///+XMv8CBYvn08dOnka1aMaFCE7RpQ6dPI9m0oe/ezsaNcc2bgvPm4Pjx7tWqlcOHaejRxcmSd7p1Upw5CKVMH79/X69eNrZtSdu2pKJFF+/e1uHEtdChiZ9AEPbt6KhRJsyZf61aKcmUeenTyLVzUvLl37NmQPf39///99eumr16WePGuLBhOSH/C05FVFNDQVBFMi4wAwEBAAAh+QQBBwASACwAAAAASwAqAAAI/wAlCBxIsKDBgwgTKlzIsKHDhxALEuhwAkfEixgb4rBQwgQDAQwsZBxJEgQBFBpYPOARQCCJEiRjPjxgIIeCjyMMHoggs+dBkyhOwFDBMmGCARN8+jxgIUeEEyIOIJzQAcXABx2UjgSqAYOKDQkO4jDwAIBZABYlrLigNeKBGRc8krAR9qCBE2fzLhCYIELatglBLKCAYQDRGAdp7pWAIm/eGQM1LAZc8O0FBRc60DUIFC+AHAIJOAaAogJBCjApSxCMggWLr4gRWhgNQGAFACUunE09cAQGwBPgeuwglaHo0UkHLshrUEHxmDgWlMCAIQME0wapXoBM8PbuBR8Kfv/Im3xgAQ8ktUfI3CLhAhhnYYAomOMsd4OeAWQlaIBtxOjTsVDCdQzN4Nh9Ahlo1gULoODfQB2c9aBAAZgwX0PawZDCDC3U1ZCC8V0o0AS0/SXBcWaJKNAJGyi00XQnILBAbASZNEMODxhwkILwmYWgBD3mJRJBehXUAwUHTaQBZh44IFZNo12gogQKnuCZfASV4BgMQw5Un1lWEeSCBgONVUIEAyBAYEIk0oZbQSAaYB9Bs5kFw3N0xldQAneuqAGHD+V1gW5nmQjiASEONF6hieWFpwQpDEkBkgRFh0IOOXRgogRamrXXlwB0SeVZE5TlI0H5iUpQkJO5lIFAG6T/MNAEhDqm40B1kjbqqcqR2iYAWArUmFm8wYkCAdgR1AJPEnwAQ12IutlltMBKACoBBP2KwrC8SrCcnRA5UMMFzEqgQXlBjvZXkPlNKMGvowXrnVnlIfRBCDnAEEEOM5RHgQgDdQrAAgcEGSantGGbrZvdDtqBwgbFIN0A6z2c7EAbMNArmN7qKVCu+fU5a178RmjnhRcPlABVDCigAQUbhJfQBwpgtygAJ6zmqEDUwsCtlCObBVqzuFnwKF8HNJACdSVYIHNDGrgwUH4WgTpZkBPkN/S7Ei4UAw8PsBBBBh4c3dCkA3G7F4j3CWwBvGFmfWzKtq2AwAkVQ5zRBg9+w6sr2xu/aTKw9e45AgV4v7wB3Rl9YIKiZ+UMank3wyBQCTOYLcEBJMSFQdNPa3VCTiueBSoMF+OVWegEBWDADwp8lrlqA6EtLG0/TsC6QDGs0MMJJmSmN+0CLUBm8aMdjJBJFMjgMsyME99sBHXdjFvhKr/1A9NOS8/QCT54ObdBCTjwQgZik6259wf9q1AFEPRAcWbYs88Q3+T7gFIELyNrf+MmwE4LSCCDCMCgBDH7n0xeVgAM7MtoClQKBegXwZgEBAA7" Width="1.43933329329756cm" Height="0.783166644882491cm" Left="6.4195207717552cm" Top="0.462305021142423cm" Sizing="AutoSize" MimeType="image/gif" Name="pictureBox4">
+          <Style Visible="False" />
+          <ConditionalFormatting>
+            <FormattingRule>
+              <Style Visible="True" />
+              <Filters>
+                <Filter Expression="=Fields.p90IsDraft" Operator="Equal" Value="=1" />
+              </Filters>
+            </FormattingRule>
+          </ConditionalFormatting>
+        </PictureBox>
+      </Items>
+    </PageHeaderSection>
+    <PageFooterSection Height="0.746000107995671cm" Name="pageFooter">
+      <Items>
+        <TextBox Width="4.86437508741601cm" Height="0.640166777606141cm" Left="10.9180412815957cm" Top="0cm" Value="Page {PageNumber}/{PageCount}" Name="pageInfoTextBox" StyleName="PageInfo">
+          <Style TextAlign="Right">
+            <Font Name="Calibri" Size="7pt" />
+          </Style>
+        </TextBox>
+      </Items>
+    </PageFooterSection>
+    <ReportHeaderSection Height="0.105833350575632cm" Name="reportHeader" />
+    <ReportFooterSection Height="0.105833330389526cm" Name="reportFooter" />
+    <DetailSection Height="23.0226095891068cm" Name="detail">
+      <Style>
+        <Font Name="Calibri" Size="9pt" />
+      </Style>
+      <Items>
+        <TextBox Width="2.45249994322658cm" Height="0.499999828418101cm" Left="0.194061146742391cm" Top="1.92616661308938cm" Value="Supplier" Name="textBox3">
+          <Style VerticalAlign="Middle">
+            <Font Name="Calibri" Size="9pt" Italic="True" Underline="False" />
+          </Style>
+        </TextBox>
+        <TextBox Width="4.88666662727263cm" Height="0.499999821186066cm" Left="9.22866640996669cm" Top="1.92616661308938cm" Value="Client" Name="textBox35">
+          <Style VerticalAlign="Middle">
+            <Font Name="Calibri" Size="9pt" Italic="True" Underline="False" />
+          </Style>
+        </TextBox>
+        <Shape Width="6.75216647885177cm" Height="0.169333328623242cm" Left="0.188333460337582cm" Top="2.43413559310059cm" Name="shape1">
+          <ShapeType>
+            <LineShape Direction="EW" />
+          </ShapeType>
+        </Shape>
+        <Shape Width="6.51933294435276cm" Height="0.169333323836327cm" Left="9.22866640996669cm" Top="2.43413559310059cm" Name="shape2">
+          <ShapeType>
+            <LineShape Direction="EW" />
+          </ShapeType>
+        </Shape>
+        <TextBox Width="15.159167843565cm" Height="0.499999821186066cm" Left="0.194061146742391cm" Top="10.9854996944328cm" Value="= Fields.p90Text1" Name="textBox21">
+          <Style VerticalAlign="Middle">
+            <Font Name="Calibri" Size="9pt" />
+          </Style>
+        </TextBox>
+        <Shape Width="15.5363326935404cm" Height="0.169333323836327cm" Left="0.194061146742391cm" Top="7.00616647178664cm" Name="shape3">
+          <ShapeType>
+            <LineShape Direction="EW" />
+          </ShapeType>
+        </Shape>
+        <TextBox Width="3.2779998435239cm" Height="0.499999821186066cm" Left="0.194061146742391cm" Top="6.49816648591691cm" Value="Payment info" Name="textBox41">
+          <Style VerticalAlign="Middle">
+            <Font Size="9pt" Italic="True" Underline="False" />
+          </Style>
+        </TextBox>
+        <TextBox Width="15.1591682434082cm" Height="0.499999821186066cm" Left="0.169333328623242cm" Top="19.3251661291275cm" Value="= Fields.p90Text2" Name="textBox4">
+          <Style VerticalAlign="Middle">
+            <Font Name="Calibri" Size="7pt" />
+          </Style>
+        </TextBox>
+        <Panel Width="15.8499985011817cm" Height="2.3918332206342cm" Left="0cm" Top="20.6307763684726cm" Docking="Bottom" Name="panel1">
+          <Items>
+            <TextBox Width="2.26199990619024cm" Height="0.415333156874445cm" Left="0.162750397287795cm" Top="0.112556434043666cm" Value="Invoice creator:" Name="textBox82">
+              <Style VerticalAlign="Middle">
+                <Font Name="Calibri" Size="9pt" Italic="True" Underline="False" />
+              </Style>
+            </TextBox>
+            <TextBox Width="4.5268331765261cm" Height="0.43649982295235cm" Left="2.66041699448061cm" Top="0.0913897679657603cm" Value="= Fields.p93Referent" Name="textBox83">
+              <Style VerticalAlign="Middle">
+                <Font Name="Calibri" Size="9pt" Italic="False" Underline="False" />
+              </Style>
+            </TextBox>
+            <TextBox Width="2.26199984550476cm" Height="0.415333151817322cm" Left="9.39799973858993cm" Top="0.112556434043666cm" Value="Signature:" Name="textBox48">
+              <Style VerticalAlign="Middle">
+                <Font Name="Calibri" Size="9pt" Italic="True" Underline="False" />
+              </Style>
+            </TextBox>
+          </Items>
+        </Panel>
+        <Shape Width="15.5363330841064cm" Height="0.169333323836327cm" Left="0.194061146742391cm" Top="10.7738330336538cm" Name="shape4">
+          <ShapeType>
+            <LineShape Direction="EW" />
+          </ShapeType>
+        </Shape>
+        <Table DataSourceName="sqlDataSource1" Width="7.69937487494077cm" Height="3.64145814156874cm" Left="0.194061146742391cm" Top="2.70338788460209cm" Name="table1">
+          <Body>
+            <Cells>
+              <TableCell RowIndex="0" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="7.69937487494077cm" Height="0.620000025098086cm" Left="0cm" Top="0cm" Value="= Fields.p93Street" Name="textBox7" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="7.69937487494077cm" Height="0.620000025098086cm" Left="0cm" Top="0cm" Value="{Fields.p93Zip} {Fields.p93City}" Name="textBox9" StyleName="" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="7.69937487494077cm" Height="0.620000025098086cm" Left="0cm" Top="0cm" Value="Reg.ID: {Fields.p93RegID}   VAT ID: {Fields.p93VatID}" Name="textBox10" StyleName="" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="3" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="7.69937487494077cm" Height="1.1614581497003cm" Left="0cm" Top="0cm" Value="= Fields.p93Registration" Name="textBox12" StyleName="">
+                    <Style>
+                      <Font Size="8pt" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+            </Cells>
+            <Columns>
+              <Column Width="7.69937487494077cm" />
+            </Columns>
+            <Rows>
+              <Row Height="0.619999970836132cm" />
+              <Row Height="0.619999970836132cm" />
+              <Row Height="0.619999970836132cm" />
+              <Row Height="1.16145804117639cm" />
+            </Rows>
+          </Body>
+          <Corner />
+          <Style>
+            <Font Name="Calibri" Size="9pt" />
+          </Style>
+          <RowGroups>
+            <TableGroup Name="detailTableGroup">
+              <Groupings>
+                <Grouping />
+              </Groupings>
+            </TableGroup>
+            <TableGroup Name="group" />
+            <TableGroup Name="group1" />
+            <TableGroup Name="group2" />
+          </RowGroups>
+          <ColumnGroups>
+            <TableGroup Name="tableGroup">
+              <ReportItem>
+                <TextBox Width="7.69937487494077cm" Height="0.620000025098086cm" Left="0cm" Top="0cm" Value="= Fields.p93Company" Name="textBox1">
+                  <Style>
+                    <Font Bold="True" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+          </ColumnGroups>
+        </Table>
+        <Table DataSourceName="sqlDataSource1" Width="6.53520819387006cm" Height="3.09999971322407cm" Left="9.20749974388878cm" Top="2.70338788460209cm" Name="table2">
+          <Body>
+            <Cells>
+              <TableCell RowIndex="0" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="6.53520819387006cm" Height="0.619999951883532cm" Left="0cm" Top="0cm" Value="= Fields.o38Street" Name="textBox14" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="6.53520819387006cm" Height="0.619999951883532cm" Left="0cm" Top="0cm" Value="{Fields.o38ZIP} {Fields.o38City}" Name="textBox15" StyleName="" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="6.53520819387006cm" Height="0.619999951883532cm" Left="0cm" Top="0cm" Value="= Fields.o38Country" Name="textBox16" StyleName="" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="3" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="6.53520819387006cm" Height="0.619999951883532cm" Left="0cm" Top="0cm" Value="Reg.ID: {Fields.p28RegID}   VAT ID: {Fields.p28VatID}" Name="textBox24" StyleName="" />
+                </ReportItem>
+              </TableCell>
+            </Cells>
+            <Columns>
+              <Column Width="6.53520819387006cm" />
+            </Columns>
+            <Rows>
+              <Row Height="0.619999905689938cm" />
+              <Row Height="0.619999905689938cm" />
+              <Row Height="0.619999905689938cm" />
+              <Row Height="0.619999905689938cm" />
+            </Rows>
+          </Body>
+          <Corner />
+          <Style>
+            <Font Name="Calibri" Size="9pt" />
+          </Style>
+          <RowGroups>
+            <TableGroup Name="detailTableGroup">
+              <Groupings>
+                <Grouping />
+              </Groupings>
+            </TableGroup>
+            <TableGroup Name="group" />
+            <TableGroup Name="group1" />
+            <TableGroup Name="group3" />
+          </RowGroups>
+          <ColumnGroups>
+            <TableGroup Name="tableGroup">
+              <ReportItem>
+                <TextBox Width="6.53520819387006cm" Height="0.619999951883532cm" Left="0cm" Top="0cm" Value="= Fields.p28Name" Name="textBox26">
+                  <Style>
+                    <Font Bold="True" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+          </ColumnGroups>
+        </Table>
+        <Table DataSourceName="sqlDataSource1" Width="15.5249935716137cm" Height="1.23999981105328cm" Left="0.194061146742391cm" Top="0cm" Name="table3">
+          <Body>
+            <Cells>
+              <TableCell RowIndex="0" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="6.74687198319092cm" Height="0.61999990552664cm" Left="0cm" Top="0cm" Value="= Fields.p90Code" Name="textBox5">
+                    <Style>
+                      <Font Size="11pt" Bold="True" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="6.74687198319092cm" Height="0.61999990552664cm" Left="0cm" Top="0cm" Value="" Name="textBox6" StyleName="" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="2" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.97895822261887cm" Height="0.61999990552664cm" Left="0cm" Top="0cm" Value="Invoice date:" Name="textBox22" StyleName="" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="2" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.97895822261887cm" Height="0.61999990552664cm" Left="0cm" Top="0cm" Value="Payment required by:" Name="textBox23" StyleName="" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="3" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="3.53458267387106cm" Height="0.61999990552664cm" Left="0cm" Top="0cm" Value="= Fields.p90Date" Format="{0:d}" Name="textBox31" StyleName="">
+                    <Style TextAlign="Right" />
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="3" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="3.53458267387106cm" Height="0.61999990552664cm" Left="0cm" Top="0cm" Value="= Fields.p90DateMaturity" Format="{0:d}" Name="textBox32" StyleName="">
+                    <Style TextAlign="Right" />
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.26458451410818cm" Height="0.61999990552664cm" Left="0.194061146742391cm" Top="0cm" Value="Invoice No.:" Name="textBox36" StyleName="" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.26458451410818cm" Height="0.61999990552664cm" Left="0cm" Top="0cm" Name="textBox37" StyleName="" />
+                </ReportItem>
+              </TableCell>
+            </Cells>
+            <Columns>
+              <Column Width="2.26458431478926cm" />
+              <Column Width="6.74687064917269cm" />
+              <Column Width="2.97895593378069cm" />
+              <Column Width="3.53458267387106cm" />
+            </Columns>
+            <Rows>
+              <Row Height="0.61999990552664cm" />
+              <Row Height="0.61999990552664cm" />
+            </Rows>
+          </Body>
+          <Corner />
+          <Style>
+            <Font Name="Calibri" Size="9pt" />
+          </Style>
+          <RowGroups>
+            <TableGroup Name="detailTableGroup">
+              <Groupings>
+                <Grouping />
+              </Groupings>
+            </TableGroup>
+            <TableGroup Name="group" />
+          </RowGroups>
+          <ColumnGroups>
+            <TableGroup Name="group6" />
+            <TableGroup Name="tableGroup" />
+            <TableGroup Name="group4" />
+            <TableGroup Name="group5" />
+          </ColumnGroups>
+        </Table>
+        <Table DataSourceName="sqlDataSource1" Width="9.4083323171657cm" Height="3.09999963765133cm" Left="0.194061146742391cm" Top="7.27604146427993cm" Name="table4">
+          <Body>
+            <Cells>
+              <TableCell RowIndex="0" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="6.53520822525024cm" Height="0.619999945163727cm" Left="0cm" Top="0cm" Value="= Fields.p86BankName" Name="textBox2" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="6.53520822525024cm" Height="0.619999945163727cm" Left="0cm" Top="0cm" Value="{Fields.p86BankAccount}/{Fields.p86BankCode}" Name="textBox8" StyleName="" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="6.53520822525024cm" Height="0.619999945163727cm" Left="0cm" Top="0cm" Value="= Fields.p86SWIFT" Name="textBox13" StyleName="" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="3" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="6.53520822525024cm" Height="0.619999945163727cm" Left="0cm" Top="0cm" Value="= Fields.p86IBAN" Name="textBox18" StyleName="" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.87312509057271cm" Height="0.619999936768984cm" Left="0cm" Top="0cm" Value="Bank:" Name="textBox27" StyleName="" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.87312509057271cm" Height="0.619999936768984cm" Left="0cm" Top="0cm" Value="Account No.:" Name="textBox28" StyleName="" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.87312509057271cm" Height="0.619999936768984cm" Left="0cm" Top="0cm" Value="SWIFT/BIC:" Name="textBox29" StyleName="" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="3" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.87312509057271cm" Height="0.619999936768984cm" Left="0cm" Top="0cm" Value="IBAN:" Name="textBox30" StyleName="" />
+                </ReportItem>
+              </TableCell>
+            </Cells>
+            <Columns>
+              <Column Width="2.87312481018256cm" />
+              <Column Width="6.53520694620284cm" />
+            </Columns>
+            <Rows>
+              <Row Height="0.619999936768985cm" />
+              <Row Height="0.619999936768985cm" />
+              <Row Height="0.619999936768985cm" />
+              <Row Height="0.619999936768985cm" />
+            </Rows>
+          </Body>
+          <Corner />
+          <Style>
+            <Font Name="Calibri" Size="9pt" />
+          </Style>
+          <RowGroups>
+            <TableGroup Name="detailTableGroup">
+              <Groupings>
+                <Grouping />
+              </Groupings>
+            </TableGroup>
+            <TableGroup Name="group" />
+            <TableGroup Name="group1" />
+            <TableGroup Name="group3" />
+          </RowGroups>
+          <ColumnGroups>
+            <TableGroup Name="group7">
+              <ReportItem>
+                <TextBox Width="2.87312509057271cm" Height="0.619999936768984cm" Left="0cm" Top="0cm" Value="Ref.:" Name="textBox25" StyleName="">
+                  <Style>
+                    <Font Bold="False" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+            <TableGroup Name="tableGroup">
+              <ReportItem>
+                <TextBox Width="6.53520822525024cm" Height="0.619999945163727cm" Left="0cm" Top="0cm" Value="= Fields.p90Code" Name="textBox19">
+                  <Style>
+                    <Font Bold="True" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+          </ColumnGroups>
+        </Table>
+        <Table DataSourceName="sqlDataSource1" Width="8.87916698265259cm" Height="1.85999983787768cm" Left="0.194061146742391cm" Top="12.0960959566725cm" Name="table5">
+          <Body>
+            <Cells>
+              <TableCell RowIndex="1" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="3.8893744241905cm" Height="0.619999970794878cm" Left="0cm" Top="0cm" Value="VAT ({Fields.p90VatRate}%):" Name="textBox33" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.98979279555519cm" Height="0.619999970794878cm" Left="0cm" Top="0cm" Value="= Fields.p90Amount_Vat" Format="{0:N2}" Name="textBox38">
+                    <Style TextAlign="Right">
+                      <Padding Right="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="3.88937436623431cm" Height="0.619999964436665cm" Left="0cm" Top="0cm" Value="Total due:" Name="textBox39" StyleName="">
+                    <Style>
+                      <Font Bold="True" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.98979275100381cm" Height="0.619999964436665cm" Left="0cm" Top="0cm" Value="= Fields.p90Amount" Format="{0:N2}" Name="textBox40" StyleName="">
+                    <Style TextAlign="Right">
+                      <Font Bold="True" />
+                      <Padding Right="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="2" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.99999976290689cm" Height="0.619999970794878cm" Left="0cm" Top="0cm" Value="= Fields.j27Code" Name="textBox43" StyleName="" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="2" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.99999973310457cm" Height="0.619999964436665cm" Left="0cm" Top="0cm" Value="= Fields.j27Code" Name="textBox44" StyleName="">
+                    <Style>
+                      <Font Bold="True" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="3.8893744821467cm" Height="0.620000015298658cm" Left="0cm" Top="0cm" Value="Amount VAT excluded:" Name="textBox45" StyleName="" />
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.98979284010658cm" Height="0.620000015298658cm" Left="0cm" Top="0cm" Value="= Fields.p90Amount_WithoutVat" Format="{0:N2}" Name="textBox46" StyleName="">
+                    <Style TextAlign="Right">
+                      <Padding Right="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="2" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.99999979270921cm" Height="0.620000015298658cm" Left="0cm" Top="0cm" Value="= Fields.j27Code" Name="textBox47" StyleName="" />
+                </ReportItem>
+              </TableCell>
+            </Cells>
+            <Columns>
+              <Column Width="3.88937436623431cm" />
+              <Column Width="2.98979275100381cm" />
+              <Column Width="1.99999973310457cm" />
+            </Columns>
+            <Rows>
+              <Row Height="0.619999853572035cm" />
+              <Row Height="0.619999853572035cm" />
+              <Row Height="0.620000075301295cm" />
+            </Rows>
+          </Body>
+          <Corner />
+          <Style>
+            <Font Name="Calibri" Size="9pt" />
+          </Style>
+          <RowGroups>
+            <TableGroup Name="detailTableGroup1">
+              <ChildGroups>
+                <TableGroup Name="group11" />
+                <TableGroup Name="group10" />
+              </ChildGroups>
+              <Groupings>
+                <Grouping />
+              </Groupings>
+            </TableGroup>
+            <TableGroup Name="group8" />
+          </RowGroups>
+          <ColumnGroups>
+            <TableGroup Name="tableGroup1" />
+            <TableGroup Name="tableGroup2" />
+            <TableGroup Name="group9" />
+          </ColumnGroups>
+        </Table>
+      </Items>
+    </DetailSection>
+  </Items>
+  <StyleSheet>
+    <StyleRule>
+      <Style Color="Black">
+        <Font Name="Tahoma" Size="18pt" Bold="True" Italic="False" Underline="False" Strikeout="False" />
+      </Style>
+      <Selectors>
+        <StyleSelector Type="ReportItemBase" StyleName="Title" />
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style Color="Black" VerticalAlign="Middle">
+        <Font Name="Tahoma" Size="10pt" />
+      </Style>
+      <Selectors>
+        <StyleSelector Type="ReportItemBase" StyleName="Caption" />
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style VerticalAlign="Middle">
+        <Font Name="Tahoma" Size="9pt" />
+      </Style>
+      <Selectors>
+        <StyleSelector Type="ReportItemBase" StyleName="Data" />
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style VerticalAlign="Middle">
+        <Font Name="Tahoma" Size="8pt" />
+      </Style>
+      <Selectors>
+        <StyleSelector Type="ReportItemBase" StyleName="PageInfo" />
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style Color="20, 34, 77">
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+        <Font Name="Calibri" Size="9pt" />
+      </Style>
+      <Selectors>
+        <StyleSelector Type="Table" StyleName="Office.TableNormal" />
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style BackgroundColor="121, 167, 227" Color="20, 34, 77" VerticalAlign="Middle">
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+        <Font Name="Calibri" Size="10pt" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="Office.TableHeader" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style>
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+        <Font Name="Calibri" Size="9pt" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="Office.TableBody" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+  </StyleSheet>
+  <PageSettings>
+    <PageSettings PaperKind="A4" Landscape="False">
+      <Margins>
+        <MarginsU Left="25.4mm" Right="25.4mm" Top="10mm" Bottom="5mm" />
+      </Margins>
+    </PageSettings>
+  </PageSettings>
+  <ReportParameters>
+    <ReportParameter Name="pid" Type="Integer">
+      <Value>
+        <String>1</String>
+      </Value>
+    </ReportParameter>
+  </ReportParameters>
+</Report>

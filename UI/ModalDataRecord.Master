@@ -1,0 +1,303 @@
+﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="ModalDataRecord.master.vb" Inherits="UI.ModalDataRecord" %>
+
+<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server" id="head1">
+    <title runat="server" id="pageTitle">MARKTIME 5.0</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
+    <meta http-equiv="x-ua-compatible" content="IE=edge" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="~/Styles/Site_v11.css" rel="stylesheet" type="text/css" />
+    <link href="Scripts/jquery.qtip.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <script src="Scripts/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="Scripts/jquery.qtip.min.js"></script>
+    <script type="text/javascript" src="Scripts/jquery.msgbox.min.js"></script>
+
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+    <script type="text/javascript">        
+
+        
+
+
+       
+
+        function GetRadWindow() {
+            var oWindow = null;
+            if (window.radWindow) oWindow = window.radWindow;
+            else if (window.frameElement.radWindow) oWindow = window.frameElement.radWindow;
+            return oWindow;
+        }
+
+        
+        function CloseAndRefresh() {
+            var pid = document.getElementById("hidDataPID").value;
+            var flag = document.getElementById("hidCloseAndRefreshParent_Flag").value;
+            try {
+                var oWnd = GetRadWindow();
+                var winparent = oWnd.get_browserWindow();
+
+                //winparent.hardrefresh(pid, flag);
+                dohardrefreshinopener(winparent, pid, flag);
+
+                oWnd.close();
+            }
+            catch (err) {
+                try {                    
+                    window.opener.hardrefresh(pid, flag);
+                    
+                }
+                catch (err) {                    
+                    //window.parent.hardrefresh(pid, flag);
+                    window.parent.window.postMessage({ 'func': 'hardrefresh', 'params': [pid, flag] }, '*');
+                    
+                }
+                window.close();
+            }
+
+        }
+
+        function CloseOnly() {
+            try {
+                var oWnd = GetRadWindow();
+                oWnd.close();
+            }
+            catch (err) {
+                window.close();
+            }
+        }
+
+
+        function CancelRBPostback(sender, args) {
+            var shouldCancelPostback = true;
+            args.set_cancel(shouldCancelPostback);
+        }
+
+        function help(page) {
+            window.open("help.aspx?page=" + page, "_blank");
+        }
+
+        function clicked(sender, args) {
+            var button = args.get_item();
+
+            if (button.get_value() == "save" || button.get_value() == "refresh") {
+                button.disable();
+
+            }
+
+
+        }
+
+        
+
+    </script>
+</head>
+<body style="background: white;margin:0px;">
+    <form id="form1" runat="server" style="margin:0px;">
+        <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
+        <telerik:RadNotification ID="notify1" runat="server" ShowCloseButton="true" Position="Center" Title="Info" EnableRoundedCorners="true" EnableShadow="true" Animation="Fade" Skin="BlackMetroTouch"></telerik:RadNotification>
+
+        <div>
+
+
+
+            <telerik:RadToolBar ID="toolbar1" runat="server" Width="100%" Skin="Bootstrap" AutoPostBack="true" OnClientButtonClicked="clicked" RenderMode="Auto">
+                <Items>
+
+                    <telerik:RadToolBarButton Text="<%$ Resources:common, save_changes %>" Value="save" ImageUrl="Images/save.png"></telerik:RadToolBarButton>
+
+                    <telerik:RadToolBarButton Text="<%$ Resources:common, delete %>" Value="delete" ImageUrl="Images/delete.png" PostBack="false"></telerik:RadToolBarButton>
+
+                    <telerik:RadToolBarButton Text="Přesunout do archivu" Value="bin" ImageUrl="Images/bin.png" PostBack="false" Visible="false" CommandName="bin"></telerik:RadToolBarButton>
+
+
+                    <telerik:RadToolBarButton Text="<%$ Resources:common, refresh %>" Value="refresh" ImageUrl="Images/refresh.png" CommandName="refresh"></telerik:RadToolBarButton>
+
+                    <telerik:RadToolBarButton Text="<%$ Resources:common, close %>" Value="close" ImageUrl="Images/close.png" PostBack="false" NavigateUrl="javascript:CloseOnly()"></telerik:RadToolBarButton>
+
+                    <telerik:RadToolBarButton Text="Jít zpět" Value="goback" ImageUrl="Images/back.png"></telerik:RadToolBarButton>
+
+                    <telerik:RadToolBarButton Text="<%$ Resources:common, help %>" Value="help" ImageUrl="Images/help.png" PostBack="false" NavigateUrl="http://www.marktime.net/doc/html/index.html" Target="_blank"></telerik:RadToolBarButton>
+                </Items>
+            </telerik:RadToolBar>
+            <asp:Label ID="need2SaveMessage" runat="server" style="position:absolute;top:10px;left:700px;z-index:10;"></asp:Label>
+            <asp:HiddenField ID="hidNeed2SaveMessage" runat="server" Value="" />
+            <asp:Image runat="server" ID="icon1" Style="position: absolute; left: 93%; top: 40px; z-index: 5000;" Visible="false" />
+            <img id="loading1" src="Images/loading.gif" style="display:none;z-index:9000;position:absolute;left:700px;top:10px;" />
+            <div style="padding: 6px;">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+
+
+
+        </div>
+
+        <asp:ContentPlaceHolder ID="FootContent" runat="server">
+        </asp:ContentPlaceHolder>
+        <asp:Panel ID="panRecValidity" runat="server" Style="display:none;margin-top: 5px; border-top: dotted 1px silver;">
+            <div class="div6">               
+                <asp:Label ID="lblValidity" runat="server" CssClass="timestamp"></asp:Label>
+                <asp:HiddenField ID="record_valid_from" runat="server" />
+                <asp:HiddenField ID="record_valid_until" runat="server" />                
+            </div>
+        </asp:Panel>
+        <asp:Panel ID="panTimestamp" runat="server" Style="margin-top: 10px; border-top: dotted 1px silver;">
+            <div class="div6">
+            <asp:Label ID="lblTimestamp" runat="server" CssClass="timestamp"></asp:Label>
+            </div>
+        </asp:Panel>
+        <asp:HiddenField ID="hidShowValidity" runat="server" Value="0" />
+        <asp:HiddenField ID="hidIsRecordClone" runat="server" Value="0" />
+        <asp:HiddenField ID="hidIsRecordEditable" runat="server" Value="1" />
+        <asp:HiddenField ID="hidIsRecordDeletable" runat="server" Value="1" />
+        <asp:HiddenField ID="hidDataPID" runat="server" />
+        <asp:HiddenField ID="hidReportPrefix" runat="server" />
+        <asp:HiddenField ID="hidForceOperation" runat="server" Value="" />
+        <asp:HiddenField ID="hidCloseAndRefreshParent_Flag" runat="server" Value="refresh" />
+        <asp:HiddenField ID="hidPageTitle" runat="server" />
+        <asp:HiddenField ID="hidHRJS" runat="server" />
+
+        <telerik:RadWindow ID="okno_dialog" runat="server" Modal="true" KeepInScreenBounds="true" VisibleTitlebar="true" VisibleStatusbar="false" Skin="WebBlue" ShowContentDuringLoad="false" Width="700px" Height="400px" Behaviors="Close,Maximize,Move,Reload" IconUrl="Images/window.png">
+            <Shortcuts>
+                <telerik:WindowShortcut CommandName="Close" Shortcut="Esc" />
+            </Shortcuts>
+        </telerik:RadWindow>
+    </form>
+</body>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("form").change(function () {
+            //$(this).data("changed", "true");
+            if (document.getElementById("<%=hidNeed2SaveMessage.clientid%>").value == "") {
+                document.getElementById("<%=hidNeed2SaveMessage.clientid%>").value = "Změny je třeba uložit tlačítkem [Uložit změny]."
+                document.getElementById("<%=need2SaveMessage.clientid%>").innerText = "Změny je třeba uložit tlačítkem [Uložit změny]."
+                GetRadWindow().argument = "need2save";
+            }
+            
+        });
+
+        var iframeWidth = '100%';
+        var iframeHeight = '270';
+
+
+        $("a.reczoom").each(function () {
+
+            // Extract your variables here:
+            var $this = $(this);
+            var myurl = $this.attr('rel');
+
+            var mytitle = $this.attr('title');
+            if (mytitle == null)
+                mytitle = 'Detail';
+
+            $this.qtip({
+                content: {
+                    text: '<iframe src="' + myurl + '"' + ' width=' + iframeWidth + '"' + ' height=' + '"' + iframeHeight + '"  frameborder="0"><p>Your browser does not support iframes.</p></iframe>',
+                    title: {
+                        text: mytitle
+                    },
+
+                },
+                position: {
+                    my: 'top center',  // Position my top left...
+                    at: 'bottom center', // at the bottom right of...
+                    viewport: $(window)
+                },
+
+                hide: {
+
+                    fixed: true,
+                    delay: 100
+
+                },
+                style: {
+                    classes: 'qtip-tipped',
+                    width: 700,
+                    height: 300
+
+                }
+            });
+        });
+
+
+        $("#form1").submit(function () {
+
+            document.getElementById("loading1").style.display = "block";
+        });
+
+
+    });
+
+
+    function trydelete() {
+
+        if (confirm("Opravdu odstranit záznam?")) {
+            document.getElementById("<%=hidForceOperation.ClientID%>").value = "delete";
+            document.forms['form1'].submit();
+        }
+        else {
+            //nic
+        }
+    }
+    if (document.getElementById("<%=hidForceOperation.ClientID%>").value == "closeandrefresh") {
+        CloseAndRefresh();
+    }
+
+    function dialog_master(url, is_maximize, window_width, window_height) {
+        var wnd = $find("<%=okno_dialog.ClientID%>");
+        wnd.setUrl(url);
+        if (window_width != null)
+            wnd.setSize(window_width, window_height);
+
+        wnd.show();
+        if (is_maximize == true) {
+            wnd.maximize();
+        }
+        else {
+            wnd.center();
+        }
+
+    }
+
+    function rec_validity(current_date_from, current_date_until) {
+        dialog_master("record_validity.aspx?current_date_from=" + current_date_from + "&current_date_until=" + current_date_until);
+        
+    }
+
+    function hardrefresh_validity(pid, flag) {
+        var a = flag.split("|");
+        document.getElementById("<%=me.lblValidity.clientid%>").innerText = "Provedené změny v platnosti záznamu se projeví až po uložení záznamu!";
+        document.getElementById("<%=me.lblValidity.clientid%>").className = "infoNotificationRed";
+        document.getElementById("<%=me.record_valid_from.clientid%>").value = a[0];
+        document.getElementById("<%=Me.record_valid_until.ClientID%>").value = a[1];
+        document.getElementById("<%=me.panRecValidity.ClientID%>").style.display = "block";
+    }
+
+
+    function dohardrefreshinopener(winparent, pid, flag) {
+        try {
+            <%if hidHRJS.value="" then%>
+            winparent.hardrefresh(pid, flag);
+            <%Else%>
+            <%="winparent." + Me.hidHRJS.Value + "(pid,flag);"%>
+            <%end if%>
+        }
+        catch (err) {
+            alert(err);
+        }
+
+    }
+
+    function sw_everywhere(url, iconUrl, is_maximize) {
+        dialog_master(url, is_maximize,null,null);
+    }
+
+    
+</script>
+</html>

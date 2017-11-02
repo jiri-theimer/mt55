@@ -1,0 +1,249 @@
+﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="ModalForm.master.vb" Inherits="UI.ModalForm" %>
+
+<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title runat="server" id="pageTitle" enableviewstate="true">MARKTIME 5.0</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="~/Styles/Site_v11.css" rel="stylesheet" type="text/css" />
+    <link href="Scripts/jquery.qtip.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <script src="Scripts/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="Scripts/jquery.qtip.min.js"></script>
+
+
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+    <script type="text/javascript">
+        $(document).ready(function() {
+    
+            var iframeWidth = '100%';
+            var iframeHeight = '270';
+
+    	 	 
+            $("a.reczoom").each(function() { 
+		
+                // Extract your variables here:
+                var $this = $(this);
+                var myurl = $this.attr('rel');
+    
+                var mytitle=$this.attr('title');
+                if (mytitle==null)
+                    mytitle='Detail';
+
+    
+                $this.qtip({
+                    content: {
+                        text: '<iframe src="' + myurl + '"' + ' width=' + iframeWidth + '"' + ' height=' + '"' + iframeHeight + '"  frameborder="0"><p>Your browser does not support iframes.</p></iframe>',
+                        title: {
+                            text: mytitle
+                        },
+				
+                    },
+                    position: {
+                        my: 'top center',  // Position my top left...
+                        at: 'bottom center', // at the bottom right of...
+                        viewport: $(window)
+                    },
+		
+                    hide: 	{
+				
+                        fixed: true,
+                        delay: 100
+				
+                    },
+                    style: {	
+                        classes: 'qtip-tipped',			
+                        width:700,
+                        height:300
+				
+                    }
+                });
+
+                
+            });
+
+
+            
+
+            $("#form1").submit(function () {
+
+                document.getElementById("loading1").style.display = "block";
+            });
+        });
+
+        
+
+        function GetRadWindow() {
+            var oWindow = null;
+            if (window.radWindow) oWindow = window.radWindow;
+            else if (window.frameElement.radWindow) oWindow = window.frameElement.radWindow;
+            return oWindow;
+        }
+
+        
+
+        function CloseOnly() {
+            try {
+                var oWnd = GetRadWindow();
+                oWnd.close();
+            }
+            catch (err) {
+                try {parent.UIFT.WorkflowWindowClose();} catch (err) {window.close();}
+                
+            }
+        }
+
+
+        function CancelRBPostback(sender, args) {
+            var shouldCancelPostback = true;
+            args.set_cancel(shouldCancelPostback);
+        }
+
+        function help(page) {
+            window.open("help.aspx?page=" + page, "_blank");
+        }
+
+        function button_clicked(sender, args) {
+            var button = args.get_item();
+            
+            
+            if (button.get_attributes().getAttribute("postback") == "1"){
+                button.disable();
+                
+            }
+               
+
+
+            if (button.get_attributes().getAttribute("showloading") == "1"){
+                showloading();
+            }
+                
+
+        }
+        
+    </script>
+</head>
+<body style="background: white;margin: 0px;">
+    <form id="form1" runat="server" style="margin: 0px;">
+        <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
+        <telerik:RadNotification ID="notify1" runat="server" ShowCloseButton="true" Position="Center" Title="Info" EnableRoundedCorners="true" EnableShadow="true" Animation="Fade" Skin="BlackMetroTouch"></telerik:RadNotification>
+        
+        <asp:ContentPlaceHolder ID="OverMainContent" runat="server">
+        </asp:ContentPlaceHolder>
+        <div>            
+            <telerik:RadToolBar ID="toolbar1" runat="server" Width="100%" Skin="Bootstrap" AutoPostBack="true" RenderMode="Auto" OnClientButtonClicked="button_clicked">
+                <Items>
+
+                    <telerik:RadToolBarButton Text="<%$ Resources:common, close %>" Value="close" ImageUrl="Images/close.png" PostBack="false" NavigateUrl="javascript:CloseOnly()"></telerik:RadToolBarButton>
+
+                    <telerik:RadToolBarButton Text="<%$ Resources:common, help %>" Value="help" ImageUrl="Images/help.png" PostBack="false" Target="_blank"></telerik:RadToolBarButton>
+                    
+                    
+                </Items>
+            </telerik:RadToolBar>
+            <asp:Label ID="lblRecordMessage" runat="server" style="color:red;position:absolute;top:50px;left:400px;z-index:9000;"></asp:Label>
+            <asp:Label ID="spanHelp" runat="server" CssClass="formInfoStatic" Style="position: absolute; left: 85%; top: 40px;" Visible="false"></asp:Label>
+            <asp:Image runat="server" ID="icon1" Style="position: absolute; left: 93%; top: 40px;z-index:9000;" Visible="false" />
+            <img id="loading1" src="Images/loading.gif" style="display:none;position:absolute;z-index:9000;left:700px;top:10px;" alt="Loading..." />
+            <div>
+                <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+
+        </div>
+
+        <asp:ContentPlaceHolder ID="FootContent" runat="server">
+        </asp:ContentPlaceHolder>
+
+
+        <telerik:RadWindow ID="okno_dialog" runat="server" Modal="true" RenderMode="Auto" KeepInScreenBounds="true" VisibleTitlebar="true" VisibleStatusbar="false" Skin="WebBlue" ShowContentDuringLoad="false" Width="700px" Height="400px" Behaviors="Close,Move,Maximize,Reload" IconUrl="Images/window.png">
+            <Shortcuts>
+                <telerik:WindowShortcut CommandName="Close" Shortcut="Esc" />
+            </Shortcuts>
+
+        </telerik:RadWindow>
+
+        <asp:HiddenField ID="hidDataPID" runat="server" />
+        <asp:HiddenField ID="hidForceOperation" runat="server" Value="" />
+        <asp:HiddenField ID="hidCloseAndRefreshParent_Flag" runat="server" Value="refresh" />
+        <asp:HiddenField ID="hidPageTitle" runat="server" />
+        <asp:HiddenField ID="hidCloseAndRefreshParent_Par1" runat="server" />
+        <asp:HiddenField ID="hidCloseAndRefreshParent_JsFunction" runat="server" Value="hardrefresh" />
+        <asp:HiddenField ID="hidrecordMessage" runat="server" />
+        <asp:HiddenField ID="hidHRJS" runat="server" />
+
+
+    </form>
+</body>
+
+<script type="text/javascript">
+    if (document.getElementById("<%=hidForceOperation.clientid%>").value == "closeandrefresh") {
+        CloseAndRefresh();
+    }
+
+    function showloading() {
+        //zatím nefunguje
+        return;
+        document.getElementById("loading1").style.display = "block";
+        
+        
+
+    }
+
+    function CloseAndRefresh() {
+        var pid = document.getElementById("hidDataPID").value;
+        var flag = document.getElementById("hidCloseAndRefreshParent_Flag").value;
+        var par1 = document.getElementById("hidCloseAndRefreshParent_Par1").value;
+            
+        try {
+            var oWnd = GetRadWindow();
+            var winparent = oWnd.get_browserWindow();
+            winparent.<%=Me.hidCloseAndRefreshParent_JsFunction.Value%>(pid, flag, par1);
+            oWnd.close();
+        }
+        catch (err) {
+            try {window.opener.<%=Me.hidCloseAndRefreshParent_JsFunction.Value%>(pid, flag, par1);} catch (err) {window.close();}
+                
+        }
+
+    }
+
+    
+
+    function dialog_master(url, is_maximize, window_width, window_height) {
+        var wnd = $find("<%=okno_dialog.ClientID%>");
+        wnd.setUrl(url);
+        if (window_width != null)
+            wnd.setSize(window_width, window_height);
+
+        wnd.show();
+        if (is_maximize == true) {
+            wnd.maximize();
+        }
+        else {
+            wnd.center();
+        }
+
+    }
+
+
+    function master_show_message(strMessage) {        
+        document.getElementById("<%=Me.lblRecordMessage.ClientID%>").innerHTML=strMessage;
+        document.getElementById("<%=Me.hidrecordMessage.ClientID%>").value=strMessage;
+    }
+
+
+    function sw_everywhere(url, iconUrl, is_maximize) {
+        dialog_master(url, is_maximize,null,null);
+    }
+    
+
+    
+</script>
+</html>

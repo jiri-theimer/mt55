@@ -1,0 +1,1019 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report DataSourceName="sqlDataSource1" Width="18.9574162995739cm" Name="report1" ShowSnapGrid="True" SnapToGrid="False" SnapToSnapLines="False" SnapGridSize="0.1cm" xmlns="http://schemas.telerik.com/reporting/2012/3.9">
+  <DataSources>
+    <SqlDataSource ConnectionString="ApplicationPrimary" SelectCommand="select a.*,client.p28Name,client.p28Code&#xD;&#xA;FROM&#xD;&#xA;p41project a&#xD;&#xA;LEFT OUTER JOIN p28Contact client ON a.p28ID_Client=client.p28ID&#xD;&#xA;WHERE a.p41ID=@pid" Name="sqlDataSource1" ParameterValues="{@pid:8}">
+      <Parameters>
+        <SqlDataSourceParameter DbType="Int32" Name="@pid">
+          <Value>
+            <String>=Parameters.pid.Value</String>
+          </Value>
+        </SqlDataSourceParameter>
+      </Parameters>
+    </SqlDataSource>
+    <SqlDataSource ConnectionString="ApplicationPrimary" SelectCommand="select j02.j02LastName+' '+j02.j02FirstName as Person&#xD;&#xA;,p31Date&#xD;&#xA;,p32Name&#xD;&#xA;,p72Name&#xD;&#xA;,case when a.p72ID_AfterApprove=4 then p31Hours_Approved_Billing else p31Hours_Orig end as p31Hours_Approved_Billing&#xD;&#xA;,p31Rate_Billing_Approved&#xD;&#xA;,p31Amount_WithoutVat_Approved&#xD;&#xA;,p31Text&#xD;&#xA;,j27.j27Code&#xD;&#xA;,p34.p33ID&#xD;&#xA;,p34.p34Name&#xD;&#xA;,p31VatRate_Orig&#xD;&#xA;,ko.j02LastName+' '+ko.j02FirstName+isnull(' '+ko.j02TitleBeforeName,'') as KO&#xD;&#xA;from&#xD;&#xA;p31Worksheet a INNER JOIN j02Person j02 ON a.j02ID=j02.j02ID&#xD;&#xA;INNER JOIN p32Activity p32 ON a.p32ID=p32.p32ID&#xD;&#xA;INNER JOIN p34ActivityGroup p34 ON p32.p34ID=p34.p34ID&#xD;&#xA;LEFT OUTER JOIN p72PreBillingStatus p72 ON a.p72ID_AfterApprove=p72.p72ID&#xD;&#xA;LEFT OUTER JOIN j27Currency j27 ON a.j27ID_Billing_Orig=j27.j27ID&#xD;&#xA;LEFT OUTER JOIN j02Person ko ON a.j02ID_ContactPerson=ko.j02ID&#xD;&#xA;WHERE a.p41ID=@pid AND a.p31Date BETWEEN @datfrom AND @datuntil AND a.p71ID=1 AND a.p91ID IS NULL&#xD;&#xA;AND a.p72ID_AfterApprove IN (2,4,6)&#xD;&#xA;ORDER BY a.p31Date,j02.j02Lastname,j02.j02FirstName" Name="sqlDataSource2">
+      <Parameters>
+        <SqlDataSourceParameter DbType="Int32" Name="@pid">
+          <Value>
+            <String>=Parameters.pid.Value</String>
+          </Value>
+        </SqlDataSourceParameter>
+        <SqlDataSourceParameter DbType="DateTime" Name="@datfrom">
+          <Value>
+            <String>=Parameters.datfrom.Value</String>
+          </Value>
+        </SqlDataSourceParameter>
+        <SqlDataSourceParameter DbType="DateTime" Name="@datuntil">
+          <Value>
+            <String>=Parameters.datuntil.Value</String>
+          </Value>
+        </SqlDataSourceParameter>
+      </Parameters>
+    </SqlDataSource>
+  </DataSources>
+  <Items>
+    <PageHeaderSection Height="0.105833290017319cm" Name="pageHeader" />
+    <ReportHeaderSection Height="0.555375019996861cm" Name="reportHeader">
+      <Items>
+        <TextBox Width="18.0260832773709cm" Height="0.555375040182967cm" Left="0.190499991178513cm" Top="0cm" Value="{Fields.p41Code} - {Fields.p41Name} | Schválené úkony (čeká na fakturaci)" Name="titleTextBox" StyleName="Title">
+          <Style>
+            <Font Name="Calibri" Size="10pt" Bold="True" />
+          </Style>
+        </TextBox>
+      </Items>
+    </ReportHeaderSection>
+    <DetailSection Height="6.34962436180365cm" Name="detail">
+      <Items>
+        <TextBox Width="2.81233342803981cm" Height="0.499999828418101cm" Left="0.158749995584289cm" Top="0.0724584304999947cm" Value="Klient projektu:" Name="textBox3">
+          <Style VerticalAlign="Middle">
+            <Font Name="Calibri" Size="9pt" />
+          </Style>
+        </TextBox>
+        <TextBox Width="11.2856674106929cm" Height="0.499999828418101cm" Left="3.35466658861372cm" Top="0.0936251773223232cm" Value="= Fields.p28Name" Name="textBox4">
+          <Style VerticalAlign="Middle">
+            <Font Name="Calibri" Size="9pt" />
+          </Style>
+        </TextBox>
+        <Table DataSourceName="sqlDataSource2" Width="18.7470431065951cm" Height="2.46025051743554cm" Left="0.158749995584289cm" Top="1.23563513815623cm" RowHeadersPrintOnEveryPage="True" ColumnHeadersPrintOnEveryPage="True" KeepTogether="False" NoDataMessage="Žádné schválené hodiny." Name="table1" StyleName="Office.TableNormal">
+          <Body>
+            <Cells>
+              <TableCell RowIndex="0" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.62572186232904cm" Height="0.500000106302803cm" Left="0cm" Top="0cm" Value="= Fields.p31Date" Format="{0:d}" Name="textBox13" StyleName="Office.TableBody">
+                    <Style>
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="2" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.82347279311514cm" Height="0.500000106302803cm" Left="0cm" Top="0cm" Value="= Fields.p32Name" Name="textBox14" StyleName="Office.TableBody">
+                    <Style>
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="3" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.06480400029005cm" Height="0.500000106302803cm" Left="0cm" Top="0cm" Value="= Fields.p31Hours_Approved_Billing" Format="{0:N2}" Name="textBox15" StyleName="Office.TableBody">
+                    <Style TextAlign="Right">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="4" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.21458992681134cm" Height="0.500000106302803cm" Left="0cm" Top="0cm" Value="= Fields.p31Rate_Billing_Approved" Format="{0:N2}" Name="textBox16" StyleName="Office.TableBody">
+                    <Style TextAlign="Right">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="6" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.4905163411216cm" Height="0.500000106302803cm" Left="0cm" Top="0cm" Value="= Fields.p31Amount_WithoutVat_Approved" Format="{0:N2}" Name="textBox2" StyleName="Office.TableBody">
+                    <Style TextAlign="Right">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="7" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="5.96197890789726cm" Height="0.500000106302803cm" Left="0cm" Top="0cm" Value="= Fields.p31Text" Name="textBox6" StyleName="Office.TableBody">
+                    <Style TextAlign="Left">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" Italic="True" />
+                      <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="3" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.06480400029005cm" Height="0.470833454514979cm" Left="0cm" Top="0cm" Value="=Sum(Fields.p31Hours_Approved_Billing)" Format="{0:N2}" Name="textBox29" StyleName="Office.TableBody">
+                    <Style BackgroundColor="242, 242, 242" TextAlign="Right">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" Bold="True" />
+                      <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="4" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.21458992681134cm" Height="0.470833454514979cm" Left="0cm" Top="0cm" Name="textBox30" StyleName="Office.TableBody">
+                    <Style BackgroundColor="242, 242, 242" TextAlign="Right">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="6" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.4905163411216cm" Height="0.470833454514979cm" Left="0cm" Top="0cm" Value="=Sum(Fields.p31Amount_WithoutVat_Approved)" Format="{0:N2}" Name="textBox31" StyleName="Office.TableBody">
+                    <Style BackgroundColor="242, 242, 242" TextAlign="Right">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" Bold="True" />
+                      <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="7" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="5.96197890789726cm" Height="0.470833454514979cm" Left="0cm" Top="0cm" Name="textBox32" StyleName="Office.TableBody">
+                    <Style BackgroundColor="242, 242, 242">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.62572186232904cm" Height="0.513166793695805cm" Left="0cm" Top="0cm" Name="textBox12" StyleName="Office.TableBody">
+                    <Style BackgroundColor="217, 217, 217">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="2" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.82347279311514cm" Height="0.513166793695805cm" Left="0cm" Top="0cm" Name="textBox26" StyleName="Office.TableBody">
+                    <Style BackgroundColor="217, 217, 217">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="3" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.06480400029005cm" Height="0.513166793695805cm" Left="0cm" Top="0cm" Value="=Sum(Fields.p31Hours_Approved_Billing)" Format="{0:N2}" Name="textBox34" StyleName="Office.TableBody">
+                    <Style BackgroundColor="217, 217, 217" TextAlign="Right">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" Bold="True" />
+                      <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="4" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.21458992681134cm" Height="0.513166793695805cm" Left="0cm" Top="0cm" Name="textBox35" StyleName="Office.TableBody">
+                    <Style BackgroundColor="217, 217, 217" TextAlign="Right">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="6" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.4905163411216cm" Height="0.513166793695805cm" Left="0cm" Top="0cm" Value="=Sum(Fields.p31Amount_WithoutVat_Approved)" Format="{0:N2}" Name="textBox36" StyleName="Office.TableBody">
+                    <Style BackgroundColor="217, 217, 217" TextAlign="Right">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" Bold="True" />
+                      <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="7" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="5.96197890789726cm" Height="0.513166793695805cm" Left="0cm" Top="0cm" Name="textBox37" StyleName="Office.TableBody">
+                    <Style BackgroundColor="217, 217, 217">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.15874909407678cm" Height="0.500000106302803cm" Left="0cm" Top="0cm" Value="= Fields.Person" Name="textBox18" StyleName="Office.TableBody">
+                    <Style>
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.15874909407678cm" Height="0.513166793695805cm" Left="0cm" Top="0cm" Name="textBox38" StyleName="Office.TableBody">
+                    <Style BackgroundColor="217, 217, 217">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="0" RowSpan="1" ColumnSpan="3">
+                <ReportItem>
+                  <TextBox Width="6.60794503835915cm" Height="0.470833454514979cm" Left="0cm" Top="0cm" Value="{Fields.p72Name}:" Name="textBox27" StyleName="Office.TableBody">
+                    <Style BackgroundColor="242, 242, 242">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="5" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="0.851708981290099cm" Height="0.500000106302803cm" Left="0cm" Top="0cm" Value="= Fields.j27Code" Name="textBox28" StyleName="Office.TableBody">
+                    <Style TextAlign="Center">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="5" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="0.851708981290099cm" Height="0.470833454514979cm" Left="0cm" Top="0cm" Name="textBox33" StyleName="Office.TableBody">
+                    <Style BackgroundColor="242, 242, 242" TextAlign="Right">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" Bold="True" />
+                      <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="5" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="0.851708981290099cm" Height="0.513166793695805cm" Left="0cm" Top="0cm" Name="textBox39" StyleName="Office.TableBody">
+                    <Style BackgroundColor="217, 217, 217" TextAlign="Right">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" Bold="True" />
+                      <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+            </Cells>
+            <Columns>
+              <Column Width="1.62572201606321cm" />
+              <Column Width="2.15875073408841cm" />
+              <Column Width="2.82347344368599cm" />
+              <Column Width="1.06480384075871cm" />
+              <Column Width="1.21458997099816cm" />
+              <Column Width="0.851709053143754cm" />
+              <Column Width="1.49051600220513cm" />
+              <Column Width="5.96197740948002cm" />
+            </Columns>
+            <Rows>
+              <Row Height="0.500000106302803cm" />
+              <Row Height="0.470833454514979cm" />
+              <Row Height="0.513166793695805cm" />
+            </Rows>
+          </Body>
+          <Corner>
+            <Cells>
+              <TableCell RowIndex="0" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.55550028698083cm" Height="0.976250162921956cm" Left="0cm" Top="0cm" Value="Fakturační status" Name="textBox25" StyleName="Office.TableHeader">
+                    <Style BackgroundColor="217, 217, 217" TextAlign="Center">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" Bold="True" />
+                      <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+            </Cells>
+          </Corner>
+          <Style>
+            <Font Name="Calibri" />
+          </Style>
+          <RowGroups>
+            <TableGroup Name="status">
+              <ReportItem>
+                <TextBox Width="1.55550028698083cm" Height="0.970833560817782cm" Left="0cm" Top="0cm" Value="= Fields.p72Name" Name="textBox24" StyleName="">
+                  <Style TextAlign="Center">
+                    <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                    <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                    <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                    <Font Size="8pt" />
+                    <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+              <ChildGroups>
+                <TableGroup Name="Detail">
+                  <Groupings>
+                    <Grouping />
+                  </Groupings>
+                </TableGroup>
+                <TableGroup Name="group3" />
+              </ChildGroups>
+              <Groupings>
+                <Grouping Expression="= Fields.p72Name" />
+              </Groupings>
+              <Sortings>
+                <Sorting Expression="= Fields.p72Name" Direction="Asc" />
+              </Sortings>
+            </TableGroup>
+            <TableGroup Name="group4">
+              <ReportItem>
+                <TextBox Width="1.55550028698083cm" Height="0.513166793695805cm" Left="0cm" Top="0cm" Value="Celkem" Name="textBox7" StyleName="">
+                  <Style BackgroundColor="217, 217, 217" TextAlign="Center">
+                    <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                    <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                    <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                    <Font Size="8pt" Bold="True" />
+                    <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+              <ChildGroups>
+                <TableGroup Name="group5" />
+              </ChildGroups>
+            </TableGroup>
+          </RowGroups>
+          <ColumnGroups>
+            <TableGroup>
+              <ReportItem>
+                <TextBox Width="1.62572186232904cm" Height="0.976250162921956cm" Left="0cm" Top="0cm" Value="Datum" Name="textBox8" StyleName="Office.TableHeader">
+                  <Style BackgroundColor="217, 217, 217" TextAlign="Center">
+                    <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                    <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                    <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                    <Font Size="8pt" Bold="True" />
+                    <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+            <TableGroup Name="group2">
+              <ReportItem>
+                <TextBox Width="2.15874909407678cm" Height="0.976250162921956cm" Left="0cm" Top="0cm" Value="Jméno" Name="textBox17" StyleName="Office.TableHeader">
+                  <Style BackgroundColor="217, 217, 217" TextAlign="Center">
+                    <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                    <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                    <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                    <Font Size="8pt" Bold="True" />
+                    <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+            <TableGroup>
+              <ReportItem>
+                <TextBox Width="2.82347279311514cm" Height="0.976250162921956cm" Left="0cm" Top="0cm" Value="Aktivita" Name="textBox9" StyleName="Office.TableHeader">
+                  <Style BackgroundColor="217, 217, 217" TextAlign="Center">
+                    <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                    <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                    <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                    <Font Size="8pt" Bold="True" />
+                    <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+            <TableGroup>
+              <ReportItem>
+                <TextBox Width="1.06480400029005cm" Height="0.976250162921956cm" Left="0cm" Top="0cm" Value="Hod." Name="textBox10" StyleName="Office.TableHeader">
+                  <Style BackgroundColor="217, 217, 217" TextAlign="Center">
+                    <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                    <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                    <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                    <Font Size="8pt" Bold="True" />
+                    <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+            <TableGroup>
+              <ReportItem>
+                <TextBox Width="1.21458992681134cm" Height="0.976250162921956cm" Left="0cm" Top="0cm" Value="Sazba" Name="textBox11" StyleName="Office.TableHeader">
+                  <Style BackgroundColor="217, 217, 217" TextAlign="Center">
+                    <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                    <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                    <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                    <Font Size="8pt" Bold="True" />
+                    <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+            <TableGroup Name="group6">
+              <ReportItem>
+                <TextBox Width="0.851708981290099cm" Height="0.976250162921956cm" Left="0cm" Top="0cm" Name="textBox23" StyleName="Office.TableHeader">
+                  <Style BackgroundColor="217, 217, 217" TextAlign="Center">
+                    <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                    <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                    <Font Size="8pt" Bold="True" />
+                    <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+            <TableGroup Name="group">
+              <ReportItem>
+                <TextBox Width="1.4905163411216cm" Height="0.976250162921956cm" Left="0cm" Top="0cm" Value="Honorář" Name="textBox1" StyleName="Office.TableHeader">
+                  <Style BackgroundColor="217, 217, 217" TextAlign="Center">
+                    <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                    <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                    <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                    <Font Size="8pt" Bold="True" />
+                    <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+            <TableGroup Name="group1">
+              <ReportItem>
+                <TextBox Width="5.96197890789726cm" Height="0.976250162921956cm" Left="0cm" Top="0cm" Value="Text" Name="textBox5" StyleName="Office.TableHeader">
+                  <Style BackgroundColor="217, 217, 217" TextAlign="Center">
+                    <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                    <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                    <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                    <Font Size="8pt" Bold="True" />
+                    <Padding Left="0.1cm" Right="0.1cm" Top="0.1cm" Bottom="0.1cm" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+          </ColumnGroups>
+          <Filters>
+            <Filter Expression="= Fields.p33ID" Operator="Equal" Value="=1" />
+          </Filters>
+        </Table>
+        <TextBox Width="2.81233334541321cm" Height="0.499999821186066cm" Left="0.158749995584289cm" Top="0.608541649739776cm" Value="Časové období:" Name="textBox19">
+          <Style VerticalAlign="Middle">
+            <Font Name="Calibri" Size="9pt" />
+          </Style>
+        </TextBox>
+        <TextBox Width="1.59133435575299cm" Height="0.499999821186066cm" Left="3.34433324030903cm" Top="0.608541649739776cm" Value="= Parameters.datfrom.Value" Format="{0:d}" Name="textBox20">
+          <Style VerticalAlign="Middle">
+            <Font Name="Calibri" Size="9pt" />
+          </Style>
+        </TextBox>
+        <TextBox Width="1.71833432732158cm" Height="0.499999821186066cm" Left="5.40916638952826cm" Top="0.608541649739776cm" Value="= Parameters.datuntil.Value" Format="{0:d}" Name="textBox21">
+          <Style VerticalAlign="Middle">
+            <Font Name="Calibri" Size="9pt" />
+          </Style>
+        </TextBox>
+        <TextBox Width="0.378166746454105cm" Height="0.499999821186066cm" Left="4.97999947516125cm" Top="0.608541649739776cm" Value="-" Name="textBox22">
+          <Style TextAlign="Center" VerticalAlign="Middle">
+            <Font Name="Calibri" Size="9pt" />
+          </Style>
+        </TextBox>
+        <Table DataSourceName="sqlDataSource2" Width="18.735769312336cm" Height="2.51316641530265cm" Left="0.185208328181671cm" Top="3.83645822662033cm" RowHeadersPrintOnEveryPage="True" ColumnHeadersPrintOnEveryPage="True" KeepTogether="False" NoDataMessage="." Name="table2" StyleName="Office.TableNormal">
+          <Body>
+            <Cells>
+              <TableCell RowIndex="0" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="3.08093094825745cm" Height="0.500000059604645cm" Left="0cm" Top="0cm" Value="= Fields.p34Name" Format="" Name="textBox40" StyleName="Office.TableBody">
+                    <Style>
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.100000001490116cm" Right="0.100000001490116cm" Top="0.100000001490116cm" Bottom="0.100000001490116cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="3.78126358985901cm" Height="0.500000059604645cm" Left="0cm" Top="0cm" Value="= Fields.p32Name" Name="textBox41" StyleName="Office.TableBody">
+                    <Style>
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.100000001490116cm" Right="0.100000001490116cm" Top="0.100000001490116cm" Bottom="0.100000001490116cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="2" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="0.944716691970825cm" Height="0.500000059604645cm" Left="0cm" Top="0cm" Value="= Fields.p31VatRate_Orig" Format="{0:N0}" Name="textBox42" StyleName="Office.TableBody">
+                    <Style TextAlign="Center">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.100000001490116cm" Right="0.100000001490116cm" Top="0.100000001490116cm" Bottom="0.100000001490116cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="3" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.04614186286926cm" Height="0.500000059604645cm" Left="0cm" Top="0cm" Value="= Fields.p31Amount_WithoutVat_Approved" Format="{0:N2}" Name="textBox43" StyleName="Office.TableBody">
+                    <Style TextAlign="Right">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.100000001490116cm" Right="0.100000001490116cm" Top="0.100000001490116cm" Bottom="0.100000001490116cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="4" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="7.5970958328298cm" Height="0.500000019785128cm" Left="0cm" Top="0cm" Value="= Fields.p31Text" Name="textBox44" StyleName="Office.TableBody">
+                    <Style TextAlign="Left">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" Italic="True" />
+                      <Padding Left="0.100000001490116cm" Right="0.100000001490116cm" Top="0.100000001490116cm" Bottom="0.100000001490116cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="2" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="0.944716691970825cm" Height="0.513166546821594cm" Left="0cm" Top="0cm" Name="textBox45" StyleName="Office.TableBody">
+                    <Style BackgroundColor="217, 217, 217" TextAlign="Center">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.100000001490116cm" Right="0.100000001490116cm" Top="0.100000001490116cm" Bottom="0.100000001490116cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="3" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.04614186286926cm" Height="0.513166546821594cm" Left="0cm" Top="0cm" Value="=Sum(Fields.p31Amount_WithoutVat_Approved)" Format="{0:N2}" Name="textBox46" StyleName="Office.TableBody">
+                    <Style BackgroundColor="217, 217, 217" TextAlign="Right">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" Bold="True" />
+                      <Padding Left="0.100000001490116cm" Right="0.100000001490116cm" Top="0.100000001490116cm" Bottom="0.100000001490116cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="4" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="7.5970958328298cm" Height="0.513166560856725cm" Left="0cm" Top="0cm" Name="textBox47" StyleName="Office.TableBody">
+                    <Style BackgroundColor="217, 217, 217">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.100000001490116cm" Right="0.100000001490116cm" Top="0.100000001490116cm" Bottom="0.100000001490116cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="2" ColumnIndex="0" RowSpan="1" ColumnSpan="2">
+                <ReportItem>
+                  <TextBox Width="6.8621940612793cm" Height="0.513166546821594cm" Left="0cm" Top="0cm" Value="" Name="textBox50" StyleName="Office.TableBody">
+                    <Style BackgroundColor="217, 217, 217">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" Bold="True" />
+                      <Padding Left="0.100000001490116cm" Right="0.100000001490116cm" Top="0.100000001490116cm" Bottom="0.100000001490116cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="3.0809301036286cm" Height="0.5cm" Left="0cm" Top="0cm" Value="{Fields.j27Code}:" Name="textBox66" StyleName="Office.TableBody">
+                    <Style BackgroundColor="242, 242, 242">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.100000001490116cm" Right="0.100000001490116cm" Top="0.100000001490116cm" Bottom="0.100000001490116cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="3.78126332515857cm" Height="0.5cm" Left="0cm" Top="0cm" Name="textBox67" StyleName="Office.TableBody">
+                    <Style BackgroundColor="242, 242, 242">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.100000001490116cm" Right="0.100000001490116cm" Top="0.100000001490116cm" Bottom="0.100000001490116cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="2" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="0.944716211405243cm" Height="0.5cm" Left="0cm" Top="0cm" Name="textBox68" StyleName="Office.TableBody">
+                    <Style BackgroundColor="242, 242, 242" TextAlign="Center">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.100000001490116cm" Right="0.100000001490116cm" Top="0.100000001490116cm" Bottom="0.100000001490116cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="3" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.0461408982269cm" Height="0.5cm" Left="0cm" Top="0cm" Value="=Sum(Fields.p31Amount_WithoutVat_Approved)" Format="{0:N2}" Name="textBox69" StyleName="Office.TableBody">
+                    <Style BackgroundColor="242, 242, 242" TextAlign="Right">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" />
+                      <Padding Left="0.100000001490116cm" Right="0.100000001490116cm" Top="0.100000001490116cm" Bottom="0.100000001490116cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="4" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="7.5970958328298cm" Height="0.500000019785128cm" Left="0cm" Top="0cm" Name="textBox71" StyleName="Office.TableBody">
+                    <Style BackgroundColor="242, 242, 242">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" Italic="True" />
+                      <Padding Left="0.100000001490116cm" Right="0.100000001490116cm" Top="0.100000001490116cm" Bottom="0.100000001490116cm" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+            </Cells>
+            <Columns>
+              <Column Width="3.08092900302736cm" />
+              <Column Width="3.78126247374664cm" />
+              <Column Width="0.944715999457257cm" />
+              <Column Width="2.04614131291202cm" />
+              <Column Width="7.5970958328298cm" />
+            </Columns>
+            <Rows>
+              <Row Height="0.500000019785128cm" />
+              <Row Height="0.500000019785128cm" />
+              <Row Height="0.513166560856725cm" />
+            </Rows>
+          </Body>
+          <Corner>
+            <Cells>
+              <TableCell RowIndex="0" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.28562494626612cm" Height="0.499999907241635cm" Left="0cm" Top="0cm" Name="textBox64" StyleName="Office.TableHeader">
+                    <Style BackgroundColor="217, 217, 217" TextAlign="Center">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" Bold="True" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="1" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="1.28562494626612cm" Height="0.500000057038038cm" Left="0cm" Top="0cm" Value="Měna" Name="textBox65" StyleName="Office.TableHeader">
+                    <Style BackgroundColor="217, 217, 217" TextAlign="Center">
+                      <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                      <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                      <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                      <Font Size="8pt" Bold="True" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+            </Cells>
+          </Corner>
+          <Style>
+            <Font Name="Calibri" />
+          </Style>
+          <RowGroups>
+            <TableGroup Name="j27Code">
+              <ReportItem>
+                <TextBox Width="1.28562494626612cm" Height="1.00000011407608cm" Left="0cm" Top="0cm" Value="= Fields.j27Code" Name="textBox62" StyleName="">
+                  <Style TextAlign="Center">
+                    <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                    <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                    <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                    <Font Size="8pt" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+              <ChildGroups>
+                <TableGroup Name="Detail">
+                  <Groupings>
+                    <Grouping />
+                  </Groupings>
+                </TableGroup>
+                <TableGroup Name="group13" />
+              </ChildGroups>
+              <Groupings>
+                <Grouping Expression="= Fields.j27Code" />
+              </Groupings>
+              <Sortings>
+                <Sorting Expression="= Fields.j27Code" Direction="Asc" />
+              </Sortings>
+            </TableGroup>
+            <TableGroup Name="group14">
+              <ReportItem>
+                <TextBox Width="1.28562494626612cm" Height="0.513166599090618cm" Left="0cm" Top="0cm" Value="Celkem" Name="textBox63" StyleName="">
+                  <Style BackgroundColor="217, 217, 217" TextAlign="Center">
+                    <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                    <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                    <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                    <Font Size="8pt" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+              <ChildGroups>
+                <TableGroup Name="group5" />
+              </ChildGroups>
+            </TableGroup>
+          </RowGroups>
+          <ColumnGroups>
+            <TableGroup>
+              <ReportItem>
+                <TextBox Width="17.4501446219731cm" Height="0.499999869988737cm" Left="0cm" Top="0cm" Value="Peněžní výdaje a pevné (paušální) odměny" Name="textBox57" StyleName="Office.TableHeader">
+                  <Style BackgroundColor="217, 217, 217" TextAlign="Center">
+                    <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                    <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                    <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                    <Font Size="8pt" Bold="True" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+              <ChildGroups>
+                <TableGroup Name="group3">
+                  <ReportItem>
+                    <TextBox Width="3.08093094825745cm" Height="0.500000059604645cm" Left="0cm" Top="0cm" Value="Sešit" Name="textBox51" StyleName="Office.TableHeader">
+                      <Style BackgroundColor="217, 217, 217" TextAlign="Center">
+                        <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                        <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                        <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                        <Font Size="8pt" Bold="True" />
+                      </Style>
+                    </TextBox>
+                  </ReportItem>
+                </TableGroup>
+                <TableGroup Name="group7">
+                  <ReportItem>
+                    <TextBox Width="3.78126358985901cm" Height="0.500000059604645cm" Left="0cm" Top="0cm" Value="Typ" Name="textBox52" StyleName="Office.TableHeader">
+                      <Style BackgroundColor="217, 217, 217" TextAlign="Center">
+                        <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                        <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                        <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                        <Font Size="8pt" Bold="True" />
+                      </Style>
+                    </TextBox>
+                  </ReportItem>
+                </TableGroup>
+                <TableGroup Name="group9">
+                  <ReportItem>
+                    <TextBox Width="0.944716691970825cm" Height="0.500000059604645cm" Left="0cm" Top="0cm" Value="DPH%" Name="textBox53" StyleName="Office.TableHeader">
+                      <Style BackgroundColor="217, 217, 217" TextAlign="Center">
+                        <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                        <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                        <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                        <Font Size="8pt" Bold="True" />
+                      </Style>
+                    </TextBox>
+                  </ReportItem>
+                </TableGroup>
+                <TableGroup Name="group10">
+                  <ReportItem>
+                    <TextBox Width="2.04614186286926cm" Height="0.500000059604645cm" Left="0cm" Top="0cm" Value="Částka bez DPH" Name="textBox54" StyleName="Office.TableHeader">
+                      <Style BackgroundColor="217, 217, 217" TextAlign="Center">
+                        <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                        <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                        <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                        <Font Size="8pt" Bold="True" />
+                      </Style>
+                    </TextBox>
+                  </ReportItem>
+                </TableGroup>
+                <TableGroup Name="group12">
+                  <ReportItem>
+                    <TextBox Width="7.5970958328298cm" Height="0.500000019785128cm" Left="0cm" Top="0cm" Value="Text" Name="textBox56" StyleName="Office.TableHeader">
+                      <Style BackgroundColor="217, 217, 217" TextAlign="Center">
+                        <BorderStyle Top="Solid" Bottom="Solid" Left="Solid" Right="Solid" />
+                        <BorderColor Top="Black" Bottom="Black" Left="Black" Right="Black" />
+                        <BorderWidth Top="1px" Bottom="1px" Left="1px" Right="1px" />
+                        <Font Size="8pt" Bold="True" />
+                      </Style>
+                    </TextBox>
+                  </ReportItem>
+                </TableGroup>
+              </ChildGroups>
+            </TableGroup>
+          </ColumnGroups>
+          <Filters>
+            <Filter Expression="= Fields.p33ID" Operator="GreaterThan" Value="=1" />
+          </Filters>
+          <Sortings>
+            <Sorting Expression="= Fields.p34Name" Direction="Asc" />
+          </Sortings>
+        </Table>
+      </Items>
+    </DetailSection>
+    <PageFooterSection Height="0.507875205456708cm" Name="pageFooterSection1">
+      <Items>
+        <TextBox Width="7.72187500793321cm" Height="0.428500116827088cm" Left="0.105833330389526cm" Top="0.0793749977921447cm" Value="=NOW()" Name="currentTimeTextBox" StyleName="PageInfo">
+          <Style>
+            <Font Name="Calibri" Size="7pt" />
+          </Style>
+        </TextBox>
+        <TextBox Width="3.33508346328735cm" Height="0.470833448982899cm" Left="15.6170405049353cm" Top="0.00541633590891222cm" Value="Strana {PageNumber}/{PageCount}" Name="pageInfoTextBox" StyleName="PageInfo">
+          <Style TextAlign="Right">
+            <Font Name="Calibri" Size="7pt" />
+          </Style>
+        </TextBox>
+      </Items>
+    </PageFooterSection>
+  </Items>
+  <StyleSheet>
+    <StyleRule>
+      <Style Color="Black">
+        <Font Name="Tahoma" Size="18pt" Bold="True" Italic="False" Underline="False" Strikeout="False" />
+      </Style>
+      <Selectors>
+        <StyleSelector Type="ReportItemBase" StyleName="Title" />
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style Color="Black" VerticalAlign="Middle">
+        <Font Name="Tahoma" Size="10pt" />
+      </Style>
+      <Selectors>
+        <StyleSelector Type="ReportItemBase" StyleName="Caption" />
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style VerticalAlign="Middle">
+        <Font Name="Tahoma" Size="9pt" />
+      </Style>
+      <Selectors>
+        <StyleSelector Type="ReportItemBase" StyleName="Data" />
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style VerticalAlign="Middle">
+        <Font Name="Tahoma" Size="8pt" />
+      </Style>
+      <Selectors>
+        <StyleSelector Type="ReportItemBase" StyleName="PageInfo" />
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style Color="20, 34, 77">
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+        <Font Name="Calibri" Size="9pt" />
+      </Style>
+      <Selectors>
+        <StyleSelector Type="Table" StyleName="Office.TableNormal" />
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style BackgroundColor="121, 167, 227" Color="20, 34, 77" VerticalAlign="Middle">
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+        <Font Name="Calibri" Size="10pt" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="Office.TableHeader" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+    <StyleRule>
+      <Style>
+        <BorderStyle Default="Solid" />
+        <BorderColor Default="Black" />
+        <BorderWidth Default="1px" />
+        <Font Name="Calibri" Size="9pt" />
+      </Style>
+      <Selectors>
+        <DescendantSelector>
+          <Selectors>
+            <TypeSelector Type="Table" />
+            <StyleSelector Type="ReportItem" StyleName="Office.TableBody" />
+          </Selectors>
+        </DescendantSelector>
+      </Selectors>
+    </StyleRule>
+  </StyleSheet>
+  <PageSettings>
+    <PageSettings PaperKind="A4" Landscape="False">
+      <Margins>
+        <MarginsU Left="10mm" Right="10mm" Top="10mm" Bottom="15mm" />
+      </Margins>
+    </PageSettings>
+  </PageSettings>
+  <ReportParameters>
+    <ReportParameter Name="pid" Type="Integer">
+      <Value>
+        <String>1</String>
+      </Value>
+    </ReportParameter>
+    <ReportParameter Name="datfrom" Type="DateTime" />
+    <ReportParameter Name="datuntil" Type="DateTime" />
+  </ReportParameters>
+</Report>

@@ -1,0 +1,80 @@
+﻿table.PluginDataTable {
+    border-collapse: collapse;
+	font-size:100%;
+width:100%;
+}
+
+table.PluginDataTable tr:hover {
+        background-color:#F5F5DC;
+    }
+
+ table.PluginDataTable th {
+        padding: 5px;
+        border: 1px solid silver;
+		color: black;
+		background-color: #F0F8FF;
+    }
+
+  table.PluginDataTable td {
+        padding: 5px;
+        border: 1px solid silver;
+    }
+
+    table.PluginDataTable caption {
+        font-variant: small-caps;
+        font-weight:bold;
+        border-top: solid 1px silver;
+        border-left: solid 1px silver;
+        border-right: solid 1px silver;
+        background-color: #F0F8FF;
+        padding-top: 1px;
+        padding-bottom: 2px;
+    }
+
+
+td#CELL-NUMERIC {
+    text-align: right;
+}
+
+td#CELL-SX {
+    font-style: italic;
+}
+
+
+
+
+td#CELL-TOTAL {
+    text-align: right;
+}
+
+
+
+tr#grandtotal {
+    background-color: #F1F1F1;
+    font-weight: bold;
+    text-align: right;
+}
+
+
+tr#subtotal1 {
+    background-color: #DCDCDC;
+    padding: 2px;
+    font-weight: bold;
+}
+
+tr#subtotal2 {
+    background-color: #ffff99;
+    padding: 2px;
+}
+
+tr#subtotal3 {
+    background-color: orange;
+    border-bottom: 1px solid gray;
+    border-bottom: 1px solid gray;
+    padding: 2px;
+}
+
+tr#subtotal4 {
+    background-color: blue;
+    border-bottom: 1px solid gray;
+}

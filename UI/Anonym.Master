@@ -1,0 +1,58 @@
+﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="Anonym.master.vb" Inherits="UI.Anonym" %>
+<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title runat="server" id="pageTitle">MARKTIME 5.0</title>    
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="IE=edge" >      
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>  
+    <link href="~/Images/favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
+    <link id="css1" runat="server" href="~/Styles/Site_v11.css" rel="stylesheet" type="text/css" />
+    
+    <script src="/Scripts/jquery-1.11.1.min.js" type="text/javascript"></script>
+    
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
+     <div style="position:absolute;top:10px;left:8px;z-index:4000;">
+        <asp:Image runat="server" ID="imgLogo"  ImageUrl="~/Images/logo_transparent.png" style="border:0px;" visible="true" />
+        
+         
+    </div>
+
+          
+    
+    <div style="margin: 52px 14% 8px 14%;padding:0px;">
+        
+    
+    </div>
+    <div style="background-color:White;min-height:420px;margin: 12px 0% 8px 0%;padding:0px;">
+
+    
+    
+        
+        <div style="padding:6px;">
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+        
+        </asp:ContentPlaceHolder>
+        </div>
+    </div>
+    <div>
+    
+    </div>
+    <div style="margin: 12px 14% 8px 14%;">
+        <div style="margin-bottom:20px;">
+            <asp:label ID="lblBuild" runat="server" style="color:gray;"/>
+        </div>
+        <span>© 2016 CleverApp <span style="margin-left:25px;margin-right:25px;">|</span> <a href="http://www.marktime.cz" target="_blank">www.marktime.cz</a> <span style="margin-left:25px;margin-right:25px;">|</span> <a href="mailto:info@marktime.cz">info@marktime.cz</a></span>
+    </div>
+    <asp:HiddenField ID="hidIsMobile" runat="server" />
+    </form>
+</body>
+</html>

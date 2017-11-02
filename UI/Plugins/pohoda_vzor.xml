@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="Windows-1250"?>
+<dat:dataPack id="001" ico="27222861" application="MARKTIME" version = "1.0" note="Import FA z MARKTIME"        xmlns:dat="http://www.stormware.cz/schema/data.xsd"        xmlns:inv="http://www.stormware.cz/schema/invoice.xsd"        xmlns:vch="http://www.stormware.cz/schema/voucher.xsd"        xmlns:int="http://www.stormware.cz/schema/intDoc.xsd"        xmlns:typ="http://www.stormware.cz/schema/type.xsd" >
+
+
+	<dat:dataPackItem id="001" version="1.0">
+		<inv:invoice version="1.1">
+			<inv:invoiceHeader>
+				<inv:invoiceType>issuedInvoice</inv:invoiceType>
+				<inv:number>
+					<typ:numberRequested>280100029</typ:numberRequested>
+				</inv:number>
+				<inv:symVar>280100029</inv:symVar>
+				<inv:date>2008-02-15</inv:date>
+				<inv:dateTax>2008-02-15</inv:dateTax>
+				<inv:dateAccounting>2006-04-14</inv:dateAccounting>
+				<inv:dateDue>2006-04-20</inv:dateDue>
+				<inv:accounting>
+					<typ:ids>602.00</typ:ids>
+				</inv:accounting>
+				<inv:classificationVAT>
+					<typ:classificationVATType>inland</typ:classificationVATType>
+				</inv:classificationVAT>
+				<inv:text>Faktura za zboží</inv:text>				
+				<inv:partnerIdentity>
+
+					<typ:address>
+						<typ:company>xZET s.r.o.</typ:company>
+						<typ:division>Obchodní oddělení</typ:division>
+						<typ:name>Ondřej Maršík</typ:name>
+						<typ:city>Praha 3</typ:city>
+						<typ:street>Zahradní</typ:street>
+
+						<typ:zip>56801</typ:zip>
+						<typ:ico>1111</typ:ico>
+						<typ:dic>330-11111</typ:dic>
+					</typ:address>
+					
+				</inv:partnerIdentity>
+				
+				<inv:paymentType>
+					<typ:ids>příkazem</typ:ids>
+
+				</inv:paymentType>
+				<inv:account>					
+					<typ:accountNo>1117780287</typ:accountNo>
+					<typ:bankCode>0300</typ:bankCode>
+				</inv:account>
+				<inv:centre>
+					<typ:ids>Trebic</typ:ids>
+				</inv:centre>
+
+				<inv:contract>
+					<typ:ids>23Zak00002</typ:ids>
+				</inv:contract>
+				<inv:note></inv:note>
+			</inv:invoiceHeader>			
+			<inv:invoiceDetail>
+
+				<inv:invoiceItem>
+					<inv:text>Položka 1</inv:text>
+					<inv:quantity>2</inv:quantity>
+					<inv:unit>ks</inv:unit>
+					<inv:rateVAT>high</inv:rateVAT>
+					
+					<inv:homeCurrency>
+						<typ:unitPrice>50</typ:unitPrice>
+						<typ:price>100</typ:price>
+						<typ:priceVAT>19</typ:priceVAT>
+						<typ:priceSum>119</typ:priceSum>
+					</inv:homeCurrency>
+					
+					<inv:accounting>
+						<typ:ids>1Fv</typ:ids>
+					</inv:accounting>
+					
+				</inv:invoiceItem>
+			
+			</inv:invoiceDetail>
+			<inv:invoiceSummary>
+				<inv:roundingDocument>none</inv:roundingDocument>
+			</inv:invoiceSummary>
+		</inv:invoice>
+	</dat:dataPackItem>
+</dat:dataPack>
