@@ -153,15 +153,15 @@ Public Class entity_menu
         Else
             'FNO("searchbox").Controls.Add(cbx)
         End If
-        If Factory.SysUser.j03PageMenuFlag = 1 Then
-            'klasické menu
-            If hidSource.Value = "2" Then
-                'panel nahoře a dole
-            Else
-                place0.Controls.Add(New LiteralControl(s))
-            End If
+        ''If Factory.SysUser.j03PageMenuFlag = 1 Then
+        ''    'klasické menu
+        ''    If hidSource.Value = "2" Then
+        ''        'panel nahoře a dole
+        ''    Else
+        ''        place0.Controls.Add(New LiteralControl(s))
+        ''    End If
 
-        End If
+        ''End If
         
 
 

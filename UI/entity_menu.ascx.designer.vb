@@ -68,15 +68,6 @@ Partial Public Class entity_menu
     Protected WithEvents imgPM As Global.System.Web.UI.WebControls.Image
 
     '''<summary>
-    '''place0 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents place0 As Global.System.Web.UI.WebControls.PlaceHolder
-
-    '''<summary>
     '''place1 control.
     '''</summary>
     '''<remarks>
