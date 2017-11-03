@@ -19,7 +19,14 @@
                 'režim zakládání kontaktní osoby
                 Me.j02IsIntraPerson.SelectedValue = "0"
                 Me.j02IsIntraPerson.Enabled = False
-                
+                If BO.BAS.IsNullInt(Request.Item("p28id")) > 0 Then
+                    Me.p28ID.Value = Request.Item("p28id")
+                    Me.p28ID.Text = Master.Factory.GetRecordCaption(BO.x29IdEnum.p28Contact, BO.BAS.IsNullInt(Request.Item("p28id")))
+                End If
+                If BO.BAS.IsNullInt(Request.Item("p41id")) > 0 Then
+                    Me.p41ID.Value = Request.Item("p41id")
+                    Me.p41ID.Text = Master.Factory.GetRecordCaption(BO.x29IdEnum.p41Project, BO.BAS.IsNullInt(Request.Item("p41id")))
+                End If
             Else
                 Master.neededPermission = BO.x53PermValEnum.GR_Admin
             End If

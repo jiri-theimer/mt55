@@ -8,6 +8,7 @@
     Public Property p59ID_Submitter As Integer
     Public Property p59ID_Receiver As Integer
     Public Property o43ID As Integer
+    Public Property o25ID As Integer
 
     Public Property p56Name As String
     Public Property p56NameShort As String

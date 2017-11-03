@@ -7,6 +7,7 @@
     Public Property p56ID As Integer
     Public Property p91ID As Integer
     Public Property p90ID As Integer
+    Public Property o25ID As Integer
 
     Public Property j02ID_Owner As Integer
 

@@ -542,10 +542,8 @@
             Me.p28ID_Supplier.Text = .SupplierName            
             Me.p31Code.Text = .p31Code
             If .j02ID_ContactPerson > 0 Then
-                Me.chkBindToContactPerson.Checked = True
-                RefreshContactPersonCombo(False, .j02ID_ContactPerson)
-            Else
-                Me.chkBindToContactPerson.Checked = False
+
+                Me.j02ID_ContactPerson.SelectedValue = .j02ID_ContactPerson.ToString    'zde už musí být načtené combo kontaktních osob
             End If
             If .p72ID_AfterTrimming > BO.p72IdENUM._NotSpecified Then
                 Me.chkTrimming.Checked = True
@@ -649,6 +647,7 @@
             Me.p32ID.Clear()
             Me.clue_project.Visible = False
         Else
+            hidP28D_Client.Value = _Project.p28ID_Client.ToString
             If _Project.p61ID > 0 Then Me.hidP61ID.Value = _Project.p61ID.ToString
             Me.clue_project.Visible = True
             Me.clue_project.Attributes.Item("rel") = "clue_p41_myworksheet.aspx?pid=" & _Project.PID.ToString & "&j02id=" & Me.CurrentJ02ID.ToString
@@ -694,7 +693,11 @@
                 Me.lblP56ID.CssClass = "lbl"
             End If
 
-            If Not bolTryRun_Handle_P34 Then Return 'dál už se nemá pokračovat
+            SetupContactPersonCombo(True, 0) 'načtení seznamu kontaktních osob
+
+
+
+            If Not bolTryRun_Handle_P34 Then Return 'dál už se nemá pokračovat---------------------------------------------------------
 
 
             If Me.p34ID.Rows > 1 And intDefP34ID > 0 Then
@@ -739,25 +742,7 @@
             End If
 
 
-            Me.chkBindToContactPerson.Checked = False : Me.j02ID_ContactPerson.Visible = False
-            Dim lisP30 As IEnumerable(Of BO.p30Contact_Person) = Master.Factory.p30Contact_PersonBL.GetList(_Project.p28ID_Client, _Project.PID, 0)
-            If lisP30.Count > 0 Then
-                Me.j02ID_ContactPerson.Visible = True
-                chkBindToContactPerson.Text = BO.BAS.OM2(chkBindToContactPerson.Text, lisP30.Select(Function(p) p.j02ID).Distinct.Count.ToString)
 
-                Dim intDefj02ID As Integer = _Project.j02ID_ContactPerson_DefaultInWorksheet
-                If intDefj02ID = 0 And _Project.p28ID_Client <> 0 Then
-                    Dim cP28 As BO.p28Contact = Master.Factory.p28ContactBL.Load(_Project.p28ID_Client)
-                    intDefj02ID = cP28.j02ID_ContactPerson_DefaultInWorksheet
-                End If
-                If intDefj02ID <> 0 Then Me.chkBindToContactPerson.Checked = True
-                RefreshContactPersonCombo(True, intDefj02ID)
-
-            End If
-
-            
-
-            
         End If
     End Sub
     Private Sub Handle_ChangeP34()
@@ -922,11 +907,7 @@
                 If trTask.Visible Then .p56ID = BO.BAS.IsNullInt(Me.p56ID.SelectedValue)
                 .p48ID = Me.CurrentP48ID
                 .p28ID_Supplier = BO.BAS.IsNullInt(Me.p28ID_Supplier.Value)
-                If Me.chkBindToContactPerson.Checked Then
-                    .j02ID_ContactPerson = BO.BAS.IsNullInt(Me.j02ID_ContactPerson.SelectedValue)
-                Else
-                    .j02ID_ContactPerson = 0
-                End If
+                .j02ID_ContactPerson = BO.BAS.IsNullInt(Me.j02ID_ContactPerson.SelectedValue)
 
                 If Me.p31Date.IsEmpty Then
                     .p31Date = Today
@@ -1104,6 +1085,9 @@
                 Me.p49ID.Value = Me.HardRefreshPID.Value
                 Me.p49_record.Text = Master.Factory.GetRecordCaption(BO.x29IdEnum.p49FinancialPlan, CInt(Me.p49ID.Value)) & "</br>"
                 Master.Notify("Vazbu úkonu na rozpočet potvrdíte tlačítkem [Uložit změny].")
+            Case "j02-save"
+                _Project = Master.Factory.p41ProjectBL.Load(Me.CurrentP41ID)
+                SetupContactPersonCombo(True, BO.BAS.IsNullInt(HardRefreshPID.Value))
         End Select
 
 
@@ -1262,29 +1246,27 @@
         Master.Notify("Vyčištění vazby na rozpočet je třeba potvrdit tlačítkem [Uložit změny].")
     End Sub
 
-    Private Sub chkBindToContactPerson_CheckedChanged(sender As Object, e As EventArgs) Handles chkBindToContactPerson.CheckedChanged
-        RefreshContactPersonCombo(False, 0)
-
-    End Sub
     
-    Private Sub RefreshContactPersonCombo(bolSilent As Boolean, intDefJ02ID As Integer)
-        
-        Me.j02ID_ContactPerson.Visible = False
-        If Not Me.chkBindToContactPerson.Checked Then
-            Me.j02ID_ContactPerson.DataSource = Nothing
-            Me.j02ID_ContactPerson.DataBind()
-            Return
-        End If
-        If Me.CurrentP41ID = 0 Then
+    
+    Private Sub SetupContactPersonCombo(bolSilent As Boolean, intDefJ02ID As Integer)
+        If _Project Is Nothing Then
             If Not bolSilent Then Master.Notify("Chybí projekt.")
             Return
         End If
-        If _Project Is Nothing Then _Project = Master.Factory.p41ProjectBL.Load(Me.CurrentP41ID)
+        If intDefJ02ID = 0 Then
+            Dim lisP30 As IEnumerable(Of BO.p30Contact_Person) = Master.Factory.p30Contact_PersonBL.GetList(_Project.p28ID_Client, _Project.PID, 0)
+            If lisP30.Count > 0 Then
+                intDefJ02ID = _Project.j02ID_ContactPerson_DefaultInWorksheet
+                If intDefJ02ID = 0 And _Project.p28ID_Client <> 0 Then
+                    Dim cP28 As BO.p28Contact = Master.Factory.p28ContactBL.Load(_Project.p28ID_Client)
+                    intDefJ02ID = cP28.j02ID_ContactPerson_DefaultInWorksheet
+                End If
+            End If
+        End If
 
         Dim mq As New BO.myQueryJ02
         mq.IntraPersons = BO.myQueryJ02_IntraPersons._NotSpecified
         mq.p41ID = _Project.PID
-        ''If _Project.p28ID_Client > 0 Then mq.p28ID = _Project.p28ID_Client Else mq.p41ID = _Project.PID
 
         Dim lisJ02 As List(Of BO.j02Person) = Master.Factory.j02PersonBL.GetList(mq).ToList
         If lisJ02.Count = 0 And _Project.p28ID_Client <> 0 Then
@@ -1294,16 +1276,10 @@
             Dim c As BO.j02Person = Master.Factory.j02PersonBL.Load(intDefJ02ID)
             If Not c Is Nothing Then lisJ02.Add(c)
         End If
-        If lisJ02.Count = 0 Then
-            If Not bolSilent Then Master.Notify(String.Format(Resources.p31_record.NejsouZavedenyKontaktniOsoby, _Project.p41Name, _Project.Client))
-        Else
-
-            Me.j02ID_ContactPerson.DataSource = lisJ02
-            Me.j02ID_ContactPerson.DataBind()
-            If intDefJ02ID > 0 Then
-                basUI.SelectDropdownlistValue(Me.j02ID_ContactPerson, intDefJ02ID.ToString)
-            End If
-            Me.j02ID_ContactPerson.Visible = True
+        Me.j02ID_ContactPerson.DataSource = lisJ02
+        Me.j02ID_ContactPerson.DataBind()
+        If intDefJ02ID > 0 Then
+            Me.j02ID_ContactPerson.SelectedValue = intDefJ02ID.ToString
         End If
     End Sub
 
@@ -1381,5 +1357,12 @@
         End If
 
        
+    End Sub
+
+    Private Sub j02ID_ContactPerson_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles j02ID_ContactPerson.NeedMissingItem
+        Dim cRec As BO.j02Person = Master.Factory.j02PersonBL.Load(BO.BAS.IsNullInt(strFoundedMissingItemValue))
+        If Not cRec Is Nothing Then
+            strAddMissingItemText = cRec.FullNameDescWithEmail
+        End If
     End Sub
 End Class

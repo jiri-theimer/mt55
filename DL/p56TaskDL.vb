@@ -52,6 +52,7 @@
                 pars.Add("o43ID", BO.BAS.IsNullDBKey(.o43ID), DbType.Int32)
                 pars.Add("p59ID_Submitter", BO.BAS.IsNullDBKey(.p59ID_Submitter), DbType.Int32)
                 pars.Add("p59ID_Receiver", BO.BAS.IsNullDBKey(.p59ID_Receiver), DbType.Int32)
+                ''pars.Add("o25ID", BO.BAS.IsNullDBKey(.o25ID), DbType.Int32)
                 pars.Add("p56CompletePercent", .p56CompletePercent, DbType.Int32)
                 pars.Add("p56RatingValue", .p56RatingValue, DbType.Int32)
 

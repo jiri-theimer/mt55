@@ -96,7 +96,7 @@
         Next
         rp1.DataSource = lis
         rp1.DataBind()
-        cmdTags.Text = "Štítky"
+        cmdTags.Text = "[Štítky]"
     End Sub
 
     Public Function Geto51IDs() As List(Of Integer)

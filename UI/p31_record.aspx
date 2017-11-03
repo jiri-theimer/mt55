@@ -15,32 +15,35 @@
     <link rel="stylesheet" href="Scripts/jqueryui/jquery-ui.min.css" />
     <style type="text/css">
         .ui-autocomplete {
-     max-height: 300px;
-     overflow-y: auto;
-     width:80px;
-     /* prevent horizontal scrollbar */
-     overflow-x: hidden;
- }
+            max-height: 300px;
+            overflow-y: auto;
+            width: 80px;
+            /* prevent horizontal scrollbar */
+            overflow-x: hidden;
+        }
+
+
+       
     </style>
     <script src="Scripts/jqueryui/jquery-ui.min.js" type="text/javascript"></script>
 
     <script type="text/javascript">
-        $(document).ready(function () {            
+        $(document).ready(function () {
             var hours_interval = [
             <%=ViewState("hours_offer")%>
             ];
 
-            
+
             <%If Me.hidHoursEntryFlag.Value = "1" Or Me.hidHoursEntryFlag.Value = "2" Or Me.hidHoursEntryFlag.Value = "3" Then%>
             $("#<%=p31Value_Orig.ClientID%>").autocomplete({
-                source: hours_interval,               
+                source: hours_interval,
                 minLength: 0,
                 scroll: true,
                 change: function (event, ui) {
-                    handle_hours();                    
-                    
+                    handle_hours();
+
                 }
-            }).focus(function () {                
+            }).focus(function () {
                 $(this).autocomplete("search", "")
                 $(this).select();
             });
@@ -58,9 +61,9 @@
                 minLength: 0,
                 scroll: true,
                 change: function (event, ui) {
-                    
+
                     recalcduration();
-                    
+
                 }
             }).focus(function () {
                 $(this).autocomplete("search", "")
@@ -78,10 +81,21 @@
                 $(this).autocomplete("search", "")
                 $(this).select();
             });
-            
+
+
+          
+            $(".slidingDiv1").hide();
+            $("#show_hide1").show();
+
+            $('#show_hide1').click(function () {                
+                $(".slidingDiv1").slideToggle();
+            });
+
+           
+
         });
 
-        
+
 
 
         function RecalcWithVat() {
@@ -157,10 +171,10 @@
             var p32id = item.get_value();
             var p41id_pid = "<%=p41id.value%>";
             var j27id_pid = "";
-            <%If panM.Visible then%>
+            <%If panM.Visible Then%>
             j27id_pid = "<%=j27ID_Orig.SelectedValue%>";
-            <%end If%>
-            
+            <%End If%>
+
             $.post("Handler/handler_activity.ashx", { pid: p32id, p41id: p41id_pid, j27id: j27id_pid }, function (data) {
                 if (data == null) {
                     alert("Neznámá chyba");
@@ -169,18 +183,18 @@
                 if (data.ErrorMessage != "") {
                     alert(data.ErrorMessage);
                     return;
-                }                
-                
-                
+                }
+
+
                 <%If panT.Visible Then%>
-                if (Number(data.Default_p31Value) != 0 && self.document.getElementById("<%=p31Value_Orig.ClientID%>").value == "") {                    
+                if (Number(data.Default_p31Value) != 0 && self.document.getElementById("<%=p31Value_Orig.ClientID%>").value == "") {
                     self.document.getElementById("<%=p31Value_Orig.ClientID%>").value = data.Default_p31Value_String;
 
                 }
                 if (data.p32ManualFeeFlag == 1) {
                     document.getElementById("<%=tdManulFee.ClientID%>").style.display = "block";
                     var ctl = $find("<%= ManualFee.ClientID%>");
-                    if (data.p32ManualFeeDefAmount !=0)
+                    if (data.p32ManualFeeDefAmount != 0)
                         ctl.set_value(data.p32ManualFeeDefAmount);
                 }
                 else {
@@ -197,12 +211,12 @@
                 <%If panM.Visible Then%>
                 if (Number(data.Default_p31Value) != 0) {
                     $find("<%= p31Calc_PieceAmount.ClientID%>").set_value(data.Default_p31Value);
-                    $find("<%= p31Calc_Pieces.ClientID%>").set_value(1);                   
+                    $find("<%= p31Calc_Pieces.ClientID%>").set_value(1);
                     RecalcAmount_ByPieces();
                 }
                 <%End If%>
-                if (data.Default_p31Text != "" && data.Default_p31Text !=null) {
-                    
+                if (data.Default_p31Text != "" && data.Default_p31Text != null) {
+
                     if (self.document.getElementById("<%=p31text.ClientID%>").value == "")
                         self.document.getElementById("<%=p31text.ClientID%>").value = data.Default_p31Text;
                     else {
@@ -213,16 +227,16 @@
                     }
                 }
 
-                if (data.IsTextRequired==true)
+                if (data.IsTextRequired == true)
                     document.getElementById("<%=Me.lblP31Text.ClientID%>").className = "lblReq";
                 else
                     document.getElementById("<%=Me.lblP31Text.ClientID%>").className = "lbl";
-                
-                if (data.IsDefaultVatRate==true) {
-                    var combo = $find("<%= p31VatRate_Orig.RadCombo.ClientID%>");                     
+
+                if (data.IsDefaultVatRate == true) {
+                    var combo = $find("<%= p31VatRate_Orig.RadCombo.ClientID%>");
                     combo.set_text(data.DefaultVatRate);
                 }
-                
+
 
 
 
@@ -258,9 +272,9 @@
             });
         }
 
-        function handle_hours() {            
+        function handle_hours() {
             var h = document.getElementById("<%=Me.p31Value_Orig.ClientID%>").value;
-            var hef = document.getElementById("<%=Me.hidHoursEntryFlag.ClientID%>").value;            
+            var hef = document.getElementById("<%=Me.hidHoursEntryFlag.ClientID%>").value;
             var strOper = "hours";
             if (hef == "2")
                 strOper = "minutes";
@@ -275,7 +289,7 @@
             });
         }
 
-        
+
 
         function setting() {
             var p33id = document.getElementById("<%=hidP33ID.ClientID%>").value;
@@ -294,13 +308,13 @@
 
                 document.getElementById("<%=me.hidHoursEntryFlag.ClientID%>").value = par1;
             }
-            
+
 
             <%=Me.ClientScript.GetPostBackEventReference(Me.cmdHardRefresh, "", False)%>
-            
-            
-          
-            
+
+
+
+
         }
 
         function sw_local(url, img, is_maximize)  //je to zde kvůli zapisování komentářů přes info-bublinu
@@ -308,16 +322,40 @@
             dialog_master(url, is_maximize);
         }
 
-       
+
         function p49_bind() {
             var p41id = "<%=me.p41ID.value%>";
             var p34id = "<%=Me.p34ID.SelectedValue%>";
-            dialog_master("p49_bind.aspx?p34id="+p34id+"&p41id="+p41id, true);
+            dialog_master("p49_bind.aspx?p34id=" + p34id + "&p41id=" + p41id, true);
         }
         function changelog() {
             dialog_master("changelog.aspx?prefix=p31&pid=<%=Master.DataPID%>", true)
         }
-       
+
+        function contact_person_create() {
+            var url = "j02_record.aspx?pid=0&iscontact=1";
+
+            var p28id = document.getElementById("<%=hidP28D_Client.ClientID%>").value;
+            var p41id = "<%=me.p41ID.value%>";
+
+            if (p28id != "0")
+                url = url + "&p28id=" + p28id;
+            else
+                url = url + "&p41id=" + p41id;
+                        
+            dialog_master(url,true);
+
+        }
+        function contact_person_edit() {            
+            var combo = $find("<%= Me.j02ID_ContactPerson.RadComboClientID%>");           
+            var j02id = combo.get_value();
+            if (j02id == "" || j02id == "0") {
+                $.alert("Musíte vybrat osobu.");
+                return;
+            }
+            dialog_master("j02_record.aspx?pid="+j02id, true);
+
+        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -333,20 +371,20 @@
         <tr>
             <td>
                 <asp:Label ID="lblP41ID" runat="server" Text="Projekt:" CssClass="lblReq" meta:resourcekey="lblP41ID"></asp:Label>
-                
+
             </td>
             <td>
                 <uc:project ID="p41ID" runat="server" Width="400px" AutoPostBack="true" Flag="p31_entry" />
                 <asp:HyperLink ID="clue_project" runat="server" CssClass="reczoom" Text="i" Visible="false"></asp:HyperLink>
             </td>
         </tr>
-        <tr style="height:30px;" id="trTask" runat="server" visible="false">
+        <tr style="height: 30px;" id="trTask" runat="server" visible="false">
             <td>
                 <asp:Label ID="lblP56ID" runat="server" Text="Úkol v projektu:" CssClass="lbl"></asp:Label>
             </td>
             <td>
                 <uc:datacombo ID="p56ID" runat="server" Width="400px" DataTextField="NameWithTypeAndCode" DataValueField="pid" IsFirstEmptyRow="true" AutoPostBack="false" Filter="Contains" BackgroundColor="#F0F8FF" />
-                
+
             </td>
         </tr>
         <tr>
@@ -378,7 +416,7 @@
         </tr>
 
     </table>
-    
+
     <asp:Panel ID="panT" runat="server" Visible="false">
         <table cellpadding="5" cellspacing="2">
             <tr>
@@ -386,7 +424,7 @@
                     <asp:Label ID="lblHours" runat="server" Text="Hodiny:" CssClass="lblReq"></asp:Label>
                 </td>
                 <td>
-                    
+
                     <asp:TextBox ID="p31Value_Orig" runat="server" Style="width: 50px;" onchange="handle_hours()"></asp:TextBox>
                 </td>
                 <td>
@@ -394,7 +432,7 @@
                 </td>
                 <td>
 
-                    
+
                     <asp:TextBox ID="TimeFrom" runat="server" Style="width: 50px;"></asp:TextBox>
                 </td>
                 <td>
@@ -402,18 +440,18 @@
                 </td>
                 <td>
                     <asp:TextBox ID="TimeUntil" runat="server" Style="width: 50px;"></asp:TextBox>
-                    
+
                 </td>
-                <td id="tdManulFee" runat="server" style="display:none;">
+                <td id="tdManulFee" runat="server" style="display: none;">
                     <span class="lblReq">Pevný honorář:</span>
                     <telerik:RadNumericTextBox ID="ManualFee" runat="server" Width="70px" NumberFormat-ZeroPattern="n"></telerik:RadNumericTextBox>
                 </td>
                 <td>
                     <asp:Label ID="HandlerMessage" runat="server" Style="color: navy; font-size: 90%;"></asp:Label>
                 </td>
-               
+
             </tr>
-          
+
         </table>
     </asp:Panel>
     <asp:Panel ID="panU" runat="server" Visible="false">
@@ -453,12 +491,12 @@
             <tr>
                 <td>
                     <asp:Label ID="lblp31Amount_WithVat_Orig" runat="server" Text="Částka vč. DPH:" CssClass="lbl" meta:resourcekey="lblp31Amount_WithVat_Orig"></asp:Label>
-                    
-                   
+
+
                 </td>
                 <td>
-                    <telerik:RadNumericTextBox ID="p31Amount_WithVat_Orig" runat="server" Width="100px" NumberFormat-ZeroPattern="n" ></telerik:RadNumericTextBox>
-                    
+                    <telerik:RadNumericTextBox ID="p31Amount_WithVat_Orig" runat="server" Width="100px" NumberFormat-ZeroPattern="n"></telerik:RadNumericTextBox>
+
                 </td>
                 <td>
                     <asp:Label ID="lblp31Amount_Vat_Orig" runat="server" Text="Částka DPH:" CssClass="lbl" meta:resourcekey="lblp31Amount_Vat_Orig"></asp:Label>
@@ -467,7 +505,7 @@
                     <telerik:RadNumericTextBox ID="p31Amount_Vat_Orig" runat="server" Width="100px" NumberFormat-ZeroPattern="n"></telerik:RadNumericTextBox>
                 </td>
                 <td>
-                    <asp:ImageButton ID="cmdRecalcVat1" runat="server" ImageUrl="Images/recalc.png" CssClass="button-link" style="display:block;" ToolTip="Dopočítat z celkové částky částku bez DPH a částku DPH"/>
+                    <asp:ImageButton ID="cmdRecalcVat1" runat="server" ImageUrl="Images/recalc.png" CssClass="button-link" Style="display: block;" ToolTip="Dopočítat z celkové částky částku bez DPH a částku DPH" />
                 </td>
             </tr>
             <tr>
@@ -481,7 +519,7 @@
                     <uc:datacombo ID="p35ID" Width="60px" runat="server" AllowCustomText="false" Filter="StartsWith" DataValueField="pid" DataTextField="p35Code" IsFirstEmptyRow="true"></uc:datacombo>
                 </td>
                 <td>
-                    <asp:Label ID="lblp31Calc_PieceAmount" runat="server" Text="Cena 1 ks:" CssClass="lbl" meta:resourcekey="lblp31Calc_PieceAmount"></asp:Label>                    
+                    <asp:Label ID="lblp31Calc_PieceAmount" runat="server" Text="Cena 1 ks:" CssClass="lbl" meta:resourcekey="lblp31Calc_PieceAmount"></asp:Label>
                 </td>
                 <td>
                     <telerik:RadNumericTextBox ID="p31Calc_PieceAmount" runat="server" Width="100px" NumberFormat-ZeroPattern="n">
@@ -500,46 +538,50 @@
                     <uc:contact ID="p28ID_Supplier" runat="server" Width="250px" Flag="supplier" />
                     <asp:Label ID="lblCode" runat="server" CssClass="lbl" Text="Kód dokladu:"></asp:Label>
                     <asp:TextBox ID="p31Code" runat="server" Width="100px"></asp:TextBox>
-                  
+
                 </td>
             </tr>
-           
+
         </table>
     </asp:Panel>
     <div class="div6">
         <div>
             <asp:Label ID="lblP31Text" runat="server" Text="Podrobný popis úkonu:" CssClass="lbl" meta:resourcekey="lblP31Text"></asp:Label>
             <asp:Image ID="imgFlag" runat="server" />
-            <input id="search2" style="width: 400px;border:solid 1px white;color:#696969;font-family:'Segoe UI';margin-left:50px;" value="Našeptávač    ...stačí napsat 2 písmena" onfocus="search2Focus()" onblur="search2Blur()" title="Hledání podle částečné shody textu úkonu, názvu klienta, názvu nebo kódu projektu a názvu aktivity" />
-            
+            <input id="search2" style="width: 400px; border: solid 1px white; color: #696969; font-family: 'Segoe UI'; margin-left: 50px;" value="Našeptávač    ...stačí napsat 2 písmena" onfocus="search2Focus()" onblur="search2Blur()" title="Hledání podle částečné shody textu úkonu, názvu klienta, názvu nebo kódu projektu a názvu aktivity" />
+
         </div>
         <asp:TextBox ID="p31Text" runat="server" Style="height: 90px; width: 99%;" TextMode="MultiLine"></asp:TextBox>
         <uc:freefields ID="ff1" runat="server" />
     </div>
-    
-    <div class="content-box1" style="min-width:50px;">
-        <div class="title">
-            <img src="Images/contactperson.png" alt="Kontaktní osoba" />
-            <asp:CheckBox ID="chkBindToContactPerson" runat="server" Text="Kontaktní osoba" AutoPostBack="true" meta:resourcekey="chkBindToContactPerson" />
-        </div>
-        <div class="content">
-            <asp:DropDownList ID="j02ID_ContactPerson" runat="server" Visible="false" DataValueField="pid" DataTextField="FullNameDescWithEmail"></asp:DropDownList>
+    <div class="div6">
+        <a class="pp1" id="show_hide1" href="#" title="Menu pro kontaktní osobu"></a>
+        <span class="lbl" style="padding-right: 10px;">Kontaktní osoba:</span>
+        <uc:datacombo ID="j02ID_ContactPerson" runat="server" Width="400px" DataTextField="FullNameDescWithEmail" DataValueField="pid" IsFirstEmptyRow="true" AutoPostBack="false" Filter="Contains" BackgroundColor="#FFFFF0" />
+        <div class="slidingDiv1" style="display:none;">
+            <div>
+                <button type="button" onclick="contact_person_create()">Založit novou kontaktní osobu</button>
+           
+                <button type="button" onclick="contact_person_edit()">Upravit kartu vybrané osoby</button>
+            </div>
         </div>
     </div>
-    
 
-    <asp:panel ID="panP49" runat="server" cssclass="content-box1" style="min-width:170px;" Visible="false">
+
+
+
+    <asp:Panel ID="panP49" runat="server" CssClass="content-box1" Style="min-width: 170px;" Visible="false">
         <div class="title">
             <img src="Images/finplan.png" alt="Rozpočet" /><asp:Label ID="lblRozpocet" runat="server" Text="Rozpočet" meta:resourcekey="lblRozpocet"></asp:Label>
             <asp:HyperLink ID="cmdP49" runat="server" Text="Spárovat" NavigateUrl="javascript:p49_bind()"></asp:HyperLink>
         </div>
         <div class="content">
-            <asp:Label ID="p49_record" runat="server" CssClass="valboldblue"></asp:Label>           
+            <asp:Label ID="p49_record" runat="server" CssClass="valboldblue"></asp:Label>
             <asp:Button ID="cmdClearP49ID" runat="server" Text="Vyčistit vazbu na rozpočet" CssClass="cmd" />
             <asp:HiddenField ID="p49ID" runat="server" />
         </div>
-    </asp:panel>
-    <asp:panel ID="panTrimming" runat="server" cssclass="content-box1" style="min-width:100px;" Visible="false">
+    </asp:Panel>
+    <asp:Panel ID="panTrimming" runat="server" CssClass="content-box1" Style="min-width: 100px;" Visible="false">
         <div class="title">
             <img src="Images/correction_down.gif" alt="Korekce pro schvalování" />
             <img src="Images/correction_up.gif" alt="Korekce pro schvalování" />
@@ -553,9 +595,9 @@
                 <asp:ListItem Text="<%$ Resources:common, ViditelnyOdpis %>" Value="2"></asp:ListItem>
             </asp:RadioButtonList>
             <asp:Label ID="lblValueTrimmed" Text="Hodiny k fakturaci:" runat="server" Visible="false" meta:resourcekey="lblValueTrimmed"></asp:Label>
-            <asp:TextBox ID="p31Value_Trimmed" runat="server" style="width:40px;text-align:left;" Visible="false"></asp:TextBox>
+            <asp:TextBox ID="p31Value_Trimmed" runat="server" Style="width: 40px; text-align: left;" Visible="false"></asp:TextBox>
         </div>
-    </asp:panel>
+    </asp:Panel>
 
     <div style="clear: both;"></div>
     <div class="div6">
@@ -582,7 +624,8 @@
     <asp:HiddenField ID="hidP48ID" runat="server" />
     <asp:HiddenField ID="hidP85ID" runat="server" />
     <asp:HiddenField ID="hidP61ID" runat="server" />
-    
+    <asp:HiddenField ID="hidP28D_Client" runat="server" />
+
     <asp:HiddenField ID="p31_default_HoursEntryFlag" runat="server" />
     <asp:HiddenField ID="hidCurIsScheduler" runat="server" Value="0" />
     <asp:HiddenField ID="hidCurPerson_J02ID" runat="server" />
@@ -593,7 +636,7 @@
     <asp:HiddenField ID="hidDefaultJ27ID" runat="server" />
     <asp:HiddenField ID="hidDefaultVatRate" runat="server" />
     <asp:HiddenField ID="hidGuidApprove" runat="server" />
-    
+
 
     <script type="text/javascript">
         $(function () {
@@ -603,11 +646,11 @@
                 minLength: 2,
                 select: function (event, ui) {
                     if (ui.item) {
-                        
+
                         document.getElementById("<%=p31Text.ClientID%>").value = ui.item.p31Text;
                         return false;
                     }
-                },               
+                },
                 close: function (event, ui) {
                     $('ul.ui-autocomplete')
                     .hide();
@@ -617,13 +660,13 @@
 
             }).data("ui-autocomplete")._renderItem = function (ul, item) {
                 var s = "<div><a>";
-                
-                s = s + __highlight(item.p31Date+"<span style='color:silver;'>:"+item.Project + "</span><br><i>" + item.Text2Html+"</i>", item.FilterString);
+
+                s = s + __highlight(item.p31Date + "<span style='color:silver;'>:" + item.Project + "</span><br><i>" + item.Text2Html + "</i>", item.FilterString);
 
 
                 s = s + "</a>";
 
-                
+
 
                 s = s + "</div>";
 
