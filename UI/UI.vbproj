@@ -122,6 +122,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Rebex.Networking.dll</HintPath>
     </Reference>
+    <Reference Include="Rebex.Smtp, Version=2.0.6508.0, Culture=neutral, PublicKeyToken=1c4638788972655d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\MARKTIME55_EXTERNAL_DLLS\Rebex.Smtp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />

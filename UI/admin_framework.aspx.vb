@@ -233,6 +233,7 @@ Public Class admin_framework
 
             .AddItem("Číselné řady", "x38", NU("x38"), "other")
             .AddItem("Střediska", "j18", NU("j18"), "other")
+            .AddItem("Integrace s externími IS", "o25", NU("o25"), "other")
             .AddItem("Pravidla opakovaných úkolů a projektů", "p65", NU("p65"), "other")
             .AddItem("Regiony", "j17", NU("j17"), "other")
             .AddItem("Textové šablony", "j61", NU("j61"), "other")
@@ -499,7 +500,9 @@ Public Class admin_framework
                     'Case "x23"
                     '    .AddColumn("x23Name", "Název")
                     '    .AddColumn("x23Ordinary", "#", BO.cfENUM.Numeric0)
-                
+                Case "o25"
+                    .AddColumn("o25Name", "Název IS")
+
                 Case "x27"
                     .AddColumn("x27Name", "Název skupiny")
                     .AddColumn("x27Ordinary", "#", BO.cfENUM.Numeric0)
@@ -761,6 +764,9 @@ Public Class admin_framework
                     grid1.DataSource = lis
                 Case "o41"
                     Dim lis As IEnumerable(Of BO.o41InboxAccount) = .o41InboxAccountBL.GetList(mqDef)
+                    grid1.DataSource = lis
+                Case "o25"
+                    Dim lis As IEnumerable(Of BO.o25App) = .o25AppBL.GetList(mqDef)
                     grid1.DataSource = lis
                 Case "o40"
                     Dim lis As IEnumerable(Of BO.o40SmtpAccount) = .o40SmtpAccountBL.GetList(mqDef)

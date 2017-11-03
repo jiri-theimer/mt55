@@ -96,6 +96,7 @@
     <Compile Include="DBNative\m62ExchangeRate.vb" />
     <Compile Include="DBNative\o20Milestone_Receiver.vb" />
     <Compile Include="DBNative\o21MilestoneType.vb" />
+    <Compile Include="DBNative\o25App.vb" />
     <Compile Include="DBNative\o40SmtpAccount.vb" />
     <Compile Include="DBNative\o41InboxAccount.vb" />
     <Compile Include="DBNative\o42ImapRule.vb" />

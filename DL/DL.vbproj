@@ -99,6 +99,7 @@
     <Compile Include="j77WorksheetStatTemplateDL.vb" />
     <Compile Include="m62ExchangeRateDL.vb" />
     <Compile Include="o21MilestoneTypeDL.vb" />
+    <Compile Include="o25AppDL.vb" />
     <Compile Include="o40SmtpAccountDL.vb" />
     <Compile Include="o41InboxAccountDL.vb" />
     <Compile Include="o42ImapRuleDL.vb" />

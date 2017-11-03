@@ -19,6 +19,7 @@
     Private Property _o21 As Io21MilestoneTypeBL
 
     Private Property _o22 As Io22MilestoneBL
+    Private Property _o25 As Io25AppBL
     Private Property _o23 As Io23DocBL
     Private Property _p51 As Ip51PriceListBL
     Private Property _p50 As Ip50OfficePriceListBL
@@ -418,6 +419,12 @@
         Get
             If _o21 Is Nothing Then _o21 = New o21MilestoneTypeBL(_cUser)
             Return _o21
+        End Get
+    End Property
+    Public ReadOnly Property o25AppBL As Io25AppBL
+        Get
+            If _o25 Is Nothing Then _o25 = New o25AppBL(_cUser)
+            Return _o25
         End Get
     End Property
     Public ReadOnly Property o22MilestoneBL As Io22MilestoneBL
