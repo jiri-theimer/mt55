@@ -20,7 +20,7 @@ Public Class ASS
         'Dim ass As [Assembly] = [Assembly].GetExecutingAssembly()
         'Dim a() As String = Split(ass.ToString, ",")
         'Dim strAppVer As String = a(1)
-        Dim strAppVer As String = "5.0"
+        Dim strAppVer As String = "5.5"
         Dim strFile As String = GetApplicationRootFolder() & "\bin\UI.dll"
         If System.IO.File.Exists(strFile) Then
             Dim info As New FileInfo(strFile)
