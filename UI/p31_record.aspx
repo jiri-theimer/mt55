@@ -337,12 +337,16 @@
 
             var p28id = document.getElementById("<%=hidP28D_Client.ClientID%>").value;
             var p41id = "<%=me.p41ID.value%>";
+            if (p41id=="" || p41id=="0") {
+                $.alert("Musíte vybrat projekt.");
+                return;
+            }
 
             if (p28id != "0")
                 url = url + "&p28id=" + p28id;
             else
                 url = url + "&p41id=" + p41id;
-                        
+                             
             dialog_master(url,true);
 
         }
@@ -555,7 +559,8 @@
         <uc:freefields ID="ff1" runat="server" />
     </div>
     <div class="div6">
-        <a class="pp1" id="show_hide1" href="#" title="Menu pro kontaktní osobu"></a>
+        <a class="pp1" id="show_hide1" href="#" title="Menu pro kontaktní osobu"></a>
+
         <span class="lbl" style="padding-right: 10px;">Kontaktní osoba:</span>
         <uc:datacombo ID="j02ID_ContactPerson" runat="server" Width="400px" DataTextField="FullNameDescWithEmail" DataValueField="pid" IsFirstEmptyRow="true" AutoPostBack="false" Filter="Contains" BackgroundColor="#FFFFF0" />
         <div class="slidingDiv1" style="display:none;">
