@@ -298,6 +298,7 @@
     <Content Include="o23_list.ascx" />
     <Content Include="o23_queue.aspx" />
     <Content Include="o23_subgrid.ascx" />
+    <Content Include="o25_record.aspx" />
     <Content Include="o40_record.aspx" />
     <Content Include="o41_record.aspx" />
     <Content Include="o42_record.aspx" />
@@ -1392,6 +1393,13 @@
     <Compile Include="o23_subgrid.ascx.vb">
       <DependentUpon>o23_subgrid.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="o25_record.aspx.designer.vb">
+      <DependentUpon>o25_record.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="o25_record.aspx.vb">
+      <DependentUpon>o25_record.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="o40_record.aspx.designer.vb">
       <DependentUpon>o40_record.aspx</DependentUpon>
