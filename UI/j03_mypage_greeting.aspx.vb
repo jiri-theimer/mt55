@@ -216,20 +216,7 @@
             panP39.Visible = True
         End If
 
-        ''Dim mqP48 As New BO.myQueryP48
-        ''mqP48.j02ID_Owner = Master.Factory.SysUser.j02ID
-        ''mqP48.DateFrom = Now.AddDays(-4)
-        ''mqP48.DateUntil = Now.AddDays(1)
-
-        ''Dim lisP48 As IEnumerable(Of BO.p48OperativePlan) = Master.Factory.p48OperativePlanBL.GetList(mqP48).Where(Function(p) p.p31ID = 0).OrderBy(Function(p) p.p48Date)
-        ''If lisP48.Count > 0 Then
-        ''    Me.panP48.Visible = True
-        ''    Me.p48Count.Text = lisP48.Count.ToString
-        ''    rpP48.DataSource = lisP48
-        ''    rpP48.DataBind()
-        ''Else
-        ''    Me.panP48.Visible = False
-        ''End If
+      
     End Sub
 
     
@@ -271,27 +258,7 @@
 
     End Sub
 
-    ''Private Sub rpP48_ItemDataBound(sender As Object, e As RepeaterItemEventArgs) Handles rpP48.ItemDataBound
-    ''    Dim cRec As BO.p48OperativePlan = CType(e.Item.DataItem, BO.p48OperativePlan)
-    ''    With CType(e.Item.FindControl("link1"), HyperLink)
-    ''        .Text = cRec.ClientAndProject
-    ''        .NavigateUrl = "javascript:p48_record(" & cRec.PID.ToString & ")"
-    ''        If cRec.IsClosed Then .Font.Strikeout = True
-    ''    End With
-    ''    With CType(e.Item.FindControl("clue1"), HyperLink)
-    ''        .Attributes.Item("rel") = "clue_p48_record.aspx?&pid=" & cRec.PID.ToString
-    ''    End With
-    ''    With CType(e.Item.FindControl("p48Date"), Label)
-    ''        .Text = BO.BAS.FD(cRec.p48Date)
-    ''        If cRec.p48TimeFrom <> "" Then .Text += " " & cRec.p48TimeFrom & " - " & cRec.p48TimeUntil
-    ''    End With
-    ''    With CType(e.Item.FindControl("p48Hours"), Label)
-    ''        .Text = BO.BAS.FN(cRec.p48Hours) & "h."
-    ''    End With
-    ''    With CType(e.Item.FindControl("convert1"), HyperLink)
-    ''        .NavigateUrl = "javascript: p48_convert(" & cRec.PID.ToString & ")"
-    ''    End With
-    ''End Sub
+  
 
     Private Sub ShowChart1(strFlag As String)
         If Not chkShowCharts.Checked Then ShowImage() : Return

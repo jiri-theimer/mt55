@@ -65,9 +65,7 @@ Public Class project_service
             Case "search4o23"
                 mq.Closed = BO.BooleanQueryMode.FalseQuery
                 mq.SpecificQuery = BO.myQueryP41_SpecificQuery.AllowedForRead
-            Case "p48"
-                'zapisovat operativní plán
-                mq.SpecificQuery = BO.myQueryP41_SpecificQuery.AllowedForOperPlanEntry
+        
             Case "createtask"
                 mq.SpecificQuery = BO.myQueryP41_SpecificQuery.AllowedForCreateTask
             Case "createinvoice"

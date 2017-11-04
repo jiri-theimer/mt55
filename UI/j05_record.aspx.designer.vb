@@ -95,33 +95,6 @@ Partial Public Class j05_record
     Protected WithEvents j05Disposition_p31 As Global.System.Web.UI.WebControls.RadioButtonList
 
     '''<summary>
-    '''Label2 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Label2 As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''j05IsCreate_p48 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents j05IsCreate_p48 As Global.System.Web.UI.WebControls.CheckBox
-
-    '''<summary>
-    '''j05Disposition_p48 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents j05Disposition_p48 As Global.System.Web.UI.WebControls.RadioButtonList
-
-    '''<summary>
     '''Master property.
     '''</summary>
     '''<remarks>

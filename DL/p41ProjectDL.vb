@@ -298,10 +298,6 @@
         s.Append(bas.ParseWhereMultiPIDs("a.p41ID", myQuery))
         s.Append(bas.ParseWhereValidity("p41", "a", myQuery))
         With myQuery
-            If .SpecificQuery = BO.myQueryP41_SpecificQuery.AllowedForOperPlanEntry Then
-                .SpecificQuery = BO.myQueryP41_SpecificQuery.AllowedForRead
-                s.Append(" AND p42.p42IsModule_p48=1 and getdate() between a.p41ValidFrom AND a.p41ValidUntil")
-            End If
             If .p42ID <> 0 Then
                 pars.Add("p42id", .p42ID, DbType.Int32)
                 s.Append(" AND a.p42ID=@p42id")

@@ -148,15 +148,7 @@
                         Else
                             strW += " AND a.j02ID=@j02id_me"
                         End If
-                    Case BO.myQueryJ02_SpecificQuery.AllowedForP48Entry
-                        If _curUser.IsMasterPerson Then
-                            strW += " AND (a.j02ID IN (SELECT j02ID_Slave FROM j05MasterSlave WHERE j02ID_Master=@j02id_me AND j05IsCreate_p48=1)"
-                            strW += " OR a.j02ID IN (SELECT j12.j02ID FROM j12Team_Person j12 INNER JOIN j05MasterSlave xj05 ON j12.j11ID=xj05.j11ID_Slave WHERE xj05.j02ID_Master=@j02id_me AND xj05.j05IsCreate_p48=1)"
-                            strW += " OR a.j02ID=@j02id_me)"
-                            pars.Add("j02id_me", _curUser.j02ID, DbType.Int32)
-                        Else
-                            strW += " AND a.j02ID=@j02id_me"
-                        End If
+                    
                 End Select
             End If
             If .j70ID > 0 Then
@@ -243,13 +235,11 @@
         s += " ORDER BY a.j02LastName,a.j02FirstName"
         Return _cDB.GetList(Of BO.j02Person)(s, pars)
     End Function
-    Public Function GetList_Slaves(intJ02ID As Integer, bolDispCreateP31 As Boolean, dispP31 As BO.j05Disposition_p31ENUM, bolDispCreateP48 As Boolean, dispP48 As BO.j05Disposition_p48ENUM) As IEnumerable(Of BO.j02Person)
+    Public Function GetList_Slaves(intJ02ID As Integer, bolDispCreateP31 As Boolean, dispP31 As BO.j05Disposition_p31ENUM) As IEnumerable(Of BO.j02Person)
         Dim s As String = GetSQLPart1(0), pars As New DbParameters
         Dim strW As String = ""
         If dispP31 > BO.j05Disposition_p31ENUM._NotSpecified Then strW += " OR j05Disposition_p31=" & CInt(dispP31).ToString
-        If dispP48 > BO.j05Disposition_p48ENUM._NotSpecified Then strW += " OR j05Disposition_p48=" & CInt(dispP48).ToString
         If bolDispCreateP31 Then strW += " OR j05IsCreate_p31=1"
-        If bolDispCreateP48 Then strW += " OR j05IsCreate_p48=1"
         If strW <> "" Then strW = "(" & Right(strW, Len(strW) - 4) & ")"
 
         pars.Add("j02id_me", intJ02ID, DbType.Int32)

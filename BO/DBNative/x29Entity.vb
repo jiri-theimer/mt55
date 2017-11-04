@@ -17,7 +17,7 @@
 
     o22Milestone = 222
     o23Doc = 223
-
+    o25App = 225
     o43ImapRobotHistory = 243
 
     o27Attachment = 227
@@ -25,7 +25,7 @@
     p31Worksheet = 331
     p40WorkSheet_Recurrence = 340
     p47CapacityPlan = 347
-    p48OperativePlan = 348
+
     p49FinancialPlan = 349
 
     p51PriceList = 351

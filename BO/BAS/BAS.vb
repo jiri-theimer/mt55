@@ -59,6 +59,7 @@
             Case "p56" : Return x29IdEnum.p56Task
             Case "p57" : Return x29IdEnum.p57TaskType
             Case "o23" : Return x29IdEnum.o23Doc
+            Case "o25" : Return x29IdEnum.o25App
             Case "o22" : Return x29IdEnum.o22Milestone
             Case "j23" : Return x29IdEnum.j23NonPerson
             Case "j24" : Return x29IdEnum.j24NonPersonType
@@ -68,7 +69,6 @@
             Case "j18" : Return x29IdEnum.j18Region
             Case "p45" : Return x29IdEnum.p45Budget
             Case "p49" : Return x29IdEnum.p49FinancialPlan
-            Case "p48" : Return x29IdEnum.p48OperativePlan
             Case "p47" : Return x29IdEnum.p47CapacityPlan
             Case "x18" : Return x29IdEnum.x18EntityCategory
             Case "p32" : Return x29IdEnum.p32Activity

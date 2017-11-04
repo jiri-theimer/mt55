@@ -68,24 +68,7 @@
             <td></td>
             <td></td>
         </tr>
-        <tr valign="top">
-            <td>
-                <asp:Label ID="Label2" Text="Vztak k operativnímu plánu:" runat="server" CssClass="lbl"></asp:Label></td>
-            <td>
-                <div>
-                    <asp:CheckBox ID="j05IsCreate_p48" runat="server" Text="Možnost zapisovat za podřízeného nový plán" />
-                </div>
-                <fieldset>
-                    <legend>Přístup k uloženým plánům podřízeného</legend>
-                    <asp:RadioButtonList ID="j05Disposition_p48" runat="server">
-                        <asp:ListItem Text="Číst" Value="1" Selected="true"></asp:ListItem>
-                        <asp:ListItem Text="Číst+upravovat" Value="2"></asp:ListItem>
-                   
-                    </asp:RadioButtonList>
-                </fieldset>
-
-            </td>
-        </tr>
+        
     </table>
     <span class="infoInForm">Nadřízený disponuje automaticky přístupem ke čtení kalendářových událostí a úkolů podřízeného.</span>
 </asp:Content>

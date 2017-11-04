@@ -12,7 +12,7 @@
     Function GetList_j02_join_j11(j02ids As List(Of Integer), j11ids As List(Of Integer)) As IEnumerable(Of BO.j02Person)
     Function GetEmails_j02_join_j11(j02ids As List(Of Integer), j11ids As List(Of Integer)) As List(Of BO.x43MailQueue_Recipient)
     Function GetList_j11(intJ02ID As Integer) As IEnumerable(Of BO.j11Team)
-    Function GetList_Slaves(intJ02ID As Integer, bolDispCreateP31 As Boolean, dispP31 As BO.j05Disposition_p31ENUM, bolDispCreateP48 As Boolean, dispP48 As BO.j05Disposition_p48ENUM) As IEnumerable(Of BO.j02Person)
+    Function GetList_Slaves(intJ02ID As Integer, bolDispCreateP31 As Boolean, dispP31 As BO.j05Disposition_p31ENUM) As IEnumerable(Of BO.j02Person)
     Function GetList_Masters(intJ02ID As Integer) As IEnumerable(Of BO.j02Person)
     Function GetTeamsInLine(intJ02ID As Integer) As String
     Function GetList_AllAssignedEntityRoles(intPID As Integer, x29id_entity As BO.x29IdEnum) As IEnumerable(Of BO.x67EntityRole)
@@ -149,8 +149,8 @@ Class j02PersonBL
         Next
         Return ret
     End Function
-    Public Function GetList_Slaves(intJ02ID As Integer, bolDispCreateP31 As Boolean, dispP31 As BO.j05Disposition_p31ENUM, bolDispCreateP48 As Boolean, dispP48 As BO.j05Disposition_p48ENUM) As IEnumerable(Of BO.j02Person) Implements Ij02PersonBL.GetList_Slaves
-        Return _cDL.GetList_Slaves(intJ02ID, bolDispCreateP31, dispP31, bolDispCreateP48, dispP48)
+    Public Function GetList_Slaves(intJ02ID As Integer, bolDispCreateP31 As Boolean, dispP31 As BO.j05Disposition_p31ENUM) As IEnumerable(Of BO.j02Person) Implements Ij02PersonBL.GetList_Slaves
+        Return _cDL.GetList_Slaves(intJ02ID, bolDispCreateP31, dispP31)
     End Function
     Public Function GetList_Masters(intJ02ID As Integer) As IEnumerable(Of BO.j02Person) Implements Ij02PersonBL.GetList_Masters
         Return _cDL.GetList_Masters(intJ02ID)

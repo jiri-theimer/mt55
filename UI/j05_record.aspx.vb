@@ -40,9 +40,9 @@
             Me.j11ID_Slave.SelectedValue = .j11ID_Slave.ToString
 
             basUI.SelectRadiolistValue(Me.j05Disposition_p31, CInt(.j05Disposition_p31).ToString)
-            basUI.SelectRadiolistValue(Me.j05Disposition_p48, CInt(.j05Disposition_p48).ToString)
+
             Me.j05IsCreate_p31.Checked = .j05IsCreate_p31
-            Me.j05IsCreate_p48.Checked = .j05IsCreate_p48
+
 
             Master.Timestamp = .Timestamp
 
@@ -72,9 +72,9 @@
                 .j02ID_Slave = BO.BAS.IsNullInt(Me.j02ID_Slave.Value)
                 .j11ID_Slave = BO.BAS.IsNullInt(Me.j11ID_Slave.SelectedValue)
                 .j05IsCreate_p31 = Me.j05IsCreate_p31.Checked
-                .j05IsCreate_p48 = Me.j05IsCreate_p48.Checked
+
                 .j05Disposition_p31 = Me.j05Disposition_p31.SelectedValue
-                .j05Disposition_p48 = Me.j05Disposition_p48.SelectedValue
+
             End With
 
 

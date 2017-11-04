@@ -5,7 +5,6 @@
     AllowedForCreateTask = 3          'projekty, v kterých lze vytvořit úkol
     AllowedForCreateInvoice = 4       'pouze projekty, kde má právo vystavit fakturu
     AllowedForApproving = 5           'pouze projekty, u kterých může schvalovat úkony
-    AllowedForOperPlanEntry = 6
 End Enum
 Public Enum myQueryP41_QuickQuery
     _NotSpecified = 0

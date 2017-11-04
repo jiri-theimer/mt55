@@ -83,8 +83,7 @@ Public Class user_service
 
             Case "p31_entry"    'pouze pro zapisování worksheet
                 mq.SpecificQuery = BO.myQueryJ02_SpecificQuery.AllowedForWorksheetEntry
-            Case "p48_entry"
-                mq.SpecificQuery = BO.myQueryJ02_SpecificQuery.AllowedForP48Entry
+            
             Case "searchbox"
                 mq.SpecificQuery = BO.myQueryP41_SpecificQuery.AllowedForRead
                 mq.IntraPersons = BO.myQueryJ02_IntraPersons._NotSpecified

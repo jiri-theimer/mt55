@@ -168,7 +168,7 @@ Public Class p31_scheduler
         With Master.Factory.SysUser
             Me.j02ID.Items.Add(New ListItem(.PersonDesc, .j02ID.ToString))
             If .IsMasterPerson Then
-                Dim lisJ02 As IEnumerable(Of BO.j02Person) = Master.Factory.j02PersonBL.GetList_Slaves(.j02ID, True, BO.j05Disposition_p31ENUM._NotSpecified, False, BO.j05Disposition_p48ENUM._NotSpecified).Where(Function(p) p.IsClosed = False)
+                Dim lisJ02 As IEnumerable(Of BO.j02Person) = Master.Factory.j02PersonBL.GetList_Slaves(.j02ID, True, BO.j05Disposition_p31ENUM._NotSpecified).Where(Function(p) p.IsClosed = False)
                 For Each c In lisJ02
                     Me.j02ID.Items.Add(New ListItem(c.FullNameDesc, c.PID.ToString))
                 Next

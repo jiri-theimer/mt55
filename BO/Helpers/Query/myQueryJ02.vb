@@ -2,7 +2,7 @@
     _NotSpecified = 0
     AllowedForWorksheetEntry = 1    'pouze osoby, za které lze zapisovat worksheet
     AllowedForRead = 2              'pouze osoby, ke kterým má právo na čtení
-    AllowedForP48Entry = 3            'pouze osoby, za které lze vytvářet operativní plán
+
     
 
 End Enum

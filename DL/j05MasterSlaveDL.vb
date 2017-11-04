@@ -23,10 +23,8 @@
             pars.Add("j02ID_Slave", BO.BAS.IsNullDBKey(.j02ID_Slave), DbType.Int32)
             pars.Add("j11ID_Slave", BO.BAS.IsNullDBKey(.j11ID_Slave), DbType.Int32)
             pars.Add("j05Disposition_p31", .j05Disposition_p31, DbType.Int32)
-            pars.Add("j05Disposition_p48", .j05Disposition_p48, DbType.Int32)
 
             pars.Add("j05IsCreate_p31", .j05IsCreate_p31, DbType.Boolean)
-            pars.Add("j05IsCreate_p48", .j05IsCreate_p48, DbType.Boolean)
 
           
 

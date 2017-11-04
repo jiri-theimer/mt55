@@ -189,9 +189,7 @@ Class x31ReportBL
         End If
 
 
-        ''lisX31.Add(GPPS(-998, "[Operativní plánování]", "p48_framework.aspx", -30, BO.x29IdEnum.p48OperativePlan, "p48_framework"))
-
-
+     
 
         Return lisX31
     End Function

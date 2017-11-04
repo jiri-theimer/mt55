@@ -6,7 +6,6 @@ Public Class p31WorksheetEntryInput
     Public Property j02ID As Integer
     Public Property p32ID As Integer
     Public Property p34ID As Integer
-    Public Property p48ID As Integer
     Public Property p28ID_Supplier As Integer
     Public Property j02ID_ContactPerson As Integer
 
