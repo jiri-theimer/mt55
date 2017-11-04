@@ -163,7 +163,7 @@
         Dim lis As IEnumerable(Of BO.SysDbObject) = _cDL.GetList_SysObjects()
         Dim cFile As New BO.clsFile
 
-        Dim strDIR As String = "c:\asp2013\marktime50\ui\sys\dbupdate"
+        Dim strDIR As String = "c:\asp2013\marktime55\ui\sys\dbupdate"
 
         Dim strSingleFile As String = strDIR & "\SysObjects_Latest.sql"
         If cFile.FileExist(strSingleFile) Then
@@ -174,11 +174,11 @@
                 Dim strFile As String = strDIR & "\" & cRec.Name & ".sql"
                 cFile.SaveText2File(strFile, GetFullCreateScript(cRec), , , False)
 
-                cFile.CopyFile(strFile, "c:\zjt\marktime50\distribuce\inno-setup\files\wfa\sql_step2_sp.sql")
+                cFile.CopyFile(strFile, "c:\zjt\marktime55\distribuce\inno-setup\files\wfa\sql_step2_sp.sql")
             Else
                 cFile.SaveText2File(strSingleFile, "----------" & cRec.xType & "---------------" & cRec.Name & "-------------------------" & vbCrLf & vbCrLf & GetFullCreateScript(cRec) & vbCrLf & vbCrLf, True, , False)
 
-                cFile.CopyFile(strSingleFile, "c:\zjt\marktime50\distribuce\inno-setup\files\wfa\sql_step2_sp.sql")
+                cFile.CopyFile(strSingleFile, "c:\zjt\marktime55\distribuce\inno-setup\files\wfa\sql_step2_sp.sql")
             End If
 
 
@@ -214,7 +214,7 @@
     End Function
 
     Public Sub GenerateDistributionXmlFiles(strSourceDbName As String)
-        Dim cF As New BO.clsFile, strDestDir As String = "c:\asp2013\marktime50\ui\sys\dbupdate"
+        Dim cF As New BO.clsFile, strDestDir As String = "c:\asp2013\marktime55\ui\sys\dbupdate"
         cF.SaveText2File(strDestDir & "\version.txt", Format(Now, "dd.MM.yyyy HH:mm"), , , False)
 
         Dim ds As DataSet = _cDL.GetDataset(String.Format("SELECT ID,name FROM {0}.dbo.sysobjects WHERE xtype='U' and name<>'dtproperties' order by name", strSourceDbName), "sysobjects")

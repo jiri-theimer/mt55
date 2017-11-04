@@ -7553,7 +7553,7 @@ CREATE   procedure [dbo].[o25_delete]
 ,@err_ret varchar(500) OUTPUT		---případná návratová chyba
 
 AS
---odstranění záznamu z tabulky o25DmsBinding
+--odstranění záznamu z tabulky o25App
 
 BEGIN TRANSACTION
 
@@ -7561,7 +7561,7 @@ BEGIN TRY
 
 	
 
-	delete from o25DmsBinding where o25ID=@pid
+	delete from o25App where o25ID=@pid
 	
 
 	COMMIT TRANSACTION
@@ -8789,7 +8789,6 @@ GO
 CREATE    PROCEDURE [dbo].[p31_aftersave]
 @p31id int
 ,@j03id_sys int
-,@p48id int					---ID operativního plánu
 ,@x45ids varchar(50) OUTPUT	---případné události, které se mají notifikovat (čárkou oddělené x45id)
 
 AS
@@ -8814,8 +8813,7 @@ WHERE a.p31ID=@p31id
 if isnull(@p71id,0)<>0 or ISNULL(@p70id,0)<>0 or ISNULL(@p91id,0)<>0
  return	---pokud úkon prošel schvalováním nebo fakturací, není možné měnit jeho atributy!!!!!
 
-if @p48id is not null 
- UPDATE p48OperativePlan SET p31ID=@p31id WHERE p48ID=@p48id
+
 
 declare @c11id_find int
 
@@ -9613,7 +9611,7 @@ BEGIN
 	if @p33id=1
 	 update p31Worksheet set p31Hours_Orig=@value,p31Minutes_Orig=@value*60 WHERE p31ID=@p31id_new
 
-	exec dbo.p31_aftersave @p31id_new,@j03id_sys,null,null
+	exec dbo.p31_aftersave @p31id_new,@j03id_sys,null
 
 	declare @rate float,@vat_rate float
 	select @rate=p31Rate_Billing_Orig,@vat_rate=p31VatRate_Orig from p31Worksheet where p31ID=@p31id_new
@@ -9696,12 +9694,8 @@ if isnull(@err_ret,'')<>''
 
 BEGIN TRANSACTION
 
-BEGIN TRY
-	if exists(select p48ID FROM p48OperativePlan WHERE p31ID=@pid)
-	 UPDATE p48OperativePlan SET p31ID=NULL WHERE p31ID=@pid
-
+BEGIN TRY	
 	
-
 	if exists(select p31ID FROM p31worksheet_FreeField WHERE p31ID=@pid)
 	 DELETE FROM p31WorkSheet_FreeField WHERE p31ID=@pid
 
@@ -11913,9 +11907,9 @@ UPDATE p31Worksheet SET p31Text=@rec2_text,p31Value_Orig=@rec2_hours,p31Hours_Or
 WHERE p31ID=@p31id_new
 
 
-EXEC [dbo].[p31_aftersave] @p31id,@j03id_sys,null,null
+EXEC [dbo].[p31_aftersave] @p31id,@j03id_sys,null
 
-EXEC [dbo].[p31_aftersave] @p31id_new,@j03id_sys,null,null
+EXEC [dbo].[p31_aftersave] @p31id_new,@j03id_sys,null
 
 
 
@@ -11990,7 +11984,6 @@ CREATE procedure [dbo].[p31_test_beforesave]
 ,@p56id int
 ,@p31date datetime
 ,@p32id int
-,@p48id int
 ,@p31vatrate_orig float
 ,@j27id_explicit int
 ,@p31text nvarchar(2000)
@@ -12037,11 +12030,7 @@ if isnull(@p56id,0)<>0 and isnull(@p31id,0)=0
 if exists(select p41ID FROM p41Project WHERE p41ID=@p41id AND getdate() not between p41ValidFrom AND p41ValidUntil)
  set @err='Projekt byl přesunut do archivu, nelze do něj zapisovat úkony.'
 
-if @p48id is not null
- begin	---test operativního plánu
-  if exists(select p48ID FROM p48OperativePlan WHERE p48ID=@p48id AND p31ID IS NOT NULL)
-   set @err='Předávaný záznam operativního plánu byl již dříve překlopen do reality!'
- end
+
 
 
 if @err<>''
@@ -12090,11 +12079,7 @@ if @p32Value_Maximum<>0 and @value_orig>=@p32Value_Maximum
   return
  end
 
-if @p48id is not null and @p33id<>1
- begin
-  set @err='Operativní plán může být překlopen pouze do časového úkonu.'
-  return
- end
+
 
 if @p33id=1 and @p32ManualFeeFlag=1 and isnull(@manualfee,0)=0
  begin
@@ -14065,60 +14050,6 @@ BEGIN CATCH
   ROLLBACK TRANSACTION
   
 END CATCH  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-GO
-
-----------P---------------p48_delete-------------------------
-
-if exists (select 1 from sysobjects where  id = object_id('p48_delete') and type = 'P')
- drop procedure p48_delete
-GO
-
-
-
-
-
-
-
-CREATE   procedure [dbo].[p48_delete]
-@j03id_sys int				--přihlášený uživatel
-,@pid int					--p48id
-,@err_ret varchar(500) OUTPUT		---případná návratová chyba
-
-AS
---odstranění záznamu operativního plánu z tabulky p48OperativePlan
-
-
-BEGIN TRANSACTION
-
-BEGIN TRY
-
-	delete from p48OperativePlan WHERE p48ID=@pid
-
-	
-	COMMIT TRANSACTION
-
-END TRY
-BEGIN CATCH
-  set @err_ret=dbo.parse_errinfo(ERROR_PROCEDURE(),ERROR_LINE(),ERROR_MESSAGE())
-  ROLLBACK TRANSACTION
-  
-END CATCH  
-
 
 
 

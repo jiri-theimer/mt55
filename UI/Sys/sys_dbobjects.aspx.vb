@@ -19,7 +19,7 @@
     Private Sub cmdGenerate2_Click(sender As Object, e As System.EventArgs) Handles cmdGenerate2.Click
         Dim cBL As New BL.SysObjectBL()
         cBL.GenerateCreateScripts(False)
-        Master.Notify("Výstup byl vytvořen do složky: c:\asp2013\marktime50\ui\sys\dbupdate + do INNO SETUP jako sql_step2_sp.sql.")
+        Master.Notify("Výstup byl vytvořen do složky: c:\asp2013\marktime55\ui\sys\dbupdate + do INNO SETUP jako sql_step2_sp.sql.")
     End Sub
 
     Private Sub cmdGenerate3_Click(sender As Object, e As System.EventArgs) Handles cmdGenerate3.Click
@@ -51,6 +51,6 @@
     Private Sub cmdGenerateXmlDistributionFiles_Click(sender As Object, e As EventArgs) Handles cmdGenerateXmlDistributionFiles.Click
         Dim cBL As New BL.SysObjectBL()
         cBL.GenerateDistributionXmlFiles(Me.txtDatabaseSourceForXmlDistribution.Text)
-        Master.Notify("Operace dokončena, XML soubory vygenerovány do složky: c:\asp2013\marktime50\ui\sys\dbupdate")
+        Master.Notify("Operace dokončena, XML soubory vygenerovány do složky: c:\asp2013\marktime55\ui\sys\dbupdate")
     End Sub
 End Class
