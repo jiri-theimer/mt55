@@ -176,7 +176,7 @@ Public Class main_menu
                     Case BO.x29IdEnum.p51PriceList : bolGO = factory.TestPermission(BO.x53PermValEnum.GR_P51_Admin)
                     Case BO.x29IdEnum.x31Report : bolGO = .j04IsMenu_Report
                     Case BO.x29IdEnum.p56Task : bolGO = .j04IsMenu_Task
-                    Case BO.x29IdEnum.p48OperativePlan : bolGO = factory.TestPermission(BO.x53PermValEnum.GR_P48_Creator, BO.x53PermValEnum.GR_P48_Reader)
+                    Case BO.x29IdEnum.p48OperativePlan : bolGO = False
 
 
 

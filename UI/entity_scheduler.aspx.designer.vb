@@ -122,24 +122,6 @@ Partial Public Class entity_scheduler
     Protected WithEvents cbxNewRecType As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''panSettingOPlan control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents panSettingOPlan As Global.System.Web.UI.WebControls.Panel
-
-    '''<summary>
-    '''chkSetting_P48 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents chkSetting_P48 As Global.System.Web.UI.WebControls.CheckBox
-
-    '''<summary>
     '''chkSetting_O22 control.
     '''</summary>
     '''<remarks>

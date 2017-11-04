@@ -212,15 +212,6 @@ Partial Public Class p41_framework_detail
     Protected WithEvents PlanPeriod As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''aP48 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents aP48 As Global.System.Web.UI.WebControls.HyperLink
-
-    '''<summary>
     '''trP51 control.
     '''</summary>
     '''<remarks>

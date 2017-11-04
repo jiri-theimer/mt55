@@ -235,7 +235,6 @@
     <Content Include="clue_popup.aspx" />
     <Content Include="clue_x18_record.aspx" />
     <Content Include="clue_p41_myworksheet.aspx" />
-    <Content Include="clue_p48_record.aspx" />
     <Content Include="clue_search.aspx" />
     <Content Include="clue_o23_record.aspx" />
     <Content Include="email_receiver.ascx" />
@@ -499,9 +498,6 @@
     <Content Include="p31_timeline.aspx" />
     <Content Include="p31_timer.aspx" />
     <Content Include="p34_after_create.aspx" />
-    <Content Include="p48_framework.aspx" />
-    <Content Include="p48_multiple_create.aspx" />
-    <Content Include="p48_multiple_edit_delete.aspx" />
     <Content Include="p51_framework.aspx" />
     <Content Include="p53_record.aspx" />
     <Content Include="p56_record.aspx" />
@@ -927,13 +923,6 @@
     </Compile>
     <Compile Include="clue_p41_myworksheet.aspx.vb">
       <DependentUpon>clue_p41_myworksheet.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="clue_p48_record.aspx.designer.vb">
-      <DependentUpon>clue_p48_record.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="clue_p48_record.aspx.vb">
-      <DependentUpon>clue_p48_record.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="clue_search.aspx.designer.vb">
@@ -2667,27 +2656,6 @@
     </Compile>
     <Compile Include="p34_after_create.aspx.vb">
       <DependentUpon>p34_after_create.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="p48_framework.aspx.designer.vb">
-      <DependentUpon>p48_framework.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="p48_framework.aspx.vb">
-      <DependentUpon>p48_framework.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="p48_multiple_create.aspx.designer.vb">
-      <DependentUpon>p48_multiple_create.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="p48_multiple_create.aspx.vb">
-      <DependentUpon>p48_multiple_create.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="p48_multiple_edit_delete.aspx.designer.vb">
-      <DependentUpon>p48_multiple_edit_delete.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="p48_multiple_edit_delete.aspx.vb">
-      <DependentUpon>p48_multiple_edit_delete.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="p51_framework.aspx.designer.vb">

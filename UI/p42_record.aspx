@@ -44,8 +44,8 @@
                 <span class="infoInForm">Zakládání úkolů k řešení s termínem, jejich přidělování řešitelům (osoby/týmy). Možnost zapisovat k úkolům worksheet úkony, schvalování, fakturace.</span>
             </div>
             <div class="div6">
-                <asp:CheckBox ID="p42IsModule_o22" runat="server" Text="Kalendářové UDÁLOSTI" />
-                <span class="infoInForm">Zakládání termínů do kalendáře, jejich notifikace, synchronizace s externím kalendářem.</span>
+                <asp:CheckBox ID="p42IsModule_o22" runat="server" Text="Sdílené kalendáře" />
+                <span class="infoInForm">Zakládání kalendářových událostí.</span>
             </div>
             <div class="div6">
                 <asp:CheckBox ID="p42IsModule_o23" runat="server" Text="DOKUMENTY" AutoPostBack="true" />
@@ -55,10 +55,7 @@
                 </asp:DropDownList>
                 <span class="infoInForm">Dokumentem může být např. fakturační poznámka, výdajový doklad, došlá faktura, došlá pošta apod.</span>
             </div>
-            <div class="div6">
-                <asp:CheckBox ID="p42IsModule_p48" runat="server" Text="Operativní plánování" />
-                <span class="infoInForm">Operativní plánování hodin pracovníků v projektech do konkrétních dnů na nejbližší měsíc, maximálně 2 měsíce dopředu. Naplánované hodiny lze následně překlápět do reálných časových výkazů.</span>
-            </div>
+           
             <div class="div6">
                 <asp:CheckBox ID="p42IsModule_p45" runat="server" Text="Projektové ROZPOČTY a kapacitní PLÁNY" />
                 <span class="infoInForm">Verzované rozpočty odhadů/limitů hodin, výdajeů a příjmů. Kapacitní plánování na člověko-měsíce.</span>

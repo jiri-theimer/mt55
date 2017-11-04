@@ -626,7 +626,7 @@
     <asp:HiddenField ID="hidP33ID" runat="server" />
     <asp:HiddenField ID="hidHoursEntryFlag" runat="server" Value="1" />
     <asp:HiddenField ID="hidP91ID" runat="server" />
-    <asp:HiddenField ID="hidP48ID" runat="server" />
+    <asp:HiddenField ID="hidAppGUID" runat="server" />
     <asp:HiddenField ID="hidP85ID" runat="server" />
     <asp:HiddenField ID="hidP61ID" runat="server" />
     <asp:HiddenField ID="hidP28D_Client" runat="server" />

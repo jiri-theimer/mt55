@@ -68,15 +68,6 @@ Partial Public Class p31_timeline
     Protected WithEvents cbxRozklad As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''chkShowP48 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents chkShowP48 As Global.System.Web.UI.WebControls.CheckBox
-
-    '''<summary>
     '''PersonsHeader control.
     '''</summary>
     '''<remarks>
@@ -120,15 +111,6 @@ Partial Public Class p31_timeline
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents panLayout As Global.System.Web.UI.WebControls.Panel
-
-    '''<summary>
-    '''imgOPLAN control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents imgOPLAN As Global.System.Web.UI.WebControls.Image
 
     '''<summary>
     '''tdd1 control.

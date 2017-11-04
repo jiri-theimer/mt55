@@ -118,14 +118,7 @@
             sw_master("o22_record.aspx?clone=1&pid=" + pid, "Images/milestone.png")
         }
 
-        function p48_record(pid) {
-
-            sw_master("p48_multiple_edit_delete.aspx?p48ids=" + pid, "Images/oplan.png")
-        }
-        function p48_convert(pid) {
-
-            sw_master("p31_record.aspx?pid=0&p48id=" + pid, "Images/worksheet.png")
-        }
+        
         function p31_record(pid) {
 
             sw_master("p31_record.aspx?pid=" + pid, "Images/worksheet.png")
@@ -143,8 +136,7 @@
             if (prefix == 'o22')
                 o22_record(pid);
 
-            if (prefix == 'p48')
-                p48_record(pid);
+            
 
             if (prefix == 'p56')
                 p56_record(pid);
@@ -169,9 +161,7 @@
 
             var url = "";
             var j02id = "<%=Master.Factory.SysUser.j02ID%>";
-            if (val == "p48") {
-                url = "p48_multiple_create.aspx?t1=" + formattedDate(d1) + "&t2=" + formattedDate(d2) + "&j02id=" + j02id;
-            }
+           
             if (val == "o22") {
                 url = "o22_record.aspx?t1=" + formattedDate(d1) + "&t2=" + formattedDate(d2) + "&j02id=" + j02id + "&masterprefix=<%=Me.CurrentMasterPrefix%>&masterpid=<%=me.CurrentMasterPID%>";
 
@@ -193,9 +183,7 @@
 
             var j02id = "<%=Master.Factory.SysUser.j02ID%>";
             
-            <%If cbxNewRecType.SelectedValue = "p48" Then%>
-            var url = "p48_multiple_create.aspx?t1=" + formattedDate(d1) + "&t2=" + formattedDate(d2) + "&j02id=" + j02id;
-            <%End If%>
+            
             <%If cbxNewRecType.SelectedValue = "o22" Then%>
             var url = "o22_record.aspx?t1=" + formattedDate(d1) + "&t2=" + formattedDate(d2) + "&j02id=" + j02id + "&masterprefix=<%=Me.CurrentMasterPrefix%>&masterpid=<%=me.CurrentMasterPID%>";
             <%End If%>
@@ -284,10 +272,7 @@
 
                 //Gets all the data needed for the an Appointment, from the TreeView node.
                 var node = eventArgs.get_sourceNode();
-                <%If cbxNewRecType.SelectedValue = "p48" Then%>
-                var url = "p48_multiple_create.aspx?d1=" + formattedDate(d1) + "&d2=" + formattedDate(d2);
-
-                <%End If%>
+               
                 <%If cbxNewRecType.SelectedValue = "o22" Then%>
                 var url = "o22_record.aspx?d1=" + formattedDate(d1) + "&d2=" + formattedDate(d2);
                 <%End If%>
@@ -404,13 +389,11 @@
                             <asp:DropDownList ID="cbxNewRecType" runat="server" AutoPostBack="true">
                                 <asp:ListItem Text="Úkol" Value="p56"></asp:ListItem>
                                 <asp:ListItem Text="Událost v kalendáři" Value="o22"></asp:ListItem>
-                                <asp:ListItem Text="Operativní plán" Value="p48"></asp:ListItem>
+                                
 
                             </asp:DropDownList>
                         </div>
-                        <asp:Panel ID="panSettingOPlan" runat="server" CssClass="div6">
-                            <asp:CheckBox ID="chkSetting_P48" runat="server" Text="Zobrazovat i operatavní plán" AutoPostBack="true" CssClass="chk" />
-                        </asp:Panel>
+                        
                         <div class="div6" style="display: none;">
                             <img src="Images/calendar.png" />
                             <asp:CheckBox ID="chkSetting_O22" runat="server" Checked="true" Text="Zobrazovat kalendářové události" AutoPostBack="true" CssClass="chk" />
@@ -517,8 +500,7 @@
 
                 <TimeSlotContextMenus>
                     <telerik:RadSchedulerContextMenu>
-                        <Items>
-                            <telerik:RadMenuItem Text="Operativní plán" ImageUrl="Images/oplan.png" Value="p48"></telerik:RadMenuItem>
+                        <Items>                            
                             <telerik:RadMenuItem Text="Kalendářová událost" ImageUrl="Images/milestone.png" Value="o22"></telerik:RadMenuItem>
                             <telerik:RadMenuItem Text="Úkol" ImageUrl="Images/task.png" NavigateUrl="javascript:p56_record(0)" Value="p56"></telerik:RadMenuItem>
                             <telerik:RadMenuItem IsSeparator="true" Text="."></telerik:RadMenuItem>

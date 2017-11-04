@@ -62,7 +62,6 @@ Public Class entity_scheduler
                     .Add("entity_scheduler-projects1-scope")
                     .Add("entity_scheduler-projects1-value")
                     .Add("entity_scheduler-o22")
-                    .Add("entity_scheduler-p48")
                     .Add("entity_scheduler-p56")
                     .Add("entity_scheduler-newrec_prefix")
                     .Add("entity_scheduler-agendadays")
@@ -93,22 +92,7 @@ Public Class entity_scheduler
                     basUI.SelectDropdownlistValue(Me.cbxNewRecType, .GetUserParam("entity_scheduler-newrec_prefix", "p56"))
                     basUI.SelectDropdownlistValue(Me.entity_scheduler_agendadays, .GetUserParam("entity_scheduler-agendadays", "20"))
 
-                    Select Case Request.Item("scope")
-                        Case "scheduler", ""
-                            chkSetting_O22.Checked = True : chkSetting_P56.Checked = True
-                            panSettingOPlan.Visible = True
-                            Me.chkSetting_P48.Checked = .GetUserParam("entity_scheduler-p48", "0")
-                        Case "oplan"
-                            chkSetting_P48.Checked = True
-                            panSettingOPlan.Visible = False
-                            Me.j70ID.Visible = False
-                            Me.j70ID.SelectedIndex = 0
-                            Me.clue_query.Visible = False
-                            Me.cmdQuery.Visible = False
-                        Case Else
-
-                    End Select
-                    
+                   
                     Me.chkIncludeChilds.Checked = BO.BAS.BG(.GetUserParam("entity_scheduler-include_childs"))
 
                 End With
@@ -218,77 +202,7 @@ Public Class entity_scheduler
                 scheduler1.InsertAppointment(c)
             Next
         End If
-        If Me.chkSetting_P48.Checked Then
-            Dim mq As New BO.myQueryP48
-            Select Case Me.CurrentMasterX29ID
-                Case BO.x29IdEnum.p28Contact
-                    mq.p28ID = Me.CurrentMasterPID
-                Case BO.x29IdEnum.p41Project
-                    mq.p41ID = Me.CurrentMasterPID
-                    mq.IsIncludeChildProjects = Me.chkIncludeChilds.Checked
-                Case BO.x29IdEnum.j02Person
-                    mq.j02IDs = BO.BAS.ConvertInt2List(Me.CurrentMasterPID)
-                Case Else
-                    mq.j02IDs = persons1.CurrentJ02IDs
-                    mq.p41IDs = projects1.CurrentP41IDs
-            End Select
-            mq.DateFrom = d1 : mq.DateUntil = d2
-            Dim lis As IEnumerable(Of BO.p48OperativePlan) = Master.Factory.p48OperativePlanBL.GetList(mq)
-            For Each cRec In lis
-                Dim c As New Appointment()
-                With cRec
-                    c.ID = .PID.ToString & ",'p48'"
-                    c.Description = "clue_p48_record.aspx?pid=" & .PID.ToString & "&js_edit=p48_record(" & .PID.ToString & ")&js_convert=p48_convert(" & .PID.ToString & ")"
-
-                    If Not .p48DateTimeFrom Is Nothing Then
-                        c.Start = .p48DateTimeFrom
-                    Else
-                        c.Start = .p48Date
-                    End If
-                    If Not .p48DateTimeUntil Is Nothing Then
-                        c.End = .p48DateTimeUntil
-                    Else
-                        c.End = .p48Date.AddDays(1)
-                    End If
-                    If .p31ID > 0 Then
-                        c.Font.Strikeout = True 'plán byl zkonvertován do worksheetu
-                        c.Description += "&js_p31record=p31_record(" & .p31ID.ToString & ")"
-                    End If
-                    c.BorderColor = Drawing.Color.Silver
-                    'c.BorderStyle = BorderStyle.Dotted
-                    c.BackColor = Drawing.Color.WhiteSmoke
-                    c.ForeColor = Drawing.Color.Black
-                    c.Subject = .p48Hours.ToString & "h."
-                    Select Case Me.CurrentMasterX29ID
-                        Case BO.x29IdEnum.p41Project
-                            c.Subject += " " & .Person
-                        Case BO.x29IdEnum.p28Contact
-                            c.Subject += " " & .Person & ": " & .Project
-                        Case BO.x29IdEnum.j02Person
-                            c.Subject += " " & .ClientAndProject
-                        Case Else
-                            If persons1.CurrentJ02IDs.Count = 1 Then
-                                c.Subject += " " & .ClientAndProject
-                            Else
-                                c.Subject += " " & .Person & ": " & .ClientAndProject
-                            End If
-
-                    End Select
-
-                    Select Case Me.CurrentView
-                        Case SchedulerViewType.MonthView, SchedulerViewType.TimelineView
-                            c.ToolTip = c.Subject
-                            If Len(c.Subject) > 22 Then
-                                c.Subject = Left(c.Subject, 20) & "..."
-                            End If
-                        Case Else
-
-                    End Select
-                End With
-
-                scheduler1.InsertAppointment(c)
-            Next
-        End If
+       
         If chkSetting_P56.Checked Then  'termíny úkolů
             Dim mq As New BO.myQueryP56
 
@@ -427,11 +341,7 @@ Public Class entity_scheduler
         response.[End]()
     End Sub
 
-    Private Sub chkSetting_P48_CheckedChanged(sender As Object, e As EventArgs) Handles chkSetting_P48.CheckedChanged
-        Master.Factory.j03UserBL.SetUserParam("entity_scheduler-p48", BO.BAS.GB(Me.chkSetting_P48.Checked))
-        RefreshData(False)
-        hidIsLoadingSetting.Value = "1"
-    End Sub
+   
 
     Private Sub chkSetting_O22_CheckedChanged(sender As Object, e As EventArgs) Handles chkSetting_O22.CheckedChanged
         Master.Factory.j03UserBL.SetUserParam("entity_scheduler-o22", BO.BAS.GB(Me.chkSetting_O22.Checked))

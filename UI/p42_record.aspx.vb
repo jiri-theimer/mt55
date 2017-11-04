@@ -63,7 +63,6 @@
             Me.p42IsModule_p56.Checked = .p42IsModule_p56
             Me.p42IsModule_p45.Checked = .p42IsModule_p45
             Me.p42IsModule_o22.Checked = .p42IsModule_o22
-            Me.p42IsModule_p48.Checked = .p42IsModule_p48
             basUI.SelectDropdownlistValue(Me.p42SubgridO23Flag, .p42SubgridO23Flag.ToString)
             Master.InhaleRecordValidity(.ValidFrom, .ValidUntil, .DateInsert)
             Master.Timestamp = .Timestamp
@@ -112,7 +111,6 @@
             cRec.p42IsModule_p56 = Me.p42IsModule_p56.Checked
             cRec.p42IsModule_p45 = Me.p42IsModule_p45.Checked
             cRec.p42IsModule_o22 = Me.p42IsModule_o22.Checked
-            cRec.p42IsModule_p48 = Me.p42IsModule_p48.Checked
             cRec.p42SubgridO23Flag = CInt(Me.p42SubgridO23Flag.SelectedValue)
 
             Dim mq As New BO.myQuery

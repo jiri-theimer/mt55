@@ -5,7 +5,6 @@
     Private _lastC21ID As Integer
     Private _lastJ17ID As Integer
 
-    Private _lisP48 As IEnumerable(Of BO.OperativePlanSumPerPersonOrProject)
     Private _lisC22 As IEnumerable(Of BO.c22FondCalendar_Date)
     Private _lisP31 As IEnumerable(Of BO.p31DataSourceForTimeline)
 
@@ -77,7 +76,6 @@
                     .Add("p31_timeline-query-month")
                     .Add("p31_timeline_j02ids")
                     .Add("p31_timeline_rozklad")
-                    .Add("p31_timeline-p48")
                     .Add("p31_timeline-persons1-scope")
                     .Add("p31_timeline-persons1-value")
                     .Add("p31_timeline-projects1-scope")
@@ -95,7 +93,6 @@
                 basUI.SelectDropdownlistValue(Me.query_year, .GetUserParam("p31_timeline-query-year", Year(Now).ToString))
                 basUI.SelectDropdownlistValue(Me.query_month, .GetUserParam("p31_timeline-query-month", Month(Now).ToString))
                 basUI.SelectDropdownlistValue(Me.cbxRozklad, .GetUserParam("p31_timeline_rozklad", "1"))
-                Me.chkShowP48.Checked = BO.BAS.BG(.GetUserParam("p31_timeline-p48", "0"))
                 Me.persons1.CurrentScope = .GetUserParam("p31_timeline-persons1-scope", "2")
                 Me.persons1.CurrentValue = .GetUserParam("p31_timeline-persons1-value", Master.Factory.SysUser.j02ID.ToString & "||")
                 Me.projects1.CurrentScope = .GetUserParam("p31_timeline-projects1-scope", "1")
@@ -201,14 +198,6 @@
 
         _lisP31 = Master.Factory.p31WorksheetBL.GetDataSourceForTimeline(persons1.CurrentJ02IDs, Me.CurrentD1, Me.CurrentD2, projects1.CurrentP41IDs)
 
-        If Me.chkShowP48.Checked Then
-            Dim mqP48 As New BO.myQueryP48
-            mqP48.j02IDs = persons1.CurrentJ02IDs
-            mqP48.p41IDs = projects1.CurrentP41IDs
-            mqP48.DateFrom = Me.CurrentD1
-            mqP48.DateUntil = Me.CurrentD2
-            _lisP48 = Master.Factory.p48OperativePlanBL.GetList_SumPerPerson(mqP48)
-        End If
         
 
         Dim lisData As New List(Of PlanRow)
@@ -303,9 +292,7 @@
                     If dblHours > dblFond Then .ForeColor = Drawing.Color.Red
                 End If
             End With
-            If Me.chkShowP48.Checked Then
-                CType(e.Item.FindControl("operplan"), Label).Text = BO.BAS.FN3(_lisP48.Where(Function(p) p.j02ID = cRec.j02ID).Sum(Function(p) p.Hours))
-            End If
+           
 
         Else
             e.Item.FindControl("clue_person").Visible = False
@@ -421,13 +408,7 @@
     
     
 
-    Private Sub chkShowP48_CheckedChanged(sender As Object, e As EventArgs) Handles chkShowP48.CheckedChanged
-        Master.Factory.j03UserBL.SetUserParam("p31_timeline-p48", BO.BAS.GB(Me.chkShowP48.Checked))
-        RefreshData()
-    End Sub
-
     Private Sub p31_timeline_LoadComplete(sender As Object, e As EventArgs) Handles Me.LoadComplete
-        Me.imgOPLAN.Visible = Me.chkShowP48.Checked
         PersonsHeader.Text = persons1.CurrentHeader
         ProjectsHeader.Text = projects1.CurrentHeader
     End Sub

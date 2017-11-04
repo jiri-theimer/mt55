@@ -384,7 +384,7 @@
                 If cP42.p42IsModule_p31 And menu1.IsExactApprovingPerson Then Me.p31summary1.Visible = True
             End If
 
-            aP48.Visible = cP42.p42IsModule_p48
+
         End With
         With cDisp
             boxP30.Visible = .OwnerAccess

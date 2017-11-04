@@ -5,7 +5,6 @@
         Public Property Project As String
         Public Property p41ID As Integer
         Public Property p47Hours As Double
-        Public Property p48Hours As Double
         Public Property p31Hours As Double
 
     End Class
@@ -64,19 +63,6 @@
             lis.Add(cc)
         Next
 
-        Dim mqP48 As New BO.myQueryP48
-        mqP48.DateFrom = d1
-        mqP48.DateUntil = d2
-        mqP48.j02IDs = j02ids
-        Dim lisP48 As IEnumerable(Of BO.p48OperativePlan) = Master.Factory.p48OperativePlanBL.GetList(mqP48)
-        For Each c In lisP48.GroupBy(Function(p) p.p41ID)
-            Dim cc As New PlanRow()
-            cc.p41ID = c.First.p41ID
-            cc.p48Hours = c.Sum(Function(p) p.p48Hours)
-            cc.Project = c.First.Project
-            lis.Add(cc)
-        Next
-
         Dim mqP31 As New BO.myQueryP31
         mqP31.DateFrom = d1
         mqP31.DateUntil = d2
@@ -95,7 +81,6 @@
             Dim cc As New PlanRow
             cc.Project = c.First.Project
             cc.p47Hours = c.Sum(Function(p) p.p47Hours)
-            cc.p48Hours = c.Sum(Function(p) p.p48Hours)
             cc.p31Hours = c.Sum(Function(p) p.p31Hours)
             lis2.add(cc)
         Next
@@ -104,7 +89,6 @@
         rp1.DataBind()
 
         p47Total.Text = BO.BAS.FN2(lis2.Sum(Function(p) p.p47Hours))
-        p48Total.Text = BO.BAS.FN2(lis2.Sum(Function(p) p.p48Hours))
         p31Total.Text = BO.BAS.FN2(lis2.Sum(Function(p) p.p31Hours))
     End Sub
 

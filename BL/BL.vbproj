@@ -182,7 +182,6 @@
     </Compile>
     <Compile Include="x18EntityCategoryBL.vb" />
     <Compile Include="p47CapacityPlanBL.vb" />
-    <Compile Include="p48OperativePlanBL.vb" />
     <Compile Include="p49FinancialPlanBL.vb" />
     <Compile Include="p51PriceListBL.vb" />
     <Compile Include="p53VatRateBL.vb" />

@@ -671,13 +671,13 @@ Partial Public Class p31_record
     Protected WithEvents hidP91ID As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
-    '''hidP48ID control.
+    '''hidAppGUID control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents hidP48ID As Global.System.Web.UI.WebControls.HiddenField
+    Protected WithEvents hidAppGUID As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
     '''hidP85ID control.

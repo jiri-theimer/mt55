@@ -103,23 +103,18 @@
             $(".slidingDiv3").hide();
 
             $("#selectable").selectable({ filter: "td:not(.weekend,.holiday,.nondate)" });
-            $(".slidingDiv1").hide();
-            $(".show_hide1").show();
+          
 
-            $('.show_hide1').click(function () {
-                $(".slidingDiv2").hide();
-                $(".slidingDiv3").hide();
-                $(".slidingDiv1").slideToggle();
-            });
+            
 
             $('.show_hide2').click(function () {
-                $(".slidingDiv1").hide();
+                
                 $(".slidingDiv3").hide();
                 $(".slidingDiv2").slideToggle();
             });
 
             $('.show_hide3').click(function () {
-                $(".slidingDiv1").hide();
+                
                 $(".slidingDiv2").hide();
                 $(".slidingDiv3").slideToggle();
             });
@@ -258,23 +253,9 @@
 
 
 
-        <div class="show_hide1" style="float: left; margin-top: 10px;">
-            <button type="button">
-                <img src="Images/arrow_down_menu.png" />Nastavení</button>
-        </div>
+       
         <div style="clear: both;"></div>
-        <div class="slidingDiv1" style="display:none;">
-
-            <div class="content-box3">
-                <div class="title">Nastavení</div>
-                <div class="content">
-                    <asp:CheckBox ID="chkShowP48" runat="server" Text="Zobrazovat i celkový operativní plán" AutoPostBack="true" ForeColor="black" />
-                </div>
-
-            </div>
-
-
-        </div>
+      
 
 
         <div style="clear: both;"></div>
@@ -310,8 +291,8 @@
             <table cellpadding="3">
                 <tr>
                     <td id="tdFirstCol" class="nondate" style="width: 270px;"></td>
-                    <td class="nondate" style="width: 30px; text-align: right;" title="Operativní plán celkem">
-                        <asp:Image ID="imgOPLAN" runat="server" ImageUrl="Images/oplan.png" />
+                    <td class="nondate" style="width: 30px; text-align: right;">
+                        
                     </td>
                     <td class="nondate" style="width: 70px; text-align: right;" title="Hodiny celkem">
                         <img src="Images/worksheet.png" />
@@ -407,7 +388,7 @@
 
                                 </td>
                                 <td class="nondate" style="width: 30px; text-align: right;">
-                                    <asp:Label ID="operplan" runat="server" CssClass="total" ToolTip="Operativní plán"></asp:Label>
+                                    
                                 </td>
                                 <td class="nondate" style="width: 70px; text-align: right;">
                                     <asp:Label ID="fond" runat="server" CssClass="total"></asp:Label>

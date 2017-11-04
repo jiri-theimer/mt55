@@ -705,9 +705,7 @@ Public Class handler_popupmenu
         If cP42.p42IsModule_o22 Then
             REL("Kalendář projektu", "entity_scheduler.aspx?masterprefix=p41&masterpid=" & cRec.PID.ToString, "_top", "Images/calendar.png", True)
         End If
-        If cP42.p42IsModule_p48 Then
-            REL("Operativní plán projektu", "p48_framework.aspx?masterprefix=p41&masterpid=" & cRec.PID.ToString, "_top", "Images/oplan.png", True)
-        End If
+       
         REL("Historie odeslané pošty", "x40_framework.aspx?masterprefix=p41&masterpid=" & cRec.PID.ToString, "_top", "Images/email.png", True)
         If cDisp.OwnerAccess Then
             CI("Historie záznamu", "entity_timeline.aspx?prefix=p41&pid=" & cRec.PID.ToString, , "Images/event.png", True)
@@ -907,9 +905,7 @@ Public Class handler_popupmenu
             REL("Kalendář osoby", "entity_scheduler.aspx?masterprefix=j02&masterpid=" & cRec.PID.ToString, "_top", "Images/calendar.png", True)
 
 
-            If factory.TestPermission(BO.x53PermValEnum.GR_P48_Creator) Then
-                REL("Operativní plán osoby", "cmdP48", "p48_framework.aspx?masterprefix=j02&masterpid=" & cRec.PID.ToString, "Images/oplan.png", True)
-            End If
+            
             CI("Osobní plány", "j02_personalplan.aspx?j02id=" & cRec.PID.ToString, , "Images/plan.png", True, True)
 
             REL("Historie odeslané pošty", "x40_framework.aspx?masterprefix=j02&masterpid=" & cRec.PID.ToString, "_top", "Images/email.png", True)

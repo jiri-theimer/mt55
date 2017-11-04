@@ -122,7 +122,6 @@
     <Compile Include="DBNative\x16EntityCategory_FieldSetting.vb" />
     <Compile Include="DBNative\x18EntityCategory.vb" />
     <Compile Include="DBNative\p47CapacityPlan.vb" />
-    <Compile Include="DBNative\p48OperativePlan.vb" />
     <Compile Include="DBNative\p49FinancialPlan.vb" />
     <Compile Include="DBNative\x19EntityCategory_Binding.vb" />
     <Compile Include="DBNative\x20EntiyToCategory.vb" />
@@ -182,7 +181,6 @@
     <Compile Include="Helpers\p91RecordDisposition.vb" />
     <Compile Include="Helpers\PivotRecord.vb" />
     <Compile Include="Helpers\Query\myQueryP47.vb" />
-    <Compile Include="Helpers\Query\myQueryP48.vb" />
     <Compile Include="Helpers\Query\myQueryP49.vb" />
     <Compile Include="Helpers\Query\myQueryP90.vb" />
     <Compile Include="Helpers\Query\myQueryX47.vb" />

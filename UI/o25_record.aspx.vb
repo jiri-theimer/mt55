@@ -68,4 +68,27 @@
     Private Sub _MasterPage_Master_OnRefresh() Handles _MasterPage.Master_OnRefresh
         RefreshRecord()
     End Sub
+
+    Private Sub _MasterPage_Master_OnSave() Handles _MasterPage.Master_OnSave
+        With Master.Factory.o25AppBL
+            Dim cRec As BO.o25App = IIf(Master.DataPID <> 0, .Load(Master.DataPID), New BO.o25App)
+            cRec.o25AppFlag = DirectCast(CInt(Me.o25AppFlag.SelectedValue), BO.o25AppFlagENUM)
+            cRec.o25Name = Me.o25Name.Text
+            cRec.o25Code = Me.o25Code.Text
+            cRec.o25Url = Me.o25Url.Text
+            cRec.o25IsMainMenu = Me.o25IsMainMenu.Checked
+            cRec.ValidFrom = Master.RecordValidFrom
+            cRec.ValidUntil = Master.RecordValidUntil
+
+
+            If .Save(cRec) Then
+                Master.DataPID = .LastSavedPID
+
+
+                Master.CloseAndRefreshParent("o25-save")
+            Else
+                Master.Notify(.ErrorMessage, 2)
+            End If
+        End With
+    End Sub
 End Class

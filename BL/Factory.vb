@@ -11,8 +11,7 @@
     Private Property _p40 As Ip40WorkSheet_RecurrenceBL
     Private Property _p41 As Ip41ProjectBL
     Private Property _p45 As Ip45BudgetBL
-    Private Property _p47 As Ip47CapacityPlanBL
-    Private Property _p48 As Ip48OperativePlanBL
+    Private Property _p47 As Ip47CapacityPlanBL    
     Private Property _p49 As Ip49FinancialPlanBL
     Private Property _p28 As Ip28ContactBL
     Private Property _p29 As Ip29ContactTypeBL
@@ -223,12 +222,7 @@
             Return _p47
         End Get
     End Property
-    Public ReadOnly Property p48OperativePlanBL As Ip48OperativePlanBL
-        Get
-            If _p48 Is Nothing Then _p48 = New p48OperativePlanBL(_cUser)
-            Return _p48
-        End Get
-    End Property
+    
     Public ReadOnly Property p49FinancialPlanBL As Ip49FinancialPlanBL
         Get
             If _p49 Is Nothing Then _p49 = New p49FinancialPlanBL(_cUser)

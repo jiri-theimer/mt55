@@ -118,7 +118,6 @@
     <Compile Include="p98Invoice_Round_Setting_TemplateDL.vb" />
     <Compile Include="x18EntityCategoryDL.vb" />
     <Compile Include="p47CapacityPlanDL.vb" />
-    <Compile Include="p48OperativePlanDL.vb" />
     <Compile Include="p49FinancialPlanDL.vb" />
     <Compile Include="p86BankAccountDL.vb" />
     <Compile Include="p89ProformaTypeDL.vb" />

@@ -26,8 +26,9 @@
     GR_P91_Creator = 24                'Oprávnění vystavovat faktury za všechny projekty
     GR_P31_EditAsNonOwner = 25          'Pokud je osobou worksheet úkonu a není vlastníkem, má i přesto vlastnická práva k úkonu
     GR_P56_Creator = 26                  'vytvářet úkoly ve všech projektech
-    GR_P48_Creator = 27                    'zapisovat operativní plán
-    GR_P48_Reader = 28                    'Čtenář všech operativních plánů
+    GR_J02_ContactPerson_Create = 27    'zakládat kontaktní osoby
+    ''GR_P48_Creator = 27                    'zapisovat operativní plán
+    ''GR_P48_Reader = 28                    'Čtenář všech operativních plánů
     GR_P31_Creator = 29                   'Oprávnění zapisovat worksheet do jakéhokoliv projektu bez ohledu na projektovou roli
     GR_O22_Creator = 30                   'Zapisovat události do kalendáře
     GR_P41_Draft_Creator = 31                'Vytvářet DRAFT projekty

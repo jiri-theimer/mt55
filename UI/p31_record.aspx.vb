@@ -79,12 +79,12 @@
             Me.hidP91ID.Value = value.ToString
         End Set
     End Property
-    Private Property CurrentP48ID As Integer
+    Private Property CurrentAppGuid As String
         Get
-            Return BO.BAS.IsNullInt(Me.hidP48ID.Value)
+            Return Me.hidAppGUID.Value
         End Get
-        Set(value As Integer)
-            Me.hidP48ID.Value = value.ToString
+        Set(value As String)
+            Me.hidAppGUID.Value = value
         End Set
     End Property
     Public Property CurrentP85ID As Integer
@@ -220,31 +220,30 @@
             Dim cTask As BO.p56Task = Master.Factory.p56TaskBL.LoadByCode(Request.Item("p56code"))
             If Not cTask Is Nothing Then intDefP56ID = cTask.PID Else Master.Notify("Pro předávaný kód úkolu nebyl nalezen záznam.")
         End If
-        If Request.Item("p48id") <> "" Then Me.CurrentP48ID = BO.BAS.IsNullInt(Request.Item("p48id"))
-
+        Me.CurrentAppGuid = Request.Item("appguid")
         'dál se pokračuje pouze pro nové záznamy
         If Master.DataPID = 0 Then
-            If Me.CurrentP48ID > 0 Then
-                'překlopení operativního plánu do reality
-                Dim cP48 As BO.p48OperativePlan = Master.Factory.p48OperativePlanBL.Load(Me.CurrentP48ID)
-                Me.CurrentJ02ID = cP48.j02ID
-                Me.j02ID.Value = cP48.j02ID
-                Me.j02ID.Text = cP48.Person
-                Me.p31Date.SelectedDate = cP48.p48Date
-                Me.p31Text.Text = cP48.p48Text
-                Me.p41ID.Value = cP48.p41ID.ToString
-                Me.p41ID.Text = cP48.ClientAndProject
-                Handle_ChangeP41(False, 0)
-                If cP48.p34ID <> 0 Then
-                    Me.p34ID.SelectedValue = cP48.p34ID.ToString
-                    Handle_ChangeP34()
-                    If cP48.p32ID <> 0 Then Me.p32ID.SelectedValue = cP48.p32ID.ToString
-                End If
-                Me.p31Value_Orig.Text = cP48.p48Hours.ToString
-                If Not cP48.p48DateTimeFrom Is Nothing Then
-                    Me.CurrentHoursEntryFlag = BO.p31HoursEntryFlagENUM.PresnyCasOdDo
-                    Me.TimeFrom.Text = cP48.p48TimeFrom : Me.TimeUntil.Text = cP48.p48TimeUntil
-                End If
+            If Me.CurrentAppGuid <> "" Then
+                'překlopení kalendářové události do worksheet úkonu
+                ''Dim cP48 As BO.p48OperativePlan = Master.Factory.p48OperativePlanBL.Load(Me.CurrentP48ID)
+                ''Me.CurrentJ02ID = cP48.j02ID
+                ''Me.j02ID.Value = cP48.j02ID
+                ''Me.j02ID.Text = cP48.Person
+                ''Me.p31Date.SelectedDate = cP48.p48Date
+                ''Me.p31Text.Text = cP48.p48Text
+                ''Me.p41ID.Value = cP48.p41ID.ToString
+                ''Me.p41ID.Text = cP48.ClientAndProject
+                ''Handle_ChangeP41(False, 0)
+                ''If cP48.p34ID <> 0 Then
+                ''    Me.p34ID.SelectedValue = cP48.p34ID.ToString
+                ''    Handle_ChangeP34()
+                ''    If cP48.p32ID <> 0 Then Me.p32ID.SelectedValue = cP48.p32ID.ToString
+                ''End If
+                ''Me.p31Value_Orig.Text = cP48.p48Hours.ToString
+                ''If Not cP48.p48DateTimeFrom Is Nothing Then
+                ''    Me.CurrentHoursEntryFlag = BO.p31HoursEntryFlagENUM.PresnyCasOdDo
+                ''    Me.TimeFrom.Text = cP48.p48TimeFrom : Me.TimeUntil.Text = cP48.p48TimeUntil
+                ''End If
                 Return
             End If
 
@@ -905,7 +904,6 @@
                 .p34ID = BO.BAS.IsNullInt(Me.p34ID.SelectedValue)
                 .p32ID = BO.BAS.IsNullInt(Me.p32ID.SelectedValue)
                 If trTask.Visible Then .p56ID = BO.BAS.IsNullInt(Me.p56ID.SelectedValue)
-                .p48ID = Me.CurrentP48ID
                 .p28ID_Supplier = BO.BAS.IsNullInt(Me.p28ID_Supplier.Value)
                 .j02ID_ContactPerson = BO.BAS.IsNullInt(Me.j02ID_ContactPerson.SelectedValue)
 

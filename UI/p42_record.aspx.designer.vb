@@ -113,15 +113,6 @@ Partial Public Class p42_record
     Protected WithEvents p42SubgridO23Flag As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''p42IsModule_p48 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents p42IsModule_p48 As Global.System.Web.UI.WebControls.CheckBox
-
-    '''<summary>
     '''p42IsModule_p45 control.
     '''</summary>
     '''<remarks>

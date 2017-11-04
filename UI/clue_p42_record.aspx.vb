@@ -21,7 +21,6 @@
             sch(Me.p42IsModule_o22, .p42IsModule_o22)
             sch(Me.p42IsModule_p45, .p42IsModule_p45)
             sch(Me.p42IsModule_p56, .p42IsModule_p56)
-            sch(Me.p42IsModule_p48, .p42IsModule_p48)
         End With
 
         Dim mq As New BO.myQuery

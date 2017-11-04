@@ -56,7 +56,6 @@
             .Add("p56id", BO.BAS.IsNullDBKey(cRecTU.p56ID), DbType.Int32)
             .Add("p31date", cRecTU.p31Date, DbType.DateTime)
             .Add("p32id", BO.BAS.IsNullDBKey(cRecTU.p32ID), DbType.Int32)
-            .Add("p48id", BO.BAS.IsNullDBKey(cRecTU.p48ID), DbType.Int32)
             .Add("p31vatrate_orig", cRecTU.VatRate_Orig, DbType.Double)
             .Add("j27id_explicit", cRecTU.j27ID_Billing_Orig, DbType.Int32)
             .Add("p31text", cRecTU.p31Text, DbType.String)
@@ -235,7 +234,6 @@
                 With pars
                     .Add("p31id", intSavedP31ID, DbType.Int32)
                     .Add("j03id_sys", _curUser.PID, DbType.Int32)
-                    .Add("p48id", cRec.p48ID, DbType.Int32)
                     .Add("x45ids", , DbType.String, ParameterDirection.Output, 50)
                 End With
                 If _cDB.RunSP("p31_aftersave", pars) Then
@@ -906,7 +904,6 @@
                 With pars
                     .Add("p31id", intP31ID, DbType.Int32)
                     .Add("j03id_sys", _curUser.PID, DbType.Int32)
-                    .Add("p48id", Nothing, DbType.Int32)
                     .Add("x45ids", , DbType.String, ParameterDirection.Output, 50)
                 End With
                 _cDB.RunSP("p31_aftersave", pars)
@@ -920,7 +917,6 @@
             With pars
                 .Add("p31id", intP31ID, DbType.Int32)
                 .Add("j03id_sys", _curUser.PID, DbType.Int32)
-                .Add("p48id", Nothing, DbType.Int32)
                 .Add("x45ids", , DbType.String, ParameterDirection.Output, 50)
             End With
             _cDB.RunSP("p31_aftersave", pars)
