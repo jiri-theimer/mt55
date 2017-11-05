@@ -70,12 +70,16 @@
                     <div>
                         <asp:CheckBox ID="chk1" runat="server" AutoPostBack="true" CssClass="chk" />
                         <asp:HiddenField ID="o25Code" runat="server" />
+                        <asp:HiddenField ID="o25id" runat="server" />
                     </div>
                 </ItemTemplate>
             </asp:Repeater>
-            <asp:TextBox ID="txt1" runat="server" TextMode="MultiLine"></asp:TextBox>
-            <div><asp:Button ID="cmd1" runat="server" Text="pokus" /></div>
-
+            <div class="div6">
+                <asp:HyperLink ID="link2Google" runat="server" NavigateUrl="https://calendar.google.com" Target="_blank">Google Kalendáře</asp:HyperLink>
+            </div>
+            <div class="div6">
+                <asp:HyperLink ID="linkNew" runat="server" NavigateUrl="javascript:contMenu('o22_record.aspx?pid=0',false)">Nová událost v kalendáři</asp:HyperLink>
+            </div>
         </div>
         <div id="right_panel" style="margin-left: 210px;">
             <iframe id="fra1" runat="server" width="99.5%" height="600px" frameborder="0" scrolling="no"></iframe>

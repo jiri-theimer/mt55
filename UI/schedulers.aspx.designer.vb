@@ -23,22 +23,22 @@ Partial Public Class schedulers
     Protected WithEvents rp1 As Global.System.Web.UI.WebControls.Repeater
 
     '''<summary>
-    '''txt1 control.
+    '''link2Google control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txt1 As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents link2Google As Global.System.Web.UI.WebControls.HyperLink
 
     '''<summary>
-    '''cmd1 control.
+    '''linkNew control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents cmd1 As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents linkNew As Global.System.Web.UI.WebControls.HyperLink
 
     '''<summary>
     '''fra1 control.
