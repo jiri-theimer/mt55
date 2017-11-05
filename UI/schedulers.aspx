@@ -68,12 +68,13 @@
             <asp:Repeater ID="rp1" runat="server">
                 <ItemTemplate>
                     <div>
-                        <asp:CheckBox ID="ch1" runat="server" AutoPostBack="true" CssClass="chk" />
+                        <asp:CheckBox ID="chk1" runat="server" AutoPostBack="true" CssClass="chk" />
                         <asp:HiddenField ID="o25Code" runat="server" />
                     </div>
                 </ItemTemplate>
             </asp:Repeater>
-
+            <asp:TextBox ID="txt1" runat="server" TextMode="MultiLine"></asp:TextBox>
+            <div><asp:Button ID="cmd1" runat="server" Text="pokus" /></div>
 
         </div>
         <div id="right_panel" style="margin-left: 210px;">

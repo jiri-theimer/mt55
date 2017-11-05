@@ -33,7 +33,7 @@
 
     Private Sub rp1_ItemDataBound(sender As Object, e As RepeaterItemEventArgs) Handles rp1.ItemDataBound
         Dim cRec As BO.o25App = CType(e.Item.DataItem, BO.o25App)
-        With CType(e.Item.FindControl("ch1"), CheckBox)
+        With CType(e.Item.FindControl("chk1"), CheckBox)
             .Text = cRec.o25Name
         End With
         CType(e.Item.FindControl("o25Code"), HiddenField).Value = cRec.o25Code
@@ -42,22 +42,28 @@
 
     Private Sub schedulers_LoadComplete(sender As Object, e As EventArgs) Handles Me.LoadComplete
 
-        Dim src As New List(Of String), strURL As String = ""
+        Dim src As New List(Of String), strURL As String = "https://calendar.google.com/calendar/embed?wkst=1", x As Integer = 0
 
         For Each ri As RepeaterItem In rp1.Items
             With CType(ri.FindControl("chk1"), CheckBox)
                 If .Checked Then
-                    src.Add("src=" & CType(ri.FindControl("o25Code"), HiddenField).Value)
-
+                    strURL += "&amp;src=" & CType(ri.FindControl("o25Code"), HiddenField).Value
+                    x += 1
                 End If
             End With
         Next
-        If src.Count = 0 Then
-
-        Else
-            strURL = "https://calendar.google.com/calendar/embed?" & String.Join(";", src)
+        If x = 0 Then
+            strURL = "blank.aspx"
         End If
 
+        
+        fra1.Src = strURL
+        'txt1.Text = strURL
 
+
+    End Sub
+
+    Private Sub cmd1_Click(sender As Object, e As EventArgs) Handles cmd1.Click
+        fra1.Src = txt1.Text
     End Sub
 End Class
