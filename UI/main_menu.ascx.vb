@@ -176,7 +176,7 @@ Public Class main_menu
                     Case BO.x29IdEnum.p51PriceList : bolGO = factory.TestPermission(BO.x53PermValEnum.GR_P51_Admin)
                     Case BO.x29IdEnum.x31Report : bolGO = .j04IsMenu_Report
                     Case BO.x29IdEnum.p56Task : bolGO = .j04IsMenu_Task
-
+                    Case BO.x29IdEnum.o22Milestone : bolGO = .j04IsMenu_Scheduler
                 End Select
             End With
 
@@ -212,15 +212,7 @@ Public Class main_menu
                 Catch ex As Exception
                 End Try
             End If
-            If c.x29ID = BO.x29IdEnum.o22Milestone Then
-                Dim lisO25 As IEnumerable(Of BO.o25App) = factory.o25AppBL.GetList(New BO.myQuery).Where(Function(p) p.o25AppFlag = BO.o25AppFlagENUM.GoogleCalendar And p.o25IsMainMenu = True)
-                For Each app In lisO25
-                    Dim nn As New NavigationNode(app.o25Name)
-                    nn.NavigateUrl = app.o25Url
-                    nn.Target = "_blank"
-                    n.Nodes.Add(nn)
-                Next
-            End If
+           
             If nParent Is Nothing Then
                 menu1.Nodes.Add(n)
             Else

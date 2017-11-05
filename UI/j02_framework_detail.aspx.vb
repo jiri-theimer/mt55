@@ -41,8 +41,6 @@
                     .Add("j02_framework_detail-chkFFShowFilledOnly")
                     .Add("j02_menu-show-level1")
                     .Add("j02_menu-show-cal1")
-                    .Add("myscheduler-maxtoprecs-j02")
-                    .Add("myscheduler-numberofdays-j02")
                     .Add("myscheduler-firstday")
                 End With
                 Dim intPID As Integer = Master.DataPID
@@ -66,8 +64,6 @@
                         Case Else
                             'zůstat zde na BOARD stránce
                     End Select
-                    cal1.MaxTopRecs = BO.BAS.IsNullInt(.GetUserParam("myscheduler-maxtoprecs-j02", "10"))
-                    cal1.NumberOfDays = BO.BAS.IsNullInt(.GetUserParam("myscheduler-numberofdays-j02", "10"))
                     cal1.FirstDayMinus = BO.BAS.IsNullInt(.GetUserParam("myscheduler-firstday", "-1"))
                     hidCal1ShallBeActive.Value = .GetUserParam("j02_menu-show-cal1", "1")
                     menu1.TabSkin = .GetUserParam("j02_menu-tabskin")

@@ -158,6 +158,15 @@ Partial Public Class j04_record
     Protected WithEvents j04IsMenu_Task As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
+    '''j04IsMenu_Scheduler control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents j04IsMenu_Scheduler As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
     '''j04IsMenu_Report control.
     '''</summary>
     '''<remarks>

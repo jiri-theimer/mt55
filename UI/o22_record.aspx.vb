@@ -271,7 +271,9 @@ Public Class o22_record
                 cRec = Master.Factory.o22MilestoneBL.Load(Master.DataPID)
                 If cRec.o25ID > 0 Then
                     If (cRec.o22AppID <> "" And chkUpdateEventInCalendar.Checked) Or (cRec.o22AppID = "") Then
-                        Export2Calendar(cRec)
+                        If Not Export2Calendar(cRec) Then
+                            Return  'chyba v komunikaci s google kalendářem
+                        End If
                     End If
                 End If
                 
@@ -566,13 +568,19 @@ Public Class o22_record
         Return 0
     End Function
 
-    Private Sub Export2Calendar(cRec As BO.o22Milestone)
+    Private Function Export2Calendar(cRec As BO.o22Milestone) As Boolean
         Authenticate()
         Dim cO25 As BO.o25App = Master.Factory.o25AppBL.Load(BO.BAS.IsNullInt(Me.o25ID.SelectedValue))
 
         Dim CalendarEvent As New Data.Event, bolNewEvent As Boolean = True
         If cRec.o22AppID <> "" Then
-            CalendarEvent = _gservice.Events.Get(cO25.o25Code, cRec.o22AppID).Execute()
+            Try
+                CalendarEvent = _gservice.Events.Get(cO25.o25Code, cRec.o22AppID).Execute()
+            Catch ex As Exception
+                Master.Notify(String.Format("Chyba v přípojení k službě kalendáře: {0}", ex.Message), NotifyLevel.ErrorMessage)
+                Return False
+            End Try
+
             bolNewEvent = False
         End If
 
@@ -654,5 +662,6 @@ Public Class o22_record
         cRec.o22AppID = ret.Id
         Master.Factory.o22MilestoneBL.Save(cRec, Nothing)
 
-    End Sub
+        Return True
+    End Function
 End Class

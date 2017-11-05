@@ -4,27 +4,33 @@ Public Class myscheduler
     Public Property factory As BL.Factory
     Private Property _curIsShowP57name As Boolean = False
     Private Property _lastP41ID As Integer = 0
-    Private Property _showProjectRow As Boolean = True
+    Private Property _lastDate As Date
+    Private Property _showProjectRow As Boolean = False
 
-
-    Public Property NumberOfDays As Integer
-        Get
-            Return Me.scheduler1.AgendaView.NumberOfDays
-        End Get
-        Set(value As Integer)
-            Me.scheduler1.AgendaView.NumberOfDays = value
-            basUI.SelectDropdownlistValue(cbxNumberOfDays, value.ToString)
-
-        End Set
-    End Property
-    Public Property MaxTopRecs As Integer
-        Get
-            Return CInt(Me.cbxTopRecs.SelectedValue)
-        End Get
-        Set(value As Integer)
-            cbxTopRecs.SelectedValue = value.ToString
-        End Set
-    End Property
+    Private Property _lisProRow As List(Of ProRow)
+    Public Class ProRow
+        Public Property recDate As Date?
+        Public Property Time As String
+        Public Property recType As String
+        Public Property recName As String
+        Public Property IsClosed As Boolean
+        Public Property Tags As String
+        Public Property recPID As Integer
+        Public Property Prefix As String
+        Public Property ClueUrl As String
+        Public Property Tooltip As String
+        Public Property BackColor As String
+        Public Property Status As String
+        Public Property Receivers As String
+        Public Property NavigateUrl As String
+        Public Property p41ID As Integer
+        Public Property Project As String
+        Public Sub New(intPID As Integer, strPrefix As String)
+            Me.Prefix = strPrefix
+            Me.recPID = intPID
+        End Sub
+    End Class
+    
     Public Property FirstDayMinus As Integer
         Get
             Return CInt(Me.cbxFirstDay.SelectedValue)
@@ -49,64 +55,37 @@ Public Class myscheduler
             hidRecordPID.Value = value.ToString
         End Set
     End Property
-    Public ReadOnly Property RowsCount As Integer
-        Get
-            Return scheduler1.Appointments.Count
-        End Get
-    End Property
-
-
+    
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
     End Sub
 
     Public Sub RefreshData(d0 As Date)
-        scheduler1.AgendaView.NumberOfDays = CInt(cbxNumberOfDays.SelectedValue)
         If Me.RecordPID = 0 Then
             Return
         End If
-
+        _lisProRow = New List(Of ProRow)
+        _lastDate = DateSerial(2000, 1, 1)
         Dim d1 As Date = d0.AddDays(Me.FirstDayMinus)
-        Dim d2 As Date = d1.AddDays(Me.NumberOfDays)
-
-        With scheduler1
-            .Appointments.Clear()
-            If .SelectedView = SchedulerViewType.AgendaView Then
-                .SelectedDate = d1
-            End If
-            If .SelectedView = SchedulerViewType.DayView Then
-                d1 = .SelectedDate
-                d2 = d1.AddDays(1)
-            End If
-        End With
-
-
-        fill_o22(d1, d2)
-        fill_p56(d1, d2)
+        
+       
+        fill_o22(d1)
+        fill_p56(d1)
         lblNoAppointments.Visible = False
-        With scheduler1
-            If .Appointments.Count = 0 Then
-                .Height = Unit.Parse("40px")
-                lblNoAppointments.Visible = True
-                If .SelectedView = SchedulerViewType.AgendaView Then
-                    lblNoAppointments.Text = String.Format("V [{0}] žádné úkoly/události s termínem.", Format(.SelectedDate, "dd.MM.yyyy") & " - " & Format(.SelectedDate.AddDays(.AgendaView.NumberOfDays), "dd.MM.yyyy"))
-                End If
-                If .SelectedView = SchedulerViewType.DayView Then
-                    lblNoAppointments.Text = String.Format("V [{0}] žádné úkoly/události s termínem.", Format(.SelectedDate, "dd.MM.yyyy"))
-                End If
-            Else
-                .Height = Unit.Parse("300px")
-            End If
-
-        End With
+        If _lisProRow.Count = 0 Then
+            lblNoAppointments.Visible = True
+            lblNoAppointments.Text = "Žádné úkoly/události."
+        End If
+        rpProgram.DataSource = _lisProRow.OrderBy(Function(p) p.recDate)
+        rpProgram.DataBind()
 
 
     End Sub
-    Private Sub fill_o22(d1 As Date, d2 As Date)
+    Private Sub fill_o22(d1 As Date)
         Dim intRecordPID As Integer = Me.RecordPID
         Dim mq As New BO.myQueryO22
         mq.Closed = BO.BooleanQueryMode.FalseQuery
-        mq.TopRecordsOnly = Me.MaxTopRecs
+        mq.TopRecordsOnly = 100
         mq.MG_SortString = "a.o22DateFrom,a.o22DateUntil"
         'mq.SpecificQuery = BO.myQueryO22_SpecificQuery.AllowedForRead
         Select Case hidPrefix.Value
@@ -114,68 +93,70 @@ Public Class myscheduler
                 mq.p28ID = intRecordPID
             Case "p41"
                 mq.p41ID = intRecordPID
-
             Case "j02"
                 mq.j02IDs = BO.BAS.ConvertInt2List(intRecordPID)
             Case Else
                 Return
         End Select
-        mq.DateFrom = d1 : mq.DateUntil = d2
+        mq.DateFrom = d1
         Dim lis As IEnumerable(Of BO.o22Milestone) = factory.o22MilestoneBL.GetList(mq)
         For Each cRec In lis
-            Dim c As New Appointment()
+            Dim c As New ProRow(cRec.PID, "o22")
             With cRec
-                c.ID = .PID.ToString & ",'o22'"
-                c.Description = "clue_o22_record.aspx?pid=" & .PID.ToString
-                c.Subject = "<img src='Images/datepicker.png'/> " & BO.BAS.OM3(.o22Name, 100)
-                If Len(c.Subject) > 120 Then
-                    c.ToolTip = .o22Name
+                c.ClueUrl = "clue_o22_record.aspx?pid=" & .PID.ToString
+
+                c.recType = .o21Name
+                c.recName = .o22Name
+                If Len(c.recName) > 120 Then
+                    c.Tooltip = .o22Name
                 Else
-                    c.ToolTip = .o21Name
+                    c.Tooltip = .o21Name
                 End If
+                If .o22Description <> "" Then c.Tooltip += .o22Description
+                c.BackColor = .Color.BackColor
+                c.Status = .o21Name
+                c.NavigateUrl = .o22AppUrl
 
                 Select Case .o21Flag
                     Case BO.o21FlagEnum.DeadlineOrMilestone
-                        'c.BackColor = Drawing.Color.Aquamarine
-                        c.BackColor = Drawing.Color.Salmon
-                        c.Start = .o22DateUntil.Value
-                        c.End = .o22DateUntil.Value
-
+                        c.recDate = .o22DateUntil.Value
+                        c.Time = Format(c.recDate, "HH:mm")
+                        If c.Time = "00:00" Then c.Time = ""
 
                     Case BO.o21FlagEnum.EventFromUntil
-                        c.BackColor = Drawing.Color.AntiqueWhite
-                        If Not .o22DateFrom Is Nothing Then
-                            c.Start = .o22DateFrom
+                        If .o22DateFrom Is Nothing Then
+                            c.recDate = .o22DateUntil.Value
                         Else
-                            c.Start = .o22DateUntil
+                            c.recDate = .o22DateFrom.Value
+                            c.Time = Format(c.recDate, "HH:mm") & " - " & Format(.o22DateUntil.Value, "HH:mm")
+                            If c.Time = "00:00 - 00:00" Then c.Time = ""
                         End If
-                        c.End = .o22DateUntil
+
+
 
                         If .o22IsAllDay Then
-                            c.Start = DateSerial(Year(c.Start), Month(c.Start), Day(c.Start))
-                            c.End = c.End.AddDays(1)
+                            c.recDate = DateSerial(Year(.o22DateUntil), Month(.o22DateUntil), Day(.o22DateUntil))
                         End If
-                        
+
 
                 End Select
-                If c.End.Hour = 0 And c.End.Minute = 0 And c.End.Second = 0 Then    'nastavit jako celo-denní událost bez času od-do
-                    c.Start = DateSerial(Year(c.Start), Month(c.Start), Day(c.Start))
-                    c.End = DateSerial(Year(c.End), Month(c.End), Day(c.End)).AddDays(1)
-
+                If Not .o22DateUntil Is Nothing Then
+                    If .o22DateUntil < Now Then
+                        c.IsClosed = True
+                    End If
                 End If
-                If c.End < Today Then c.Font.Strikeout = True
-
-                c.BorderColor = Drawing.Color.Gray
-                c.BorderStyle = BorderStyle.Dashed
+                
+               
             End With
-            scheduler1.InsertAppointment(c)
+            _lisProRow.Add(c)
         Next
     End Sub
-    Private Sub fill_p56(d1 As Date, d2 As Date)
+    Private Sub fill_p56(d1 As Date)
         Dim intRecordPID As Integer = Me.RecordPID
         Dim mq As New BO.myQueryP56
-        mq.TopRecordsOnly = Me.MaxTopRecs
-        mq.Closed = BO.BooleanQueryMode.FalseQuery
+        mq.TopRecordsOnly = 100
+        mq.Closed = BO.BooleanQueryMode.NoQuery
+
         mq.MG_SortString = "a.p56PlanUntil"
         Select Case hidPrefix.Value
             Case "p28"
@@ -187,48 +168,39 @@ Public Class myscheduler
             Case Else
                 Return
         End Select
-        mq.p56PlanUntil_D1 = d1 : mq.p56PlanUntil_D2 = d2
-        Dim lis As IEnumerable(Of BO.p56Task) = factory.p56TaskBL.GetList(mq)
+        mq.p56PlanUntil_D1 = d1 : mq.p56PlanUntil_D2 = d1.AddYears(1)
+        Dim lis As IEnumerable(Of BO.p56Task) = factory.p56TaskBL.GetList(mq, True)
         For Each cRec In lis
-            Dim c As New Appointment()
+            Dim c As New ProRow(cRec.PID, "p56")
             With cRec
-                c.ID = .PID.ToString & ",'p56'"
-                c.Description = "clue_p56_record.aspx?pid=" & .PID.ToString
-                c.Subject = "<img src='Images/task.png'/> " & BO.BAS.OM3(.p56Name, 100)
-                If .b02ID <> 0 Then c.Subject += " [" & .b02Name & "]"
-                If Len(c.Subject) > 120 Then
-                    c.ToolTip = .p56Name
+                c.ClueUrl = "clue_p56_record.aspx?pid=" & .PID.ToString
+                c.NavigateUrl = "p56_framework.aspx?pid=" & cRec.PID.ToString
+                c.recName = BO.BAS.OM3(.p56Name, 100)
+
+                If Len(.p56Name) > 120 Then
+                    c.Tooltip = .p56Name
                 Else
-                    c.ToolTip = .p57Name
+                    c.Tooltip = .p57Name
                 End If
+                If .p56Description <> "" Then c.Tooltip += .p56Description
 
+                c.recDate = .p56PlanUntil
+                c.Time = Format(.p56PlanUntil, "HH:mm")
+                If c.Time = "00:00" Or c.Time = "23:59" Then c.Time = ""
 
-                If .p57PlanDatesEntryFlag = 4 And Not .p56PlanFrom Is Nothing Then
-                    c.Start = .p56PlanFrom
-                Else
-                    c.Start = .p56PlanUntil
-                End If
-                c.End = .p56PlanUntil
-
-                c.BackColor = Drawing.Color.FromName("#3CB371")
-
-                If (c.End.Hour = 23 And c.End.Minute = 59) Or (c.End.Hour = 0 And c.End.Minute = 0 And c.End.Second = 0) Then   'scheduler1.SelectedView = SchedulerViewType.DayView And 
-                    c.Start = DateSerial(Year(c.Start), Month(c.Start), Day(c.Start))
-                    c.End = DateSerial(Year(c.End), Month(c.End), Day(c.End)).AddDays(1)
-
-                End If
-
+                c.BackColor = .b02Color
+                c.Status = .b02Name
+                c.Receivers = .ReceiversInLine
+                c.p41ID = .p41ID
+                c.IsClosed = .IsClosed
             End With
 
-            scheduler1.InsertAppointment(c)
+            _lisProRow.Add(c)
         Next
 
     End Sub
 
-    Private Sub scheduler1_NavigationComplete(sender As Object, e As SchedulerNavigationCompleteEventArgs) Handles scheduler1.NavigationComplete
-
-        RefreshData(scheduler1.SelectedDate)
-    End Sub
+   
 
     Public Sub RefreshTasksWithoutDate(bolShowProjectRow As Boolean)
         _showProjectRow = bolShowProjectRow
@@ -237,7 +209,7 @@ Public Class myscheduler
         Dim mq As New BO.myQueryP56
         mq.Closed = BO.BooleanQueryMode.FalseQuery
         mq.TerminNeniVyplnen = BO.BooleanQueryMode.TrueQuery
-        mq.TopRecordsOnly = Me.MaxTopRecs
+        mq.TopRecordsOnly = 100
         mq.IsShowTagsInColumn = True
 
         Select Case hidPrefix.Value
@@ -254,8 +226,8 @@ Public Class myscheduler
 
         If lisP56.Select(Function(p) p.p57ID).Distinct.Count > 1 Then _curIsShowP57name = True
         Me.p56Count.Text = lisP56.Count.ToString
-        If lisP56.Count = Me.MaxTopRecs Then
-            Me.p56Count.Text = String.Format("Podmínce vyhovuje více než {0} úkolů bez termínu!", MaxTopRecs)
+        If lisP56.Count = 100 Then
+            Me.p56Count.Text = String.Format("Podmínce vyhovuje více než {0} úkolů bez termínu!", 100)
         End If
         _lastP41ID = 0
         rpP56.DataSource = lisP56
@@ -282,14 +254,8 @@ Public Class myscheduler
         With CType(e.Item.FindControl("tags"), Label)
             .Text = cRec.TagsInlineHtml
         End With
-        ''With CType(e.Item.FindControl("clue1"), HyperLink)
-        ''    .Attributes.Item("rel") = "clue_p56_record.aspx?&pid=" & cRec.PID.ToString
-        ''End With
-        If Not cRec.p56ReminderDate Is Nothing Then
-            e.Item.FindControl("img1").Visible = True
-        Else
-            e.Item.FindControl("img1").Visible = False
-        End If
+
+        
         If _showProjectRow Then
             With CType(e.Item.FindControl("Project"), Label)
                 If _lastP41ID = cRec.p41ID Then
@@ -314,32 +280,23 @@ Public Class myscheduler
         End With
        
 
-        If Not BO.BAS.IsNullDBDate(cRec.p56PlanUntil) Is Nothing Then
-            With CType(e.Item.FindControl("p56PlanUntil"), Label)
-                .Text = BO.BAS.FD(cRec.p56PlanUntil, True, True)
-                If cRec.p56PlanUntil < Now Then
-                    .Text += "...je po termínu!" : .ForeColor = Drawing.Color.Red
-                Else
-                    .ForeColor = Drawing.Color.Green
-                End If
-            End With
+        ''If Not BO.BAS.IsNullDBDate(cRec.p56PlanUntil) Is Nothing Then
+        ''    With CType(e.Item.FindControl("p56PlanUntil"), Label)
+        ''        .Text = BO.BAS.FD(cRec.p56PlanUntil, True, True)
+        ''        If cRec.p56PlanUntil < Now Then
+        ''            .Text += "...je po termínu!" : .ForeColor = Drawing.Color.Red
+        ''        Else
+        ''            .ForeColor = Drawing.Color.Green
+        ''        End If
+        ''    End With
 
-        End If
+        ''End If
         _lastP41ID = cRec.p41ID
     End Sub
 
     
-    Private Sub cbxTopRecs_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbxTopRecs.SelectedIndexChanged
-        factory.j03UserBL.SetUserParam("myscheduler-maxtoprecs-" & Me.Prefix, cbxTopRecs.SelectedValue)
-        RefreshData(Today)
-        RefreshTasksWithoutDate(True)
-    End Sub
-
-    Private Sub cbxNumberOfDays_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbxNumberOfDays.SelectedIndexChanged
-        factory.j03UserBL.SetUserParam("myscheduler-numberofdays-" & Me.Prefix, cbxNumberOfDays.SelectedValue)
-        RefreshData(Today)
-
-    End Sub
+    
+   
 
     Private Sub cbxFirstDay_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbxFirstDay.SelectedIndexChanged
         factory.j03UserBL.SetUserParam("myscheduler-firstday", cbxFirstDay.SelectedValue)
@@ -348,4 +305,67 @@ Public Class myscheduler
 
 
     
+    Private Sub rpProgram_ItemDataBound(sender As Object, e As RepeaterItemEventArgs) Handles rpProgram.ItemDataBound
+        Dim cRec As ProRow = CType(e.Item.DataItem, ProRow)
+
+        With CType(e.Item.FindControl("link1"), HyperLink)
+
+        End With
+        If _lastDate <> cRec.recDate Then
+            With CType(e.Item.FindControl("calDen"), Label)
+                .Text = Day(cRec.recDate).ToString
+
+                If cRec.recDate < Now Then .ForeColor = Drawing.Color.Red
+
+
+            End With
+            With CType(e.Item.FindControl("calMesic"), Label)
+                Select Case Weekday(cRec.recDate, Microsoft.VisualBasic.FirstDayOfWeek.Monday)
+                    Case 1 : .Text = "pondělí"
+                    Case 2 : .Text = "úterý"
+                    Case 3 : .Text = "středa"
+                    Case 4 : .Text = "čtvrtek"
+                    Case 5 : .Text = "pátek"
+                    Case 6 : .Text = "sobota"
+                    Case 7 : .Text = "neděle"
+                End Select
+                .Text += "<div style='border-top:solid 1px silver;'>" & Format(cRec.recDate, "MM") & "/" & Year(cRec.recDate).ToString & "</div>"
+
+                
+            End With
+        End If
+        
+        With CType(e.Item.FindControl("Time"), Label)
+            .Text = cRec.Time
+        End With
+        With CType(e.Item.FindControl("linkName"), HyperLink)
+            If cRec.Prefix = "o22" Then
+                .Target = "_blank"
+            End If
+
+            .Text = cRec.recName
+            .ToolTip = cRec.Tooltip
+            .NavigateUrl = cRec.NavigateUrl
+            If cRec.IsClosed Then .Font.Strikeout = True
+        End With
+        With CType(e.Item.FindControl("tags"), Label)
+            .Text = cRec.Tags
+        End With
+
+
+     
+        With CType(e.Item.FindControl("pm1"), HyperLink)
+            .Attributes.Item("onclick") = "RCM('" & cRec.Prefix & "'," & cRec.recPID.ToString & ",this)"
+        End With
+        With CType(e.Item.FindControl("Status"), Label)
+            .Text = cRec.Status
+            If cRec.BackColor <> "" Then .Style.Item("background-color") = cRec.BackColor
+            If .Text = "" Then .Text = "."
+        End With
+
+
+        
+        _lastP41ID = cRec.p41ID
+        _lastDate = cRec.recDate
+    End Sub
 End Class

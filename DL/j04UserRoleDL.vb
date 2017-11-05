@@ -37,6 +37,7 @@
                 .Add("j04IsMenu_Notepad", cRec.j04IsMenu_Notepad, DbType.Boolean)
                 .Add("j04IsMenu_MyProfile", cRec.j04IsMenu_MyProfile, DbType.Boolean)
                 .Add("j04IsMenu_Task", cRec.j04IsMenu_Task, DbType.Boolean)
+                .Add("j04IsMenu_Scheduler", cRec.j04IsMenu_Scheduler, DbType.Boolean)
                 .Add("j04IsMenu_More", cRec.j04IsMenu_More, DbType.Boolean)
                 .Add("j04validfrom", cRec.ValidFrom, DbType.DateTime)
                 .Add("j04validuntil", cRec.ValidUntil, DbType.DateTime)

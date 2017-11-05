@@ -80,6 +80,7 @@
             Me.j04IsMenu_Notepad.Checked = .j04IsMenu_Notepad
             Me.j04IsMenu_MyProfile.Checked = .j04IsMenu_MyProfile
             Me.j04IsMenu_Task.Checked = .j04IsMenu_Task
+            Me.j04IsMenu_Scheduler.Checked = .j04IsMenu_Scheduler
 
             Me.j04Aspx_OnePersonPage.Text = .j04Aspx_OnePersonPage
             Me.j04Aspx_OneProjectPage.Text = .j04Aspx_OneProjectPage
@@ -131,6 +132,7 @@
                 .j04IsMenu_Notepad = Me.j04IsMenu_Notepad.Checked
                 .j04IsMenu_MyProfile = Me.j04IsMenu_MyProfile.Checked
                 .j04IsMenu_Task = Me.j04IsMenu_Task.Checked
+                .j04IsMenu_Scheduler = Me.j04IsMenu_Scheduler.Checked
 
                 .j04Aspx_OnePersonPage = Me.j04Aspx_OnePersonPage.Text
                 .j04Aspx_OneProjectPage = Me.j04Aspx_OneProjectPage.Text

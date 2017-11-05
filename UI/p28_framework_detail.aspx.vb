@@ -39,7 +39,6 @@
                     .Add("p28_menu-x31id-plugin")
                     .Add("p28_menu-show-level1")
                     .Add("p28_menu-show-cal1")
-                    .Add("myscheduler-maxtoprecs-p28")
                     .Add("myscheduler-firstday")
                 End With
 
@@ -68,7 +67,6 @@
                             'zůstat zde na BOARD stránce
                     End Select
                     cal1.FirstDayMinus = BO.BAS.IsNullInt(.GetUserParam("myscheduler-firstday", "-1"))
-                    cal1.MaxTopRecs = BO.BAS.IsNullInt(.GetUserParam("myscheduler-maxtoprecs-p28", "10"))
                     hidCal1ShallBeActive.Value = .GetUserParam("p28_menu-show-cal1", "1")
                     menu1.TabSkin = .GetUserParam("p28_menu-tabskin")
                     ''menu1.MenuSkin = .GetUserParam("p28_menu-menuskin")

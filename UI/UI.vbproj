@@ -322,6 +322,7 @@
     <Content Include="plugin_modal.aspx" />
     <Content Include="pokus2.aspx" />
     <Content Include="projects.ascx" />
+    <Content Include="schedulers.aspx" />
     <Content Include="select_doctype.aspx" />
     <Content Include="select_field.aspx" />
     <Content Include="p31_record_split.aspx" />
@@ -1557,6 +1558,13 @@
     <Compile Include="projects.ascx.vb">
       <DependentUpon>projects.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="schedulers.aspx.designer.vb">
+      <DependentUpon>schedulers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="schedulers.aspx.vb">
+      <DependentUpon>schedulers.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="select_doctype.aspx.designer.vb">
       <DependentUpon>select_doctype.aspx</DependentUpon>

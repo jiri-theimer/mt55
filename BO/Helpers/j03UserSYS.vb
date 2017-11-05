@@ -14,6 +14,7 @@ Public Class j03UserSYS
     Public Property j04IsMenu_Proforma As Boolean
     Public Property j04IsMenu_Notepad As Boolean
     Public Property j04IsMenu_Task As Boolean
+    Public Property j04IsMenu_Scheduler As Boolean
     Public Property j04IsMenu_MyProfile As Boolean
     Public Property j60ID As Integer        'ID hlavního menu
 

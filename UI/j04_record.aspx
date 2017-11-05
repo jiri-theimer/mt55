@@ -66,7 +66,9 @@
                     <div class="div6">
                     <asp:CheckBox ID="j04IsMenu_Task" runat="server" Text="[ÚKOLY]" Checked="true" CssClass="chk" />
                     </div>
-                   
+                   <div class="div6">
+                    <asp:CheckBox ID="j04IsMenu_Scheduler" runat="server" Text="[KALENDÁŘE]" Checked="true" CssClass="chk" />
+                    </div>
                     <div class="div6">
                     <asp:CheckBox ID="j04IsMenu_Report" runat="server" Text="[TISKOVÉ SESTAVY]" Checked="true" CssClass="chk" />
                     </div>

@@ -37,7 +37,8 @@ Public Class handler_popupmenu
            
             Case "p31"
                 HandleP31(intPID, factory, strFlag)
-
+            Case "o22"
+                HandleO22(intPID, factory, strFlag)
             Case "p56"
                 HandleP56(intPID, factory, strFlag)
             Case "p28"
@@ -67,7 +68,38 @@ Public Class handler_popupmenu
 
 
     End Sub
-   
+
+    Private Sub HandleO22(intPID As Integer, factory As BL.Factory, strFlag As String)
+        Dim cRec As BO.o22Milestone = factory.o22MilestoneBL.Load(intPID)
+        If cRec Is Nothing Then CI("Záznam nebyl nalezen.", "", True) : Return
+        If cRec.o22AppUrl <> "" Then
+            CLINK("Zobrazit v kalendáři", cRec.o22AppUrl, "_blank", "Images/link.png")
+            SEP()
+        End If
+        If factory.SysUser.IsAdmin Or cRec.j02ID_Owner = factory.SysUser.j02ID Then
+            CI("Upravit kartu události", "o22_record.aspx?pid=" & intPID.ToString, , "Images/edit.png")
+            SEP()
+        End If
+        CI("[NOVÝ]", "", , "Images/new4menu.png")
+        CI("Kopírovat", "o22_record.aspx?clone=1&pid=" & intPID.ToString, , "Images/copy.png", True)        
+        CI("Založit kalendářovou událost", "o22_record.aspx?pid=0", , "Images/new4menu.png", True)
+
+        If (factory.SysUser.j04IsMenu_Project And cRec.p41ID > 0) Or cRec.p56ID > 0 Then
+            CI("[ODKAZ]", "", , "Images/link.png")
+            If cRec.p41ID > 0 And factory.SysUser.j04IsMenu_Project Then
+                Dim cP41 As BO.p41Project = factory.p41ProjectBL.Load(cRec.p41ID)
+                REL(cP41.PrefferedName, "p41_framework.aspx?pid=" & cRec.p41ID.ToString, "_top", "Images/project.png", True)
+                If cP41.p28ID_Client > 0 And factory.SysUser.j04IsMenu_Contact Then
+                    REL(cP41.Client, "p28_framework.aspx?pid=" & cP41.p28ID_Client.ToString, "_top", "Images/contact.png", True)
+                End If
+            End If
+            If cRec.p56ID > 0 And factory.SysUser.j04IsMenu_Task Then
+                Dim cP56 As BO.p56Task = factory.p56TaskBL.Load(cRec.p56ID)
+                REL(cP56.FullName, "p56_framework.aspx?pid=" & cRec.p56ID.ToString, "_top", "Images/task.png", True)
+            End If
+
+        End If
+    End Sub
     Private Sub HandleP56(intPID As Integer, factory As BL.Factory, strFlag As String)
         Dim cRec As BO.p56Task = factory.p56TaskBL.Load(intPID)
         If cRec Is Nothing Then CI("Záznam nebyl nalezen.", "", True) : Return
@@ -1042,6 +1074,16 @@ Public Class handler_popupmenu
         c.IsDisabled = bolDisabled
         c.ImageUrl = strImageUrl
         c.IsChildOfPrevious = bolChild
+        _lis.Add(c)
+
+    End Sub
+    Private Sub CLINK(strText As String, strURL As String, strTarget As String, strImageUrl As String)
+        Dim c As New BO.ContextMenuItem
+        If Len(strText) > 35 Then strText = Left(strText, 35) & "..."
+        c.Text = strText
+        c.NavigateUrl = strURL
+        c.Target = strTarget
+        c.ImageUrl = strImageUrl
         _lis.Add(c)
 
     End Sub

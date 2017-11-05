@@ -23,15 +23,6 @@ Partial Public Class myscheduler
     Protected WithEvents locCalendar As Global.System.Web.UI.WebControls.Localize
 
     '''<summary>
-    '''cbxNumberOfDays control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cbxNumberOfDays As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
     '''cbxFirstDay control.
     '''</summary>
     '''<remarks>
@@ -41,22 +32,13 @@ Partial Public Class myscheduler
     Protected WithEvents cbxFirstDay As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''cbxTopRecs control.
+    '''rpProgram control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents cbxTopRecs As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''scheduler1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents scheduler1 As Global.Telerik.Web.UI.RadScheduler
+    Protected WithEvents rpProgram As Global.System.Web.UI.WebControls.Repeater
 
     '''<summary>
     '''lblNoAppointments control.

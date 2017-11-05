@@ -20,6 +20,7 @@ Public Class j04UserRole
     Public Property j04IsMenu_Proforma As Boolean
     Public Property j04IsMenu_MyProfile As Boolean = True
     Public Property j04IsMenu_Task As Boolean
+    Public Property j04IsMenu_Scheduler As Boolean
     Public Property j04IsMenu_More As Boolean = True
     Public Property j04IsMenu_Notepad As Boolean
     Public Property j04DashboardHtml As String  'na míru vytvořené HTML do dashboard stránky j03_mypage_greeting.aspx
