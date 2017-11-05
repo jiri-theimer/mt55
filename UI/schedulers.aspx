@@ -50,6 +50,16 @@
             self.document.getElementById("<%=fra1.clientid%>").height = hh + "px";
 
         });
+
+
+        function hardrefresh(pid, flag) {
+
+            
+
+            location.replace("schedulers.aspx");
+
+
+        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
