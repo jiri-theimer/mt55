@@ -177,8 +177,6 @@ Public Class main_menu
                     Case BO.x29IdEnum.x31Report : bolGO = .j04IsMenu_Report
                     Case BO.x29IdEnum.p56Task : bolGO = .j04IsMenu_Task
 
-
-
                 End Select
             End With
 
@@ -214,6 +212,15 @@ Public Class main_menu
                 Catch ex As Exception
                 End Try
             End If
+            If c.x29ID = BO.x29IdEnum.o22Milestone Then
+                Dim lisO25 As IEnumerable(Of BO.o25App) = factory.o25AppBL.GetList(New BO.myQuery).Where(Function(p) p.o25AppFlag = BO.o25AppFlagENUM.GoogleCalendar And p.o25IsMainMenu = True)
+                For Each app In lisO25
+                    Dim nn As New NavigationNode(app.o25Name)
+                    nn.NavigateUrl = app.o25Url
+                    nn.Target = "_blank"
+                    n.Nodes.Add(nn)
+                Next
+            End If
             If nParent Is Nothing Then
                 menu1.Nodes.Add(n)
             Else
@@ -228,7 +235,7 @@ Public Class main_menu
 
         For Each n In nSeps
             If n.Nodes.Count = 0 Then
-                menu1.Nodes.Remove(n)
+                menu1.Nodes.Remove(n)   'odstranit položky, které jsou prázdné
                 'menu1.FindNodeByText(n.Text).Visible = False
                 'menu1.FindNodeByText(n.Text).Text = ""
             End If

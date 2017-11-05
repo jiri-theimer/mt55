@@ -33,7 +33,7 @@
 
             </td>
         </tr>
-        <tr>
+        <tr style="display:none;">
             <td>
                 <asp:Label ID="Label2" Text="URL kalendáře:" runat="server" CssClass="lbl"></asp:Label></td>
             <td>

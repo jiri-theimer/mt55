@@ -1,8 +1,21 @@
-﻿Public Class o22_record
+﻿Imports System.IO
+Imports System.Threading
+
+Imports Google.Apis.Calendar.v3
+Imports Google.Apis.Calendar.v3.Data
+Imports Google.Apis.Calendar.v3.EventsResource
+Imports Google.Apis.Services
+Imports Google.Apis.Auth.OAuth2
+Imports Google.Apis.Util.Store
+Imports Google.Apis.Requests
+
+Public Class o22_record
     Inherits System.Web.UI.Page
     Protected WithEvents _MasterPage As ModalDataRecord
     Private Property _curBindingLastJ24ID As Integer
 
+    Private _gservice As CalendarService
+    Private _scopes As IList(Of String) = New List(Of String)()
 
     Public Property CurrentX29ID As BO.x29IdEnum
         Get
@@ -70,6 +83,8 @@
 
             Me.o21ID.DataSource = Master.Factory.o21MilestoneTypeBL.GetList(New BO.myQuery).Where(Function(p) p.x29ID = Me.CurrentX29ID)
             Me.o21ID.DataBind()
+            Me.o25ID.DataSource = Master.Factory.o25AppBL.GetList(New BO.myQuery).Where(Function(p) p.o25AppFlag = BO.o25AppFlagENUM.GoogleCalendar)
+            Me.o25ID.DataBind()
             RefreshRecord()
 
 
@@ -77,6 +92,9 @@
                 Master.DataPID = 0
 
             End If
+
+
+          
 
         End If
     End Sub
@@ -103,13 +121,13 @@
 
 
     Private Sub RefreshRecord()
+        chkUpdateEventInCalendar.Visible = False
         If Master.DataPID = 0 Then
             InhaleObject()
             InhaleMyDefault()
             Handle_Change_o21ID()
             Return
         End If
-
 
         Dim cRec As BO.o22Milestone = Master.Factory.o22MilestoneBL.Load(Master.DataPID)
         Handle_Permissions(cRec)
@@ -127,6 +145,11 @@
             End Select
             InhaleObject()
 
+            If .o25ID > 0 Then
+                chkUpdateEventInCalendar.Visible = True
+                Me.o25ID.Enabled = False
+            End If
+
             Me.o22Name.Text = .o22Name
             If Not BO.BAS.IsNullDBDate(.o22DateFrom) Is Nothing Then
                 Me.o22DateFrom.SelectedDate = .o22DateFrom
@@ -134,17 +157,18 @@
             If Not BO.BAS.IsNullDBDate(.o22DateUntil) Is Nothing Then
                 Me.o22DateUntil.SelectedDate = .o22DateUntil
             End If
-            If Not BO.BAS.IsNullDBDate(.o22ReminderDate) Is Nothing Then
-                Me.o22ReminderDate.SelectedDate = .o22ReminderDate
+            basUI.SelectDropdownlistValue(Me.o22ReminderBeforeMetric, .o22ReminderBeforeMetric)
+            Me.o22ReminderBeforeUnits.Value = .o22ReminderBeforeUnits
 
-            End If
             Me.o22IsAllDay.Checked = .o22IsAllDay
             Me.o22Description.Text = .o22Description
             Me.o21ID.SelectedValue = .o21ID.ToString
+            Me.o25ID.SelectedValue = .o25ID.ToString
             Me.j02ID_Owner.Value = .j02ID_Owner.ToString
             Me.j02ID_Owner.Text = .Owner
             Me.o22IsNoNotify.Checked = .o22IsNoNotify
             Me.o22Location.Text = .o22Location
+            Me.o22ColorID.SelectedValue = .o22ColorID
             Master.Timestamp = .Timestamp
 
             Handle_FF()
@@ -152,7 +176,7 @@
             Master.InhaleRecordValidity(.ValidFrom, .ValidUntil, .DateInsert)
         End With
 
-       
+
 
         Dim lisO20 As IEnumerable(Of BO.o20Milestone_Receiver) = Master.Factory.o22MilestoneBL.GetList_o20(cRec.PID)
         For Each c In lisO20
@@ -186,6 +210,15 @@
     Private Sub _MasterPage_Master_OnSave() Handles _MasterPage.Master_OnSave
         With Master.Factory.o22MilestoneBL
             Dim cRec As BO.o22Milestone = IIf(Master.DataPID <> 0, .Load(Master.DataPID), New BO.o22Milestone)
+
+            ''Authenticate()
+            ''Dim cO25 As BO.o25App = Master.Factory.o25AppBL.Load(BO.BAS.IsNullInt(Me.o25ID.SelectedValue))
+
+            ''Dim CalendarEvent As New Data.Event, bolNewEvent As Boolean = True
+            ''CalendarEvent = _gservice.Events.Get(cO25.o25Code, cRec.o22AppID).Execute()
+            ''Master.Notify(CalendarEvent.ColorId)
+            ''Return
+
             With cRec
                 Select Case Me.CurrentX29ID
                     Case BO.x29IdEnum.j02Person
@@ -202,9 +235,11 @@
                         .p56ID = Me.CurrentMasterDataPID
                 End Select
                 .o22Name = Me.o22Name.Text
-                .o22ReminderDate = BO.BAS.IsNullDBDate(Me.o22ReminderDate.SelectedDate)
+                .o22ReminderBeforeMetric = Me.o22ReminderBeforeMetric.SelectedValue
+                .o22ReminderBeforeUnits = BO.BAS.IsNullInt(Me.o22ReminderBeforeUnits.Value)
 
                 .o21ID = BO.BAS.IsNullInt(Me.o21ID.SelectedValue)
+                .o25ID = BO.BAS.IsNullInt(Me.o25ID.SelectedValue)
                 .o22DateFrom = BO.BAS.IsNullDBDate(Me.o22DateFrom.SelectedDate)
                 .o22DateUntil = BO.BAS.IsNullDBDate(Me.o22DateUntil.SelectedDate)
                 .o22IsAllDay = Me.o22IsAllDay.Checked
@@ -212,6 +247,7 @@
                 .o22Location = Me.o22Location.Text
                 .o22Description = Me.o22Description.Text
                 .o22IsNoNotify = Me.o22IsNoNotify.Checked
+                .o22ColorID = Me.o22ColorID.SelectedValue
 
                 .j02ID_Owner = BO.BAS.IsNullInt(Me.j02ID_Owner.Value)
 
@@ -219,7 +255,7 @@
                 .ValidUntil = Master.RecordValidUntil
             End With
 
-           
+
             Dim lisO20 As New List(Of BO.o20Milestone_Receiver)
             For Each cTemp In Master.Factory.p85TempBoxBL.GetList(ViewState("guid_o20"))
                 Dim c As New BO.o20Milestone_Receiver
@@ -232,6 +268,13 @@
                 Master.DataPID = .LastSavedPID
                 Master.Factory.x18EntityCategoryBL.SaveX19Binding(BO.x29IdEnum.o22Milestone, Master.DataPID, ff1.GetTags(), ff1.GetX20IDs)
 
+                cRec = Master.Factory.o22MilestoneBL.Load(Master.DataPID)
+                If cRec.o25ID > 0 Then
+                    If (cRec.o22AppID <> "" And chkUpdateEventInCalendar.Checked) Or (cRec.o22AppID = "") Then
+                        Export2Calendar(cRec)
+                    End If
+                End If
+                
                 Master.CloseAndRefreshParent("o22-save")
             Else
                 Master.Notify(.ErrorMessage, 2)
@@ -239,7 +282,7 @@
         End With
     End Sub
 
-    
+
     Private Sub o21ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles o21ID.NeedMissingItem
         Dim cRec As BO.o21MilestoneType = Master.Factory.o21MilestoneTypeBL.Load(BO.BAS.IsNullInt(strFoundedMissingItemValue))
         If Not cRec Is Nothing Then
@@ -247,12 +290,12 @@
         End If
     End Sub
 
-   
+
     Private Sub o22_record_LoadComplete(sender As Object, e As EventArgs) Handles Me.LoadComplete
         Me.lblDateFrom.Visible = False : Me.o22DateFrom.Visible = False
         Me.lblDateUntil.Visible = False : Me.o22DateUntil.Visible = False
         Me.o22IsAllDay.Visible = False
-
+        Me.o22ColorID.BackColor = Me.o22ColorID.SelectedItem.BackColor
         Select Case Me.CurrentO21Flag
             Case BO.o21FlagEnum.DeadlineOrMilestone
                 Me.lblDateUntil.Visible = True : Me.o22DateUntil.Visible = True
@@ -289,8 +332,8 @@
                 End With
                 Me.o22DateFrom.TimePopupButton.Visible = Not Me.o22IsAllDay.Checked
                 Me.o22DateUntil.TimePopupButton.Visible = Not Me.o22IsAllDay.Checked
-              
-                
+
+
             Case Else
                 imgO21Flag.ImageUrl = "Images/notepad.png"
                 'panReservation.Visible = False
@@ -302,7 +345,7 @@
                 .DataBind()
             End If
         End With
-        
+
         Master.HeaderText = Me.o21ID.Text & " | " & Me.BoundObject.Text
     End Sub
 
@@ -315,6 +358,12 @@
         Dim cRec As BO.o21MilestoneType = Master.Factory.o21MilestoneTypeBL.Load(BO.BAS.IsNullInt(Me.o21ID.SelectedValue))
         Me.CurrentO21Flag = cRec.o21Flag
         Handle_FF()
+        If cRec.o21ColorID <> "" Then
+            Me.o22ColorID.SelectedValue = cRec.o21ColorID
+        End If
+        If cRec.o25ID > 0 Then
+            Me.o25ID.SelectedValue = cRec.o25ID.ToString
+        End If
     End Sub
 
     Private Sub InhaleMyDefault()
@@ -330,7 +379,7 @@
                 Me.CurrentO21Flag = .o21Flag
             End With
         End If
-        
+
 
         If Request.Item("t1") <> "" And Request.Item("t2") <> "" Then
             Dim dt1 As New BO.DateTimeByQuerystring(Request.Item("t1")), dt2 As New BO.DateTimeByQuerystring(Request.Item("t2")), intJ02ID As Integer = BO.BAS.IsNullInt(Request.Item("j02id"))
@@ -437,7 +486,7 @@
                 .ImageUrl = "Images/team.png"
             End If
         End With
-        
+
         CType(e.Item.FindControl("Source"), Label).Text = cRec.p85FreeText01
         With CType(e.Item.FindControl("cmdDelete"), ImageButton)
             .CommandArgument = cRec.PID.ToString
@@ -486,6 +535,124 @@
         Dim fields As List(Of BO.FreeField) = Master.Factory.x28EntityFieldBL.GetListWithValues(BO.x29IdEnum.o22Milestone, Master.DataPID, BO.BAS.IsNullInt(Me.o21ID.SelectedValue))
         Dim lisX20X18 As IEnumerable(Of BO.x20_join_x18) = Master.Factory.x18EntityCategoryBL.GetList_x20_join_x18(BO.x29IdEnum.o22Milestone, BO.BAS.IsNullInt(Me.o21ID.SelectedValue))
         ff1.FillData(fields, lisX20X18, "o22Milestone_FreeField", Master.DataPID)
+
+    End Sub
+
+    Private Sub o25ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles o25ID.NeedMissingItem
+        Dim cRec As BO.o25App = Master.Factory.o25AppBL.Load(BO.BAS.IsNullInt(strFoundedMissingItemValue))
+        If Not cRec Is Nothing Then
+            strAddMissingItemText = cRec.o25Name
+        End If
+    End Sub
+
+    Private Function Authenticate()     'Function that gets authenticates with google servers
+
+        ' Add the calendar specific scope to the scopes list.
+        _scopes.Add(CalendarService.Scope.Calendar)
+
+
+        Dim credential As UserCredential
+
+        Using stream As New FileStream(Master.Factory.x35GlobalParam.UploadFolder & "\client_id.json", FileMode.Open, FileAccess.Read)
+            credential = GoogleWebAuthorizationBroker.AuthorizeAsync(GoogleClientSecrets.Load(stream).Secrets, _scopes, "user", CancellationToken.None, New FileDataStore("Calendar.VB.Sample")).Result
+
+        End Using
+
+        ' Create the calendar service using an initializer instance
+        Dim initializer As New BaseClientService.Initializer()
+        initializer.HttpClientInitializer = credential
+        initializer.ApplicationName = "marktime"
+        _gservice = New CalendarService(initializer)
+        Return 0
+    End Function
+
+    Private Sub Export2Calendar(cRec As BO.o22Milestone)
+        Authenticate()
+        Dim cO25 As BO.o25App = Master.Factory.o25AppBL.Load(BO.BAS.IsNullInt(Me.o25ID.SelectedValue))
+
+        Dim CalendarEvent As New Data.Event, bolNewEvent As Boolean = True
+        If cRec.o22AppID <> "" Then
+            CalendarEvent = _gservice.Events.Get(cO25.o25Code, cRec.o22AppID).Execute()
+            bolNewEvent = False
+        End If
+
+        Dim StartDateTime As New Data.EventDateTime
+        If cRec.o22DateFrom Is Nothing Then
+            StartDateTime.DateTime = cRec.o22DateUntil
+        Else
+            StartDateTime.DateTime = cRec.o22DateFrom
+        End If
+        Dim EndDateTime As New Data.EventDateTime
+        EndDateTime.DateTime = cRec.o22DateUntil
+
+        With CalendarEvent
+            .Start = StartDateTime
+            .End = EndDateTime
+
+
+            .Summary = cRec.o21Name & ": " & cRec.o22Name
+            If cRec.o22Description <> "" Then
+                .Description = cRec.o22Description & vbCrLf
+            End If
+
+            If cRec.p41ID <> 0 Then
+                .Description += String.Format("<a href='{0}/dr.aspx?prefix=p41&pid={1}'>{2}</a>", Master.Factory.x35GlobalParam.AppHostUrl, cRec.p41ID, cRec.Project)
+            End If
+            If cRec.p28ID <> 0 Then
+                .Description += String.Format("<a href='{0}/dr.aspx?prefix=p28&pid={1}'>{2}</a>", Master.Factory.x35GlobalParam.AppHostUrl, cRec.p28ID, cRec.Contact)
+            End If
+            If cRec.p56ID <> 0 Then
+                Dim cTask As BO.p56Task = Master.Factory.p56TaskBL.Load(cRec.p56ID)
+                .Description += String.Format("<a href='{0}/dr.aspx?prefix=p56&pid={1}'>{2}</a>", Master.Factory.x35GlobalParam.AppHostUrl, cTask.PID, cTask.NameWithTypeAndCode)
+                .Description += vbCrLf & String.Format("<a href='{0}/dr.aspx?prefix=p41&pid={1}'>{2}</a>", Master.Factory.x35GlobalParam.AppHostUrl, cTask.p41ID, cTask.Client & " - " & cTask.ProjectCodeAndName)
+
+            End If
+            If cRec.p91ID <> 0 Then
+                Dim cInvoice As BO.p91Invoice = Master.Factory.p91InvoiceBL.Load(cRec.p91ID)
+                .Description += String.Format("<a href='{0}/dr.aspx?prefix=p91&pid={1}'>{2}</a>", Master.Factory.x35GlobalParam.AppHostUrl, cRec.p91ID, cInvoice.p92Name & ": " & cInvoice.p91Code)
+            End If
+            .Location = cRec.o22Location
+            If cRec.o22ColorID <> "" Then .ColorId = cRec.o22ColorID
+        End With
+        CalendarEvent.Attendees = New List(Of EventAttendee)
+        Dim lisO20 As IEnumerable(Of BO.o20Milestone_Receiver) = Master.Factory.o22MilestoneBL.GetList_o20(cRec.PID)
+        For Each c In lisO20
+            Dim att As New EventAttendee()
+            att.DisplayName = c.Person
+            att.Email = c.Email
+            att.ResponseStatus = "accepted"
+
+            CalendarEvent.Attendees.Add(att)
+        Next
+
+        If cRec.o22ReminderBeforeUnits > 0 Then
+            Dim eventReminder As New List(Of EventReminder)(), intMinutes As Integer = cRec.o22ReminderBeforeUnits
+            Select Case cRec.o22ReminderBeforeMetric
+                Case "d" : intMinutes = cRec.o22ReminderBeforeUnits * 24 * 60
+                Case "h" : intMinutes = cRec.o22ReminderBeforeUnits * 60
+            End Select
+            eventReminder.Add(New EventReminder() With {.Minutes = intMinutes, .Method = "email"})
+            Dim de As New Data.Event.RemindersData()
+            de.UseDefault = False
+            de.[Overrides] = eventReminder
+
+            CalendarEvent.Reminders = de
+        End If
+
+        Dim ret As Data.Event = Nothing
+        If bolNewEvent Then
+            Dim Request As New InsertRequest(_gservice, CalendarEvent, cO25.o25Code)
+            Request.CreateRequest()
+            ret = Request.Execute()
+        Else
+            Dim Request As New UpdateRequest(_gservice, CalendarEvent, cO25.o25Code, cRec.o22AppID)
+            Request.CreateRequest()
+            ret = Request.Execute()
+        End If
+
+        cRec.o22AppUrl = ret.HtmlLink
+        cRec.o22AppID = ret.Id
+        Master.Factory.o22MilestoneBL.Save(cRec, Nothing)
 
     End Sub
 End Class

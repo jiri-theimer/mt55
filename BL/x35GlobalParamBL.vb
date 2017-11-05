@@ -10,6 +10,7 @@
     ReadOnly Property UploadFolder As String
     ReadOnly Property TempFolder As String
     ReadOnly Property ExportFolder As String
+    ReadOnly Property AppHostUrl As String
     ReadOnly Property j27ID_Invoice As Integer
     ReadOnly Property UserAuthenticationMode As BO.UserAuthenticationModeEnum
 
@@ -143,6 +144,11 @@ Class x35GlobalParamBL
     Public ReadOnly Property j27ID_Invoice As Integer Implements Ix35GlobalParamBL.j27ID_Invoice
         Get
             Return GetValueInteger("j27ID_Invoice", 2)
+        End Get
+    End Property
+    Public ReadOnly Property AppHostUrl As String Implements Ix35GlobalParamBL.AppHostUrl
+        Get
+            Return GetValueString("AppHost")
         End Get
     End Property
 End Class

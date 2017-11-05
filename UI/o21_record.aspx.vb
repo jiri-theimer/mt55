@@ -22,7 +22,8 @@
                     basUI.SelectDropdownlistValue(Me.x29ID, BO.BAS.IsNullInt(BO.BAS.GetX29FromPrefix(ViewState("prefix"))))
                 End If
             End If
-
+            Me.o25ID.DataSource = Master.Factory.o25AppBL.GetList(New BO.myQuery).Where(Function(p) p.o25AppFlag = BO.o25AppFlagENUM.GoogleCalendar)
+            Me.o25ID.DataBind()
 
             RefreshRecord()
 
@@ -44,7 +45,8 @@
             Me.o21Name.Text = .o21name
             Me.o21Ordinary.Value = .o21Ordinary
             basUI.SelectRadiolistValue(Me.o21Flag, CInt(.o21Flag).ToString)
-
+            Me.o21ColorID.SelectedValue = .o21ColorID
+            Me.o25ID.SelectedValue = .o25ID.ToString
             Master.Timestamp = .Timestamp
 
           
@@ -75,8 +77,8 @@
             cRec.o21Ordinary = BO.BAS.IsNullInt(Me.o21Ordinary.Value)
             cRec.ValidFrom = Master.RecordValidFrom
             cRec.ValidUntil = Master.RecordValidUntil
-
-           
+            cRec.o21ColorID = Me.o21ColorID.SelectedValue
+            cRec.o25ID = BO.BAS.IsNullInt(Me.o25ID.SelectedValue)
             If .Save(cRec) Then
                 Master.DataPID = .LastSavedPID
 
@@ -90,4 +92,14 @@
 
     
 
+    Private Sub o21_record_LoadComplete(sender As Object, e As EventArgs) Handles Me.LoadComplete
+        Me.o21ColorID.BackColor = Me.o21ColorID.SelectedItem.BackColor
+    End Sub
+
+    Private Sub o25ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles o25ID.NeedMissingItem
+        Dim cRec As BO.o25App = Master.Factory.o25AppBL.Load(BO.BAS.IsNullInt(strFoundedMissingItemValue))
+        If Not cRec Is Nothing Then
+            strAddMissingItemText = cRec.o25Name
+        End If
+    End Sub
 End Class

@@ -69,20 +69,27 @@ Class o22MilestoneBL
                         _Error = "[Začátek] musí být menší [Konec] události." : Return False
                     End If
 
-                Case BO.o21FlagEnum.MemoOnly
-                    .o22DateFrom = Nothing
-                    .o22DateUntil = Nothing
             End Select
+            .o22ReminderDate = Nothing
+            If .o22ReminderBeforeUnits > 0 Then
+                Dim d As Date = .o22DateUntil
+                If Not .o22DateFrom Is Nothing Then d = .o22DateFrom
+                Select Case .o22ReminderBeforeMetric
+                    Case "d"
+                        .o22ReminderDate = d.AddDays(.o22ReminderBeforeUnits * -1)
+                    Case "m"
+                        .o22ReminderDate = d.AddMinutes(.o22ReminderBeforeUnits * -1)
+                    Case "h"
+                        .o22ReminderDate = d.AddHours(.o22ReminderBeforeUnits * -1)
+                End Select
+            Else
+                .o22ReminderBeforeMetric = ""
+            End If
             If Not lisO20 Is Nothing Then
                 If lisO20.Count = 0 Then
                     Dim c As New BO.o20Milestone_Receiver
                     c.j02ID = cRec.j02ID_Owner
                     lisO20.Add(c)
-                End If
-            End If
-            If Not BO.BAS.IsNullDBDate(.o22ReminderDate) Is Nothing Then
-                If .o22ReminderDate > .o22DateFrom Then
-                    _Error = "[Čas připomenutí] musí být menší než [Začátek]." : Return False
                 End If
             End If
 
@@ -145,7 +152,7 @@ Class o22MilestoneBL
         s.AppendLine("PRODID:-//MARKTIME//MARKTIME Scheduler//CZ")
         s.AppendLine("METHOD:PUBLISH")
         s.AppendLine("BEGIN:VEVENT")
-        s.AppendLine("UID:" & c.o22MilestoneGUID)
+        s.AppendLine("UID:" & c.PID.ToString)
         If c.o22DateFrom Is Nothing Then
             c.o22DateFrom = c.o22DateUntil
         End If

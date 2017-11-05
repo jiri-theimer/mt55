@@ -41,6 +41,51 @@ Partial Public Class o22_record
     Protected WithEvents imgO21Flag As Global.System.Web.UI.WebControls.Image
 
     '''<summary>
+    '''lblO25ID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblO25ID As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''o25ID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents o25ID As Global.UI.datacombo
+
+    '''<summary>
+    '''chkUpdateEventInCalendar control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkUpdateEventInCalendar As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
+    '''lblColor control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblColor As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''o22ColorID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents o22ColorID As Global.Telerik.Web.UI.RadComboBox
+
+    '''<summary>
     '''lblObject control.
     '''</summary>
     '''<remarks>
@@ -122,6 +167,33 @@ Partial Public Class o22_record
     Protected WithEvents o22IsAllDay As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
+    '''lblReminder control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblReminder As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''o22ReminderBeforeUnits control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents o22ReminderBeforeUnits As Global.Telerik.Web.UI.RadNumericTextBox
+
+    '''<summary>
+    '''o22ReminderBeforeMetric control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents o22ReminderBeforeMetric As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
     '''lblLocation control.
     '''</summary>
     '''<remarks>
@@ -138,24 +210,6 @@ Partial Public Class o22_record
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents o22Location As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
-    '''lblo22ReminderDate control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblo22ReminderDate As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''o22ReminderDate control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents o22ReminderDate As Global.Telerik.Web.UI.RadDateTimePicker
 
     '''<summary>
     '''panO20 control.

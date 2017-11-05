@@ -194,8 +194,10 @@ Public Class admin_framework
             .AddItem("Typy úkolů", "p57", NU("p57"), "p56")
             .AddItem("Role v úkolu", "p56_x67", NU("p56_x67"), "p56")
             .AddItem("Priority úkolu", "p59", NU("p59"), "p56")
-            .AddItem("Kalendářové události", "o22", , , "Images/calendar.png")
+            .AddItem("Kalendáře", "o22", , , "Images/calendar.png")
+            .AddItem("Integrované kalendáře", "o25", NU("o25"), "o22")
             .AddItem("Typy událostí pro projekt", "p41_o21", NU("p41_o21"), "o22")
+            .AddItem("Typy událostí pro úkol", "p56_o21", NU("p56_o21"), "o22")
             .AddItem("Typy událostí pro klienta", "p28_o21", NU("p28_o21"), "o22")
             .AddItem("Typy událostí pro osobní profil", "j02_o21", NU("j02_o21"), "o22")
             ''.AddItem("Nepersonální zdroje", "j23", NU("j23"), "o22")
@@ -233,7 +235,7 @@ Public Class admin_framework
 
             .AddItem("Číselné řady", "x38", NU("x38"), "other")
             .AddItem("Střediska", "j18", NU("j18"), "other")
-            .AddItem("Integrace s externími IS", "o25", NU("o25"), "other")
+
             .AddItem("Pravidla opakovaných úkolů a projektů", "p65", NU("p65"), "other")
             .AddItem("Regiony", "j17", NU("j17"), "other")
             .AddItem("Textové šablony", "j61", NU("j61"), "other")
@@ -514,10 +516,11 @@ Public Class admin_framework
                     ''.AddColumn("x23Name", "Combo seznam")
                     .AddColumn("x28IsRequired", "Povinné", BO.cfENUM.Checkbox)
                     .AddColumn("x28Ordinary", "#", BO.cfENUM.Numeric0)
-                Case "p41_o21", "p28_o21", "j02_o21"
+                Case "p41_o21", "p28_o21", "j02_o21", "p56_o21"
                     .AddSystemColumn(16)
                     .AddColumn("o21Name", "Název")
-
+                    .AddColumn("o21ColorID", "Výchozí barva")
+                    .AddColumn("o25Name", "Výchozí kalendář")
                     .AddColumn("o21Ordinary", "#", BO.cfENUM.Numeric0)
                 Case "x46"
                     .AddColumn("x45Name", "Událost")
@@ -582,18 +585,10 @@ Public Class admin_framework
         End With
 
         Select Case ViewState("prefix")
-            Case "p41_o21", "p28_o21", "j02_o21"
+            Case "p41_o21", "p28_o21", "j02_o21", "p56_o21"
                 Dim cRec As BO.o21MilestoneType = CType(e.Item.DataItem, BO.o21MilestoneType)
-                Select Case cRec.o21Flag
-                    Case BO.o21FlagEnum.DeadlineOrMilestone
-                        dataItem("systemcolumn").CssClass = "o21_1"
-                    Case BO.o21FlagEnum.EventFromUntil
-                        dataItem("systemcolumn").CssClass = "o21_2"
-                    Case BO.o21FlagEnum.MemoOnly
-                        dataItem("systemcolumn").CssClass = "o21_3"
-                End Select
-                ''Case "x40"
-                ''    basUIMT.x40_grid_Handle_ItemDataBound(sender, e)
+                If cRec.Color.BackColor <> "" Then dataItem.Item("o21ColorID").BackColor = System.Drawing.Color.FromName(cRec.Color.BackColor)
+                
             Case "x55"
                 Dim cRec As BO.x55HtmlSnippet = CType(e.Item.DataItem, BO.x55HtmlSnippet)
                 Select Case cRec.x55TypeFlag
@@ -749,7 +744,7 @@ Public Class admin_framework
                     Dim lis As IEnumerable(Of BO.p50OfficePriceList) = .p50OfficePriceListBL.GetList(mqDef)
                     grid1.DataSource = lis
               
-                Case "p41_o21", "p28_o21", "j02_o21"
+                Case "p41_o21", "p28_o21", "j02_o21", "p56_o21"
                     Dim x29id As BO.x29IdEnum = BO.BAS.GetX29FromPrefix(Left(ViewState("prefix"), 3))
                     Dim lis As IEnumerable(Of BO.o21MilestoneType) = .o21MilestoneTypeBL.GetList(mqDef).Where(Function(p) p.x29ID = x29id)
                     grid1.DataSource = lis

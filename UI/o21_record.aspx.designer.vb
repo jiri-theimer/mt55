@@ -32,13 +32,40 @@ Partial Public Class o21_record
     Protected WithEvents x29ID As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''o21Flag control.
+    '''lblO25ID control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents o21Flag As Global.System.Web.UI.WebControls.RadioButtonList
+    Protected WithEvents lblO25ID As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''o25ID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents o25ID As Global.UI.datacombo
+
+    '''<summary>
+    '''lblColor control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblColor As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''o21ColorID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents o21ColorID As Global.Telerik.Web.UI.RadComboBox
 
     '''<summary>
     '''lblName control.
@@ -75,6 +102,15 @@ Partial Public Class o21_record
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents o21Ordinary As Global.Telerik.Web.UI.RadNumericTextBox
+
+    '''<summary>
+    '''o21Flag control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents o21Flag As Global.System.Web.UI.WebControls.RadioButtonList
 
     '''<summary>
     '''Master property.

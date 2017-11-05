@@ -144,6 +144,7 @@
     <Compile Include="Helpers\AresRecord.vb" />
     <Compile Include="Helpers\ContextMenuItem.vb" />
     <Compile Include="Helpers\DateTimeByQuerystring.vb" />
+    <Compile Include="Helpers\EventColor.vb" />
     <Compile Include="Helpers\FullTextQueryInput.vb" />
     <Compile Include="Helpers\FullTextRecord.vb" />
     <Compile Include="Helpers\MsOfficeBinding.vb" />

@@ -21,9 +21,20 @@
     Public Property o22DateUntil As Date?
     Public Property o22IsAllDay As Boolean
     Public Property o22ReminderDate As Date?
-    Public Property o22IsNoNotify As Boolean
-    Public Property o22MilestoneGUID As String
+    Public Property o22ReminderBeforeUnits As Integer
+    Public Property o22ReminderBeforeMetric As String
 
+    Public Property o22IsNoNotify As Boolean
+    Public Property o22AppID As String
+    Public Property o22AppUrl As String
+    Public Property o22ColorID As String
+
+    Private Property _o25Name As String
+    Public ReadOnly Property o25Name As String
+        Get
+            Return _o25Name
+        End Get
+    End Property
     Private Property _Owner As String
     Public ReadOnly Property Owner As String
         Get
@@ -97,5 +108,10 @@
             Return _o21Name & ": " & Me.o22Name & " (" & Me.Period & ")"
         End Get
     End Property
-   
+
+    Public ReadOnly Property Color As BO.EventColor
+        Get
+            Return New BO.EventColor(Me.o22ColorID)
+        End Get
+    End Property
 End Class

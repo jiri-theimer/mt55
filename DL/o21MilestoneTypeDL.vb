@@ -27,8 +27,10 @@
         End If
         With cRec
             pars.Add("x29ID", .x29ID, DbType.Int32)
+            pars.Add("o25ID", BO.BAS.IsNullDBKey(.o25ID), DbType.Int32)
             pars.Add("o21Name", .o21Name, DbType.String, , , True, "Název")
             pars.Add("o21Flag", .o21Flag, DbType.Int32)
+            pars.Add("o21ColorID", .o21ColorID, DbType.String)
             pars.Add("o21Ordinary", .o21Ordinary, DbType.Int32)
             pars.Add("o21ValidFrom", .ValidFrom, DbType.DateTime)
             pars.Add("o21ValidUntil", .ValidUntil, DbType.DateTime)
@@ -43,8 +45,8 @@
     End Function
 
     Public Function GetList(Optional myQuery As BO.myQuery = Nothing) As IEnumerable(Of BO.o21MilestoneType)
-        Dim s As String = "select *," & bas.RecTail("o21")
-        s += " FROM o21MilestoneType"
+        Dim s As String = "select a.*,o25.o25Name as _o25Name," & bas.RecTail("o21", "a")
+        s += " FROM o21MilestoneType a LEFT OUTER JOIN o25App o25 ON a.o25ID=o25.o25ID"
         If Not myQuery Is Nothing Then
             Dim strW As String = bas.ParseWhereMultiPIDs("o21ID", myQuery)
             strW += bas.ParseWhereValidity("o21", "", myQuery)

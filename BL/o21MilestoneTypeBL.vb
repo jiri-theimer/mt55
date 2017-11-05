@@ -26,7 +26,7 @@ Class o21MilestoneTypeBL
     Public Function Save(cRec As BO.o21MilestoneType) As Boolean Implements Io21MilestoneTypeBL.Save
         With cRec
             Select Case .x29ID
-                Case BO.x29IdEnum.j02Person, BO.x29IdEnum.p41Project, BO.x29IdEnum.p28Contact, BO.x29IdEnum.p91Invoice, BO.x29IdEnum.p90Proforma
+                Case BO.x29IdEnum.j02Person, BO.x29IdEnum.p41Project, BO.x29IdEnum.p28Contact, BO.x29IdEnum.p91Invoice, BO.x29IdEnum.p90Proforma, BO.x29IdEnum.p56Task
                 Case Else
                     _Error = "Na vstupu není druh vazební entity." : Return False
             End Select

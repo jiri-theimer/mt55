@@ -32,7 +32,7 @@
             pars.Add("j02ID", BO.BAS.IsNullDBKey(.j02ID), DbType.Int32)
             pars.Add("p91ID", BO.BAS.IsNullDBKey(.p91ID), DbType.Int32)
             pars.Add("p90ID", BO.BAS.IsNullDBKey(.p90ID), DbType.Int32)
-            ''pars.Add("o25ID", BO.BAS.IsNullDBKey(.o25ID), DbType.Int32)
+            pars.Add("o25ID", BO.BAS.IsNullDBKey(.o25ID), DbType.Int32)
 
             pars.Add("o22Name", .o22Name, DbType.String, , , True, "Název (předmět)")
             pars.Add("o22Code", .o22Code, DbType.String, , , True, "Kód")
@@ -43,10 +43,13 @@
             pars.Add("o22DateFrom", BO.BAS.IsNullDBDate(.o22DateFrom), DbType.DateTime)
             pars.Add("o22DateUntil", BO.BAS.IsNullDBDate(.o22DateUntil), DbType.DateTime)
             pars.Add("o22IsAllDay", .o22IsAllDay, DbType.Boolean)
+            pars.Add("o22ReminderBeforeUnits", .o22ReminderBeforeUnits, DbType.Int32)
+            pars.Add("o22ReminderBeforeMetric", .o22ReminderBeforeMetric, DbType.String)
             pars.Add("o22ReminderDate", BO.BAS.IsNullDBDate(.o22ReminderDate), DbType.DateTime)
             pars.Add("o22IsNoNotify", .o22IsNoNotify, DbType.Boolean)
-            If .o22MilestoneGUID = "" Then .o22MilestoneGUID = BO.BAS.GetGUID
-            pars.Add("o22MilestoneGUID", .o22MilestoneGUID, DbType.String)
+            pars.Add("o22AppID", .o22AppID, DbType.String)
+            pars.Add("o22AppUrl", .o22AppUrl, DbType.String)
+            pars.Add("o22ColorID", .o22ColorID, DbType.String)
             pars.Add("o22validfrom", .ValidFrom, DbType.DateTime)
             pars.Add("o22validuntil", .ValidUntil, DbType.DateTime)
 
@@ -72,7 +75,7 @@
                     End If
                 Next
             End If
-            bas.RecoveryUserCache(_cDB, _curUser)
+            '' bas.RecoveryUserCache(_cDB, _curUser)
 
 
 
@@ -175,9 +178,9 @@
     Private Function GetSQLPart1(intTOP As Integer) As String
         Dim s As String = "SELECT"
         If intTOP > 0 Then s += " TOP " & intTOP.ToString
-        s += " a.*,o21.o21Name as _o21Name,o21.o21Flag as _o21Flag,o21.x29ID as _x29ID," & bas.RecTail("o22", "a")
+        s += " a.*,o21.o21Name as _o21Name,o21.o21Flag as _o21Flag,o21.x29ID as _x29ID,o25.o25Name as _o25Name," & bas.RecTail("o22", "a")
         s += ",p41.p41Name as _Project,p28.p28Name as _Contact,j02.j02LastName+' '+j02.j02FirstName as _Person,j02owner.j02LastName+' '+j02owner.j02FirstName as _Owner"
-        s += " FROM o22Milestone a INNER JOIN o21MilestoneType o21 ON a.o21ID=o21.o21ID LEFT OUTER JOIN p41Project p41 ON a.p41ID=p41.p41ID"
+        s += " FROM o22Milestone a INNER JOIN o21MilestoneType o21 ON a.o21ID=o21.o21ID LEFT OUTER JOIN p41Project p41 ON a.p41ID=p41.p41ID LEFT OUTER JOIN o25App o25 ON a.o25ID=o25.o25ID"
         s += " LEFT OUTER JOIN p28Contact p28 ON a.p28ID=p28.p28ID"
         s += " LEFT OUTER JOIN j02Person j02 ON a.j02ID=j02.j02ID"
         s += " LEFT OUTER JOIN j02Person j02owner ON a.j02ID_Owner=j02owner.j02ID"
@@ -186,7 +189,7 @@
     End Function
 
     Public Function GetList_o20(intPID As Integer) As IEnumerable(Of BO.o20Milestone_Receiver)
-        Dim s As String = "select a.*,j02.j02LastName+' '+j02.j02FirstName as _Person,j11.j11Name as _j11Name," & bas.RecTail("o20", "a", False, False)
+        Dim s As String = "select a.*,j02.j02LastName+' '+j02.j02FirstName as _Person,j02.j02Email as _Email,j11.j11Name as _j11Name," & bas.RecTail("o20", "a", False, False)
         s += " FROM o20Milestone_Receiver a LEFT OUTER JOIN j02Person j02 ON a.j02ID=j02.j02ID LEFT OUTER JOIN j11Team j11 ON a.j11ID=j11.j11ID"
         s += " WHERE a.o22ID=@pid"
 

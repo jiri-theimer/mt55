@@ -11,6 +11,13 @@
             Return _Person
         End Get
     End Property
+    Private Property _Email As String
+    Public ReadOnly Property Email As String
+        Get
+            Return _Email
+        End Get
+    End Property
+
     Private Property _j11Name As String
     Public ReadOnly Property j11Name As String
         Get
