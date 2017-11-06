@@ -14,6 +14,7 @@
             <asp:ListItem Text="-1" Value="-1" Selected="true"></asp:ListItem>
             <asp:ListItem Text="0" Value="0"></asp:ListItem>
         </asp:DropDownList>
+        <asp:HyperLink ID="linkO25" runat="server" Visible="false" Target="_blank"></asp:HyperLink>
         
         <button type="button" class="button-link" id="cmdSchedulers" runat="server" onclick="window.open('o22_framework_google.aspx','_top')" title="Přejít do kalendářů" style="float: right;" visible="false">
             <img border="0" src="Images/calendar.png" />
@@ -115,4 +116,4 @@
 <asp:HiddenField ID="hidPrefix" runat="server" />
 <asp:HiddenField ID="hidRecordPID" runat="server" />
 <asp:HiddenField ID="hidDefHeight" runat="server" Value="300px" />
-
+<asp:HiddenField ID="hidO25ID" runat="server" />

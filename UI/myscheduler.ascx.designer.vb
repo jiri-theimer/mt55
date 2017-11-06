@@ -32,6 +32,15 @@ Partial Public Class myscheduler
     Protected WithEvents cbxFirstDay As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''linkO25 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents linkO25 As Global.System.Web.UI.WebControls.HyperLink
+
+    '''<summary>
     '''cmdSchedulers control.
     '''</summary>
     '''<remarks>
@@ -129,4 +138,13 @@ Partial Public Class myscheduler
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents hidDefHeight As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
+    '''hidO25ID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hidO25ID As Global.System.Web.UI.WebControls.HiddenField
 End Class

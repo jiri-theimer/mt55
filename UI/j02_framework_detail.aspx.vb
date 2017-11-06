@@ -40,7 +40,6 @@
                     ''.Add("j02_menu-menuskin")
                     .Add("j02_framework_detail-chkFFShowFilledOnly")
                     .Add("j02_menu-show-level1")
-                    .Add("j02_menu-show-cal1")
                     .Add("myscheduler-firstday")
                 End With
                 Dim intPID As Integer = Master.DataPID
@@ -65,7 +64,7 @@
                             'zůstat zde na BOARD stránce
                     End Select
                     cal1.FirstDayMinus = BO.BAS.IsNullInt(.GetUserParam("myscheduler-firstday", "-1"))
-                    hidCal1ShallBeActive.Value = .GetUserParam("j02_menu-show-cal1", "1")
+
                     menu1.TabSkin = .GetUserParam("j02_menu-tabskin")
                     ''menu1.MenuSkin = .GetUserParam("j02_menu-menuskin")
                     If .GetUserParam("j02_menu-remember-tab", "0") = "1" Then
@@ -245,23 +244,20 @@
             boxP30.Enabled = False
         End If
 
-        If hidCal1ShallBeActive.Value = "1" Then
+        If cal1.o25ID > 0 Or cRecSum.p56_Actual_Count > 0 Or cRecSum.o22_Actual_Count > 0 Then
+            cal1.Visible = True
+            cal1.o25ID = cRec.o25ID_Calendar
             cal1.RecordPID = Master.DataPID
-            If cRecSum.p56_Actual_Count > 0 Or cRecSum.o22_Actual_Count > 0 Then
-                cal1.RefreshData(Today)
-                cal1.RefreshTasksWithoutDate(True)
-            Else
-                cal1.Visible = False
-            End If
-
-            If cRecSum.b07_Count > 0 Then
-                comments1.Visible = True
-                comments1.RefreshData(Master.Factory, BO.x29IdEnum.j02Person, cRec.PID)
-            Else
-                comments1.Visible = False
-            End If
+            cal1.RefreshData(Today)
+            cal1.RefreshTasksWithoutDate(True)
         Else
             cal1.Visible = False
+        End If
+        If cRecSum.b07_Count > 0 Then
+            comments1.Visible = True
+            comments1.RefreshData(Master.Factory, BO.x29IdEnum.j02Person, cRec.PID)
+        Else
+            comments1.Visible = False
         End If
         tags1.RefreshData(cRec.PID)
     End Sub

@@ -256,11 +256,10 @@
 
         If cRec.o25ID_Calendar > 0 Or cRecSum.o22_Actual_Count > 0 Or cRecSum.p56_Actual_Count > 0 Then
             cal1.Visible = True
+            cal1.o25ID = cRec.o25ID_Calendar
             cal1.RecordPID = Master.DataPID
-            If cRecSum.p56_Actual_Count > 0 Or cRecSum.o22_Actual_Count > 0 Then
-                cal1.RefreshData(Today)
-                cal1.RefreshTasksWithoutDate(True)
-            End If
+            cal1.RefreshData(Today)
+            cal1.RefreshTasksWithoutDate(True)
         Else
             cal1.Visible = False
         End If

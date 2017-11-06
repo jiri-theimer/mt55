@@ -56,6 +56,14 @@ Public Class myscheduler
             hidPrefix.Value = value
         End Set
     End Property
+    Public Property o25ID As Integer
+        Get
+            Return BO.BAS.IsNullInt(Me.hidO25ID.Value)
+        End Get
+        Set(value As Integer)
+            hidO25ID.Value = value.ToString
+        End Set
+    End Property
     Public Property RecordPID As Integer
         Get
             Return BO.BAS.IsNullInt(hidRecordPID.Value)
@@ -99,6 +107,13 @@ Public Class myscheduler
 
 
         cmdSchedulers.Visible = factory.SysUser.j04IsMenu_Scheduler
+
+        If Me.o25ID > 0 Then
+            Dim cO25 As BO.o25App = factory.o25AppBL.Load(Me.o25ID)
+            linkO25.Text = cO25.o25Name
+            linkO25.NavigateUrl = cO25.o25Url
+            linkO25.Visible = True
+        End If
     End Sub
     Private Sub fill_o22(d1 As Date)
         Dim intRecordPID As Integer = Me.RecordPID
