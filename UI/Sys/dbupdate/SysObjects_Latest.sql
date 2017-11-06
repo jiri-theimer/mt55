@@ -6201,7 +6201,7 @@ end
 
 ---počet úkolů
 select @p56_count=count(p56ID) FROM p56Task
-WHERE ((p56PlanUntil BETWEEN @d1 AND @d2 and getdate() between p56ValidFrom and p56ValidUntil) OR p56ReminderDate between @d1 AND @d2)
+WHERE ((p56PlanUntil BETWEEN @d1 AND @d2 and getdate() between p56ValidFrom and p56ValidUntil))
 AND (j02ID_Owner=@j02id OR p56ID IN (SELECT x69.x69RecordPID FROM x69EntityRole_Assign x69 INNER JOIN x67EntityRole x67 ON x69.x67ID=x67.x67ID WHERE x67.x29ID=356 AND (x69.j02ID=@j02id OR x69.j11ID IN (SELECT j11ID FROM j12Team_Person WHERE j02ID=@j02id))))
  
 
@@ -6211,10 +6211,7 @@ WHERE (o22DateFrom BETWEEN @d1 AND @d2 OR o22DateUntil BETWEEN @d1 AND @d2 OR o2
 AND (j02ID_Owner=@j02id OR j02ID=@j02id OR o22ID IN (SELECT o22ID FROM o20Milestone_Receiver WHERE j02ID=@j02id OR j11ID IN (SELECT j11ID FROM j12Team_Person WHERE j02ID=@j02id)))
 
 --počet dokumentů k připomenutí
-select @o23_count=count(o23ID) FROM o23Doc
-WHERE (o23ReminderDate BETWEEN @d1 AND @d2)
-AND (j02ID_Owner=@j02id OR x23ID IN (select x23ID FROM x19EntityCategory_Binding a INNER JOIN x20EntiyToCategory b ON a.x20ID=b.x20ID WHERE a.x19RecordPID=@j02id AND b.x29ID=102))
-
+set @o23_count=0
 
 ----počet auto-generovaných odměn/paušálů/úkonů
 select @p39_count=count(a.p39ID) FROM p39WorkSheet_Recurrence_Plan a INNER JOIN p40WorkSheet_Recurrence b ON a.p40ID=b.p40ID
@@ -6316,7 +6313,7 @@ select a.*,a.j03id as _pid
 ,j02.j02Email as _j02Email,@j03Cache_IsApprovingPerson as _IsApprovingPerson,@is_master as _IsMasterPerson,@j03Cache_MessagesCount as j03Cache_MessagesCount
 ,@j03Cache_MessagesCount as _MessagesCount,@j03Cache_j11IDs as _j11IDs
 ,case when a.j03Aspx_PersonalPage IS NULL THEN @personal_page ELSE a.j03Aspx_PersonalPage END as _PersonalPage
-,j04.j04IsMenu_Worksheet,j04.j04IsMenu_Report,j04.j04IsMenu_Project,j04.j04IsMenu_People,j04.j04IsMenu_Contact,j04.j04IsMenu_Invoice,j04.j04IsMenu_Proforma,j04.j04IsMenu_Notepad,j04.j04IsMenu_MyProfile,j04.j04IsMenu_Task
+,j04.j04IsMenu_Worksheet,j04.j04IsMenu_Report,j04.j04IsMenu_Project,j04.j04IsMenu_People,j04.j04IsMenu_Contact,j04.j04IsMenu_Invoice,j04.j04IsMenu_Proforma,j04.j04IsMenu_Notepad,j04.j04IsMenu_MyProfile,j04.j04IsMenu_Task,j04.j04IsMenu_Scheduler
 ,j04.j04Aspx_OneProjectPage as OneProjectPage,j04.j04Aspx_OneContactPage as OneContactPage,j04.j04Aspx_OneInvoicePage as OneInvoicePage,j04.j04Aspx_OnePersonPage as OnePersonPage
 ,j02.j07ID,@j60id as j60ID
 ,j02.j02WorksheetAccessFlag as _j02WorksheetAccessFlag
@@ -14401,8 +14398,7 @@ AS
 INSERT INTO [dbo].[p56Task_Log]
            ([p56ID]
            ,[p41ID]
-           ,[p57ID]
-           ,[o22ID]
+           ,[p57ID]           
            ,[j02ID_Owner]
            ,[b02ID]
            ,[p65ID]
@@ -14415,8 +14411,7 @@ INSERT INTO [dbo].[p56Task_Log]
            ,[p56Description]
            ,[p56Ordinary]
            ,[p56PlanFrom]
-           ,[p56PlanUntil]
-           ,[p56ReminderDate]
+           ,[p56PlanUntil]           
            ,[p56Plan_Hours]
            ,[p56Plan_Expenses]
            ,[p56CompletePercent]
@@ -14438,8 +14433,7 @@ INSERT INTO [dbo].[p56Task_Log]
            ,[p56RecurMotherID])
 SELECT [p56ID]
            ,[p41ID]
-           ,[p57ID]
-           ,[o22ID]
+           ,[p57ID]           
            ,[j02ID_Owner]
            ,[b02ID]
            ,[p65ID]
@@ -14452,8 +14446,7 @@ SELECT [p56ID]
            ,[p56Description]
            ,[p56Ordinary]
            ,[p56PlanFrom]
-           ,[p56PlanUntil]
-           ,[p56ReminderDate]
+           ,[p56PlanUntil]           
            ,[p56Plan_Hours]
            ,[p56Plan_Expenses]
            ,[p56CompletePercent]
