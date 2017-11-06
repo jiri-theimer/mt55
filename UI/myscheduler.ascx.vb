@@ -25,6 +25,7 @@ Public Class myscheduler
         Public Property NavigateUrl As String
         Public Property p41ID As Integer
         Public Property Project As String
+        Public Property ImageUrl As String
         Public Sub New(intPID As Integer, strPrefix As String)
             Me.Prefix = strPrefix
             Me.recPID = intPID
@@ -79,7 +80,8 @@ Public Class myscheduler
         rpProgram.DataSource = _lisProRow.OrderBy(Function(p) p.recDate)
         rpProgram.DataBind()
 
-
+        cmdTasks.Visible = factory.SysUser.j04IsMenu_Task
+        cmdSchedulers.Visible = factory.SysUser.j04IsMenu_Scheduler
     End Sub
     Private Sub fill_o22(d1 As Date)
         Dim intRecordPID As Integer = Me.RecordPID
@@ -122,7 +124,7 @@ Public Class myscheduler
                         c.recDate = .o22DateUntil.Value
                         c.Time = Format(c.recDate, "HH:mm")
                         If c.Time = "00:00" Then c.Time = ""
-
+                        c.ImageUrl = "Images/milestone.png"
                     Case BO.o21FlagEnum.EventFromUntil
                         If .o22DateFrom Is Nothing Then
                             c.recDate = .o22DateUntil.Value
@@ -137,7 +139,7 @@ Public Class myscheduler
                         If .o22IsAllDay Then
                             c.recDate = DateSerial(Year(.o22DateUntil), Month(.o22DateUntil), Day(.o22DateUntil))
                         End If
-
+                        c.ImageUrl = "Images/event.png"
 
                 End Select
                 If Not .o22DateUntil Is Nothing Then
@@ -193,6 +195,7 @@ Public Class myscheduler
                 c.Receivers = .ReceiversInLine
                 c.p41ID = .p41ID
                 c.IsClosed = .IsClosed
+                c.ImageUrl = "Images/task.png"
             End With
 
             _lisProRow.Add(c)
@@ -351,7 +354,9 @@ Public Class myscheduler
         With CType(e.Item.FindControl("tags"), Label)
             .Text = cRec.Tags
         End With
-
+        With CType(e.Item.FindControl("img1"), Image)
+            .ImageUrl = cRec.ImageUrl
+        End With
 
      
         With CType(e.Item.FindControl("pm1"), HyperLink)

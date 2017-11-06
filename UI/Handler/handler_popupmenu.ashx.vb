@@ -73,7 +73,7 @@ Public Class handler_popupmenu
         Dim cRec As BO.o22Milestone = factory.o22MilestoneBL.Load(intPID)
         If cRec Is Nothing Then CI("Záznam nebyl nalezen.", "", True) : Return
         If cRec.o22AppUrl <> "" Then
-            CLINK("Zobrazit v kalendáři", cRec.o22AppUrl, "_blank", "Images/link.png")
+            REL("Zobrazit v kalendáři", cRec.o22AppUrl, "_blank", "Images/link.png")
             SEP()
         End If
         If factory.SysUser.IsAdmin Or cRec.j02ID_Owner = factory.SysUser.j02ID Then
@@ -1077,16 +1077,7 @@ Public Class handler_popupmenu
         _lis.Add(c)
 
     End Sub
-    Private Sub CLINK(strText As String, strURL As String, strTarget As String, strImageUrl As String)
-        Dim c As New BO.ContextMenuItem
-        If Len(strText) > 35 Then strText = Left(strText, 35) & "..."
-        c.Text = strText
-        c.NavigateUrl = strURL
-        c.Target = strTarget
-        c.ImageUrl = strImageUrl
-        _lis.Add(c)
-
-    End Sub
+    
     Private Sub REL(strText As String, strURL As String, strTarget As String, Optional strImageUrl As String = "", Optional bolChild As Boolean = False)
         Dim c As New BO.ContextMenuItem
         If Len(strText) > 35 Then strText = Left(strText, 35) & "..."

@@ -15,9 +15,12 @@
             <asp:ListItem Text="0" Value="0"></asp:ListItem>
         </asp:DropDownList>
         
-        <button type="button" class="button-link" onclick="window.open('entity_scheduler.aspx?masterprefix=<%=Me.hidPrefix.Value%>&masterpid=<%=Me.hidRecordPID.Value%>','_top')" title="Přepnout na plný kalendář" style="float: right;">
-            <img border="0" src="Images/fullscreen.png" /></button>
-
+        <button type="button" class="button-link" id="cmdSchedulers" runat="server" onclick="window.open('o22_framework_google.aspx','_top')" title="Přejít do kalendářů" style="float: right;" visible="false">
+            <img border="0" src="Images/calendar.png" />
+        </button>
+        <button type="button" class="button-link" id="cmdTasks" runat="server" onclick="window.open('p56_framework.aspx','_top')" title="Přejít do úkolů" style="float: right;" visible="false">
+            <img border="0" src="Images/task.png" />
+        </button>
     </div>
     <div class="content" style="overflow: auto; max-height: 200px; padding: 0px;">
         <table style="width: 100%;" cellpadding="0" cellspacing="0">
@@ -48,10 +51,12 @@
                             <asp:HyperLink ID="linkName" runat="server" Target="_top" CssClass="value_link"></asp:HyperLink>
                             <asp:Label ID="Status" runat="server" style="min-width:20px;"></asp:Label>
                             <asp:Label ID="tags" runat="server"></asp:Label>
-
+                            
                         </td>
 
-
+                        <td style="width:18px;border-top:solid 1px #e1e1e1;">
+                            <asp:Image ID="img1" runat="server" ImageUrl="Images/task.png" />
+                        </td>
 
                     </tr>
                 </ItemTemplate>

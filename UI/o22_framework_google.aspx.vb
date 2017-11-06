@@ -1,4 +1,4 @@
-﻿Public Class schedulers
+﻿Public Class o22_framework_google
     Inherits System.Web.UI.Page
     Protected WithEvents _MasterPage As Site
 
@@ -6,7 +6,7 @@
         If Not Page.IsPostBack Then
             With Master
                 .SiteMenuValue = "o22"
-                
+
                 Dim lisPars As New List(Of String)
                 With lisPars
                     .Add("schedulers-o25ids")
@@ -15,7 +15,7 @@
 
                 With .Factory.j03UserBL
                     .InhaleUserParams(lisPars)
-                    
+
                     SetupO25(.GetUserParam("schedulers-o25ids"))
                 End With
             End With
@@ -41,8 +41,8 @@
                 Next
             Next
         End If
-        
-        
+
+
     End Sub
 
     Private Sub rp1_ItemDataBound(sender As Object, e As RepeaterItemEventArgs) Handles rp1.ItemDataBound
@@ -55,8 +55,8 @@
 
     End Sub
 
-    Private Sub schedulers_LoadComplete(sender As Object, e As EventArgs) Handles Me.LoadComplete
-
+    
+    Private Sub o22_framework_google_LoadComplete(sender As Object, e As EventArgs) Handles Me.LoadComplete
         Dim src As New List(Of String), strURL As String = "https://calendar.google.com/calendar/embed?wkst=1", o25IDs As New List(Of String)
 
         For Each ri As RepeaterItem In rp1.Items
@@ -73,9 +73,6 @@
         Master.Factory.j03UserBL.SetUserParam("schedulers-o25ids", String.Join(",", o25IDs))
 
         fra1.Src = strURL
-       
 
     End Sub
-
-    
 End Class

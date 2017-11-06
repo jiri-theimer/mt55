@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class schedulers
+Partial Public Class o22_framework_google
 
     '''<summary>
     '''rp1 control.

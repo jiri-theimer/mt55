@@ -293,6 +293,7 @@
     <Content Include="myscheduler.ascx" />
     <Content Include="mytags.ascx" />
     <Content Include="navigator.aspx" />
+    <Content Include="o22_framework_google.aspx" />
     <Content Include="o23_framework.aspx" />
     <Content Include="o23_list.ascx" />
     <Content Include="o23_queue.aspx" />
@@ -322,7 +323,6 @@
     <Content Include="plugin_modal.aspx" />
     <Content Include="pokus2.aspx" />
     <Content Include="projects.ascx" />
-    <Content Include="schedulers.aspx" />
     <Content Include="select_doctype.aspx" />
     <Content Include="select_field.aspx" />
     <Content Include="p31_record_split.aspx" />
@@ -853,6 +853,7 @@
       <DependentUpon>barcode.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="bas\clsGoogleApi.vb" />
     <Compile Include="bas\clsMergeDOC.vb" />
     <Compile Include="bas\clsToolBarButton.vb" />
     <Compile Include="bas\SetupDataGrid.vb" />
@@ -1356,6 +1357,13 @@
       <DependentUpon>navigator.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="o22_framework_google.aspx.designer.vb">
+      <DependentUpon>o22_framework_google.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="o22_framework_google.aspx.vb">
+      <DependentUpon>o22_framework_google.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="o23_framework.aspx.designer.vb">
       <DependentUpon>o23_framework.aspx</DependentUpon>
     </Compile>
@@ -1558,13 +1566,6 @@
     <Compile Include="projects.ascx.vb">
       <DependentUpon>projects.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="schedulers.aspx.designer.vb">
-      <DependentUpon>schedulers.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="schedulers.aspx.vb">
-      <DependentUpon>schedulers.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="select_doctype.aspx.designer.vb">
       <DependentUpon>select_doctype.aspx</DependentUpon>
