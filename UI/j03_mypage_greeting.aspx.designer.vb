@@ -266,33 +266,6 @@ Partial Public Class j03_mypage_greeting
     Protected WithEvents comments1 As Global.UI.b07_list
 
     '''<summary>
-    '''panO23 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents panO23 As Global.System.Web.UI.WebControls.Panel
-
-    '''<summary>
-    '''o23Count control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents o23Count As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''rpO23 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents rpO23 As Global.System.Web.UI.WebControls.Repeater
-
-    '''<summary>
     '''panP39 control.
     '''</summary>
     '''<remarks>

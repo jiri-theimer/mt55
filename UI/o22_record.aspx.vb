@@ -73,6 +73,9 @@ Public Class o22_record
 
             Me.o21ID.DataSource = Master.Factory.o21MilestoneTypeBL.GetList(New BO.myQuery).Where(Function(p) p.x29ID = Me.CurrentX29ID)
             Me.o21ID.DataBind()
+            If Request.Item("o21id") <> "" Then
+                Me.o21ID.SelectedValue = Request.Item("o21id")
+            End If
             Me.o25ID.DataSource = Master.Factory.o25AppBL.GetList(New BO.myQuery).Where(Function(p) p.o25AppFlag = BO.o25AppFlagENUM.GoogleCalendar)
             Me.o25ID.DataBind()
             RefreshRecord()

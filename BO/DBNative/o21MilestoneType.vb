@@ -37,4 +37,10 @@ Public Class o21MilestoneType
             Return _o25Name
         End Get
     End Property
+
+    Public ReadOnly Property NameWithEntityAlias As String
+        Get
+            Return Me.o21Name & " (" & BO.BAS.GetX29EntityAlias(Me.x29ID, False) & ")"
+        End Get
+    End Property
 End Class

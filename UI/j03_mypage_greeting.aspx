@@ -237,25 +237,7 @@
                 </div>
             </asp:Panel>
 
-            <asp:Panel ID="panO23" runat="server" CssClass="content-box1">
-                <div class="title">
-                    <img src="Images/notepad.png" alt="Dokument" />
-                    Dokumenty s připomenutím +-1 den
-                    
-                    <asp:Label ID="o23Count" runat="server" CssClass="badge1"></asp:Label>
-                </div>
-                <div class="content">
-                    <asp:Repeater ID="rpO23" runat="server">
-                        <ItemTemplate>
-                            <div class="div6">
-                                <asp:HyperLink ID="clue1" runat="server" CssClass="reczoom" Text="i" title="Detail dokumentu"></asp:HyperLink>
-                                <asp:HyperLink ID="link1" runat="server"></asp:HyperLink>
-                                <asp:Image ID="img1" runat="server" ImageUrl="Images/reminder.png" ToolTip="Připomenutí" />
-                            </div>
-                        </ItemTemplate>
-                    </asp:Repeater>
-                </div>
-            </asp:Panel>
+            
 
             <asp:Panel ID="panP39" runat="server" CssClass="content-box1">
                 <div class="title">

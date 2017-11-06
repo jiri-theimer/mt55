@@ -82,7 +82,7 @@ Public Class handler_popupmenu
         End If
         CI("[NOVÝ]", "", , "Images/new4menu.png")
         CI("Kopírovat", "o22_record.aspx?clone=1&pid=" & intPID.ToString, , "Images/copy.png", True)        
-        CI("Založit kalendářovou událost", "o22_record.aspx?pid=0", , "Images/new4menu.png", True)
+        CI("Založit kalendářovou událost", "select_event_type.aspx", , "Images/new4menu.png", True)
 
         If (factory.SysUser.j04IsMenu_Project And cRec.p41ID > 0) Or cRec.p56ID > 0 Then
             CI("[ODKAZ]", "", , "Images/link.png")
@@ -1016,7 +1016,7 @@ Public Class handler_popupmenu
             If factory.SysUser.j04IsMenu_Task Then
                 CI(Resources.common.Ukol, "p56_record.aspx?masterprefix=p41&masterpid=0&hrjs=hardrefresh_menu", , "Images/task.png")
             End If
-            CI("Událost v kalendáři", "o22_record.aspx?hrjs=hardrefresh_menu", , "Images/event.png")
+            CI("Událost v kalendáři", "select_event_type.aspx?hrjs=hardrefresh_menu", , "Images/event.png")
 
             ''If .j04IsMenu_Invoice Then
             ''    If factory.TestPermission(BO.x53PermValEnum.GR_P91_Creator, BO.x53PermValEnum.GR_P91_Draft_Creator) Then

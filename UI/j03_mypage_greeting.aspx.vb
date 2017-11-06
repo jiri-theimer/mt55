@@ -221,25 +221,25 @@
 
     
 
-    Private Sub rpO23_ItemDataBound(sender As Object, e As RepeaterItemEventArgs) Handles rpO23.ItemDataBound
-        Dim cRec As BO.o23Doc = CType(e.Item.DataItem, BO.o23Doc)
-        With CType(e.Item.FindControl("link1"), HyperLink)
-            .Text = cRec.x23Name & ": "
-            If cRec.o23Name <> "" Then
-                .Text += cRec.o23Name
-            Else
-                .Text += cRec.o23Code
-            End If
-            .NavigateUrl = "o23_framework.aspx?pid=" & cRec.PID.ToString
-            If cRec.IsClosed Then .Font.Strikeout = True
+    ''Private Sub rpO23_ItemDataBound(sender As Object, e As RepeaterItemEventArgs) Handles rpO23.ItemDataBound
+    ''    Dim cRec As BO.o23Doc = CType(e.Item.DataItem, BO.o23Doc)
+    ''    With CType(e.Item.FindControl("link1"), HyperLink)
+    ''        .Text = cRec.x23Name & ": "
+    ''        If cRec.o23Name <> "" Then
+    ''            .Text += cRec.o23Name
+    ''        Else
+    ''            .Text += cRec.o23Code
+    ''        End If
+    ''        .NavigateUrl = "o23_framework.aspx?pid=" & cRec.PID.ToString
+    ''        If cRec.IsClosed Then .Font.Strikeout = True
 
-        End With
-        With CType(e.Item.FindControl("clue1"), HyperLink)
-            .Attributes.Item("rel") = "clue_o23_record.aspx?&pid=" & cRec.PID.ToString
-        End With
+    ''    End With
+    ''    With CType(e.Item.FindControl("clue1"), HyperLink)
+    ''        .Attributes.Item("rel") = "clue_o23_record.aspx?&pid=" & cRec.PID.ToString
+    ''    End With
 
-        
-    End Sub
+
+    ''End Sub
 
     Private Sub rpP39_ItemDataBound(sender As Object, e As RepeaterItemEventArgs) Handles rpP39.ItemDataBound
         Dim cRec As BO.p39WorkSheet_Recurrence_Plan = CType(e.Item.DataItem, BO.p39WorkSheet_Recurrence_Plan)
