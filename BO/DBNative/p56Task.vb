@@ -45,12 +45,7 @@
             Return _ReceiversInLine
         End Get
     End Property
-    Friend Property _o22Name As String
-    Public ReadOnly Property o22Name As String
-        Get
-            Return _o22Name
-        End Get
-    End Property
+    
     Friend Property _Owner As String
     Public ReadOnly Property Owner As String
         Get

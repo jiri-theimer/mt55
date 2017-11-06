@@ -233,7 +233,12 @@ Public Class o22_record
 
                 .o21ID = BO.BAS.IsNullInt(Me.o21ID.SelectedValue)
                 .o25ID = BO.BAS.IsNullInt(Me.o25ID.SelectedValue)
-                .o22DateFrom = BO.BAS.IsNullDBDate(Me.o22DateFrom.SelectedDate)
+                If Me.o22DateFrom.Visible Then
+                    .o22DateFrom = BO.BAS.IsNullDBDate(Me.o22DateFrom.SelectedDate)
+                Else
+                    .o22DateFrom = Nothing
+                End If
+
                 .o22DateUntil = BO.BAS.IsNullDBDate(Me.o22DateUntil.SelectedDate)
                 .o22IsAllDay = Me.o22IsAllDay.Checked
 
@@ -293,6 +298,7 @@ Public Class o22_record
         Me.lblDateUntil.Visible = False : Me.o22DateUntil.Visible = False
         Me.o22IsAllDay.Visible = False
         Me.o22ColorID.BackColor = Me.o22ColorID.SelectedItem.BackColor
+        panO20.Visible = True
         Select Case Me.CurrentO21Flag
             Case BO.o21FlagEnum.DeadlineOrMilestone
                 Me.lblDateUntil.Visible = True : Me.o22DateUntil.Visible = True
@@ -330,7 +336,28 @@ Public Class o22_record
                 Me.o22DateFrom.TimePopupButton.Visible = Not Me.o22IsAllDay.Checked
                 Me.o22DateUntil.TimePopupButton.Visible = Not Me.o22IsAllDay.Checked
 
-
+            Case BO.o21FlagEnum.TaskDeadline
+                Me.lblDateUntil.Visible = True : Me.o22DateUntil.Visible = True
+                imgO21Flag.ImageUrl = "Images/milestone.png"
+                lblDateUntil.Text = "Termín úkolu:"
+                panO20.Visible = False
+                Me.panDescription.Visible = False
+                If Master.DataPID = 0 Then
+                    Dim cTask As BO.p56Task = Master.Factory.p56TaskBL.Load(Me.CurrentMasterDataPID)
+                    Me.o22Name.Text = cTask.p56Name
+                    If Not cTask.p56PlanUntil Is Nothing Then Me.o22DateUntil.SelectedDate = cTask.p56PlanUntil
+                End If
+            Case BO.o21FlagEnum.ProjectDeadline
+                Me.lblDateUntil.Visible = True : Me.o22DateUntil.Visible = True
+                imgO21Flag.ImageUrl = "Images/milestone.png"
+                lblDateUntil.Text = "Termín projektu:"
+                panO20.Visible = False
+                Me.panDescription.Visible = False
+                If Master.DataPID = 0 Then
+                    Dim cProject As BO.p41Project = Master.Factory.p41ProjectBL.Load(Me.CurrentMasterDataPID)
+                    Me.o22Name.Text = cProject.PrefferedName
+                    If Not cProject.p41PlanUntil Is Nothing Then Me.o22DateUntil.SelectedDate = cProject.p41PlanUntil
+                End If
             Case Else
                 imgO21Flag.ImageUrl = "Images/notepad.png"
                 'panReservation.Visible = False
@@ -369,15 +396,15 @@ Public Class o22_record
         Me.j02ID_Owner.Value = Master.Factory.SysUser.j02ID.ToString
         Me.j02ID_Owner.Text = Master.Factory.SysUser.PersonDesc
 
-        If Request.Item("o21id") = "" Then
-            Dim cRecLast As BO.o22Milestone = Master.Factory.o22MilestoneBL.LoadMyLastCreated()
-            If Not cRecLast Is Nothing Then
-                With cRecLast
-                    Me.o21ID.SelectedValue = .o21ID.ToString
-                    Me.CurrentO21Flag = .o21Flag
-                End With
-            End If
-        End If
+        ''If Request.Item("o21id") = "" Then
+        ''    Dim cRecLast As BO.o22Milestone = Master.Factory.o22MilestoneBL.LoadMyLastCreated()
+        ''    If Not cRecLast Is Nothing Then
+        ''        With cRecLast
+        ''            Me.o21ID.SelectedValue = .o21ID.ToString
+        ''            Me.CurrentO21Flag = .o21Flag
+        ''        End With
+        ''    End If
+        ''End If
         
 
 

@@ -1,9 +1,4 @@
-﻿Public Enum o22EventFlagENUM
-    _Default = 0
-    _TaskDeadline = 1
-    _Reminder = 2
-End Enum
-Public Class o22Milestone
+﻿Public Class o22Milestone
     Inherits BOMother
     Public Property o21ID As Integer
     Public Property p41ID As Integer
@@ -14,7 +9,6 @@ Public Class o22Milestone
     Public Property p90ID As Integer
     Public Property o23ID As Integer
     Public Property o25ID As Integer
-    Public Property o22EventFlag As o22EventFlagENUM = o22EventFlagENUM._Default
 
     Public Property j02ID_Owner As Integer
 

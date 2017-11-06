@@ -130,6 +130,18 @@ Public Class handler_popupmenu
         If factory.SysUser.j04IsMenu_Notepad Then
             CI("Vytvořit dokument", "o23_record.aspx?masterprefix=p56&masterpid=" & cRec.PID.ToString, , "Images/notepad.png", True)    'pod nový
         End If
+        If Not cRec.p56PlanUntil Is Nothing Then
+            Dim mqO22 As New BO.myQueryO22
+            mqO22.p56ID = cRec.PID
+            Dim lisO22 As IEnumerable(Of BO.o22Milestone) = factory.o22MilestoneBL.GetList(mqO22)
+            If lisO22.Where(Function(p) p.o21Flag = BO.o21FlagEnum.TaskDeadline).Count = 0 Then
+                Dim lisO21 As IEnumerable(Of BO.o21MilestoneType) = factory.o21MilestoneTypeBL.GetList(New BO.myQuery).Where(Function(p) p.o21Flag = BO.o21FlagEnum.TaskDeadline)
+                If lisO21.Count > 0 Then
+                    CI("Zapsat termín úkolu do kalendáře", "o22_record.aspx?masterprefix=p56&masterpid=" & cRec.PID.ToString & "&o21id=" & lisO21(0).PID.ToString, , "Images/calendar.png", True) 'pod nový
+                End If
+            End If
+        End If
+        
         CI("Vytvořit kalendářovou událost", "o22_record.aspx?masterprefix=p56&masterpid=" & cRec.PID.ToString, , "Images/calendar.png", True) 'pod nový
 
         Dim cP41 As BO.p41Project = factory.p41ProjectBL.Load(cRec.p41ID)
@@ -601,6 +613,17 @@ Public Class handler_popupmenu
         End If
         If Not cRec.IsClosed Then
             If cP42.p42IsModule_p56 Then CI("Vytvořit úkol", "p56_record.aspx?masterprefix=p41&masterpid=" & cRec.PID.ToString, , "Images/task.png", True) 'pod nový
+            If Not cRec.p41PlanUntil Is Nothing Then
+                Dim mqO22 As New BO.myQueryO22
+                mqO22.p41ID = cRec.PID
+                Dim lisO22 As IEnumerable(Of BO.o22Milestone) = factory.o22MilestoneBL.GetList(mqO22)
+                If lisO22.Where(Function(p) p.o21Flag = BO.o21FlagEnum.ProjectDeadline).Count = 0 Then
+                    Dim lisO21 As IEnumerable(Of BO.o21MilestoneType) = factory.o21MilestoneTypeBL.GetList(New BO.myQuery).Where(Function(p) p.o21Flag = BO.o21FlagEnum.ProjectDeadline)
+                    If lisO21.Count > 0 Then
+                        CI("Zapsat termín projektu do kalendáře", "o22_record.aspx?masterprefix=p41&masterpid=" & cRec.PID.ToString & "&o21id=" & lisO21(0).PID.ToString, , "Images/calendar.png", True) 'pod nový
+                    End If
+                End If
+            End If
             If cP42.p42IsModule_o22 Then CI("Vytvořit kalendářovou událost", "o22_record.aspx?masterprefix=p41&masterpid=" & cRec.PID.ToString, , "Images/calendar.png", True) 'pod nový
         End If
         If cDisp.OwnerAccess Then

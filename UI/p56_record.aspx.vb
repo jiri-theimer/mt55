@@ -148,13 +148,15 @@
             Me.p56RecurNameMask.Text = .p56RecurNameMask
             basUI.SelectDropdownlistValue(Me.p65ID, .p65ID.ToString)
             If Not .p56RecurBaseDate Is Nothing Then Me.p56RecurBaseDate.SelectedDate = .p56RecurBaseDate
-            If .p65ID > 0 Then
-                chkMore.Checked = True
-            End If
+            
             Me.p56IsStopRecurrence.Checked = .p56IsStopRecurrence
         End With
         roles1.InhaleInitialData(cRec.PID)
         tags1.RefreshData(cRec.PID)
+
+        If cRec.p65ID > 0 Or roles1.RowsCount > 0 Or ff1.FieldsCount > 0 Or cRec.p56Description <> "" Then
+            chkMore.Checked = True : chkMore.Visible = False
+        End If
     End Sub
 
     Private Sub Handle_Permissions(cRec As BO.p56Task)

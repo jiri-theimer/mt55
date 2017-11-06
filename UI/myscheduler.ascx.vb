@@ -139,7 +139,7 @@ Public Class myscheduler
                 c.NavigateUrl = .o22AppUrl
 
                 Select Case .o21Flag
-                    Case BO.o21FlagEnum.DeadlineOrMilestone
+                    Case BO.o21FlagEnum.DeadlineOrMilestone, BO.o21FlagEnum.TaskDeadline, BO.o21FlagEnum.ProjectDeadline
                         c.recDate = .o22DateUntil.Value
                         c.Time = Format(c.recDate, "HH:mm")
                         If c.Time = "00:00" Then c.Time = ""

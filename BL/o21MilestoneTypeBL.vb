@@ -26,12 +26,17 @@ Class o21MilestoneTypeBL
     Public Function Save(cRec As BO.o21MilestoneType) As Boolean Implements Io21MilestoneTypeBL.Save
         With cRec
             Select Case .x29ID
-                Case BO.x29IdEnum.j02Person, BO.x29IdEnum.p41Project, BO.x29IdEnum.p28Contact, BO.x29IdEnum.p91Invoice, BO.x29IdEnum.p90Proforma, BO.x29IdEnum.p56Task
+                Case BO.x29IdEnum.j02Person, BO.x29IdEnum.p41Project, BO.x29IdEnum.p28Contact, BO.x29IdEnum.p91Invoice, BO.x29IdEnum.p90Proforma, BO.x29IdEnum.p56Task, BO.x29IdEnum.o23Doc
                 Case Else
                     _Error = "Na vstupu není druh vazební entity." : Return False
             End Select
             If Trim(.o21Name) = "" Then _Error = "Chybí název." : Return False
-
+            If .o21Flag = BO.o21FlagEnum.TaskDeadline And .x29ID <> BO.x29IdEnum.p56Task Then
+                _Error = "Lze nastavit pouze pro entitu [Úkol]." : Return False
+            End If
+            If .o21Flag = BO.o21FlagEnum.ProjectDeadline And .x29ID <> BO.x29IdEnum.p41Project Then
+                _Error = "Lze nastavit pouze pro entitu [Projekt]." : Return False
+            End If
         End With
 
         Return _cDL.Save(cRec)

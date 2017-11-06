@@ -95,10 +95,14 @@
                     </td>
                 </tr>
 
-
-
-
-
+                <tr>
+                    <td>
+                        <asp:Label ID="lblOwner" runat="server" Text="Vlastník záznamu:" CssClass="lblReq"></asp:Label>
+                    </td>
+                    <td>
+                        <uc:person ID="j02ID_Owner" runat="server" Width="150px" />
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         <asp:Label ID="lblCompletePercent" Text="Hotovo (%):" runat="server" CssClass="lbl"></asp:Label>
@@ -109,7 +113,6 @@
 
                     </td>
                 </tr>
-                
                 <tr>
                     <td>
                         <asp:Label ID="lblP59ID_Submitter" runat="server" CssClass="lbl" Text="Priorita zadavatele:"></asp:Label>
@@ -117,8 +120,9 @@
                     </td>
                     <td>
                         <uc:datacombo ID="p59ID_Submitter" runat="server" DataTextField="p59Name" DataValueField="pid" IsFirstEmptyRow="true" Width="150px"></uc:datacombo>
-                        <asp:Label ID="lblOwner" runat="server" Text="Vlastník záznamu:" CssClass="lblReq"></asp:Label>
-                        <uc:person ID="j02ID_Owner" runat="server" Width="150px" />
+                        
+                        
+                        
                     </td>
                 </tr>
             </table>

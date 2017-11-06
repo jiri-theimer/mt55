@@ -178,15 +178,15 @@
     
     <uc:freefields ID="ff1" runat="server" />
 
-    <div class="content-box2">
+    <asp:panel ID="panDescription" runat="server"  CssClass="content-box2">
         <div class="title">Poznámka</div>
         <div class="content">
             <asp:TextBox ID="o22Description" runat="server" Style="height: 90px; width: 99%;" TextMode="MultiLine"></asp:TextBox>
         </div>
 
-    </div>
+    </asp:panel>
     <div class="div6">
-        <asp:CheckBox ID="o22IsNoNotify" runat="server" Text="V události vypnout automatické e-mail notifikace" CssClass="chk" />
+        <asp:CheckBox ID="o22IsNoNotify" runat="server" Text="V události vypnout automatické e-mail notifikace" CssClass="chk" Visible="false" />
     </div>
     <table cellpadding="5" cellspacing="2">
         <tr>

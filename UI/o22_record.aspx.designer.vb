@@ -275,6 +275,15 @@ Partial Public Class o22_record
     Protected WithEvents ff1 As Global.UI.freefields
 
     '''<summary>
+    '''panDescription control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents panDescription As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
     '''o22Description control.
     '''</summary>
     '''<remarks>

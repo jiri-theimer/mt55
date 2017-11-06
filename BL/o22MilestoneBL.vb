@@ -48,7 +48,7 @@ Class o22MilestoneBL
                 _Error = "Chybí název (předmět)." : Return False
             End If
             Select Case cO21.o21Flag
-                Case BO.o21FlagEnum.DeadlineOrMilestone
+                Case BO.o21FlagEnum.DeadlineOrMilestone, BO.o21FlagEnum.TaskDeadline, BO.o21FlagEnum.ProjectDeadline
                     If BO.BAS.IsNullDBDate(.o22DateUntil) Is Nothing Then
                         _Error = "Chybí datum (termín) milníku." : Return False
                     End If

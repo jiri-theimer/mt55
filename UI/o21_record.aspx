@@ -87,7 +87,9 @@
                     <div class="content">
                         <asp:RadioButtonList ID="o21Flag" runat="server" CellPadding="5">
                             <asp:ListItem Text="<img src='Images/milestone.png'/>Pouze jedno datum (termín) [DO] - vhodné pro definování milníků, termínů, lhůt, výročí apod." Value="1" Selected="true"></asp:ListItem>
-                            <asp:ListItem Text="<img src='Images/event.png'/>Časový úsek definovaný rozsahem [OD] - [DO] - vhodné pro definování událostí, rezervací apod." Value="2"></asp:ListItem>                            
+                            <asp:ListItem Text="<img src='Images/event.png'/>Časový úsek definovaný rozsahem [OD] - [DO] - vhodné pro definování událostí, rezervací apod." Value="2"></asp:ListItem> 
+                            <asp:ListItem Text="Termín úkolu" Value="4"></asp:ListItem>
+                            <asp:ListItem Text="Termín projektu" Value="5"></asp:ListItem>
                         </asp:RadioButtonList>
                     </div>
                 </div>

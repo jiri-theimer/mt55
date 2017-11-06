@@ -1,6 +1,8 @@
 ﻿Public Enum o21FlagEnum
     DeadlineOrMilestone = 1
     EventFromUntil = 2
+    TaskDeadline = 4
+    ProjectDeadline = 5
 End Enum
 Public Class o21MilestoneType
     Inherits BOMother

@@ -140,6 +140,24 @@ Partial Public Class p56_record
     Protected WithEvents chkMore As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
+    '''lblOwner control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblOwner As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''j02ID_Owner control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents j02ID_Owner As Global.UI.person
+
+    '''<summary>
     '''lblCompletePercent control.
     '''</summary>
     '''<remarks>
@@ -174,24 +192,6 @@ Partial Public Class p56_record
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents p59ID_Submitter As Global.UI.datacombo
-
-    '''<summary>
-    '''lblOwner control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblOwner As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''j02ID_Owner control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents j02ID_Owner As Global.UI.person
 
     '''<summary>
     '''tags1 control.
