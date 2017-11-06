@@ -15,8 +15,8 @@
     Function GetVirtualCount(myQuery As BO.myQueryO23) As Integer
     Sub SetCalendarDateFields(strCalendarFieldStart As String, strCalendarFieldEnd As String)
     Function GetRolesInline(intPID As Integer) As String
-    Sub Handle_Reminder()
-    Function GetList_forMessagesDashboard(intJ02ID As Integer) As IEnumerable(Of BO.o23Doc)
+    ''Sub Handle_Reminder()
+    ''Function GetList_forMessagesDashboard(intJ02ID As Integer) As IEnumerable(Of BO.o23Doc)
     Function LockFilesInDocument(cRec As BO.o23Doc, lockFlag As BO.o23LockedTypeENUM) As Boolean
     Function UnLockFilesInDocument(cRec As BO.o23Doc) As Boolean
     Function InhaleDisposition(cRec As BO.o23Doc, Optional cX18 As BO.x18EntityCategory = Nothing) As BO.o23RecordDisposition
@@ -220,20 +220,20 @@ Class o23DocBL
     ''Public Function SaveFolders(intPID As Integer, strFoldersByPipes As String) As Boolean Implements Io23DocBL.SaveFolders
     ''    Return _cDL.SaveFolders(intPID, strFoldersByPipes)
     ''End Function
-    Public Sub Handle_Reminder() Implements Io23DocBL.Handle_Reminder
-        Dim d1 As Date = DateAdd(DateInterval.Day, -2, Now)
-        Dim d2 As Date = Now
-        Dim lisO23 As IEnumerable(Of BO.o23Doc) = _cDL.GetList_WaitingOnReminder(d1, d2)
-        For Each cRec In lisO23
-            Me.RaiseAppEvent(BO.x45IDEnum.o23_remind, cRec.PID, cRec.o23Name)
+    ''Public Sub Handle_Reminder() Implements Io23DocBL.Handle_Reminder
+    ''    Dim d1 As Date = DateAdd(DateInterval.Day, -2, Now)
+    ''    Dim d2 As Date = Now
+    ''    Dim lisO23 As IEnumerable(Of BO.o23Doc) = _cDL.GetList_WaitingOnReminder(d1, d2)
+    ''    For Each cRec In lisO23
+    ''        Me.RaiseAppEvent(BO.x45IDEnum.o23_remind, cRec.PID, cRec.o23Name)
 
-        Next
+    ''    Next
 
-    End Sub
+    ''End Sub
 
-    Public Function GetList_forMessagesDashboard(intJ02ID As Integer) As IEnumerable(Of BO.o23Doc) Implements Io23DocBL.GetList_forMessagesDashboard
-        Return _cDL.GetList_forMessagesDashboard(intJ02ID)
-    End Function
+    ''Public Function GetList_forMessagesDashboard(intJ02ID As Integer) As IEnumerable(Of BO.o23Doc) Implements Io23DocBL.GetList_forMessagesDashboard
+    ''    Return _cDL.GetList_forMessagesDashboard(intJ02ID)
+    ''End Function
 
     Public Function LockFilesInDocument(cRec As BO.o23Doc, lockFlag As BO.o23LockedTypeENUM) As Boolean Implements Io23DocBL.LockFilesInDocument
         Dim cDisp As BO.o23RecordDisposition = InhaleDisposition(cRec)

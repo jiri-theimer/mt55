@@ -364,28 +364,28 @@
         Return _cDB.GetValueFromSQL("SELECT dbo.o23_getroles_inline(" & intPID.ToString & ") as Value")
     End Function
 
-    Public Function GetList_WaitingOnReminder(datReminderFrom As Date, datReminderUntil As Date) As IEnumerable(Of BO.o23Doc)
-        Dim s As String = GetSQLPart1(0), pars As New DbParameters
-        pars.Add("datereminderfrom", datReminderFrom)
-        pars.Add("datereminderuntil", datReminderUntil)
-        s += " WHERE o23ReminderDate BETWEEN @datereminderfrom AND @datereminderuntil"
-        s += " AND o23ID NOT IN (SELECT x47RecordPID FROM x47EventLog WHERE x29ID=223 AND x45ID=22306)"
+    ''Public Function GetList_WaitingOnReminder(datReminderFrom As Date, datReminderUntil As Date) As IEnumerable(Of BO.o23Doc)
+    ''    Dim s As String = GetSQLPart1(0), pars As New DbParameters
+    ''    pars.Add("datereminderfrom", datReminderFrom)
+    ''    pars.Add("datereminderuntil", datReminderUntil)
+    ''    s += " WHERE o23ReminderDate BETWEEN @datereminderfrom AND @datereminderuntil"
+    ''    s += " AND o23ID NOT IN (SELECT x47RecordPID FROM x47EventLog WHERE x29ID=223 AND x45ID=22306)"
 
-        Return _cDB.GetList(Of BO.o23Doc)(s, pars)
-    End Function
-    Public Function GetList_forMessagesDashboard(intJ02ID As Integer) As IEnumerable(Of BO.o23Doc)
-        Dim s As String = "SELECT " & GetSQLPart1(50)
+    ''    Return _cDB.GetList(Of BO.o23Doc)(s, pars)
+    ''End Function
+    ''Public Function GetList_forMessagesDashboard(intJ02ID As Integer) As IEnumerable(Of BO.o23Doc)
+    ''    Dim s As String = "SELECT " & GetSQLPart1(50)
 
-        Dim pars As New DbParameters
-        s += " WHERE a.o23ReminderDate BETWEEN @d1 AND @d2"
-        s += " AND (a.j02ID_Owner=@j02id OR a.o23ID IN (SELECT x69.x69RecordPID FROM x69EntityRole_Assign x69 INNER JOIN x67EntityRole x67 ON x69.x67ID=x67.x67ID WHERE x67.x29ID=223 AND (x69.j02ID=@j02id OR x69.j11ID IN (SELECT j11ID FROM j12Team_Person WHERE j02ID=@j02id))))"
+    ''    Dim pars As New DbParameters
+    ''    s += " WHERE a.o23ReminderDate BETWEEN @d1 AND @d2"
+    ''    s += " AND (a.j02ID_Owner=@j02id OR a.o23ID IN (SELECT x69.x69RecordPID FROM x69EntityRole_Assign x69 INNER JOIN x67EntityRole x67 ON x69.x67ID=x67.x67ID WHERE x67.x29ID=223 AND (x69.j02ID=@j02id OR x69.j11ID IN (SELECT j11ID FROM j12Team_Person WHERE j02ID=@j02id))))"
 
-        pars.Add("j02id", intJ02ID, DbType.Int32)
-        pars.Add("d1", DateAdd(DateInterval.Day, -1, Now), DbType.DateTime)
-        pars.Add("d2", DateAdd(DateInterval.Day, 2, Now), DbType.DateTime)
+    ''    pars.Add("j02id", intJ02ID, DbType.Int32)
+    ''    pars.Add("d1", DateAdd(DateInterval.Day, -1, Now), DbType.DateTime)
+    ''    pars.Add("d2", DateAdd(DateInterval.Day, 2, Now), DbType.DateTime)
 
-        Return _cDB.GetList(Of BO.o23Doc)(s, pars)
-    End Function
+    ''    Return _cDB.GetList(Of BO.o23Doc)(s, pars)
+    ''End Function
 
     Public Function LockFiles(intPID As Integer, lockFlag As BO.o23LockedTypeENUM) As Boolean
         Dim pars As New DbParameters()

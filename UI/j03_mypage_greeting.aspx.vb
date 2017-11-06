@@ -194,15 +194,15 @@
         
         
         
-        Dim lisO23 As IEnumerable(Of BO.o23Doc) = Master.Factory.o23DocBL.GetList_forMessagesDashboard(Master.Factory.SysUser.j02ID)
-        If lisO23.Count > 0 Then
-            Me.panO23.Visible = True
-            Me.o23Count.Text = lisO23.Count.ToString
-            rpO23.DataSource = lisO23
-            rpO23.DataBind()
-        Else
-            Me.panO23.Visible = False
-        End If
+        ''Dim lisO23 As IEnumerable(Of BO.o23Doc) = Master.Factory.o23DocBL.GetList_forMessagesDashboard(Master.Factory.SysUser.j02ID)
+        ''If lisO23.Count > 0 Then
+        ''    Me.panO23.Visible = True
+        ''    Me.o23Count.Text = lisO23.Count.ToString
+        ''    rpO23.DataSource = lisO23
+        ''    rpO23.DataBind()
+        ''Else
+        ''    Me.panO23.Visible = False
+        ''End If
         rpP39.DataSource = Master.Factory.p40WorkSheet_RecurrenceBL.GetList_forMessagesDashboard(Master.Factory.SysUser.j02ID)
         rpP39.DataBind()
         If rpP39.Items.Count = 0 Then

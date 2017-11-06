@@ -32,6 +32,7 @@
             pars.Add("j02ID", BO.BAS.IsNullDBKey(.j02ID), DbType.Int32)
             pars.Add("p91ID", BO.BAS.IsNullDBKey(.p91ID), DbType.Int32)
             pars.Add("p90ID", BO.BAS.IsNullDBKey(.p90ID), DbType.Int32)
+            pars.Add("o23ID", BO.BAS.IsNullDBKey(.o23ID), DbType.Int32)
             pars.Add("o25ID", BO.BAS.IsNullDBKey(.o25ID), DbType.Int32)
             pars.Add("o22EventFlag", CInt(.o22EventFlag), DbType.Int32)
 

@@ -12,6 +12,7 @@ Public Class o22Milestone
     Public Property p56ID As Integer
     Public Property p91ID As Integer
     Public Property p90ID As Integer
+    Public Property o23ID As Integer
     Public Property o25ID As Integer
     Public Property o22EventFlag As o22EventFlagENUM = o22EventFlagENUM._Default
 

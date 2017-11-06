@@ -20,7 +20,7 @@ Public Class o23Doc
     Public Property o23Password As String
     Public Property o23ExternalPID As String
     Public Property o23GUID As String
-    Public Property o23ReminderDate As Date?
+
     Public Property o23IsDraft As Boolean
     Public Property o23LockedFlag As o23LockedTypeENUM = o23LockedTypeENUM._NotSpecified
 
