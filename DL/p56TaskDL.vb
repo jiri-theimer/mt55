@@ -47,7 +47,6 @@
                 If .p56Code = "" Then .p56Code = "TEMP" & BO.BAS.GetGUID() 'dočasný kód, bude později nahrazen
                 pars.Add("j02ID_Owner", BO.BAS.IsNullDBKey(.j02ID_Owner), DbType.Int32)
                 pars.Add("p41ID", BO.BAS.IsNullDBKey(.p41ID), DbType.Int32)
-                pars.Add("o22ID", BO.BAS.IsNullDBKey(.o22ID), DbType.Int32)
                 pars.Add("p57ID", BO.BAS.IsNullDBKey(.p57ID), DbType.Int32)
                 pars.Add("o43ID", BO.BAS.IsNullDBKey(.o43ID), DbType.Int32)
                 pars.Add("p59ID_Submitter", BO.BAS.IsNullDBKey(.p59ID_Submitter), DbType.Int32)
@@ -71,7 +70,6 @@
 
                 pars.Add("p56PlanFrom", BO.BAS.IsNullDBDate(.p56PlanFrom), DbType.DateTime)
                 pars.Add("p56PlanUntil", BO.BAS.IsNullDBDate(.p56PlanUntil), DbType.DateTime)
-                pars.Add("p56ReminderDate", BO.BAS.IsNullDBDate(.p56ReminderDate), DbType.DateTime)
                 pars.Add("p56IsNoNotify", .p56IsNoNotify, DbType.Boolean)
 
                 pars.Add("p65ID", BO.BAS.IsNullDBKey(.p65ID), DbType.Int32)
@@ -150,10 +148,10 @@
                 pars.Add("ownerid", .j02ID_Owner, DbType.Int32)
                 s.Append(" AND a.j02ID_Owner=@ownerid")
             End If
-            If .o22ID <> 0 Then
-                pars.Add("o22id", .o22ID, DbType.Int32)
-                s.Append(" AND a.o22ID=@o22id")
-            End If
+            ''If .o22ID <> 0 Then
+            ''    pars.Add("o22id", .o22ID, DbType.Int32)
+            ''    s.Append(" AND a.o22ID=@o22id")
+            ''End If
             If .p57ID <> 0 Then
                 pars.Add("p57id", .p57ID, DbType.Int32)
                 s.Append(" AND a.p57ID=@p57id")
@@ -416,29 +414,29 @@
     Private Function ParseFilterExpression(strFilter As String) As String
         Return ParseSortExpression(strFilter).Replace("[", "").Replace("]", "")
     End Function
-    Public Function GetList_WaitingOnReminder(datReminderFrom As Date, datReminderUntil As Date) As IEnumerable(Of BO.p56Task)
-        Dim s As String = GetSQLPart1(0, False) & " " & GetSQLPart2(Nothing), pars As New DbParameters
-        pars.Add("datereminderfrom", datReminderFrom)
-        pars.Add("datereminderuntil", datReminderUntil)
-        s += " WHERE p56ReminderDate BETWEEN @datereminderfrom AND @datereminderuntil"
-        s += " AND a.p56ID NOT IN (SELECT x47RecordPID FROM x47EventLog WHERE x29ID=356 AND x45ID=35606)"
+    ''Public Function GetList_WaitingOnReminder(datReminderFrom As Date, datReminderUntil As Date) As IEnumerable(Of BO.p56Task)
+    ''    Dim s As String = GetSQLPart1(0, False) & " " & GetSQLPart2(Nothing), pars As New DbParameters
+    ''    pars.Add("datereminderfrom", datReminderFrom)
+    ''    pars.Add("datereminderuntil", datReminderUntil)
+    ''    s += " WHERE p56ReminderDate BETWEEN @datereminderfrom AND @datereminderuntil"
+    ''    s += " AND a.p56ID NOT IN (SELECT x47RecordPID FROM x47EventLog WHERE x29ID=356 AND x45ID=35606)"
 
-        Return _cDB.GetList(Of BO.p56Task)(s, pars)
-    End Function
-    Public Function GetList_forMessagesDashboard(intJ02ID As Integer) As IEnumerable(Of BO.p56Task)
-        Dim s As String = GetSQLPart1(100, False) & " " & GetSQLPart2(Nothing), pars As New DbParameters
-        ''s += " WHERE ((p56PlanUntil BETWEEN DATEADD(DAY,-3,@d1) AND @d2 and getdate() between p56ValidFrom and p56ValidUntil) OR p56ReminderDate between @d1 AND @d2)"
-        s += " WHERE ((p56PlanUntil IS NOT NULL and getdate() between p56ValidFrom and p56ValidUntil) OR p56ReminderDate between @d1 AND @d2)"
-        's += "AND (a.j02ID_Owner=@j02id OR a.p56ID IN (SELECT x69.x69RecordPID FROM x69EntityRole_Assign x69 INNER JOIN x67EntityRole x67 ON x69.x67ID=x67.x67ID WHERE x67.x29ID=356 AND (x69.j02ID=@j02id OR x69.j11ID IN (SELECT j11ID FROM j12Team_Person WHERE j02ID=@j02id))))"
-        s += "AND a.p56ID IN (SELECT x69.x69RecordPID FROM x69EntityRole_Assign x69 INNER JOIN x67EntityRole x67 ON x69.x67ID=x67.x67ID WHERE x67.x29ID=356 AND (x69.j02ID=@j02id OR x69.j11ID IN (SELECT j11ID FROM j12Team_Person WHERE j02ID=@j02id)))"
+    ''    Return _cDB.GetList(Of BO.p56Task)(s, pars)
+    ''End Function
+    ''Public Function GetList_forMessagesDashboard(intJ02ID As Integer) As IEnumerable(Of BO.p56Task)
+    ''    Dim s As String = GetSQLPart1(100, False) & " " & GetSQLPart2(Nothing), pars As New DbParameters
+    ''    ''s += " WHERE ((p56PlanUntil BETWEEN DATEADD(DAY,-3,@d1) AND @d2 and getdate() between p56ValidFrom and p56ValidUntil) OR p56ReminderDate between @d1 AND @d2)"
+    ''    s += " WHERE ((p56PlanUntil IS NOT NULL and getdate() between p56ValidFrom and p56ValidUntil) OR p56ReminderDate between @d1 AND @d2)"
+    ''    's += "AND (a.j02ID_Owner=@j02id OR a.p56ID IN (SELECT x69.x69RecordPID FROM x69EntityRole_Assign x69 INNER JOIN x67EntityRole x67 ON x69.x67ID=x67.x67ID WHERE x67.x29ID=356 AND (x69.j02ID=@j02id OR x69.j11ID IN (SELECT j11ID FROM j12Team_Person WHERE j02ID=@j02id))))"
+    ''    s += "AND a.p56ID IN (SELECT x69.x69RecordPID FROM x69EntityRole_Assign x69 INNER JOIN x67EntityRole x67 ON x69.x67ID=x67.x67ID WHERE x67.x29ID=356 AND (x69.j02ID=@j02id OR x69.j11ID IN (SELECT j11ID FROM j12Team_Person WHERE j02ID=@j02id)))"
 
-        pars.Add("j02id", intJ02ID, DbType.Int32)
-       
-        pars.Add("d1", DateAdd(DateInterval.Day, -1, Now), DbType.DateTime)
-        pars.Add("d2", DateAdd(DateInterval.Day, 2, Now), DbType.DateTime)
+    ''    pars.Add("j02id", intJ02ID, DbType.Int32)
 
-        Return _cDB.GetList(Of BO.p56Task)(s, pars)
-    End Function
+    ''    pars.Add("d1", DateAdd(DateInterval.Day, -1, Now), DbType.DateTime)
+    ''    pars.Add("d2", DateAdd(DateInterval.Day, 2, Now), DbType.DateTime)
+
+    ''    Return _cDB.GetList(Of BO.p56Task)(s, pars)
+    ''End Function
     ''Public Function GetList_WithWorksheetSum(myQuery As BO.myQueryP56, bolInhaleReceiversInLine As Boolean) As IEnumerable(Of BO.p56TaskWithWorksheetSum)
     ''    Dim s As String = GetSQLPart1(myQuery.TopRecordsOnly) & ",p31.p31RowsCount,p31.Hours_Orig,p31.Expenses_Orig,p31.Incomes_Orig", pars As New DbParameters
     ''    If bolInhaleReceiversInLine Then
@@ -492,8 +490,8 @@
         Dim s As New System.Text.StringBuilder
 
         s.Append(bas.RecTail("p56", "a"))
-        s.Append(",a.p41ID,a.o22ID,a.p57ID,a.j02ID_Owner,a.b02ID,a.p59ID_Submitter,a.p59ID_Receiver,a.o43ID,a.p56Name,a.p56NameShort,a.p56Code,a.p56Description,a.p56Ordinary,a.p56PlanFrom,a.p56PlanUntil,a.p56ReminderDate,a.p56Plan_Hours,a.p56Plan_Expenses,a.p56RatingValue,a.p56CompletePercent,a.p56ExternalPID,a.p56IsPlan_Hours_Ceiling,a.p56IsPlan_Expenses_Ceiling,a.p56IsHtml,a.p56IsNoNotify")
-        s.Append(",p28client.p28Name as _Client,p57.p57Name as _p57Name,p59submitter.p59Name as _p59NameSubmitter,isnull(p41.p41NameShort,p41.p41Name) as _p41Name,p41.p41Code as _p41Code,o22.o22Name as _o22Name,b02.b02Name as _b02Name,b02.b02Color as _b02Color,j02owner.j02LastName+' '+j02owner.j02FirstName as _Owner,p57.p57IsHelpdesk as _p57IsHelpdesk,p57.b01ID as _b01ID,p57.p57PlanDatesEntryFlag as _p57PlanDatesEntryFlag")
+        s.Append(",a.p41ID,a.p57ID,a.j02ID_Owner,a.b02ID,a.p59ID_Submitter,a.p59ID_Receiver,a.o43ID,a.p56Name,a.p56NameShort,a.p56Code,a.p56Description,a.p56Ordinary,a.p56PlanFrom,a.p56PlanUntil,a.p56Plan_Hours,a.p56Plan_Expenses,a.p56RatingValue,a.p56CompletePercent,a.p56ExternalPID,a.p56IsPlan_Hours_Ceiling,a.p56IsPlan_Expenses_Ceiling,a.p56IsHtml,a.p56IsNoNotify")
+        s.Append(",p28client.p28Name as _Client,p57.p57Name as _p57Name,p59submitter.p59Name as _p59NameSubmitter,isnull(p41.p41NameShort,p41.p41Name) as _p41Name,p41.p41Code as _p41Code,b02.b02Name as _b02Name,b02.b02Color as _b02Color,j02owner.j02LastName+' '+j02owner.j02FirstName as _Owner,p57.p57IsHelpdesk as _p57IsHelpdesk,p57.b01ID as _b01ID,p57.p57PlanDatesEntryFlag as _p57PlanDatesEntryFlag")
         s.Append(",a.p65ID,a.p56RecurNameMask,a.p56RecurBaseDate,a.p56RecurMotherID,a.p56IsStopRecurrence")
         If bolIncludeTags Then
             s.Append(",dbo.tag_values_inline_html(356,a.p56ID) as TagsInlineHtml")
@@ -513,7 +511,7 @@
         Dim s As New System.Text.StringBuilder
         s.Append("FROM p56Task a INNER JOIN p57TaskType p57 ON a.p57ID=p57.p57ID")
         s.Append(" INNER JOIN p41Project p41 ON a.p41ID=p41.p41ID")
-        s.Append(" LEFT OUTER JOIN o22Milestone o22 ON a.o22ID=o22.o22ID")
+        ''s.Append(" LEFT OUTER JOIN o22Milestone o22 ON a.o22ID=o22.o22ID")
         s.Append(" LEFT OUTER JOIN p59Priority p59submitter ON a.p59ID_Submitter=p59submitter.p59ID")
         s.Append(" LEFT OUTER JOIN p28Contact p28client ON p41.p28ID_Client=p28client.p28ID")
         s.Append(" LEFT OUTER JOIN b02WorkflowStatus b02 ON a.b02ID=b02.b02ID")

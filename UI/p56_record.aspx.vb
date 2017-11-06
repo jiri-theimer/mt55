@@ -101,7 +101,7 @@
     Private Sub RefreshRecord()
         If Master.DataPID = 0 Then
             InhaleMyDefault()
-            SetupO22Combo()
+
             Me.Project.Text = Master.Factory.GetRecordCaption(BO.x29IdEnum.p41Project, Me.CurrentP41ID)
             If Me.p57ID.SelectedIndex = 0 And Me.p57ID.Rows > 1 Then
                 Me.p57ID.SelectedIndex = 1
@@ -126,14 +126,12 @@
 
             Me.p59ID_Submitter.SelectedValue = .p59ID_Submitter
             Handle_FF()
-            SetupO22Combo()
-            Me.o22ID.SelectedValue = .o22ID.ToString
+
             Me.p56IsNoNotify.Checked = .p56IsNoNotify
 
             Me.p56Name.Text = .p56Name
             If Not BO.BAS.IsNullDBDate(.p56PlanFrom) Is Nothing Then Me.p56PlanFrom.SelectedDate = .p56PlanFrom
             If Not BO.BAS.IsNullDBDate(.p56PlanUntil) Is Nothing Then Me.p56PlanUntil.SelectedDate = .p56PlanUntil
-            If Not BO.BAS.IsNullDBDate(.p56ReminderDate) Is Nothing Then Me.p56ReminderDate.SelectedDate = .p56ReminderDate
             Me.p56Description.Text = .p56Description
             Me.j02ID_Owner.Value = .j02ID_Owner.ToString
             Me.j02ID_Owner.Text = .Owner
@@ -258,11 +256,7 @@
             RadTabStrip1.FindTabByValue("other").Style.Item("display") = BO.BAS.GB_Display(b)
         End If
 
-        If Me.o22ID.Rows > 1 Then
-            Me.lblO22ID.Visible = True : Me.o22ID.Visible = True
-        Else
-            Me.lblO22ID.Visible = False : Me.o22ID.Visible = False
-        End If
+        
         If Me.p65ID.SelectedIndex > 0 Then
             panRecurrence.Visible = True
         Else
@@ -272,14 +266,7 @@
 
     End Sub
 
-    Private Sub SetupO22Combo()
-        If Me.CurrentP41ID = 0 Then Return
-        Dim mq As New BO.myQueryO22
-        mq.p41ID = Me.CurrentP41ID
-        mq.Closed = BO.BooleanQueryMode.FalseQuery
-        Me.o22ID.DataSource = Master.Factory.o22MilestoneBL.GetList(mq).Where(Function(p) p.o22Name <> "")
-        Me.o22ID.DataBind()
-    End Sub
+    
 
     Private Sub _MasterPage_Master_OnDelete() Handles _MasterPage.Master_OnDelete
         With Master.Factory.p56TaskBL
@@ -293,10 +280,7 @@
     End Sub
 
    
-    Private Sub o22ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles o22ID.NeedMissingItem
-        Dim cRec As BO.o22Milestone = Master.Factory.o22MilestoneBL.Load(CInt(strFoundedMissingItemValue))
-        strAddMissingItemText = cRec.NameWithDate
-    End Sub
+    
 
     Private Sub p57ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles p57ID.NeedMissingItem
         Dim cRec As BO.p57TaskType = Master.Factory.p57TaskTypeBL.Load(CInt(strFoundedMissingItemValue))
@@ -320,12 +304,12 @@
 
                 .p57ID = BO.BAS.IsNullInt(Me.p57ID.SelectedValue)
 
-                .o22ID = BO.BAS.IsNullInt(Me.o22ID.SelectedValue)
+
                 .p59ID_Submitter = BO.BAS.IsNullInt(Me.p59ID_Submitter.SelectedValue)
 
                 .p56PlanFrom = BO.BAS.IsNullDBDate(Me.p56PlanFrom.SelectedDate)
                 .p56PlanUntil = BO.BAS.IsNullDBDate(Me.p56PlanUntil.SelectedDate)
-                .p56ReminderDate = BO.BAS.IsNullDBDate(Me.p56ReminderDate.SelectedDate)
+
                 .p56IsNoNotify = Me.p56IsNoNotify.Checked
 
                 .j02ID_Owner = BO.BAS.IsNullInt(Me.j02ID_Owner.Value)

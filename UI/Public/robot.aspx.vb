@@ -33,7 +33,7 @@
             Handle_ImapRobot()
 
             Handle_o22Reminder()
-            Handle_p56Reminder()
+            ''Handle_p56Reminder()
 
             Handle_ScheduledReports()
 
@@ -328,12 +328,12 @@
     Public Sub Handle_o22Reminder()
         _Factory.o22MilestoneBL.Handle_Reminder()
     End Sub
-    Public Sub Handle_o23Reminder()
-        _Factory.o23DocBL.Handle_Reminder()
-    End Sub
-    Public Sub Handle_p56Reminder()
-        _Factory.p56TaskBL.Handle_Reminder()
-    End Sub
+    ''Public Sub Handle_o23Reminder()
+    ''    _Factory.o23DocBL.Handle_Reminder()
+    ''End Sub
+    ''Public Sub Handle_p56Reminder()
+    ''    _Factory.p56TaskBL.Handle_Reminder()
+    ''End Sub
 
     Public Sub Handle_ImapRobot()
         Dim lis As IEnumerable(Of BO.o41InboxAccount) = _Factory.o41InboxAccountBL.GetList(New BO.myQuery)

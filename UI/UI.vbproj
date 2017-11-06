@@ -390,7 +390,6 @@
     <Content Include="help.aspx" />
     <Content Include="helpdesk_default.aspx" />
     <Content Include="j02_batch.aspx" />
-    <Content Include="j03_messages.aspx" />
     <Content Include="j03_mypage.aspx" />
     <Content Include="j03_mypage_greeting.aspx" />
     <Content Include="j03_mypage_setting.aspx" />
@@ -2085,13 +2084,6 @@
     </Compile>
     <Compile Include="j02_batch.aspx.vb">
       <DependentUpon>j02_batch.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="j03_messages.aspx.designer.vb">
-      <DependentUpon>j03_messages.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="j03_messages.aspx.vb">
-      <DependentUpon>j03_messages.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="j03_mypage.aspx.designer.vb">

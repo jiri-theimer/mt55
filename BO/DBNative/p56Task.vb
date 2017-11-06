@@ -2,7 +2,6 @@
     Inherits BOMother
     Public Property p41ID As Integer
     Public Property p57ID As Integer
-    Public Property o22ID As Integer
     Public Property b02ID As Integer
     Public Property j02ID_Owner As Integer
     Public Property p59ID_Submitter As Integer
@@ -17,8 +16,7 @@
 
     Public Property p56PlanFrom As Date?
     Public Property p56PlanUntil As Date?
-    Public Property p56ReminderDate As Date?
-
+    
     Public Property p56Ordinary As Integer
     Public Property p56Plan_Hours As Double
     Public Property p56Plan_Expenses As Double

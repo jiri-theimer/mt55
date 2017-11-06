@@ -35,9 +35,7 @@
         }
     }
 
-    function messages() {
-        sw_menu_decide("j03_messages.aspx", "Images/globe.png", false);
-    }
+    
     function defpage(url_def_page) {
         $.post("Handler/handler_default_page.ashx", { url: url_def_page }, function (data) {
             if (data == '1') {

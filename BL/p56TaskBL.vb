@@ -11,9 +11,9 @@
     Function GetGridDataSource(myQuery As BO.myQueryP56) As DataTable
     Function GetVirtualCount(myQuery As BO.myQueryP56) As Integer
     Function GetRolesInline(intPID As Integer) As String
-    Function GetList_WaitingOnReminder(datReminderFrom As Date, datReminderUntil As Date) As IEnumerable(Of BO.p56Task)
-    Function GetList_forMessagesDashboard(intJ02ID As Integer) As IEnumerable(Of BO.p56Task)
-    Sub Handle_Reminder()
+    ''Function GetList_WaitingOnReminder(datReminderFrom As Date, datReminderUntil As Date) As IEnumerable(Of BO.p56Task)
+    ''Function GetList_forMessagesDashboard(intJ02ID As Integer) As IEnumerable(Of BO.p56Task)
+    ''Sub Handle_Reminder()
     Sub UpdateSelectedTaskRole(intX67ID As Integer, lisX69 As List(Of BO.x69EntityRole_Assign), intP56ID As Integer)
     Sub ClearSelectedTaskRole(intX67ID As Integer, intP56ID As Integer)
     Function InhaleRecordDisposition(cRec As BO.p56Task) As BO.p56RecordDisposition
@@ -167,9 +167,9 @@ Class p56TaskBL
     ''Public Function GetList_WithWorksheetSum(myQuery As BO.myQueryP56, Optional bolInhaleReceiversInLine As Boolean = False) As IEnumerable(Of BO.p56TaskWithWorksheetSum) Implements Ip56TaskBL.GetList_WithWorksheetSum
     ''    Return _cDL.GetList_WithWorksheetSum(myQuery, bolInhaleReceiversInLine)
     ''End Function
-    Public Function GetList_WaitingOnReminder(datReminderFrom As Date, datReminderUntil As Date) As IEnumerable(Of BO.p56Task) Implements Ip56TaskBL.GetList_WaitingOnReminder
-        Return _cDL.GetList_WaitingOnReminder(datReminderFrom, datReminderUntil)
-    End Function
+    ''Public Function GetList_WaitingOnReminder(datReminderFrom As Date, datReminderUntil As Date) As IEnumerable(Of BO.p56Task) Implements Ip56TaskBL.GetList_WaitingOnReminder
+    ''    Return _cDL.GetList_WaitingOnReminder(datReminderFrom, datReminderUntil)
+    ''End Function
     Public Function GetGridDataSource(myQuery As BO.myQueryP56) As DataTable Implements Ip56TaskBL.GetGridDataSource
         Return _cDL.GetGridDataSource(myQuery)
     End Function
@@ -179,19 +179,19 @@ Class p56TaskBL
     Public Function GetRolesInline(intPID As Integer) As String Implements Ip56TaskBL.GetRolesInline
         Return _cDL.GetRolesInline(intPID)
     End Function
-    Public Sub Handle_Reminder() Implements Ip56TaskBL.Handle_Reminder
-        Dim d1 As Date = DateAdd(DateInterval.Day, -2, Now)
-        Dim d2 As Date = Now
-        Dim lis As IEnumerable(Of BO.p56Task) = _cDL.GetList_WaitingOnReminder(d1, d2)
-        For Each cRec In lis
-            Me.RaiseAppEvent(BO.x45IDEnum.p56_remind, cRec.PID, cRec.NameWithTypeAndCode)
+    ''Public Sub Handle_Reminder() Implements Ip56TaskBL.Handle_Reminder
+    ''    Dim d1 As Date = DateAdd(DateInterval.Day, -2, Now)
+    ''    Dim d2 As Date = Now
+    ''    Dim lis As IEnumerable(Of BO.p56Task) = _cDL.GetList_WaitingOnReminder(d1, d2)
+    ''    For Each cRec In lis
+    ''        Me.RaiseAppEvent(BO.x45IDEnum.p56_remind, cRec.PID, cRec.NameWithTypeAndCode)
 
-        Next
+    ''    Next
 
-    End Sub
-    Public Function GetList_forMessagesDashboard(intJ02ID As Integer) As IEnumerable(Of BO.p56Task) Implements Ip56TaskBL.GetList_forMessagesDashboard
-        Return _cDL.GetList_forMessagesDashboard(intJ02ID)
-    End Function
+    ''End Sub
+    ''Public Function GetList_forMessagesDashboard(intJ02ID As Integer) As IEnumerable(Of BO.p56Task) Implements Ip56TaskBL.GetList_forMessagesDashboard
+    ''    Return _cDL.GetList_forMessagesDashboard(intJ02ID)
+    ''End Function
 
     Private Sub InhaleDefaultWorkflowMove(intP56ID As Integer, intB01ID As Integer)
         Dim cB06 As BO.b06WorkflowStep = Me.Factory.b06WorkflowStepBL.LoadKickOffStep(intB01ID)

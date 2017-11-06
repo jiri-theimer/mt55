@@ -158,24 +158,6 @@ Partial Public Class p56_record
     Protected WithEvents p56CompletePercent As Global.Telerik.Web.UI.RadNumericTextBox
 
     '''<summary>
-    '''lblO22ID control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblO22ID As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''o22ID control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents o22ID As Global.UI.datacombo
-
-    '''<summary>
     '''lblP59ID_Submitter control.
     '''</summary>
     '''<remarks>
@@ -390,24 +372,6 @@ Partial Public Class p56_record
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents other As Global.Telerik.Web.UI.RadPageView
-
-    '''<summary>
-    '''lblp56ReminderDate control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblp56ReminderDate As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''p56ReminderDate control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents p56ReminderDate As Global.Telerik.Web.UI.RadDateTimePicker
 
     '''<summary>
     '''lblOrdinary control.

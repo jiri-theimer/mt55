@@ -109,15 +109,7 @@
 
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <asp:Label ID="lblO22ID" Text="Milník úkolu:" runat="server" CssClass="lbl"></asp:Label>
-                    </td>
-                    <td>
-                        <uc:datacombo ID="o22ID" runat="server" DataTextField="NameWithDate" DataValueField="pid" IsFirstEmptyRow="true" AutoPostBack="false" Width="400px"></uc:datacombo>
-
-                    </td>
-                </tr>
+                
                 <tr>
                     <td>
                         <asp:Label ID="lblP59ID_Submitter" runat="server" CssClass="lbl" Text="Priorita zadavatele:"></asp:Label>
@@ -209,18 +201,7 @@
             <table cellpadding="5" cellspacing="2" id="responsive">
 
 
-                <tr>
-                    <td>
-                        <asp:Label ID="lblp56ReminderDate" Text="Čas připomenutí:" runat="server" AssociatedControlID="p56ReminderDate" CssClass="lbl"></asp:Label></td>
-                    <td>
-                        <telerik:RadDateTimePicker ID="p56ReminderDate" runat="server" Width="190px" SharedCalendarID="SharedCalendar">
-                            <DateInput ID="DateInput3" DisplayDateFormat="d.M.yyyy HH:mm ddd" DateFormat="d.M.yyyy HH:mm ddd" runat="server"></DateInput>
-                            <TimePopupButton Visible="true" />
-                            <TimeView runat="server" StartTime="06:00" EndTime="22:00" ShowHeader="false" ShowFooter="false"></TimeView>
-                        </telerik:RadDateTimePicker>
-
-                    </td>
-                </tr>
+                
                 <tr>
                     <td>
                         <asp:Label ID="lblOrdinary" Text="Index pořadí v rámci projektu:" runat="server" CssClass="lbl" AssociatedControlID="p56Ordinary"></asp:Label>

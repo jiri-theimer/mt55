@@ -32,6 +32,15 @@ Partial Public Class main_menu
     Protected WithEvents menu1 As Global.Telerik.Web.UI.RadNavigation
 
     '''<summary>
+    '''logo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents logo As Global.Telerik.Web.UI.NavigationNode
+
+    '''<summary>
     '''hidAllowSearch1 control.
     '''</summary>
     '''<remarks>

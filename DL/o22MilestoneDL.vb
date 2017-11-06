@@ -33,6 +33,7 @@
             pars.Add("p91ID", BO.BAS.IsNullDBKey(.p91ID), DbType.Int32)
             pars.Add("p90ID", BO.BAS.IsNullDBKey(.p90ID), DbType.Int32)
             pars.Add("o25ID", BO.BAS.IsNullDBKey(.o25ID), DbType.Int32)
+            pars.Add("o22EventFlag", CInt(.o22EventFlag), DbType.Int32)
 
             pars.Add("o22Name", .o22Name, DbType.String, , , True, "Název (předmět)")
             pars.Add("o22Code", .o22Code, DbType.String, , , True, "Kód")

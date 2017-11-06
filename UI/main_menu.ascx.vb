@@ -84,10 +84,10 @@ Public Class main_menu
             ai(Resources.Site.ZmenitHeslo, "cmdChangePassword", "changepassword.aspx", "", n)
             ai(Resources.Site.OdhlasitSe, "cmdLogout", "Account/Login.aspx?logout=1", "", n)
 
-            If .MessagesCount > 0 Then
-                n = ai("<img src='Images/globe.png'/>" + .MessagesCount.ToString, "messages", "javascript:messages()", "")
-                n.ToolTip = "Zprávy a upozornění ze systému"
-            End If
+            ''If .MessagesCount > 0 Then
+            ''    n = ai("<img src='Images/globe.png'/>" + .MessagesCount.ToString, "messages", "javascript:messages()", "")
+            ''    n.ToolTip = "Zprávy a upozornění ze systému"
+            ''End If
            
 
             Select Case strLang

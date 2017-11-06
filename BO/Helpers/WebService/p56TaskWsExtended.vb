@@ -70,7 +70,6 @@
             Me.b02Name = .b02Name
             Me.Client = .Client
             Me.j02ID_Owner = .j02ID_Owner
-            Me.o22ID = .o22ID
             Me.o22Name = .o22Name
             Me.o43ID = .o43ID
             Me.Owner = .Owner
