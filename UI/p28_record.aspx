@@ -513,6 +513,16 @@
                         <span class="infoInForm">Pro uživatele systém upřednostňuje zkrácený název před standardním názvem klienta.</span>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="lblO25ID" Text="Kalendář klienta:" runat="server" CssClass="lbl"></asp:Label>
+                    </td>
+                    <td>
+                        <uc:datacombo ID="o25ID_Calendar" runat="server" DataTextField="o25Name" DataValueField="pid" IsFirstEmptyRow="true" Width="300px"></uc:datacombo>
+
+                    </td>
+                </tr>
+                
                 
                 <tr>
                     <td>

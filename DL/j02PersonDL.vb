@@ -58,6 +58,7 @@
             pars.Add("j18ID", BO.BAS.IsNullDBKey(.j18ID), DbType.Int32)
             pars.Add("c21ID", BO.BAS.IsNullDBKey(.c21ID), DbType.Int32)
             pars.Add("o40ID", BO.BAS.IsNullDBKey(.o40ID), DbType.Int32)
+            pars.Add("o25ID_Calendar", BO.BAS.IsNullDBKey(.o25ID_Calendar), DbType.Int32)
             pars.Add("p72ID_NonBillable", BO.BAS.IsNullDBKey(.p72ID_NonBillable), DbType.Int32)
             pars.Add("j02IsIntraPerson", .j02IsIntraPerson, DbType.Boolean)
             pars.Add("j02Email", .j02Email, DbType.String, , , True, "E-mail adresa")
@@ -368,7 +369,7 @@
         Dim s As String = "SELECT"
         If intTOP > 0 Then s += " TOP " & intTOP.ToString
         s += " a.j07ID,a.j17ID,a.j18ID,a.c21ID,a.j02IsIntraPerson,a.j02FirstName,a.j02LastName,a.j02TitleBeforeName,a.j02TitleAfterName,a.j02Code,a.j02JobTitle,a.j02Email,a.j02Mobile,a.j02Phone,a.j02Office,a.j02EmailSignature,a.j02Description,a.j02AvatarImage,a.j02WorksheetAccessFlag,a.o40ID,a.j02DomainAccount"
-        s += ",j07.j07Name as _j07Name,c21.c21Name as _c21Name,j18.j18Name as _j18Name,a.j02RobotAddress,a.j02ExternalPID,a.j02TimesheetEntryDaysBackLimit,a.j02TimesheetEntryDaysBackLimit_p34IDs,a.j02Salutation,a.p72ID_NonBillable,a.j02IsInvoiceEmail," & bas.RecTail("j02", "a")
+        s += ",j07.j07Name as _j07Name,c21.c21Name as _c21Name,j18.j18Name as _j18Name,a.j02RobotAddress,a.j02ExternalPID,a.j02TimesheetEntryDaysBackLimit,a.j02TimesheetEntryDaysBackLimit_p34IDs,a.j02Salutation,a.p72ID_NonBillable,a.j02IsInvoiceEmail,a.o25ID_Calendar," & bas.RecTail("j02", "a")
         s += " FROM j02Person a LEFT OUTER JOIN j07PersonPosition j07 ON a.j07ID=j07.j07ID LEFT OUTER JOIN c21FondCalendar c21 ON a.c21ID=c21.c21ID LEFT OUTER JOIN j18Region j18 ON a.j18ID=j18.j18ID LEFT OUTER JOIN j02Person_FreeField j02free ON a.j02ID=j02free.j02ID"
 
         Return s

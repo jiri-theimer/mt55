@@ -102,6 +102,7 @@
                 pars.Add("j02ID_ContactPerson_DefaultInInvoice", BO.BAS.IsNullDBKey(.j02ID_ContactPerson_DefaultInInvoice), DbType.Int32)
                 pars.Add("j61ID_Invoice", BO.BAS.IsNullDBKey(.j61ID_Invoice), DbType.Int32)
 
+                pars.Add("o25ID_Calendar", BO.BAS.IsNullDBKey(.o25ID_Calendar), DbType.Int32)
                 pars.Add("p28Code", .p28Code, DbType.String)
                 pars.Add("p28SupplierFlag", .p28SupplierFlag, DbType.Int32)
                 pars.Add("p28SupplierID", .p28SupplierID, DbType.String)
@@ -479,7 +480,7 @@
     Private Function GetSF() As String
         Dim s As New System.Text.StringBuilder
         s.Append("a.p29ID,a.p92ID,a.j02ID_Owner,a.p87ID,a.p51ID_Billing,a.p51ID_Internal,a.b02ID,a.p63ID,a.p28IsCompany,a.p28IsDraft,a.p28Code,a.p28FirstName,a.p28LastName,a.p28TitleBeforeName,a.p28TitleAfterName,a.p28RegID,a.p28VatID,a.p28Person_BirthRegID,a.p28CompanyName,a.p28CompanyShortName,a.p28InvoiceDefaultText1,a.p28InvoiceDefaultText2,a.p28InvoiceMaturityDays,a.p28LimitHours_Notification,a.p28LimitFee_Notification,a.p28AvatarImage")
-        s.Append(",a.p28Name as _p28name,p29.p29Name as _p29Name,p92.p92Name as _p92Name,b02.b02Name as _b02Name,p87.p87Name as _p87Name,a.p28RobotAddress,a.p28SupplierID,a.p28SupplierFlag,a.p28ExternalPID")
+        s.Append(",a.p28Name as _p28name,p29.p29Name as _p29Name,p92.p92Name as _p92Name,b02.b02Name as _b02Name,p87.p87Name as _p87Name,a.p28RobotAddress,a.p28SupplierID,a.p28SupplierFlag,a.p28ExternalPID,a.o25ID_Calendar")
         s.Append(",a.p28TreeLevel as _p28TreeLevel,a.p28TreeIndex as _p28TreeIndex,a.p28TreePrev as _p28TreePrev,a.p28TreeNext as _p28TreeNext,a.p28TreePath as _p28TreePath")
         s.Append(",p51billing.p51Name as _p51Name_Billing,p51internal.p51Name as _p51Name_Internal,j02owner.j02LastName+' '+j02owner.j02FirstName as _Owner,a.p28ParentID,a.p28BillingMemo,a.p28Pohoda_VatCode,a.j02ID_ContactPerson_DefaultInWorksheet,a.j02ID_ContactPerson_DefaultInInvoice,a.j61ID_Invoice," & bas.RecTail("p28", "a"))
         Return s.ToString

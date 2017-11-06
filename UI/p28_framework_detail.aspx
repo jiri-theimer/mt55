@@ -302,5 +302,5 @@
 
 
     <asp:Button ID="cmdConvertDraft2Normal" runat="server" Style="display: none;" />
-    <asp:HiddenField ID="hidCal1ShallBeActive" Value="1" runat="server" />
+    
 </asp:Content>

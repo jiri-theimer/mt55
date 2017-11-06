@@ -332,6 +332,15 @@
                 </tr>
                 <tr>
                     <td>
+                        <asp:Label ID="lblO25ID" Text="Kalendář projektu:" runat="server" CssClass="lbl"></asp:Label>
+                    </td>
+                    <td>
+                        <uc:datacombo ID="o25ID_Calendar" runat="server" DataTextField="o25Name" DataValueField="pid" IsFirstEmptyRow="true" Width="300px"></uc:datacombo>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         <asp:Label ID="Label3" runat="server" Text="Omezení úkonů v projektu:" CssClass="lbl"></asp:Label>
                     </td>
                     <td>

@@ -38,7 +38,6 @@
                     .Add("p28_framework_detail_pos")
                     .Add("p28_menu-x31id-plugin")
                     .Add("p28_menu-show-level1")
-                    .Add("p28_menu-show-cal1")
                     .Add("myscheduler-firstday")
                 End With
 
@@ -67,7 +66,7 @@
                             'zůstat zde na BOARD stránce
                     End Select
                     cal1.FirstDayMinus = BO.BAS.IsNullInt(.GetUserParam("myscheduler-firstday", "-1"))
-                    hidCal1ShallBeActive.Value = .GetUserParam("p28_menu-show-cal1", "1")
+
                     menu1.TabSkin = .GetUserParam("p28_menu-tabskin")
                     ''menu1.MenuSkin = .GetUserParam("p28_menu-menuskin")
                     menu1.x31ID_Plugin = .GetUserParam("p28_menu-x31id-plugin")
@@ -255,13 +254,12 @@
             boxP41.Visible = False
         End If
 
-        If hidCal1ShallBeActive.Value = "1" Then
+        If cRec.o25ID_Calendar > 0 Or cRecSum.o22_Actual_Count > 0 Or cRecSum.p56_Actual_Count > 0 Then
+            cal1.Visible = True
             cal1.RecordPID = Master.DataPID
             If cRecSum.p56_Actual_Count > 0 Or cRecSum.o22_Actual_Count > 0 Then
                 cal1.RefreshData(Today)
                 cal1.RefreshTasksWithoutDate(True)
-            Else
-                cal1.Visible = False
             End If
         Else
             cal1.Visible = False

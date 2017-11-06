@@ -44,27 +44,27 @@
                 <div class="title">Vyberte klienta nebo projekt</div>
                 <div class="content">
                     <table cellpadding="6px">
-                    <tr>
-                        <td>
-                            <asp:Label ID="lbl1" text="Klient:" runat="server" CssClass="lbl"></asp:Label>
-                        </td>
-                        <td>
-                            <uc:contact ID="p28ID" runat="server" Width="300px" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:Label ID="lbl2" runat="server" Text="Projekt:" CssClass="lbl"></asp:Label>
-                        </td>
-                        <td>
-                            <uc:project ID="p41ID" runat="server" Width="300px" />
-                        </td>
-                    </tr>
-                </table>                  
+                        <tr>
+                            <td>
+                                <asp:Label ID="lbl1" Text="Klient:" runat="server" CssClass="lbl"></asp:Label>
+                            </td>
+                            <td>
+                                <uc:contact ID="p28ID" runat="server" Width="300px" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:Label ID="lbl2" runat="server" Text="Projekt:" CssClass="lbl"></asp:Label>
+                            </td>
+                            <td>
+                                <uc:project ID="p41ID" runat="server" Width="300px" />
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-                 
+
             </asp:Panel>
-            
+
             <table cellpadding="5" cellspacing="2">
                 <tr>
                     <td>
@@ -87,7 +87,7 @@
                     </td>
                     <td>
                         <asp:TextBox ID="j02Email" runat="server" Style="width: 300px;"></asp:TextBox>
-                        <asp:CheckBox ID="j02IsInvoiceEmail" runat="server" Text="Fakturační e-mail adresa" checked="true" />
+                        <asp:CheckBox ID="j02IsInvoiceEmail" runat="server" Text="Fakturační e-mail adresa" Checked="true" />
 
 
                     </td>
@@ -141,6 +141,15 @@
                         <asp:Label ID="lblO40ID" Text="Vlastní SMTP účet:" runat="server" CssClass="lbl" meta:resourcekey="lblO40ID"></asp:Label></td>
                     <td>
                         <uc:datacombo ID="o40ID" runat="server" DataTextField="o40Name" DataValueField="pid" IsFirstEmptyRow="true" Width="300px"></uc:datacombo>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="lblO25ID" Text="Osobní kalendář:" runat="server" CssClass="lbl"></asp:Label>
+                    </td>
+                    <td>
+                        <uc:datacombo ID="o25ID_Calendar" runat="server" DataTextField="o25Name" DataValueField="pid" IsFirstEmptyRow="true" Width="300px"></uc:datacombo>
 
                     </td>
                 </tr>
@@ -271,14 +280,14 @@
 
             <table cellpadding="5" cellspacing="2">
 
-                <tr style="display:none;">
+                <tr style="display: none;">
                     <td>
                         <asp:Label ID="lblj02RobotAddress" runat="server" Text="IMAP robot adresa:" CssClass="lbl" meta:resourcekey="lblj02RobotAddress"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="j02RobotAddress" runat="server" Style="width: 200px;"></asp:TextBox>
                     </td>
-                   
+
                 </tr>
                 <tr>
                     <td>
@@ -287,7 +296,7 @@
                     <td>
                         <asp:TextBox ID="j02ExternalPID" runat="server" Style="width: 200px;"></asp:TextBox>
                     </td>
-                   
+
                 </tr>
             </table>
 
@@ -296,7 +305,7 @@
                     <asp:Localize ID="lblAvatar" runat="server" Text="Avatar obrázek" meta:resourcekey="lblAvatar"></asp:Localize>
                 </div>
                 <div class="content">
-                    <telerik:RadUpload ID="upload1" runat="server" InputSize="30" InitialFileInputsCount="0" RenderMode="Auto" Skin="Default" AllowedFileExtensions="png,gif,jpg,bmp" MaxFileInputsCount="1" MaxFileSize="40000">                               
+                    <telerik:RadUpload ID="upload1" runat="server" InputSize="30" InitialFileInputsCount="0" RenderMode="Auto" Skin="Default" AllowedFileExtensions="png,gif,jpg,bmp" MaxFileInputsCount="1" MaxFileSize="40000">
                     </telerik:RadUpload>
                     <asp:Button ID="cmdUploadAvatar" runat="server" Text="Nahrát na server" CssClass="cmd" meta:resourcekey="cmdUploadAvatar" />
                     <asp:Button ID="cmdDeleteAvatar" runat="server" CssClass="cmd" Text="Odstranit obrázek" Visible="false" meta:resourcekey="cmdDeleteAvatar" />

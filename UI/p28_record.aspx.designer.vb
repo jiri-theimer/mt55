@@ -752,6 +752,24 @@ Partial Public Class p28_record
     Protected WithEvents p28CompanyShortName As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''lblO25ID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblO25ID As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''o25ID_Calendar control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents o25ID_Calendar As Global.UI.datacombo
+
+    '''<summary>
     '''lblp28RobotAddress control.
     '''</summary>
     '''<remarks>

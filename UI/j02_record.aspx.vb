@@ -45,6 +45,8 @@
                 Me.o40ID.DataBind()
                 Me.j02TimesheetEntryDaysBackLimit_p34IDs.DataSource = Master.Factory.p34ActivityGroupBL.GetList(New BO.myQuery).Where(Function(p) p.p33ID = BO.p33IdENUM.Cas Or p.p33ID = BO.p33IdENUM.Kusovnik)
                 Me.j02TimesheetEntryDaysBackLimit_p34IDs.DataBind()
+                Me.o25ID_Calendar.DataSource = Master.Factory.o25AppBL.GetList(New BO.myQuery).Where(Function(p) p.o25AppFlag = BO.o25AppFlagENUM.GoogleCalendar)
+                Me.o25ID_Calendar.DataBind()
             End With
 
             RefreshRecord()
@@ -102,7 +104,7 @@
             basUI.SelectDropdownlistValue(Me.p72ID_NonBillable, CInt(.p72ID_NonBillable).ToString)
             Me.j02AvatarImage.Value = .j02AvatarImage
             Master.Timestamp = .Timestamp & " <a href='javascript:changelog()' class='wake_link'>CHANGE-LOG</a>"
-
+            Me.o25ID_Calendar.SelectedValue = .o25ID_Calendar.ToString
             
             tags1.RefreshData(cRec.PID)
 
@@ -153,6 +155,7 @@
                 .c21ID = BO.BAS.IsNullInt(c21ID.SelectedValue)
                 .j18ID = BO.BAS.IsNullInt(Me.j18ID.SelectedValue)
                 .o40ID = BO.BAS.IsNullInt(Me.o40ID.SelectedValue)
+                .o25ID_Calendar = BO.BAS.IsNullInt(Me.o25ID_Calendar.SelectedValue)
                 .j02FirstName = j02FirstName.Text
                 .j02LastName = j02LastName.Text
                 .j02TitleBeforeName = j02TitleBeforeName.Text
@@ -297,5 +300,10 @@
     Private Sub cmdDeleteAvatar_Click(sender As Object, e As EventArgs) Handles cmdDeleteAvatar.Click
         Me.j02AvatarImage.Value = ""
         Master.Notify("Změna se uloží do osobního profilu až stisknutím tlačítka [Uložit změny].")
+    End Sub
+
+    Private Sub o25ID_Calendar_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles o25ID_Calendar.NeedMissingItem
+        Dim cRec As BO.o25App = Master.Factory.o25AppBL.Load(BO.BAS.IsNullInt(strFoundedMissingItemValue))
+        strAddMissingItemText = cRec.o25Name
     End Sub
 End Class

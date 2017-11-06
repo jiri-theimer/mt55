@@ -16,6 +16,7 @@ Public Class p28Contact
     Public Property p51ID_Internal As Integer
     Public Property b02ID As Integer
     Public Property p63ID As Integer
+    Public Property o25ID_Calendar As Integer
     Public Property j61ID_Invoice As Integer
     Public Property p28IsDraft As Boolean
     Public Property p28IsCompany As Boolean

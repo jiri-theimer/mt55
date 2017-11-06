@@ -11,27 +11,27 @@
     <div class="div6">
         <asp:CheckBox ID="chkShowLevel1" runat="server" Text="Zobrazovat v menu výrazný odkaz (název) vybraného záznamu" CssClass="chk" Visible="false" />
     </div>
-    <asp:panel ID="panMenuSkin" runat="server" CssClass="div6">
+    <asp:Panel ID="panMenuSkin" runat="server" CssClass="div6">
         <span>Vzhled (Skin) kontextového menu stránky:</span>
         <asp:DropDownList ID="skin0" runat="server">
-            <asp:ListItem Text="--Výchozí--" Value="WebBlue" Selected="true"></asp:ListItem>                      
+            <asp:ListItem Text="--Výchozí--" Value="WebBlue" Selected="true"></asp:ListItem>
 
-            
+
             <asp:ListItem Text="Metro" Value="Metro"></asp:ListItem>
             <asp:ListItem Text="Web20" Value="Web20"></asp:ListItem>
-            
+
             <asp:ListItem Text="Outlook" Value="Outlook"></asp:ListItem>
             <asp:ListItem Text="Office2007" Value="Office2007"></asp:ListItem>
             <asp:ListItem Text="Office2010Blue" Value="Office2010Blue"></asp:ListItem>
             <asp:ListItem Text="Office2010Black" Value="Office2010Black"></asp:ListItem>
             <asp:ListItem Text="Office2010Silver" Value="Office2010Silver"></asp:ListItem>
-            
+
             <asp:ListItem Text="Sunset" Value="Sunset"></asp:ListItem>
-            
+
             <asp:ListItem Text="Vista" Value="Vista"></asp:ListItem>
-            
+
         </asp:DropDownList>
-    </asp:panel>
+    </asp:Panel>
 
     <asp:Panel ID="panPlugin" runat="server" CssClass="content-box2" Style="margin-top: 20px;">
         <div class="title">
@@ -50,7 +50,7 @@
         <div class="content">
             <div class="div6">
                 <asp:Button ID="cmdClearLockedTab" runat="server" Text="Vyčistit paměť o ukotvené záložce" CssClass="cmd" />
-                
+
             </div>
             <div class="div6">
                 <span>Vzhled (Skin) záložek:</span>
@@ -106,15 +106,7 @@
             </asp:Panel>
         </div>
     </div>
-    <div class="content-box2">
-        <div class="title">Kalendář</div>
-        <div class="content">
-            <div class="div6">
-        <asp:CheckBox ID="chkScheduler" runat="server" Text="Zobrazovat na stránce kalendář, pokud existují otevřené úkoly nebo termíny" CssClass="chk" Checked="true" />
-    </div>
-        </div>
-    </div>
-
+    
     <asp:HiddenField ID="hidPrefix" runat="server" />
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="FootContent" runat="server">

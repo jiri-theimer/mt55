@@ -364,7 +364,7 @@
                 .p41ExternalPID = Me.p41ExternalPID.Text
                 .p41WorksheetOperFlag = CType(p41WorksheetOperFlag.SelectedValue, BO.p41WorksheetOperFlagEnum)
                 .p41BillingMemo = Trim(Me.p41BillingMemo.Text)
-                
+                .o25ID_Calendar = BO.BAS.IsNullInt(Me.o25ID_Calendar.SelectedValue)
             End With
 
             Dim lisX69 As List(Of BO.x69EntityRole_Assign) = roles1.GetData4Save()

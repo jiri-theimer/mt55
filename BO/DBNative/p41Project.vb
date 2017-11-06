@@ -18,7 +18,7 @@ Public Class p41Project
     Public Property p92ID As Integer
     Public Property j18ID As Integer
     Public Property p61ID As Integer
-
+    Public Property o25ID_Calendar As Integer
     Public Property j02ID_Owner As Integer
 
     Public Property p41Name As String

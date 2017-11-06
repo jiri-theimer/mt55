@@ -68,6 +68,7 @@
                 pars.Add("p51ID_Internal", BO.BAS.IsNullDBKey(.p51ID_Internal), DbType.Int32)
                 pars.Add("j18ID", BO.BAS.IsNullDBKey(.j18ID), DbType.Int32)
                 pars.Add("p61ID", BO.BAS.IsNullDBKey(.p61ID), DbType.Int32)
+                pars.Add("o25ID_Calendar", BO.BAS.IsNullDBKey(.o25ID_Calendar), DbType.Int32)
                 pars.Add("p72ID_NonBillable", BO.BAS.IsNullDBKey(.p72ID_NonBillable), DbType.Int32)
                 pars.Add("p72ID_BillableHours", BO.BAS.IsNullDBKey(.p72ID_BillableHours), DbType.Int32)
                 pars.Add("j02ID_ContactPerson_DefaultInWorksheet", BO.BAS.IsNullDBKey(.j02ID_ContactPerson_DefaultInWorksheet), DbType.Int32)
@@ -551,7 +552,7 @@
         s.Append("a.p42ID,a.j02ID_Owner,a.p41Name,a.p41NameShort,a.p41Code as _p41Code,a.p41IsDraft,a.p28ID_Client,a.p28ID_Billing,a.p87ID,a.p51ID_Billing,a.p51ID_Internal,a.p92ID,a.b02ID,a.j18ID,a.p61ID,a.p41InvoiceDefaultText1,a.p41InvoiceDefaultText2,a.p41InvoiceMaturityDays,a.p41WorksheetOperFlag,a.p41PlanFrom,a.p41PlanUntil,a.p41LimitHours_Notification,a.p41LimitFee_Notification")
         s.Append(",p28client.p28Name as _Client,p51billing.p51Name as _p51Name_Billing")
         s.Append(",a.p41TreeLevel as _p41TreeLevel,a.p41TreeIndex as _p41TreeIndex,a.p41TreePrev as _p41TreePrev,a.p41TreeNext as _p41TreeNext,a.p41TreePath as _p41TreePath")
-        s.Append(",a.p65ID,a.p41RecurNameMask,a.p41RecurBaseDate,a.p41RecurMotherID,a.p41IsStopRecurrence")
+        s.Append(",a.p65ID,a.p41RecurNameMask,a.p41RecurBaseDate,a.p41RecurMotherID,a.p41IsStopRecurrence,a.o25ID_Calendar")
         s.Append(",p42.p42Name as _p42Name,p92.p92Name as _p92Name,b02.b02Name as _b02Name,j18.j18Name as _j18Name,a.p41ExternalPID,a.p41ParentID,a.p41BillingMemo," & bas.RecTail("p41", "a"))
         s.Append(",j02owner.j02LastName+' '+j02owner.j02FirstName as _Owner,p28client.p87ID as _p87ID_Client,p42.b01ID as _b01ID,a.p41IsNoNotify,a.p41RobotAddress,a.p72ID_NonBillable,a.p72ID_BillableHours,a.j02ID_ContactPerson_DefaultInWorksheet,a.j02ID_ContactPerson_DefaultInInvoice")
         Return s.ToString

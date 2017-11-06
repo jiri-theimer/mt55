@@ -104,15 +104,6 @@ Partial Public Class entity_framework_detail_setting
     Protected WithEvents colsDest As Global.Telerik.Web.UI.RadListBox
 
     '''<summary>
-    '''chkScheduler control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents chkScheduler As Global.System.Web.UI.WebControls.CheckBox
-
-    '''<summary>
     '''hidPrefix control.
     '''</summary>
     '''<remarks>

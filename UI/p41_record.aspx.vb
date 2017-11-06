@@ -41,6 +41,8 @@
             Me.j18ID.DataBind()
             Me.p61ID.DataSource = Master.Factory.p61ActivityClusterBL.GetList(New BO.myQuery)
             Me.p61ID.DataBind()
+            Me.o25ID_Calendar.DataSource = Master.Factory.o25AppBL.GetList(New BO.myQuery).Where(Function(p) p.o25AppFlag = BO.o25AppFlagENUM.GoogleCalendar)
+            Me.o25ID_Calendar.DataBind()
            
             RefreshRecord()
         End If
@@ -137,7 +139,8 @@
 
             Master.InhaleRecordValidity(.ValidFrom, .ValidUntil, .DateInsert)
             Me.p41BillingMemo.Text = .p41BillingMemo
-            
+            Me.o25ID_Calendar.SelectedValue = .o25ID_Calendar.ToString
+
         End With
         roles1.InhaleInitialData(cRec.PID)
         tags1.RefreshData(cRec.PID)
@@ -317,7 +320,7 @@
 
             .p41ParentID = BO.BAS.IsNullInt(Me.p41ParentID.Value)
             .p41BillingMemo = Trim(Me.p41BillingMemo.Text)
-            
+            .o25ID_Calendar = BO.BAS.IsNullInt(Me.o25ID_Calendar.SelectedValue)
         End With
 
         Dim lisX69 As List(Of BO.x69EntityRole_Assign) = roles1.GetData4Save()
@@ -380,5 +383,10 @@
 
     Private Sub p42ID_SelectedIndexChanged(OldValue As String, OldText As String, CurValue As String, CurText As String) Handles p42ID.SelectedIndexChanged
         Handle_FF()
+    End Sub
+
+    Private Sub o25ID_Calendar_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles o25ID_Calendar.NeedMissingItem
+        Dim cRec As BO.o25App = Master.Factory.o25AppBL.Load(BO.BAS.IsNullInt(strFoundedMissingItemValue))
+        strAddMissingItemText = cRec.o25Name
     End Sub
 End Class

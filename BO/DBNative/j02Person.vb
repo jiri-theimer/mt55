@@ -5,6 +5,7 @@
     Public Property j18ID As Integer
     Public Property c21ID As Integer
     Public Property o40ID As Integer
+    Public Property o25ID_Calendar As Integer
     Public Property j02FirstName As String
     Public Property j02LastName As String
     Public Property j02TitleBeforeName As String

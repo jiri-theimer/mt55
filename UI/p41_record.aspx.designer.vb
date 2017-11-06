@@ -635,6 +635,24 @@ Partial Public Class p41_record
     Protected WithEvents p41NameShort As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''lblO25ID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblO25ID As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''o25ID_Calendar control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents o25ID_Calendar As Global.UI.datacombo
+
+    '''<summary>
     '''Label3 control.
     '''</summary>
     '''<remarks>

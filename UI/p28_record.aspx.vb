@@ -42,6 +42,8 @@
             Me.j61ID_Invoice.DataSource = Master.Factory.j61TextTemplateBL.GetList(New BO.myQuery).Where(Function(p) p.x29ID = BO.x29IdEnum.p91Invoice)
             Me.j61ID_Invoice.DataBind()
             Me.j61ID_Invoice.Items.Insert(0, "")
+            Me.o25ID_Calendar.DataSource = Master.Factory.o25AppBL.GetList(New BO.myQuery).Where(Function(p) p.o25AppFlag = BO.o25AppFlagENUM.GoogleCalendar)
+            Me.o25ID_Calendar.DataBind()
             
             If Me.p92id.Visible Then
                 Me.p92id.DataSource = Master.Factory.p92InvoiceTypeBL.GetList(New BO.myQuery).Where(Function(p) p.p92InvoiceType = BO.p92InvoiceTypeENUM.ClientInvoice)
@@ -152,6 +154,7 @@
             Me.p28ExternalPID.Text = .p28ExternalPID
             Master.Timestamp = .Timestamp & " <a href='javascript:changelog()' class='wake_link'>CHANGE-LOG</a>"
 
+            Me.o25ID_Calendar.SelectedValue = .o25ID_Calendar.ToString
             If .p28ParentID <> 0 Then
                 Me.p28ParentID.Value = .p28ParentID
                 Me.p28ParentID.Text = Master.Factory.GetRecordCaption(BO.x29IdEnum.p28Contact, .p28ParentID, True)
@@ -473,6 +476,7 @@
                 .ValidUntil = Master.RecordValidUntil
                 .j02ID_ContactPerson_DefaultInWorksheet = BO.BAS.IsNullInt(Me.j02ID_ContactPerson_DefaultInWorksheet.SelectedValue)
                 .j02ID_ContactPerson_DefaultInInvoice = BO.BAS.IsNullInt(Me.j02ID_ContactPerson_DefaultInInvoice.SelectedValue)
+                .o25ID_Calendar = BO.BAS.IsNullInt(Me.o25ID_Calendar.SelectedValue)
             End With
 
             Dim lisTEMP As IEnumerable(Of BO.p85TempBox) = Master.Factory.p85TempBoxBL.GetList(ViewState("guid_o37"), True)
@@ -888,5 +892,10 @@
         RefreshTempP30()
         Me.j02ID.Text = ""
         Me.j02ID.Value = ""
+    End Sub
+
+    Private Sub o25ID_Calendar_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles o25ID_Calendar.NeedMissingItem
+        Dim cRec As BO.o25App = Master.Factory.o25AppBL.Load(BO.BAS.IsNullInt(strFoundedMissingItemValue))
+        strAddMissingItemText = cRec.o25Name
     End Sub
 End Class

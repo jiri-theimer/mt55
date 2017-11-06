@@ -566,8 +566,11 @@ Public Class handler_popupmenu
         CI("[DALŠÍ]", "", , "Images/more.png")
         CI("Oštítkovat", "tag_binding.aspx?prefix=p28&pids=" & intPID.ToString, , "Images/tag.png", True)
 
-        REL("Kalendář klienta", "entity_scheduler.aspx?masterprefix=p28&masterpid=" & cRec.PID.ToString, "_top", "Images/calendar.png", True)
-
+        If cRec.o25ID_Calendar > 0 Then
+            Dim cO25 As BO.o25App = factory.o25AppBL.Load(cRec.o25ID_Calendar)
+            REL("Kalendář klienta", cO25.o25Url, "_blank", "Images/calendar.png", True)
+        End If
+        
 
 
 
@@ -757,10 +760,11 @@ Public Class handler_popupmenu
             CI("Nastavit jako opakovaný projekt", "p41_recurrence.aspx?pid=" & cRec.PID.ToString, , "Images/recurrence.png", True)
         End If
         
-
-        If cP42.p42IsModule_o22 Then
-            REL("Kalendář projektu", "entity_scheduler.aspx?masterprefix=p41&masterpid=" & cRec.PID.ToString, "_top", "Images/calendar.png", True)
+        If cRec.o25ID_Calendar > 0 Then
+            Dim cO25 As BO.o25App = factory.o25AppBL.Load(cRec.o25ID_Calendar)
+            REL("Kalendář projektu", cO25.o25Url, "_blank", "Images/calendar.png", True)
         End If
+        
        
         REL("Historie odeslané pošty", "x40_framework.aspx?masterprefix=p41&masterpid=" & cRec.PID.ToString, "_top", "Images/email.png", True)
         If cDisp.OwnerAccess Then
@@ -957,10 +961,11 @@ Public Class handler_popupmenu
                 CI("Přepočítat sazby rozpracovaných hodin", "p31_recalc.aspx?prefix=j02&pid=" & cRec.PID.ToString, , "Images/recalc.png", True)
             End If
 
-
-            REL("Kalendář osoby", "entity_scheduler.aspx?masterprefix=j02&masterpid=" & cRec.PID.ToString, "_top", "Images/calendar.png", True)
-
-
+            If cRec.o25ID_Calendar > 0 Then
+                Dim cO25 As BO.o25App = factory.o25AppBL.Load(cRec.o25ID_Calendar)
+                REL("Osobní kalendář", cO25.o25Url, "_blank", "Images/calendar.png", True)
+            End If
+            
             
             CI("Osobní plány", "j02_personalplan.aspx?j02id=" & cRec.PID.ToString, , "Images/plan.png", True, True)
 
