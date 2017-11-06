@@ -56,7 +56,7 @@
 
             
 
-            location.replace("schedulers.aspx");
+            location.replace("o22_framework_google.aspx");
 
 
         }
@@ -88,7 +88,7 @@
                 <asp:HyperLink ID="link2Google" runat="server" NavigateUrl="https://calendar.google.com" Target="_blank">Google Kalendáře</asp:HyperLink>
             </div>
             <div class="div6">
-                <asp:HyperLink ID="linkNew" runat="server" NavigateUrl="javascript:contMenu('o22_record.aspx?pid=0',false)">Nová událost v kalendáři</asp:HyperLink>
+                <asp:HyperLink ID="linkNew" runat="server" NavigateUrl="javascript:contMenu('select_event_type.aspx',false)">Nová událost v kalendáři</asp:HyperLink>
             </div>
         </div>
         <div id="right_panel" style="margin-left: 210px;">

@@ -369,13 +369,16 @@ Public Class o22_record
         Me.j02ID_Owner.Value = Master.Factory.SysUser.j02ID.ToString
         Me.j02ID_Owner.Text = Master.Factory.SysUser.PersonDesc
 
-        Dim cRecLast As BO.o22Milestone = Master.Factory.o22MilestoneBL.LoadMyLastCreated()
-        If Not cRecLast Is Nothing Then
-            With cRecLast
-                Me.o21ID.SelectedValue = .o21ID.ToString
-                Me.CurrentO21Flag = .o21Flag
-            End With
+        If Request.Item("o21id") = "" Then
+            Dim cRecLast As BO.o22Milestone = Master.Factory.o22MilestoneBL.LoadMyLastCreated()
+            If Not cRecLast Is Nothing Then
+                With cRecLast
+                    Me.o21ID.SelectedValue = .o21ID.ToString
+                    Me.CurrentO21Flag = .o21Flag
+                End With
+            End If
         End If
+        
 
 
         If Request.Item("t1") <> "" And Request.Item("t2") <> "" Then
