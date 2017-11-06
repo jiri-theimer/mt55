@@ -552,6 +552,11 @@ Public Class handler_popupmenu
             Next
         End If
 
+        If cRec.o25ID_Calendar > 0 Then
+            SEP()
+            Dim cO25 As BO.o25App = factory.o25AppBL.Load(cRec.o25ID_Calendar)
+            REL("Kalendář klienta", cO25.GoogleCalendarUrl, "_blank", "Images/calendar.png")
+        End If
         If factory.TestPermission(BO.x53PermValEnum.GR_P31_Pivot) Then
             SEP()
             REL("Statistiky klienta", "p31_sumgrid.aspx?masterprefix=p28&masterpid=" & cRec.PID.ToString, "_top", "Images/pivot.png")
@@ -566,10 +571,7 @@ Public Class handler_popupmenu
         CI("[DALŠÍ]", "", , "Images/more.png")
         CI("Oštítkovat", "tag_binding.aspx?prefix=p28&pids=" & intPID.ToString, , "Images/tag.png", True)
 
-        If cRec.o25ID_Calendar > 0 Then
-            Dim cO25 As BO.o25App = factory.o25AppBL.Load(cRec.o25ID_Calendar)
-            REL("Kalendář klienta", cO25.GoogleCalendarUrl, "_blank", "Images/calendar.png", True)
-        End If
+        
         
 
 
@@ -731,11 +733,18 @@ Public Class handler_popupmenu
         For Each c In lisJ02.Take(intTOP)
             REL(c.FullNameDescWithJobTitle, "j02_framework.aspx?pid=" & c.PID.ToString, "_top", "Images/contactperson.png", True)
         Next
-        
+
+        If cRec.o25ID_Calendar > 0 Then
+            SEP()
+            Dim cO25 As BO.o25App = factory.o25AppBL.Load(cRec.o25ID_Calendar)
+            REL("Kalendář projektu", cO25.GoogleCalendarUrl, "_blank", "Images/calendar.png")
+        End If
         If factory.TestPermission(BO.x53PermValEnum.GR_P31_Pivot) Then
             SEP()
             REL("Statistiky projektu", "p31_sumgrid.aspx?masterprefix=p41&masterpid=" & cRec.PID.ToString, "_top", "Images/pivot.png")
-        End If        
+        End If
+        
+
         SEP()
         CI("Tisková sestava", "report_modal.aspx?prefix=p41&pid=" & intPID.ToString, , "Images/report.png")
         CI("Odeslat e-mail", "sendmail.aspx?prefix=p41&pid=" & cRec.PID.ToString, , "Images/email.png")
@@ -760,10 +769,6 @@ Public Class handler_popupmenu
             CI("Nastavit jako opakovaný projekt", "p41_recurrence.aspx?pid=" & cRec.PID.ToString, , "Images/recurrence.png", True)
         End If
         
-        If cRec.o25ID_Calendar > 0 Then
-            Dim cO25 As BO.o25App = factory.o25AppBL.Load(cRec.o25ID_Calendar)
-            REL("Kalendář projektu", cO25.GoogleCalendarUrl, "_blank", "Images/calendar.png", True)
-        End If
         
        
         REL("Historie odeslané pošty", "x40_framework.aspx?masterprefix=p41&masterpid=" & cRec.PID.ToString, "_top", "Images/email.png", True)
@@ -919,6 +924,10 @@ Public Class handler_popupmenu
         If Not cRec.IsClosed Then CI("Vytvořit kalendářovou událost", "o22_record.aspx?masterprefix=j02&masterpid=" & cRec.PID.ToString, , "Images/calendar.png", True) 'pod nový
         CI("Doplnit přílohu, komentář, poznámku", "b07_create.aspx?masterprefix=j02&masterpid=" & cRec.PID.ToString, , "Images/comment.png", True)  'pod nový
 
+        If cRec.o25ID_Calendar > 0 Then
+            Dim cO25 As BO.o25App = factory.o25AppBL.Load(cRec.o25ID_Calendar)
+            REL("Osobní kalendář", cO25.GoogleCalendarUrl, "_blank", "Images/calendar.png")
+        End If
         If cRec.j02IsIntraPerson Then
             If factory.TestPermission(BO.x53PermValEnum.GR_P31_Approver) Then
                 SEP()
@@ -961,10 +970,7 @@ Public Class handler_popupmenu
                 CI("Přepočítat sazby rozpracovaných hodin", "p31_recalc.aspx?prefix=j02&pid=" & cRec.PID.ToString, , "Images/recalc.png", True)
             End If
 
-            If cRec.o25ID_Calendar > 0 Then
-                Dim cO25 As BO.o25App = factory.o25AppBL.Load(cRec.o25ID_Calendar)
-                REL("Osobní kalendář", cO25.GoogleCalendarUrl, "_blank", "Images/calendar.png", True)
-            End If
+           
             
             
             CI("Osobní plány", "j02_personalplan.aspx?j02id=" & cRec.PID.ToString, , "Images/plan.png", True, True)
