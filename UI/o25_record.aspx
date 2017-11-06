@@ -33,9 +33,9 @@
 
             </td>
         </tr>
-        <tr style="display:none;">
+        <tr>
             <td>
-                <asp:Label ID="Label2" Text="URL kalendáře:" runat="server" CssClass="lbl"></asp:Label></td>
+                <asp:Label ID="Label2" Text="URL pro prohlížeče:" runat="server" CssClass="lbl"></asp:Label></td>
             <td>
                 <asp:TextBox ID="o25Url" runat="server" Style="width: 700px;"></asp:TextBox>
 

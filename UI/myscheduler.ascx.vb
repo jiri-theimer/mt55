@@ -111,7 +111,7 @@ Public Class myscheduler
         If Me.o25ID > 0 Then
             Dim cO25 As BO.o25App = factory.o25AppBL.Load(Me.o25ID)
             linkO25.Text = cO25.o25Name
-            linkO25.NavigateUrl = cO25.o25Url
+            linkO25.NavigateUrl = cO25.GoogleCalendarUrl
             linkO25.Visible = True
         End If
     End Sub

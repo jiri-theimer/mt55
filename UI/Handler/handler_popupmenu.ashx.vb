@@ -568,7 +568,7 @@ Public Class handler_popupmenu
 
         If cRec.o25ID_Calendar > 0 Then
             Dim cO25 As BO.o25App = factory.o25AppBL.Load(cRec.o25ID_Calendar)
-            REL("Kalendář klienta", cO25.o25Url, "_blank", "Images/calendar.png", True)
+            REL("Kalendář klienta", cO25.GoogleCalendarUrl, "_blank", "Images/calendar.png", True)
         End If
         
 
@@ -762,7 +762,7 @@ Public Class handler_popupmenu
         
         If cRec.o25ID_Calendar > 0 Then
             Dim cO25 As BO.o25App = factory.o25AppBL.Load(cRec.o25ID_Calendar)
-            REL("Kalendář projektu", cO25.o25Url, "_blank", "Images/calendar.png", True)
+            REL("Kalendář projektu", cO25.GoogleCalendarUrl, "_blank", "Images/calendar.png", True)
         End If
         
        
@@ -963,7 +963,7 @@ Public Class handler_popupmenu
 
             If cRec.o25ID_Calendar > 0 Then
                 Dim cO25 As BO.o25App = factory.o25AppBL.Load(cRec.o25ID_Calendar)
-                REL("Osobní kalendář", cO25.o25Url, "_blank", "Images/calendar.png", True)
+                REL("Osobní kalendář", cO25.GoogleCalendarUrl, "_blank", "Images/calendar.png", True)
             End If
             
             
