@@ -130,6 +130,7 @@ Public Class handler_popupmenu
         If factory.SysUser.j04IsMenu_Notepad Then
             CI("Vytvořit dokument", "o23_record.aspx?masterprefix=p56&masterpid=" & cRec.PID.ToString, , "Images/notepad.png", True)    'pod nový
         End If
+        CI("Vytvořit kalendářovou událost", "o22_record.aspx?masterprefix=p56&masterpid=" & cRec.PID.ToString, , "Images/calendar.png", True) 'pod nový
 
         Dim cP41 As BO.p41Project = factory.p41ProjectBL.Load(cRec.p41ID)
 

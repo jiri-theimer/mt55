@@ -33,6 +33,7 @@
             pars.Add("p91ID", BO.BAS.IsNullDBKey(.p91ID), DbType.Int32)
             pars.Add("p90ID", BO.BAS.IsNullDBKey(.p90ID), DbType.Int32)
             pars.Add("o23ID", BO.BAS.IsNullDBKey(.o23ID), DbType.Int32)
+            pars.Add("p56ID", BO.BAS.IsNullDBKey(.p56ID), DbType.Int32)
             pars.Add("o25ID", BO.BAS.IsNullDBKey(.o25ID), DbType.Int32)
             pars.Add("o22EventFlag", CInt(.o22EventFlag), DbType.Int32)
 
@@ -128,17 +129,21 @@
                 strW += " AND (a.o22DateFrom BETWEEN @d1 AND @d2 OR a.o22DateUntil BETWEEN @d1 AND @d2)"
             End If
 
-            If .o21ID <> 0 Then
+            If .o21ID > 0 Then
                 pars.Add("o21id", .p41ID, DbType.Int32)
                 strW += " AND a.o21ID=@o21id"
             End If
-            If .p41ID <> 0 Then
+            If .p41ID > 0 Then
                 pars.Add("p41id", .p41ID, DbType.Int32)
                 If Not .IsIncludeChildProjects Then
                     strW += " AND a.p41ID=@p41id"
                 Else
                     strW += " AND (a.p41ID=@p41id OR a.p41ID IN (SELECT p41ID FROM p41Project WHERE p41TreeIndex BETWEEN (select p41TreePrev FROM p41Project WHERE p41ID=@p41id) AND (select p41TreeNext FROM p41Project WHERE p41ID=@p41id)))"
                 End If
+            End If
+            If .p56ID > 0 Then
+                pars.Add("p56id", .p56ID, DbType.Int32)
+                strW += " AND a.p56ID=@p56id"
             End If
             If Not .p41IDs Is Nothing Then
                 If .p41IDs.Count > 0 Then
@@ -150,7 +155,7 @@
                 End If
             End If
 
-            If .p28ID <> 0 Then
+            If .p28ID > 0 Then
                 pars.Add("p28id", .p28ID, DbType.Int32)
                 strW += " AND (a.p28ID=@p28id OR a.p41ID IN (SELECT p41ID FROM p41Project WHERE p28ID_Client=@p28id))"
             End If

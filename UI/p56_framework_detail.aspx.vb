@@ -13,6 +13,7 @@
     
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        cal1.factory = Master.Factory
         If Not Page.IsPostBack Then
             With Master
                 .SiteMenuValue = "p56"
@@ -33,6 +34,7 @@
                     .Add("p56_framework_detail-chkFFShowFilledOnly")
                     .Add("p56_framework_detail_pos")
                     .Add("p56_menu-show-level1")
+                    .Add("myscheduler-firstday")
                 End With
                 Dim intPID As Integer = Master.DataPID
                 With .Factory.j03UserBL
@@ -62,7 +64,7 @@
                         menu1.LockedTab = .GetUserParam("p56_framework_detail-tab")
                     End If
                     Me.chkFFShowFilledOnly.Checked = BO.BAS.BG(.GetUserParam("p56_framework_detail-chkFFShowFilledOnly", "0"))
-
+                    cal1.FirstDayMinus = BO.BAS.IsNullInt(.GetUserParam("myscheduler-firstday", "-1"))
                 End With
                 Master.DataPID = intPID
             End With
@@ -179,7 +181,13 @@
         Dim lisX69 As IEnumerable(Of BO.x69EntityRole_Assign) = Master.Factory.x67EntityRoleBL.GetList_x69(BO.x29IdEnum.p56Task, cRec.PID)
         Me.roles_task.RefreshData(lisX69, cRec.PID)
 
-        
+        cal1.RecordPID = Master.DataPID
+        cal1.RefreshData(Today)
+        If cal1.ProgramRowCount > 0 Then
+            cal1.Visible = True
+        Else
+            cal1.Visible = False
+        End If
 
         labels1.RefreshData(Master.Factory, BO.x29IdEnum.p56Task, cRec.PID)
         boxX18.Visible = labels1.ContainsAnyData

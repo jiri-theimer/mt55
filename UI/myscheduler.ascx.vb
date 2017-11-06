@@ -40,6 +40,14 @@ Public Class myscheduler
             cbxFirstDay.SelectedValue = value.ToString
         End Set
     End Property
+    Public ReadOnly Property ProgramRowCount As Integer
+        Get
+            Return rpProgram.Items.Count
+        End Get
+    End Property
+
+
+
     Public Property Prefix As String
         Get
             Return hidPrefix.Value
@@ -71,16 +79,25 @@ Public Class myscheduler
         
        
         fill_o22(d1)
-        fill_p56(d1)
+        If hidPrefix.Value <> "p56" Then
+            fill_p56(d1)
+            cmdTasks.Visible = factory.SysUser.j04IsMenu_Task
+        End If
+
         lblNoAppointments.Visible = False
         If _lisProRow.Count = 0 Then
             lblNoAppointments.Visible = True
-            lblNoAppointments.Text = "Žádné úkoly/události."
+            If hidPrefix.Value = "p56" Then
+                lblNoAppointments.Text = "Žádné kalendářové události k úkolu."
+            Else
+                lblNoAppointments.Text = "Žádné úkoly/události."
+            End If
+
         End If
         rpProgram.DataSource = _lisProRow.OrderBy(Function(p) p.recDate)
         rpProgram.DataBind()
 
-        cmdTasks.Visible = factory.SysUser.j04IsMenu_Task
+
         cmdSchedulers.Visible = factory.SysUser.j04IsMenu_Scheduler
     End Sub
     Private Sub fill_o22(d1 As Date)
@@ -97,6 +114,8 @@ Public Class myscheduler
                 mq.p41ID = intRecordPID
             Case "j02"
                 mq.j02IDs = BO.BAS.ConvertInt2List(intRecordPID)
+            Case "p56"
+                mq.p56ID = intRecordPID
             Case Else
                 Return
         End Select

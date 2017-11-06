@@ -491,6 +491,15 @@ Partial Public Class p56_framework_detail
     Protected WithEvents p56Description As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''cal1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cal1 As Global.UI.myscheduler
+
+    '''<summary>
     '''comments1 control.
     '''</summary>
     '''<remarks>

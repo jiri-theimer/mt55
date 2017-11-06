@@ -10,6 +10,7 @@
 <%@ Register TagPrefix="uc" TagName="alertbox" Src="~/alertbox.ascx" %>
 <%@ Register TagPrefix="uc" TagName="b07_list" Src="~/b07_list.ascx" %>
 <%@ Register TagPrefix="uc" TagName="mytags" Src="~/mytags.ascx" %>
+<%@ Register TagPrefix="uc" TagName="myscheduler" Src="~/myscheduler.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <script type="text/javascript">
@@ -283,9 +284,11 @@
             <asp:Label ID="p56Description" runat="server" CssClass="val" Style="font-family: 'Courier New'; word-wrap: break-word; display: block; font-size: 120%;"></asp:Label>
         </div>
     </asp:Panel>
+    <div style="clear: both;"></div>
+    <uc:myscheduler ID="cal1" runat="server" Prefix="p56" />
 
-    <div style="clear: both;">
+    
         <uc:b07_list ID="comments1" runat="server" JS_Create="menu_b07_record()" JS_Reaction="b07_reaction" />
-    </div>
+   
     <asp:HiddenField ID="hidCurP41ID" runat="server" />
 </asp:Content>
