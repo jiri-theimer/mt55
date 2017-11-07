@@ -27,7 +27,8 @@ Public Class clsGoogleApi
         Dim credential As UserCredential
 
         Using stream As New FileStream(factory.x35GlobalParam.UploadFolder & "\client_id.json", FileMode.Open, FileAccess.Read)
-            credential = GoogleWebAuthorizationBroker.AuthorizeAsync(GoogleClientSecrets.Load(stream).Secrets, _scopes, "user", CancellationToken.None, New FileDataStore("Calendar.VB.Sample")).Result
+            'credential = GoogleWebAuthorizationBroker.AuthorizeAsync(GoogleClientSecrets.Load(stream).Secrets, _scopes, "user", CancellationToken.None, New FileDataStore("Calendar.VB.Sample")).Result
+            credential = GoogleWebAuthorizationBroker.AuthorizeAsync(GoogleClientSecrets.Load(stream).Secrets, _scopes, "user", CancellationToken.None, New FileDataStore(factory.x35GlobalParam.TempFolder, True)).Result
 
         End Using
 

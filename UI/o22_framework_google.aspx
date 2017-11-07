@@ -92,6 +92,7 @@
             </div>
         </div>
         <div id="right_panel" style="margin-left: 210px;">
+            
             <iframe id="fra1" runat="server" width="99.5%" height="600px" frameborder="0" scrolling="no"></iframe>
         </div>
 

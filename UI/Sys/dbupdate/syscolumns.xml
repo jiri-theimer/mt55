@@ -8138,6 +8138,39 @@
     <TableName>j02Person</TableName>
   </Table>
   <Table>
+    <name>o25ID_Calendar</name>
+    <id>1415676091</id>
+    <xtype>56</xtype>
+    <typestat>0</typestat>
+    <xusertype>56</xusertype>
+    <length>4</length>
+    <xprec>10</xprec>
+    <xscale>0</xscale>
+    <colid>36</colid>
+    <xoffset>0</xoffset>
+    <bitpos>0</bitpos>
+    <reserved>0</reserved>
+    <colstat>0</colstat>
+    <cdefault>0</cdefault>
+    <domain>0</domain>
+    <number>0</number>
+    <colorder>36</colorder>
+    <offset>-33</offset>
+    <collationid>0</collationid>
+    <language>0</language>
+    <status>8</status>
+    <type>38</type>
+    <usertype>7</usertype>
+    <prec>10</prec>
+    <scale>0</scale>
+    <iscomputed>0</iscomputed>
+    <isoutparam>0</isoutparam>
+    <isnullable>1</isnullable>
+    <tdscollation>AAAAAAA=</tdscollation>
+    <type_name>int</type_name>
+    <TableName>j02Person</TableName>
+  </Table>
+  <Table>
     <name>j02ID</name>
     <id>1730105204</id>
     <xtype>56</xtype>
@@ -35937,6 +35970,39 @@
     <TableName>p28Contact</TableName>
   </Table>
   <Table>
+    <name>o25ID_Calendar</name>
+    <id>2116202589</id>
+    <xtype>56</xtype>
+    <typestat>0</typestat>
+    <xusertype>56</xusertype>
+    <length>4</length>
+    <xprec>10</xprec>
+    <xscale>0</xscale>
+    <colid>50</colid>
+    <xoffset>0</xoffset>
+    <bitpos>0</bitpos>
+    <reserved>0</reserved>
+    <colstat>0</colstat>
+    <cdefault>0</cdefault>
+    <domain>0</domain>
+    <number>0</number>
+    <colorder>50</colorder>
+    <offset>-47</offset>
+    <collationid>0</collationid>
+    <language>0</language>
+    <status>8</status>
+    <type>38</type>
+    <usertype>7</usertype>
+    <prec>10</prec>
+    <scale>0</scale>
+    <iscomputed>0</iscomputed>
+    <isoutparam>0</isoutparam>
+    <isnullable>1</isnullable>
+    <tdscollation>AAAAAAA=</tdscollation>
+    <type_name>int</type_name>
+    <TableName>p28Contact</TableName>
+  </Table>
+  <Table>
     <name>p28ID</name>
     <id>1152723159</id>
     <xtype>56</xtype>
@@ -59673,6 +59739,39 @@
     <isnullable>1</isnullable>
     <tdscollation>AAAAAAA=</tdscollation>
     <type_name>bit</type_name>
+    <TableName>p41Project</TableName>
+  </Table>
+  <Table>
+    <name>o25ID_Calendar</name>
+    <id>208719796</id>
+    <xtype>56</xtype>
+    <typestat>0</typestat>
+    <xusertype>56</xusertype>
+    <length>4</length>
+    <xprec>10</xprec>
+    <xscale>0</xscale>
+    <colid>50</colid>
+    <xoffset>0</xoffset>
+    <bitpos>0</bitpos>
+    <reserved>0</reserved>
+    <colstat>0</colstat>
+    <cdefault>0</cdefault>
+    <domain>0</domain>
+    <number>0</number>
+    <colorder>50</colorder>
+    <offset>-45</offset>
+    <collationid>0</collationid>
+    <language>0</language>
+    <status>8</status>
+    <type>38</type>
+    <usertype>7</usertype>
+    <prec>10</prec>
+    <scale>0</scale>
+    <iscomputed>0</iscomputed>
+    <isoutparam>0</isoutparam>
+    <isnullable>1</isnullable>
+    <tdscollation>AAAAAAA=</tdscollation>
+    <type_name>int</type_name>
     <TableName>p41Project</TableName>
   </Table>
   <Table>

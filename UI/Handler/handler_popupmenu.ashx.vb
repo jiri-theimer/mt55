@@ -924,14 +924,16 @@ Public Class handler_popupmenu
         If Not cRec.IsClosed Then CI("Vytvořit kalendářovou událost", "o22_record.aspx?masterprefix=j02&masterpid=" & cRec.PID.ToString, , "Images/calendar.png", True) 'pod nový
         CI("Doplnit přílohu, komentář, poznámku", "b07_create.aspx?masterprefix=j02&masterpid=" & cRec.PID.ToString, , "Images/comment.png", True)  'pod nový
 
-        If cRec.o25ID_Calendar > 0 Then
-            Dim cO25 As BO.o25App = factory.o25AppBL.Load(cRec.o25ID_Calendar)
-            REL("Osobní kalendář", cO25.GoogleCalendarUrl, "_blank", "Images/calendar.png")
-        End If
+        
         If cRec.j02IsIntraPerson Then
             If factory.TestPermission(BO.x53PermValEnum.GR_P31_Approver) Then
                 SEP()
                 If cRec.j02IsIntraPerson Then CI("Schvalovat práci osoby", "entity_modal_approving.aspx?prefix=j02&pid=" & cRec.PID.ToString, , "Images/approve.png", , True)
+            End If
+            If cRec.o25ID_Calendar > 0 Then
+                SEP()
+                Dim cO25 As BO.o25App = factory.o25AppBL.Load(cRec.o25ID_Calendar)
+                REL("Osobní kalendář", cO25.GoogleCalendarUrl, "_blank", "Images/calendar.png")
             End If
             If factory.TestPermission(BO.x53PermValEnum.GR_P31_Pivot) Then
                 SEP()
@@ -952,6 +954,7 @@ Public Class handler_popupmenu
             Next
           
         End If
+
         If cRec.j02Email <> "" Then
             SEP()
             CI("Odeslat e-mail", "sendmail.aspx?prefix=j02&pid=" & cRec.PID.ToString, , "Images/email.png")

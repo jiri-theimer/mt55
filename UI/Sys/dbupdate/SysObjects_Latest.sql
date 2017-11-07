@@ -7556,6 +7556,23 @@ BEGIN TRANSACTION
 
 BEGIN TRY
 
+if exists(select o25ID FROM o22Milestone where o25ID=@pid)
+ set @err_ret='Minimálně jedna kalendářová událost má vazbu na tento kalendář.'
+
+if exists(select o25ID FROM o21MilestoneType where o25ID=@pid)
+ set @err_ret='Nastavení u minimálně jednoho typu události má vazbu na tento kalendář.'
+
+if exists(select p41ID FROM p41Project where o25ID_Calendar=@pid)
+ set @err_ret='Minimálně jeden projekt má vazbu na tento kalendář.'
+
+if exists(select p28ID FROM p28Contact where o25ID_Calendar=@pid)
+ set @err_ret='Minimálně jeden klient má vazbu na tento kalendář.'
+
+if exists(select j02ID FROM j02Person where o25ID_Calendar=@pid)
+ set @err_ret='Minimálně jedna osoba má vazbu na tento kalendář.'
+
+if isnull(@err_ret,'')<>''
+ return 
 	
 
 	delete from o25App where o25ID=@pid
