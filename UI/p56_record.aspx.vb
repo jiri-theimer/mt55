@@ -130,6 +130,8 @@
             Me.p56IsNoNotify.Checked = .p56IsNoNotify
 
             Me.p56Name.Text = .p56Name
+            Me.p56Code.Text = .p56Code
+            Me.p56Code.NavigateUrl = "javascript:recordcode()"
             If Not BO.BAS.IsNullDBDate(.p56PlanFrom) Is Nothing Then Me.p56PlanFrom.SelectedDate = .p56PlanFrom
             If Not BO.BAS.IsNullDBDate(.p56PlanUntil) Is Nothing Then Me.p56PlanUntil.SelectedDate = .p56PlanUntil
             Me.p56Description.Text = .p56Description

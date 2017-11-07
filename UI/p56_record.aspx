@@ -14,6 +14,19 @@
         function changelog() {
             dialog_master("changelog.aspx?prefix=p56&pid=<%=Master.DataPID%>", true)
         }
+        function recordcode() {
+
+            dialog_master("record_code.aspx?prefix=p56&pid=<%=Master.DataPID%>");
+
+        }
+        function hardrefresh(pid, flag, codeValue) {
+            if (flag == "record-code") {
+                document.getElementById("<%=Me.p56Code.ClientID%>").innerText = codeValue;
+                $.alert("Změna kódu záznamu byla uložena.")
+            }
+
+            
+        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -52,8 +65,8 @@
                         <asp:Label ID="lblName" runat="server" CssClass="lblReq" Text="Název úkolu:"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="p56Name" runat="server" Style="width: 540px;"></asp:TextBox>
-
+                        <asp:TextBox ID="p56Name" runat="server" Style="width: 450px;"></asp:TextBox>
+                        <asp:HyperLink ID="p56Code" runat="server" ToolTip="Kód záznamu"></asp:HyperLink>
                     </td>
                 </tr>
 

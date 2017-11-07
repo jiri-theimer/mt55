@@ -98,7 +98,7 @@ Public Class myscheduler
             If hidPrefix.Value = "p56" Then
                 lblNoAppointments.Text = "Žádné kalendářové události k úkolu."
             Else
-                lblNoAppointments.Text = "Žádné úkoly/události."
+                lblNoAppointments.Text = "Žádné události nebo úkol s termínem."
             End If
 
         End If

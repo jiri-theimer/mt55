@@ -44,7 +44,7 @@
         }
         function j02_record(j02id) {
 
-            dialog_master("j02_record.aspx?iscontact=1&pid="+j02id, true)
+            dialog_master("j02_record.aspx?iscontact=1&guid=<%=ViewState("guid_p30")%>&pid="+j02id, true)
 
         }
         function j02_delete(j02id) {           

@@ -95,6 +95,15 @@ Partial Public Class p56_record
     Protected WithEvents p56Name As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''p56Code control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents p56Code As Global.System.Web.UI.WebControls.HyperLink
+
+    '''<summary>
     '''lblDateFrom control.
     '''</summary>
     '''<remarks>

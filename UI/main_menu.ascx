@@ -113,7 +113,7 @@
 
         }
         if (flag == "o22-save" || flag == "o22-create") {
-            location.href="entity_scheduler.aspx";
+            location.replace("default.aspx");
 
         }
         if (flag == "j02-save" || flag == "j02-create") {
