@@ -8,6 +8,7 @@
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
+            ViewState("description") = ""
             With Master
                 .DataPID = BO.BAS.IsNullInt(Request.Item("pid"))
                 If .DataPID = 0 Then .StopPage("pid missing")
@@ -29,33 +30,37 @@
 
         With cRec
             Me.o22Name.Text = .o22Name & " (" & .o21Name & ")"
-            If cRec.o22Description <> "" Then
-                Me.o22Description.Text = cRec.o22Description & vbCrLf
+            If .o22Description <> "" Then
+                ViewState("description") = BO.BAS.CrLfText2Html(.o22Description)
             End If
 
-            If cRec.p41ID <> 0 Then
-                Me.o22Description.Text += String.Format("<a href='{0}/dr.aspx?prefix=p41&pid={1}'>{2}</a>", Master.Factory.x35GlobalParam.AppHostUrl, cRec.p41ID, cRec.Project)
+            If .p41ID <> 0 Then
+                ViewState("description") += String.Format("<a href='{0}/dr.aspx?prefix=p41&pid={1}'>{2}</a>", Master.Factory.x35GlobalParam.AppHostUrl, .p41ID, .Project)
             End If
-            If cRec.p28ID <> 0 Then
-                Me.o22Description.Text += String.Format("<a href='{0}/dr.aspx?prefix=p28&pid={1}'>{2}</a>", Master.Factory.x35GlobalParam.AppHostUrl, cRec.p28ID, cRec.Contact)
+            If .p28ID <> 0 Then
+                ViewState("description") += String.Format("<a href='{0}/dr.aspx?prefix=p28&pid={1}'>{2}</a>", Master.Factory.x35GlobalParam.AppHostUrl, .p28ID, .Contact)
             End If
-            If cRec.p56ID <> 0 Then
-                Dim cTask As BO.p56Task = Master.Factory.p56TaskBL.Load(cRec.p56ID)
-                Me.o22Description.Text += String.Format("<a href='{0}/dr.aspx?prefix=p56&pid={1}'>{2}</a>", Master.Factory.x35GlobalParam.AppHostUrl, cTask.PID, cTask.NameWithTypeAndCode)
-                Me.o22Description.Text += vbCrLf & String.Format("<a href='{0}/dr.aspx?prefix=p41&pid={1}'>{2}</a>", Master.Factory.x35GlobalParam.AppHostUrl, cTask.p41ID, cTask.Client & " - " & cTask.ProjectCodeAndName)
+            If .p56ID <> 0 Then
+                Dim cTask As BO.p56Task = Master.Factory.p56TaskBL.Load(.p56ID)
+                ViewState("description") += String.Format("<a href='{0}/dr.aspx?prefix=p56&pid={1}'>{2}</a>", Master.Factory.x35GlobalParam.AppHostUrl, cTask.PID, cTask.NameWithTypeAndCode)
+                ViewState("description") += String.Format("<a href='{0}/dr.aspx?prefix=p41&pid={1}'>{2}</a>", Master.Factory.x35GlobalParam.AppHostUrl, cTask.p41ID, cTask.Client & " - " & cTask.ProjectCodeAndName)
 
             End If
-            If cRec.p91ID <> 0 Then
-                Dim cInvoice As BO.p91Invoice = Master.Factory.p91InvoiceBL.Load(cRec.p91ID)
-                Me.o22Description.Text += String.Format("<a href='{0}/dr.aspx?prefix=p91&pid={1}'>{2}</a>", Master.Factory.x35GlobalParam.AppHostUrl, cRec.p91ID, cInvoice.p92Name & ": " & cInvoice.p91Code)
+            If .p91ID <> 0 Then
+                Dim cInvoice As BO.p91Invoice = Master.Factory.p91InvoiceBL.Load(.p91ID)
+                ViewState("description") += String.Format("<a href='{0}/dr.aspx?prefix=p91&pid={1}'>{2}</a>", Master.Factory.x35GlobalParam.AppHostUrl, .p91ID, cInvoice.p92Name & ": " & cInvoice.p91Code)
             End If
 
             Me.o22Location.Text = .o22Location
             If Not .o22DateFrom Is Nothing Then
                 Me.o22DateFrom.Text = BO.BAS.FD(.o22DateFrom, True, False) & " - "
+                hidStart.Value = .o22DateFrom.ToString("yyyy-MM-ddTHH:mm:sszzz")
+            Else
+                hidStart.Value = .o22DateUntil.ToString("yyyy-MM-ddTHH:mm:sszzz")
             End If
             Me.o22DateUntil.Text = BO.BAS.FD(.o22DateUntil, True, False)
-            Me.o22Description.Text = BO.BAS.CrLfText2Html(.o22Description)
+            hidEnd.Value = o22DateUntil.ToString("yyyy-MM-ddTHH:mm:sszzz")
+            Me.o22Description.Text = BO.BAS.CrLfText2Html(ViewState("description"))
             Me.Attendees.Text = String.Join("<br>", lisO20.Select(Function(p) p.Email))
             Me.o22ReminderBeforeUnits.Text = .o22ReminderBeforeUnits.ToString
             Me.o22ReminderBeforeMetric.Text = .o22ReminderBeforeMetric

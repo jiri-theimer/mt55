@@ -83,19 +83,19 @@
                 });
             });
         }
-        
+       
         var udalost = {
             'summary': "<%=me.o22Name.text%>",
             'location': "<%=Me.o22Location.Text%>",
-            'description': "<%=Me.o22Description.Text%>",
+            'description': "<%=ViewState("description")%>",
             'start': {
-                'dateTime': '2017-11-28T09:00:00-07:00',
-                'timeZone': 'Europe/Prague'
+                'dateTime': "<%=hidStart.Value%>",
+                'timeZone': "Europe/Prague"
             },
             'colorId': '<%=hidColorID.value%>',
             'end': {
-                'dateTime': '2017-11-28T17:00:00-07:00',
-                'timeZone': 'Europe/Prague'
+                'dateTime': "<%=hidEnd.Value%>",
+                'timeZone': "Europe/Prague"
             },
             'attendees': [
               { 'email': 'info@marktime.cz' },
@@ -190,6 +190,8 @@
 
     <asp:HiddenField ID="hidColorID" runat="server" />
     <asp:HiddenField ID="hidMinutesBefore" runat="server" />
+    <asp:HiddenField ID="hidStart" runat="server" />
+    <asp:HiddenField ID="hidEnd" runat="server" />
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="FootContent" runat="server">
 </asp:Content>
