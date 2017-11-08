@@ -12,6 +12,7 @@
             With Master
                 .DataPID = BO.BAS.IsNullInt(Request.Item("pid"))
                 hidAppID.Value = Request.Item("appid")
+
                 If .DataPID = 0 And hidAppID.Value = "" Then .StopPage("pid or appid missing")
             End With
 
@@ -22,8 +23,11 @@
 
     Private Sub RefreshRecord()
         If Master.DataPID = 0 And hidAppID.Value <> "" Then
+            'smazat událost v kalendáři
+            Me.o25Code.Value = Master.Factory.o25AppBL.Load(BO.BAS.IsNullInt(Request.Item("o25id"))).o25Code
             cmdOdeslat.InnerText = "Odstranit událost v Google kalendáři"
             cmdOdeslat.Attributes.Item("onclick") = "Handle_DeleteEvent()"
+            panRecord.Visible = False
             Return
         End If
 

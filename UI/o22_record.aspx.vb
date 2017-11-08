@@ -185,10 +185,10 @@ Public Class o22_record
     End Sub
     Private Sub _MasterPage_Master_OnDelete() Handles _MasterPage.Master_OnDelete
         With Master.Factory.o22MilestoneBL
-            Dim strAppID As String = .Load(Master.DataPID).o22AppID
+            Dim cRec As BO.o22Milestone = .Load(Master.DataPID)
             If .Delete(Master.DataPID) Then
-                If strAppID <> "" Then
-                    Server.Transfer("o22_record_google.aspx?appid=" & strAppID)
+                If cRec.o22AppID <> "" And cRec.o25ID > 0 Then
+                    Server.Transfer("o22_record_google.aspx?appid=" & cRec.o22AppID & "&o25id=" & cRec.o25ID.ToString)
                     Return
                 End If
 

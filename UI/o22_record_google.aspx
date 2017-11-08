@@ -146,17 +146,19 @@
 
         // FUNCTION TO DELETE EVENT
         function Handle_DeleteEvent() {
+            
             gapi.client.load('calendar', 'v3', function () {
                 var request = gapi.client.calendar.events.delete({
-                    'calendarId': document.getElementById("<%=o25Code.ClientID%>").value, // calendar ID
-                    'eventId': "<%=hidAppID.Value%>",
+                    'calendarId': "<%=me.o25Code.Value%>", // calendar ID
+                    'eventId': "<%=hidAppID.Value%>"
                 });
                 request.execute(function (resp) {
                     if (resp.status == 'confirmed') {
                         alert("Event was successfully removed from the calendar!");
                     }
                     else {
-                        alert('An error occurred, please try again later.')
+                        console.log(resp);
+                        alert('An error occurred, please try again later.');
                     }
                 });
             });
@@ -180,7 +182,7 @@
     </div>
             
 
-    <div class="content-box2">
+    <asp:panel ID="panRecord" runat="server" CssClass="content-box2">
         <div class="title">
             <img src="Images/calendar.png" />
             <asp:Label ID="lblHeader" runat="server" Text="Kalendářová událost"></asp:Label>
@@ -235,7 +237,7 @@
                 <asp:Label ID="o22Description" runat="server" Font-Italic="true"></asp:Label>
             </div>
         </div>
-    </div>
+    </asp:panel>
 
     <asp:HiddenField ID="hidColorID" runat="server" />
     <asp:HiddenField ID="hidMinutesBefore" runat="server" />
