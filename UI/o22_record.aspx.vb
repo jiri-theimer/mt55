@@ -114,7 +114,6 @@ Public Class o22_record
 
 
     Private Sub RefreshRecord()
-        chkUpdateEventInCalendar.Visible = False
         If Master.DataPID = 0 Then
             InhaleObject()
             InhaleMyDefault()
@@ -139,7 +138,6 @@ Public Class o22_record
             InhaleObject()
 
             If .o25ID > 0 Then
-                chkUpdateEventInCalendar.Visible = True
                 Me.o25ID.Enabled = False
             End If
 
@@ -187,7 +185,13 @@ Public Class o22_record
     End Sub
     Private Sub _MasterPage_Master_OnDelete() Handles _MasterPage.Master_OnDelete
         With Master.Factory.o22MilestoneBL
+            Dim strAppID As String = .Load(Master.DataPID).o22AppID
             If .Delete(Master.DataPID) Then
+                If strAppID <> "" Then
+                    Server.Transfer("o22_record_google.aspx?appid=" & strAppID)
+                    Return
+                End If
+
                 Master.DataPID = 0
                 Master.CloseAndRefreshParent("o22-delete")
             Else

@@ -29,7 +29,7 @@
             document.getElementById("imgLoading").style.display = "none";
             if (authResult && !authResult.error) {
                 document.getElementById("infoMessage").innerText = "Úvodní ověření s Google kalendářem proběhlo v pořádku.";
-                document.getElementById("cmdOdeslat").style.display = "block";
+                document.getElementById("<%=cmdOdeslat.ClientID%>").style.display = "block";
             } else {
                 document.getElementById("cmdOverit").style.display = "block";
                 document.getElementById("cmdOverit").onclick = handleAuthClick;
@@ -50,7 +50,7 @@
         // setup event details
 
         // function load the calendar api and make the api call
-        function makeApiCall() {
+        function Handle_InsertEvent() {
             
             gapi.client.load('calendar', 'v3', function () {					// load the calendar api (version 3)
                 var request = gapi.client.calendar.events.insert
@@ -69,6 +69,7 @@
 
                         $.post("Handler/handler_calendar.ashx", { o22id: pid, eventID: resp.id, eventLink: resp.htmlLink,eventiCalUID: resp.iCalUID, oper: "save" }, function (data) {
                             if (data == '1') {
+                                window.parent.hardrefresh();
                                 window.close();
                             }
                             else{
@@ -92,15 +93,16 @@
                 'dateTime': "<%=hidStart.Value%>",
                 'timeZone': "Europe/Prague"
             },
-            'colorId': '<%=hidColorID.value%>',
+            'colorId': "<%=hidColorID.value%>",
             'end': {
                 'dateTime': "<%=hidEnd.Value%>",
                 'timeZone': "Europe/Prague"
-            },
-            'attendees': [
-              { 'email': 'info@marktime.cz' },
-              { 'email': 'sbrin@example.com' }
+            }
+            <%if hidAttendees.Value<>"" then%>
+            ,'attendees': [
+              <%=hidAttendees.Value%>
             ]
+            <%end if%>
             <%If hidMinutesBefore.Value <> "" Then%>
             ,'reminders': {
                 'useDefault': false,
@@ -112,7 +114,54 @@
             <%end if%>
         };
 
-       
+        
+        function Handle_UpdateEvent() {
+            gapi.client.load('calendar', 'v3', function () {
+                var request = gapi.client.calendar.events.update({
+                    'calendarId': document.getElementById("<%=o25Code.ClientID%>").value, // calendar ID
+                    'eventId': "<%=hidAppID.Value%>",
+                    'resource': udalost
+                });
+                request.execute(function (resp) {
+                    if (resp.status == 'confirmed') {
+                        
+                        $.post("Handler/handler_calendar.ashx", { o22id: <%=Master.DataPID%>, eventID: resp.id, eventLink: resp.htmlLink,eventiCalUID: resp.iCalUID, oper: "save" }, function (data) {
+                            if (data == '1') {
+                                
+                                window.parent.hardrefresh();
+                                window.close();
+                            }
+                            else{
+                                alert("Chyba při ukládání zpětné vazby do MARKTIME.");
+                            }
+                        });
+
+                    }
+                    else {
+                        alert('An error occurred, please try again later.')
+                    }
+                });
+            });
+        }
+
+        // FUNCTION TO DELETE EVENT
+        function Handle_DeleteEvent() {
+            gapi.client.load('calendar', 'v3', function () {
+                var request = gapi.client.calendar.events.delete({
+                    'calendarId': document.getElementById("<%=o25Code.ClientID%>").value, // calendar ID
+                    'eventId': "<%=hidAppID.Value%>",
+                });
+                request.execute(function (resp) {
+                    if (resp.status == 'confirmed') {
+                        alert("Event was successfully removed from the calendar!");
+                    }
+                    else {
+                        alert('An error occurred, please try again later.')
+                    }
+                });
+            });
+        }
+
 		</script>
     <script src="https://apis.google.com/js/client.js?onload=handleClientLoad" type="text/javascript"></script>
 </asp:Content>
@@ -121,7 +170,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     <div class="div6" style="height:40px;">
         <img id="imgLoading" src="Images/loading.gif" alt="Loading..." />
-        <button type="button" id="cmdOdeslat" onclick="makeApiCall()" style="display:none;font-size:x-large;" class="cmd">Odeslat událost do Google kalendáře</button>
+        <button type="button" id="cmdOdeslat" runat="server" onclick="Handle_InsertEvent()" style="display:none;font-size:x-large;" class="cmd">Odeslat událost do Google kalendáře</button>
 
         <button type="button" id="cmdOverit" style="display:none;font-size:x-large;" class="cmd">Ověřit komunikaci s Google kalendářem</button>
     </div>
@@ -192,6 +241,8 @@
     <asp:HiddenField ID="hidMinutesBefore" runat="server" />
     <asp:HiddenField ID="hidStart" runat="server" />
     <asp:HiddenField ID="hidEnd" runat="server" />
+    <asp:HiddenField ID="hidAttendees" runat="server" />
+    <asp:HiddenField ID="hidAppID" runat="server" />
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="FootContent" runat="server">
 </asp:Content>

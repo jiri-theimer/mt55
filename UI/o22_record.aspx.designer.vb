@@ -59,15 +59,6 @@ Partial Public Class o22_record
     Protected WithEvents o25ID As Global.UI.datacombo
 
     '''<summary>
-    '''chkUpdateEventInCalendar control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents chkUpdateEventInCalendar As Global.System.Web.UI.WebControls.CheckBox
-
-    '''<summary>
     '''lblColor control.
     '''</summary>
     '''<remarks>

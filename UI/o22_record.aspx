@@ -55,7 +55,7 @@
             </td>
             <td>
                 <uc:datacombo ID="o25ID" runat="server" DataTextField="o25Name" DataValueField="pid" IsFirstEmptyRow="true" Width="400px"></uc:datacombo>
-                <asp:CheckBox ID="chkUpdateEventInCalendar" runat="server" Text="Aktualizovat událost v kalendáři" Visible="false" Checked="true" />
+                
             </td>
         </tr>
          <tr>

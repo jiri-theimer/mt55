@@ -11,7 +11,8 @@
             ViewState("description") = ""
             With Master
                 .DataPID = BO.BAS.IsNullInt(Request.Item("pid"))
-                If .DataPID = 0 Then .StopPage("pid missing")
+                hidAppID.Value = Request.Item("appid")
+                If .DataPID = 0 And hidAppID.Value = "" Then .StopPage("pid or appid missing")
             End With
 
 
@@ -20,6 +21,12 @@
     End Sub
 
     Private Sub RefreshRecord()
+        If Master.DataPID = 0 And hidAppID.Value <> "" Then
+            cmdOdeslat.InnerText = "Odstranit událost v Google kalendáři"
+            cmdOdeslat.Attributes.Item("onclick") = "Handle_DeleteEvent()"
+            Return
+        End If
+
         Dim cRec As BO.o22Milestone = Master.Factory.o22MilestoneBL.Load(Master.DataPID)
         If cRec.o25ID = 0 Then Master.StopPage("V události nebyl zvolen cílový google kalendář.") : Return
 
@@ -54,14 +61,15 @@
             Me.o22Location.Text = .o22Location
             If Not .o22DateFrom Is Nothing Then
                 Me.o22DateFrom.Text = BO.BAS.FD(.o22DateFrom, True, False) & " - "
-                hidStart.Value = .o22DateFrom.ToString("yyyy-MM-ddTHH:mm:sszzz")
+                hidStart.Value = Format(.o22DateFrom, "yyyy-MM-ddTHH:mm:sszzz")
             Else
-                hidStart.Value = .o22DateUntil.ToString("yyyy-MM-ddTHH:mm:sszzz")
+                hidStart.Value = Format(.o22DateUntil, "yyyy-MM-ddTHH:mm:sszzz")
             End If
             Me.o22DateUntil.Text = BO.BAS.FD(.o22DateUntil, True, False)
-            hidEnd.Value = o22DateUntil.ToString("yyyy-MM-ddTHH:mm:sszzz")
+            hidEnd.Value = Format(.o22DateUntil, "yyyy-MM-ddTHH:mm:sszzz")
             Me.o22Description.Text = BO.BAS.CrLfText2Html(ViewState("description"))
             Me.Attendees.Text = String.Join("<br>", lisO20.Select(Function(p) p.Email))
+            Me.hidAttendees.Value = String.Join(",", lisO20.Select(Function(p) "{ 'email': '" + p.Email + "' }"))
             Me.o22ReminderBeforeUnits.Text = .o22ReminderBeforeUnits.ToString
             Me.o22ReminderBeforeMetric.Text = .o22ReminderBeforeMetric
             hidColorID.Value = .o22ColorID
@@ -69,6 +77,11 @@
                 lblHeader.BackColor = System.Drawing.Color.FromName(.Color.BackColor)
             End If
 
+            hidAppID.Value = .o22AppID
+            If .o22AppID <> "" Then
+                cmdOdeslat.InnerText = "Aktualizovat událost v Google kalendáři"
+                cmdOdeslat.Attributes.Item("onclick") = "Handle_UpdateEvent()"
+            End If
 
 
             If .o22ReminderBeforeUnits > 0 Then
