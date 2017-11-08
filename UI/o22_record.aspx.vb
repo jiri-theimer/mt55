@@ -268,13 +268,9 @@ Public Class o22_record
 
                 cRec = Master.Factory.o22MilestoneBL.Load(Master.DataPID)
                 If cRec.o25ID > 0 Then
-                    If (cRec.o22AppID <> "" And chkUpdateEventInCalendar.Checked) Or (cRec.o22AppID = "") Then
-                        Dim cGapi As New clsGoogleApi(Master.Factory)
-                        If Not cGapi.ExportEvent2Calendar(BO.BAS.IsNullInt(Me.o25ID.SelectedValue), cRec) Then
-                            Master.Notify(cGapi.ErrorMessage, NotifyLevel.ErrorMessage)
-                            Return  'chyba v komunikaci s google kalendářem
-                        End If
-                    End If
+                    Server.Transfer("o22_record_google.aspx?pid=" & Master.DataPID.ToString)
+                    Return
+                    ''přesměrovat na stránku s GOOGLE javascript ovládáním kalendářových událostí
                 End If
                 
                 Master.CloseAndRefreshParent("o22-save")

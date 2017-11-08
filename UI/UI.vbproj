@@ -69,30 +69,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\ceTe.DynamicPDF.35.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis, Version=1.30.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.1.30.0\lib\net45\Google.Apis.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Google.Apis.Auth, Version=1.30.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.Auth.1.30.0\lib\net45\Google.Apis.Auth.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Google.Apis.Auth.PlatformServices, Version=1.30.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.Auth.1.30.0\lib\net45\Google.Apis.Auth.PlatformServices.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Google.Apis.Calendar.v3, Version=1.30.0.1032, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.Calendar.v3.1.30.0.1032\lib\net45\Google.Apis.Calendar.v3.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Google.Apis.Core, Version=1.30.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.Core.1.30.0\lib\net45\Google.Apis.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Google.Apis.PlatformServices, Version=1.30.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.1.30.0\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Independentsoft.Msg, Version=1.1.100.12483, Culture=neutral, PublicKeyToken=76be97fe952f1ec7">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Independentsoft.Msg.dll</HintPath>
@@ -294,6 +270,7 @@
     <Content Include="mytags.ascx" />
     <Content Include="navigator.aspx" />
     <Content Include="o22_framework_google.aspx" />
+    <Content Include="o22_record_google.aspx" />
     <Content Include="o23_framework.aspx" />
     <Content Include="o23_list.ascx" />
     <Content Include="o23_queue.aspx" />
@@ -322,6 +299,7 @@
     <Content Include="persons.ascx" />
     <Content Include="plugin_modal.aspx" />
     <Content Include="pokus2.aspx" />
+    <Content Include="pokus3.aspx" />
     <Content Include="projects.ascx" />
     <Content Include="select_doctype.aspx" />
     <Content Include="select_event_type.aspx" />
@@ -441,6 +419,7 @@
     <Content Include="Handler\handler_popupmenu.ashx" />
     <Content Include="Handler\handler_approve.ashx" />
     <Content Include="Handler\handler_project.ashx" />
+    <Content Include="Handler\handler_calendar.ashx" />
     <None Include="My Project\PublishProfiles\marktime55.pubxml" />
     <None Include="Service References\SpolehlivostDPH\rozhraniCRPDPH.wsdl" />
     <Content Include="searchbox.ascx" />
@@ -475,7 +454,6 @@
     <Content Include="Sys\membership_framework.aspx" />
     <Content Include="o21_record.aspx" />
     <Content Include="o22_record.aspx" />
-    <Content Include="o22_scheduler.aspx" />
     <Content Include="p28_address.ascx" />
     <Content Include="p28_medium.ascx" />
     <Content Include="p31_approve_onerec.ascx" />
@@ -853,7 +831,6 @@
       <DependentUpon>barcode.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-    <Compile Include="bas\clsGoogleApi.vb" />
     <Compile Include="bas\clsMergeDOC.vb" />
     <Compile Include="bas\clsToolBarButton.vb" />
     <Compile Include="bas\SetupDataGrid.vb" />
@@ -1048,6 +1025,9 @@
     </Compile>
     <Compile Include="Handler\handler_approve.ashx.vb">
       <DependentUpon>handler_approve.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Handler\handler_calendar.ashx.vb">
+      <DependentUpon>handler_calendar.ashx</DependentUpon>
     </Compile>
     <Compile Include="Handler\handler_capacity_plan.ashx.vb">
       <DependentUpon>handler_capacity_plan.ashx</DependentUpon>
@@ -1364,6 +1344,13 @@
       <DependentUpon>o22_framework_google.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="o22_record_google.aspx.designer.vb">
+      <DependentUpon>o22_record_google.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="o22_record_google.aspx.vb">
+      <DependentUpon>o22_record_google.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="o23_framework.aspx.designer.vb">
       <DependentUpon>o23_framework.aspx</DependentUpon>
     </Compile>
@@ -1558,6 +1545,13 @@
     </Compile>
     <Compile Include="pokus2.aspx.vb">
       <DependentUpon>pokus2.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="pokus3.aspx.designer.vb">
+      <DependentUpon>pokus3.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pokus3.aspx.vb">
+      <DependentUpon>pokus3.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="projects.ascx.designer.vb">
@@ -2497,13 +2491,6 @@
     </Compile>
     <Compile Include="o22_record.aspx.vb">
       <DependentUpon>o22_record.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="o22_scheduler.aspx.designer.vb">
-      <DependentUpon>o22_scheduler.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="o22_scheduler.aspx.vb">
-      <DependentUpon>o22_scheduler.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="p28_address.ascx.designer.vb">
