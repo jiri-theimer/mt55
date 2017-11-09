@@ -324,6 +324,7 @@ Public Class p91_export2pohoda
         docMaster.Load(BO.ASS.GetApplicationRootFolder & "\Plugins\pohoda_vzor_allinone.xml")
 
         Dim ndMaster As XmlNode = docMaster.ChildNodes(1)
+        ndMaster.Attributes("ico").Value = Trim(Me.txtIC.Text)     'IČ cílové POHODA databáze
 
         For Each strFile As String In files
             Dim docOne As New XmlDocument

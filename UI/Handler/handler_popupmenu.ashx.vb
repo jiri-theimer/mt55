@@ -73,7 +73,7 @@ Public Class handler_popupmenu
         Dim cRec As BO.o22Milestone = factory.o22MilestoneBL.Load(intPID)
         If cRec Is Nothing Then CI("Záznam nebyl nalezen.", "", True) : Return
         If cRec.o22AppUrl <> "" Then
-            REL("Zobrazit v kalendáři", cRec.o22AppUrl, "_blank", "Images/link.png")
+            REL("Zobrazit v Google kalendáři", cRec.o22AppUrl, "_blank", "Images/link.png")
             SEP()
         End If
         If factory.SysUser.IsAdmin Or cRec.j02ID_Owner = factory.SysUser.j02ID Then

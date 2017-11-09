@@ -606,7 +606,7 @@ Public Class entity_menu
 
             pm1.Attributes.Item("onclick") = "RCM('p56'," & cRec.PID.ToString & ",this,'pagemenu')"
             With linkPM
-                .Text = cRec.FullName
+                .Text = BO.BAS.OM3(cRec.FullName, 70)
                 ''.NavigateUrl = "p56_framework_detail.aspx?pid=" & cRec.PID.ToString & "&source=" & Me.hidSource.Value
                 .Attributes.Item("onclick") = "RCM('p56', " & cRec.PID.ToString & ", this, 'pagemenu')"
             End With
