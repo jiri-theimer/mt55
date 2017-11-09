@@ -551,4 +551,33 @@
             Return "other.png"
         End If
     End Function
+
+    Public Shared Function WeekDayName(d As Date) As String
+        Select Case Weekday(d, Microsoft.VisualBasic.FirstDayOfWeek.Monday)
+            Case 1 : Return "pondělí"
+            Case 2 : Return "úterý"
+            Case 3 : Return "středa"
+            Case 4 : Return "čtvrtek"
+            Case 5 : Return "pátek"
+            Case 6 : Return "sobota"
+            Case 7 : Return "neděle"
+        End Select
+    End Function
+    Public Shared Function MonthName(d As Date) As String
+        Select Case Month(d)
+            Case 1 : Return "leden"
+            Case 2 : Return "únor"
+            Case 3 : Return "březen"
+            Case 4 : Return "duben"
+            Case 5 : Return "květen"
+            Case 6 : Return "červen"
+            Case 7 : Return "červenec"
+            Case 8 : Return "srpen"
+            Case 9 : Return "září"
+            Case 10 : Return "říjen"
+            Case 11 : Return "listopad"
+            Case 12 : Return "prosinec"
+        End Select
+        Return "?"
+    End Function
 End Class

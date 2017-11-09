@@ -39,12 +39,7 @@
                     End If
 
                 End If
-                With .Factory.j03UserBL
-                    .InhaleUserParams("p56_record-more")
-                    Me.chkMore.Checked = BO.BAS.BG(.GetUserParam("p56_record-more", "0"))
-
-                End With
-
+                
                 
                 Me.p57ID.DataSource = .Factory.p57TaskTypeBL.GetList(New BO.myQuery)
                 Me.p57ID.DataBind()
@@ -156,9 +151,7 @@
         roles1.InhaleInitialData(cRec.PID)
         tags1.RefreshData(cRec.PID)
 
-        If cRec.p65ID > 0 Or roles1.RowsCount > 0 Or ff1.FieldsCount > 0 Or cRec.p56Description <> "" Then
-            chkMore.Checked = True : chkMore.Visible = False
-        End If
+       
     End Sub
 
     Private Sub Handle_Permissions(cRec As BO.p56Task)
@@ -187,17 +180,11 @@
             Master.HeaderText = Me.p57ID.Text & " | " & Me.Project.Text
             If Me.p57ID.Rows = 2 Then
                 Me.p57ID.Visible = False : lblP57ID.Visible = False
-            Else
-                Me.chkMore.Visible = False
             End If
 
             Dim cRec As BO.p57TaskType = Master.Factory.p57TaskTypeBL.Load(BO.BAS.IsNullInt(Me.p57ID.SelectedValue))
             With cRec
-                If .p57IsEntry_Budget And .p57IsEntry_CompletePercent And .p57IsEntry_Priority And .p57IsEntry_Receiver And Me.p57ID.Rows = 2 Then
-                    Me.chkMore.Visible = True
-                Else
-                    Me.chkMore.Visible = False
-                End If
+                
                 lblP59ID_Submitter.Visible = .p57IsEntry_Priority
                 p59ID_Submitter.Visible = .p57IsEntry_Priority
                 lblDateFrom.Visible = True : p56PlanFrom.Visible = True
@@ -236,29 +223,29 @@
             Master.HeaderText = "Úkol | " & Me.Project.Text
         End If
 
-        If Me.chkMore.Visible Then
-            Dim b As Boolean = Me.chkMore.Checked
+        ''If Me.chkMore.Visible Then
+        ''    Dim b As Boolean = Me.chkMore.Checked
 
-            'lblDateFrom.Visible = b : p56PlanFrom.Visible = b
-            panDescription.Visible = b
-            Me.lblOwner.Visible = b : Me.j02ID_Owner.Visible = b
-            Me.p56IsNoNotify.Visible = b
-            lblP59ID_Submitter.Visible = b : p59ID_Submitter.Visible = b
-            lblCompletePercent.Visible = b : p56CompletePercent.Visible = b
-            panBudget.Visible = b
-            If p57ID.Rows = 2 Then
-                p57ID.Visible = b : Me.lblP57ID.Visible = b
-            End If
+        ''    'lblDateFrom.Visible = b : p56PlanFrom.Visible = b
+        ''    panDescription.Visible = b
+        ''    Me.lblOwner.Visible = b : Me.j02ID_Owner.Visible = b
+        ''    Me.p56IsNoNotify.Visible = b
+        ''    lblP59ID_Submitter.Visible = b : p59ID_Submitter.Visible = b
+        ''    lblCompletePercent.Visible = b : p56CompletePercent.Visible = b
+        ''    panBudget.Visible = b
+        ''    If p57ID.Rows = 2 Then
+        ''        p57ID.Visible = b : Me.lblP57ID.Visible = b
+        ''    End If
 
-            If ff1.FieldsCount > 0 Or ff1.TagsCount > 0 Or b Then
-                RadTabStrip1.FindTabByValue("core").Style.Item("display") = "block"
-                RadTabStrip1.FindTabByValue("ff").Style.Item("display") = "block"
-            Else
-                RadTabStrip1.FindTabByValue("ff").Style.Item("display") = "none"
-                RadTabStrip1.FindTabByValue("core").Style.Item("display") = "none"
-            End If
-            RadTabStrip1.FindTabByValue("other").Style.Item("display") = BO.BAS.GB_Display(b)
-        End If
+        ''    If ff1.FieldsCount > 0 Or ff1.TagsCount > 0 Or b Then
+        ''        RadTabStrip1.FindTabByValue("core").Style.Item("display") = "block"
+        ''        RadTabStrip1.FindTabByValue("ff").Style.Item("display") = "block"
+        ''    Else
+        ''        RadTabStrip1.FindTabByValue("ff").Style.Item("display") = "none"
+        ''        RadTabStrip1.FindTabByValue("core").Style.Item("display") = "none"
+        ''    End If
+        ''    RadTabStrip1.FindTabByValue("other").Style.Item("display") = BO.BAS.GB_Display(b)
+        ''End If
 
         
         If Me.p65ID.SelectedIndex > 0 Then
@@ -382,7 +369,5 @@
         Handle_FF()
     End Sub
 
-    Private Sub chkMore_CheckedChanged(sender As Object, e As EventArgs) Handles chkMore.CheckedChanged
-        Master.Factory.j03UserBL.SetUserParam("p56_record-more", BO.BAS.GB(chkMore.Checked))
-    End Sub
+    
 End Class

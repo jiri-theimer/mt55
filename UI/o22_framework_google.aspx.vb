@@ -3,25 +3,38 @@
     Protected WithEvents _MasterPage As Site
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        cal1.factory = Master.Factory
         If Not Page.IsPostBack Then
             With Master
                 .SiteMenuValue = "o22"
 
                 Dim lisPars As New List(Of String)
                 With lisPars
-                    .Add("schedulers-o25ids")
-
+                    .Add("o22_framework_google-o25ids")
+                    .Add("o22_framework_google-view")
+                    .Add("myscheduler-firstday")
                 End With
 
                 With .Factory.j03UserBL
+                    basUI.SelectRadiolistValue(Me.opgView, .GetUserParam("o22_framework_google-view", "1"))
                     .InhaleUserParams(lisPars)
 
-                    SetupO25(.GetUserParam("schedulers-o25ids"))
+                    cal1.FirstDayMinus = BO.BAS.IsNullInt(.GetUserParam("myscheduler-firstday", "-1"))
+
+                    SetupO25(.GetUserParam("o22_framework_google-o25ids"))
                 End With
             End With
 
+            If opgView.SelectedValue = "1" Then
+                RefreshMyScheduler()
+            End If
 
         End If
+    End Sub
+
+    Private Sub RefreshMyScheduler()
+        cal1.RefreshData(Today)
+        cal1.RefreshTasksWithoutDate(True)
     End Sub
 
     Private Sub SetupO25(strO25IDs As String)
@@ -57,22 +70,41 @@
 
     
     Private Sub o22_framework_google_LoadComplete(sender As Object, e As EventArgs) Handles Me.LoadComplete
-        Dim src As New List(Of String), strURL As String = "https://calendar.google.com/calendar/embed?wkst=1", o25IDs As New List(Of String)
+        panGoogle.Visible = False : fra1.Visible = False : cal1.Visible = False
+        Select Case opgView.SelectedValue
+            Case "1"
+                panGoogle.Controls.Clear()
+                cal1.Visible = True
+            Case "2"
+                panGoogle.Visible = True : fra1.Visible = True
+                Dim src As New List(Of String), strURL As String = "https://calendar.google.com/calendar/embed?wkst=1", o25IDs As New List(Of String)
 
-        For Each ri As RepeaterItem In rp1.Items
-            With CType(ri.FindControl("chk1"), CheckBox)
-                If .Checked Then
-                    strURL += "&amp;src=" & CType(ri.FindControl("o25Code"), HiddenField).Value
-                    o25IDs.Add(CType(ri.FindControl("o25id"), HiddenField).Value)
+                For Each ri As RepeaterItem In rp1.Items
+                    With CType(ri.FindControl("chk1"), CheckBox)
+                        If .Checked Then
+                            strURL += "&amp;src=" & CType(ri.FindControl("o25Code"), HiddenField).Value
+                            o25IDs.Add(CType(ri.FindControl("o25id"), HiddenField).Value)
+                        End If
+                    End With
+                Next
+                If o25IDs.Count = 0 Then
+                    strURL = "blank.aspx"
                 End If
-            End With
-        Next
-        If o25IDs.Count = 0 Then
-            strURL = "blank.aspx"
-        End If
-        Master.Factory.j03UserBL.SetUserParam("schedulers-o25ids", String.Join(",", o25IDs))
+                Master.Factory.j03UserBL.SetUserParam("o22_framework_google-o25ids", String.Join(",", o25IDs))
 
-        fra1.Src = strURL
+                fra1.Src = strURL
 
+        End Select
+       
+        
+    End Sub
+
+    Private Sub opgView_SelectedIndexChanged(sender As Object, e As EventArgs) Handles opgView.SelectedIndexChanged
+        Master.Factory.j03UserBL.SetUserParam("o22_framework_google-view", opgView.SelectedValue)
+        ReloadPage()
+    End Sub
+
+    Private Sub ReloadPage()
+        Response.Redirect("o22_framework_google.aspx", True)
     End Sub
 End Class

@@ -102,11 +102,7 @@
 
                     </td>
                 </tr>
-                <tr>
-                    <td colspan="2">
-                        <asp:CheckBox ID="chkMore" runat="server" Text="Více nastavení úkolu" AutoPostBack="true" ForeColor="blue" />
-                    </td>
-                </tr>
+              
 
                 <tr>
                     <td>

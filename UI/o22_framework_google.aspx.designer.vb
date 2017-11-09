@@ -14,6 +14,24 @@ Option Explicit On
 Partial Public Class o22_framework_google
 
     '''<summary>
+    '''opgView control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents opgView As Global.System.Web.UI.WebControls.RadioButtonList
+
+    '''<summary>
+    '''panGoogle control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents panGoogle As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
     '''rp1 control.
     '''</summary>
     '''<remarks>
@@ -39,6 +57,15 @@ Partial Public Class o22_framework_google
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents linkNew As Global.System.Web.UI.WebControls.HyperLink
+
+    '''<summary>
+    '''cal1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cal1 As Global.UI.myscheduler
 
     '''<summary>
     '''fra1 control.

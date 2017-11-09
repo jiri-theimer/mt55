@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="myscheduler.ascx.vb" Inherits="UI.myscheduler" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 
-<div class="content-box2" style="width: 600px;">
+<div class="content-box2" style="background-color:white;">
     <div class="title">
         <img src="Images/calendar.png" />
 
@@ -23,13 +23,16 @@
             <img border="0" src="Images/task.png" />
         </button>
     </div>
-    <div class="content" style="overflow: auto; max-height: 200px; padding: 0px;">
+    <asp:panel ID="panProgram" runat="server" CssClass="content" style="overflow: auto; max-height: 200px; padding: 0px;">
         <table style="width: 100%;" cellpadding="0" cellspacing="0">
 
             <asp:Repeater ID="rpProgram" runat="server">
                 <ItemTemplate>
                     
                     <tr valign="top" class="trHover">
+                        <td style="background-color:#F1F1F1;text-align:center;border-top:solid 1px #e1e1e1;">
+                            <asp:Label ID="calMesic0" runat="server" Font-Bold="true" Font-Size="10px" ForeColor="ForestGreen"></asp:Label>
+                        </td>
                         <td style="background-color:#F1F1F1;text-align:center;border-top:solid 1px #e1e1e1;">
                             <asp:Label ID="calDen" runat="server" Font-Bold="true" Font-Size="25px"></asp:Label>
                         </td>
@@ -42,7 +45,9 @@
                         <td style="border-top:solid 1px #e1e1e1;">
                             <asp:Label ID="recTime" runat="server"></asp:Label>
                         </td>
-                       
+                       <td style="width:18px;border-top:solid 1px #e1e1e1;">
+                            <asp:Image ID="img1" runat="server" ImageUrl="Images/task.png" />
+                        </td>
                         <td style="width: 20px;border-top:solid 1px #e1e1e1;">
                             <asp:HyperLink ID="pm1" runat="server" CssClass="pp1"></asp:HyperLink>
                         </td>
@@ -55,15 +60,20 @@
                             
                         </td>
 
-                        <td style="width:18px;border-top:solid 1px #e1e1e1;">
-                            <asp:Image ID="img1" runat="server" ImageUrl="Images/task.png" />
+                        
+                        <td style="border-top:solid 1px #e1e1e1;">
+                            <asp:Label ID="Receiver" runat="server"></asp:Label>
                         </td>
-
+                        <td style="border-top:solid 1px #e1e1e1;">
+                            <asp:HyperLink ID="pm2" runat="server" CssClass="pp1"></asp:HyperLink>
+                            <asp:HyperLink ID="linkProject" runat="server" Target="_top" CssClass="value_link"></asp:HyperLink>
+                        </td>
+                        
                     </tr>
                 </ItemTemplate>
             </asp:Repeater>
         </table>
-    </div>
+    </asp:panel>
 </div>
 
 

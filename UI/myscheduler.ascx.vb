@@ -8,6 +8,7 @@ Public Class myscheduler
     Private Property _showProjectRow As Boolean = False
 
     Private Property _lisProRow As List(Of ProRow)
+    Private Property _ShowFullData As Boolean = False
     Public Class ProRow
         Public Property recDate As Date?
         Public Property Time As String
@@ -78,13 +79,17 @@ Public Class myscheduler
     End Sub
 
     Public Sub RefreshData(d0 As Date)
-        If Me.RecordPID = 0 Then
-            Return
-        End If
+        ''If Me.RecordPID = 0 Then
+        ''    Return
+        ''End If
         _lisProRow = New List(Of ProRow)
         _lastDate = DateSerial(2000, 1, 1)
         Dim d1 As Date = d0.AddDays(Me.FirstDayMinus)
-        
+
+        If Me.RecordPID = 0 And Me.Prefix = "" Then
+            panProgram.Style.Item("max-height") = ""
+            _ShowFullData = True
+        End If
        
         fill_o22(d1)
         If hidPrefix.Value <> "p56" Then
@@ -105,8 +110,12 @@ Public Class myscheduler
         rpProgram.DataSource = _lisProRow.OrderBy(Function(p) p.recDate)
         rpProgram.DataBind()
 
+        If _ShowFullData Then
+            cmdSchedulers.Visible = False
+        Else
+            cmdSchedulers.Visible = factory.SysUser.j04IsMenu_Task
+        End If
 
-        cmdSchedulers.Visible = factory.SysUser.j04IsMenu_Scheduler
 
         If Me.o25ID > 0 Then
             Dim cO25 As BO.o25App = factory.o25AppBL.Load(Me.o25ID)
@@ -132,7 +141,7 @@ Public Class myscheduler
             Case "p56"
                 mq.p56ID = intRecordPID
             Case Else
-                Return
+                mq.MyRecordsDisponible = True
         End Select
         mq.DateFrom = d1
         Dim lis As IEnumerable(Of BO.o22Milestone) = factory.o22MilestoneBL.GetList(mq)
@@ -181,7 +190,10 @@ Public Class myscheduler
                         c.IsClosed = True
                     End If
                 End If
-                
+                c.p41ID = .p41ID
+                If .p41ID > 0 Then
+                    c.Project = .Project
+                End If
                
             End With
             _lisProRow.Add(c)
@@ -202,7 +214,7 @@ Public Class myscheduler
             Case "j02"
                 mq.j02ID = intRecordPID
             Case Else
-                Return
+                mq.MyRecordsDisponible = True
         End Select
         mq.p56PlanUntil_D1 = d1 : mq.p56PlanUntil_D2 = d1.AddYears(1)
         Dim lis As IEnumerable(Of BO.p56Task) = factory.p56TaskBL.GetList(mq, True)
@@ -230,6 +242,9 @@ Public Class myscheduler
                 c.p41ID = .p41ID
                 c.IsClosed = .IsClosed
                 c.ImageUrl = "Images/task.png"
+                c.Receivers = .ReceiversInLine
+                c.Project = .p41Name
+                If .Client <> "" Then c.Project = .Client & " - " & .p41Name
             End With
 
             _lisProRow.Add(c)
@@ -241,7 +256,9 @@ Public Class myscheduler
 
     Public Sub RefreshTasksWithoutDate(bolShowProjectRow As Boolean)
         _showProjectRow = bolShowProjectRow
-        If Me.RecordPID = 0 Or Me.Prefix = "" Then Return
+        If Me.RecordPID = 0 Or Me.Prefix = "" Then
+            panP56.Style.Item("width") = ""
+        End If
         panP56.Visible = False
         Dim mq As New BO.myQueryP56
         mq.Closed = BO.BooleanQueryMode.FalseQuery
@@ -257,7 +274,7 @@ Public Class myscheduler
             Case "j02"
                 mq.j02ID = Me.RecordPID
             Case Else
-                Return
+                mq.MyRecordsDisponible = True
         End Select
         Dim lisP56 As IEnumerable(Of BO.p56Task) = factory.p56TaskBL.GetList(mq).OrderBy(Function(p) p.Client).ThenBy(Function(p) p.p41Name)
 
@@ -349,26 +366,27 @@ Public Class myscheduler
 
         End With
         If _lastDate <> cRec.recDate Then
+            If _ShowFullData Then
+                If Month(_lastDate) <> Month(cRec.recDate) Then
+                    With CType(e.Item.FindControl("calMesic0"), Label)
+                        .Text = BO.BAS.MonthName(cRec.recDate)
+                        .Text += "<div style='border-top:solid 1px silver;'>" & Year(cRec.recDate).ToString & "</div>"
+                        If cRec.recDate < Now Then .ForeColor = Drawing.Color.Red
+                    End With
+                End If
+            End If
+            
             With CType(e.Item.FindControl("calDen"), Label)
                 .Text = Day(cRec.recDate).ToString
 
                 If cRec.recDate < Now Then .ForeColor = Drawing.Color.Red
 
-
             End With
             With CType(e.Item.FindControl("calMesic"), Label)
-                Select Case Weekday(cRec.recDate, Microsoft.VisualBasic.FirstDayOfWeek.Monday)
-                    Case 1 : .Text = "pondělí"
-                    Case 2 : .Text = "úterý"
-                    Case 3 : .Text = "středa"
-                    Case 4 : .Text = "čtvrtek"
-                    Case 5 : .Text = "pátek"
-                    Case 6 : .Text = "sobota"
-                    Case 7 : .Text = "neděle"
-                End Select
-                .Text += "<div style='border-top:solid 1px silver;'>" & Format(cRec.recDate, "MM") & "/" & Year(cRec.recDate).ToString & "</div>"
+                .Text = BO.BAS.WeekDayName(cRec.recDate)
+                .Text += "<div style='border-top:solid 1px silver;'>" & BO.BAS.MonthName(cRec.recDate) & " " & Year(cRec.recDate).ToString & "</div>"
+                .ToolTip = Year(cRec.recDate).ToString
 
-                
             End With
         End If
         
@@ -401,6 +419,24 @@ Public Class myscheduler
             If cRec.BackColor <> "" Then .Style.Item("background-color") = cRec.BackColor
             If .Text = "" Then .Text = "."
         End With
+
+        If _ShowFullData Then
+            With CType(e.Item.FindControl("Receiver"), Label)
+                .Text = cRec.Receivers
+            End With
+        End If
+        If _ShowFullData And cRec.p41ID > 0 Then
+            With CType(e.Item.FindControl("pm2"), HyperLink)
+                .Attributes.Item("onclick") = "RCM('p41'," & cRec.p41ID.ToString & ",this)"
+            End With
+            With CType(e.Item.FindControl("linkProject"), HyperLink)
+                .Text = cRec.Project
+                .NavigateUrl = "p41_framework.aspx?pid=" & cRec.p41ID.ToString
+            End With
+        Else
+            e.Item.FindControl("pm2").Visible = False
+        End If
+        
 
 
         

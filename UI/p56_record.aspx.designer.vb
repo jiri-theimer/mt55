@@ -140,15 +140,6 @@ Partial Public Class p56_record
     Protected WithEvents p56PlanUntil As Global.Telerik.Web.UI.RadDateTimePicker
 
     '''<summary>
-    '''chkMore control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents chkMore As Global.System.Web.UI.WebControls.CheckBox
-
-    '''<summary>
     '''lblOwner control.
     '''</summary>
     '''<remarks>
