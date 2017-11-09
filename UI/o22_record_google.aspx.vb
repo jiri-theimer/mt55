@@ -65,16 +65,18 @@
             Me.o22Location.Text = .o22Location
             If Not .o22DateFrom Is Nothing Then
                 Me.o22DateFrom.Text = BO.BAS.FD(.o22DateFrom, True, False) & " - "
-                hidStart.Value = Format(.o22DateFrom, "yyyy-MM-ddTHH:mm:sszzz")
-            Else
-                hidStart.Value = Format(.o22DateUntil, "yyyy-MM-ddTHH:mm:sszzz")
             End If
+            If .o22DateFrom Is Nothing Then .o22DateFrom = .o22DateUntil
             Me.o22DateUntil.Text = BO.BAS.FD(.o22DateUntil, True, False)
-            hidEnd.Value = Format(.o22DateUntil, "yyyy-MM-ddTHH:mm:sszzz")
+
             If .o22IsAllDay Then
                 hidDateDateType.Value = "date"
+                hidStart.Value = Format(.o22DateFrom, "yyyy-MM-dd")
+                hidEnd.Value = Format(.o22DateUntil, "yyyy-MM-dd")
             Else
                 hidDateDateType.Value = "dateTime"
+                hidStart.Value = Format(.o22DateFrom, "yyyy-MM-ddTHH:mm:sszzz")
+                hidEnd.Value = Format(.o22DateUntil, "yyyy-MM-ddTHH:mm:sszzz")
             End If
 
 

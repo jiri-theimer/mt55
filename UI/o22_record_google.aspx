@@ -140,6 +140,7 @@
 
                     }
                     else {
+                        console.log(resp);
                         alert('An error occurred, please try again later.')
                     }
                 });
