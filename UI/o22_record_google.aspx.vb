@@ -82,6 +82,8 @@
             End If
 
             hidAppID.Value = .o22AppID
+
+
             If .o22AppID <> "" Then
                 cmdOdeslat.InnerText = "Aktualizovat událost v Google kalendáři"
                 cmdOdeslat.Attributes.Item("onclick") = "Handle_UpdateEvent()"

@@ -223,7 +223,6 @@
     <Content Include="entity_framework_rec_p91.aspx" />
     <Content Include="entity_menu.ascx" />
     <Content Include="entity_modal_invoicing.aspx" />
-    <Content Include="entity_scheduler.aspx" />
     <Content Include="ErrorPage.aspx" />
     <Content Include="f01folder.ascx" />
     <Content Include="fileupload_preview.aspx" />
@@ -986,13 +985,6 @@
     </Compile>
     <Compile Include="entity_modal_invoicing.aspx.vb">
       <DependentUpon>entity_modal_invoicing.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="entity_scheduler.aspx.designer.vb">
-      <DependentUpon>entity_scheduler.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="entity_scheduler.aspx.vb">
-      <DependentUpon>entity_scheduler.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="ErrorPage.aspx.designer.vb">

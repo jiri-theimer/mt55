@@ -32,7 +32,6 @@
                     .AddSeparator("root")
                 End If
                 .AddItem("Úkoly", "tasks", "p56_framework.aspx", "root", "Images/task.png")
-                .AddItem("Můj kalendář", "scheduler", "entity_scheduler.aspx", "root", "Images/calendar.png")
                 .AddSeparator("root")
                 .AddItem("Odeslat e-mail", "sendmail", "javascript:sendmail()", "root", "Images/email.png")
                 .AddItem("Nastavit poštovní účet pro odeslanou poštu (SMTP)", "smtp", "javascript:smtp_account()", "root", "Images/outlook.png")

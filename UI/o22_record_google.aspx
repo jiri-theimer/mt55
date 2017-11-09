@@ -144,8 +144,13 @@
             });
         }
 
-        // FUNCTION TO DELETE EVENT
         function Handle_DeleteEvent() {
+            alert("<%=hidAppUrl.Value%>");
+            window.open("<%=hidAppUrl.Value%>","_blank")
+            
+        }
+
+        function Handle_DeleteEvent_Nefunguje() {
             
             gapi.client.load('calendar', 'v3', function () {
                 var request = gapi.client.calendar.events.delete({
@@ -245,6 +250,7 @@
     <asp:HiddenField ID="hidEnd" runat="server" />
     <asp:HiddenField ID="hidAttendees" runat="server" />
     <asp:HiddenField ID="hidAppID" runat="server" />
+    <asp:HiddenField ID="hidAppUrl" runat="server" />
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="FootContent" runat="server">
 </asp:Content>
