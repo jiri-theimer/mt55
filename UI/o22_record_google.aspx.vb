@@ -12,7 +12,7 @@
             With Master
                 .DataPID = BO.BAS.IsNullInt(Request.Item("pid"))
                 hidAppID.Value = Request.Item("appid")
-
+                hidAppUrl.Value = Server.UrlDecode(Request.Item("appurl"))
                 If .DataPID = 0 And hidAppID.Value = "" Then .StopPage("pid or appid missing")
             End With
 
@@ -71,6 +71,13 @@
             End If
             Me.o22DateUntil.Text = BO.BAS.FD(.o22DateUntil, True, False)
             hidEnd.Value = Format(.o22DateUntil, "yyyy-MM-ddTHH:mm:sszzz")
+            If .o22IsAllDay Then
+                hidDateDateType.Value = "date"
+            Else
+                hidDateDateType.Value = "dateTime"
+            End If
+
+
             Me.o22Description.Text = BO.BAS.CrLfText2Html(ViewState("description"))
             Me.Attendees.Text = String.Join("<br>", lisO20.Select(Function(p) p.Email))
             Me.hidAttendees.Value = String.Join(",", lisO20.Select(Function(p) "{ 'email': '" + p.Email + "' }"))

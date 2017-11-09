@@ -90,12 +90,14 @@
             'location': "<%=Me.o22Location.Text%>",
             'description': "<%=ViewState("description")%>",
             'start': {
-                'dateTime': "<%=hidStart.Value%>",
+                '<%=hidDateDateType.Value%>': "<%=hidStart.Value%>",
                 'timeZone': "Europe/Prague"
-            },
-            'colorId': "<%=hidColorID.value%>",
-            'end': {
-                'dateTime': "<%=hidEnd.Value%>",
+            }
+            <%if hidColorID.value<>"" then%>
+            ,'colorId': "<%=hidColorID.value%>"
+            <%End If%>
+            ,'end': {
+                '<%=hidDateDateType.Value%>': "<%=hidEnd.Value%>",
                 'timeZone': "Europe/Prague"
             }
             <%if hidAttendees.Value<>"" then%>
@@ -145,9 +147,10 @@
         }
 
         function Handle_DeleteEvent() {
-            alert("<%=hidAppUrl.Value%>");
-            window.open("<%=hidAppUrl.Value%>","_blank")
             
+            window.open("<%=hidAppUrl.Value%>","_blank");
+            window.parent.hardrefresh();
+            window.close();
         }
 
         function Handle_DeleteEvent_Nefunguje() {
@@ -251,6 +254,7 @@
     <asp:HiddenField ID="hidAttendees" runat="server" />
     <asp:HiddenField ID="hidAppID" runat="server" />
     <asp:HiddenField ID="hidAppUrl" runat="server" />
+    <asp:hiddenfield ID="hidDateDateType" runat="server" Value="dateTime" />
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="FootContent" runat="server">
 </asp:Content>

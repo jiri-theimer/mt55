@@ -194,6 +194,15 @@ Partial Public Class o22_record_google
     Protected WithEvents hidAppUrl As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
+    '''hidDateDateType control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hidDateDateType As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
     '''Master property.
     '''</summary>
     '''<remarks>

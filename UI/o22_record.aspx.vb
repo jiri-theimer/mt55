@@ -188,7 +188,7 @@ Public Class o22_record
             Dim cRec As BO.o22Milestone = .Load(Master.DataPID)
             If .Delete(Master.DataPID) Then
                 If cRec.o22AppID <> "" And cRec.o25ID > 0 Then
-                    Server.Transfer("o22_record_google.aspx?appid=" & cRec.o22AppID & "&o25id=" & cRec.o25ID.ToString)
+                    Server.Transfer("o22_record_google.aspx?appid=" & cRec.o22AppID & "&o25id=" & cRec.o25ID.ToString & "&appurl=" & Server.UrlEncode(cRec.o22AppUrl))
                     Return
                 End If
 
