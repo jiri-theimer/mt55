@@ -14,6 +14,15 @@ Option Explicit On
 Partial Public Class o22_record
 
     '''<summary>
+    '''opgMode control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents opgMode As Global.System.Web.UI.WebControls.RadioButtonList
+
+    '''<summary>
     '''lblO21ID control.
     '''</summary>
     '''<remarks>

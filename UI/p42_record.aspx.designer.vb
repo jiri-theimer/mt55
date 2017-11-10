@@ -86,15 +86,6 @@ Partial Public Class p42_record
     Protected WithEvents p42IsModule_p56 As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
-    '''p42IsModule_o22 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents p42IsModule_o22 As Global.System.Web.UI.WebControls.CheckBox
-
-    '''<summary>
     '''p42IsModule_o23 control.
     '''</summary>
     '''<remarks>

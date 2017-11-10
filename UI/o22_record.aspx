@@ -20,7 +20,7 @@
             var d1 = eventArgs.get_newDate();
             var d2 = new Date(d1);
             d2.setHours(d1.getHours() - 1)
-            
+
             var konec = $find("<%=Me.o22DateUntil.ClientID%>");
             var d3 = konec.get_selectedDate();
 
@@ -36,7 +36,20 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
+    <div class="content-box2">
+        <div class="title">
+            Kam událost uložit...
+        </div>
+        <div class="content">
+            <asp:RadioButtonList ID="opgMode" runat="server" AutoPostBack="true" RepeatDirection="Vertical">
+                <asp:ListItem Text="Po uložení odeslat do Google kalendáře" Value="11"></asp:ListItem>
+                <asp:ListItem Text="Po uložení odeslat do OUTLOOK" Value="12"></asp:ListItem>
+                
+                
+                <asp:ListItem Text="Pouze uložit do MARKTIME" Value="20"></asp:ListItem>
+            </asp:RadioButtonList>
+        </div>
+    </div>
 
 
     <table cellpadding="5" cellspacing="2">
@@ -55,10 +68,10 @@
             </td>
             <td>
                 <uc:datacombo ID="o25ID" runat="server" DataTextField="o25Name" DataValueField="pid" IsFirstEmptyRow="true" Width="400px"></uc:datacombo>
-                
+
             </td>
         </tr>
-         <tr>
+        <tr>
             <td>
                 <asp:Label ID="lblColor" Text="Barva v kalendáři:" runat="server" CssClass="lbl"></asp:Label>
             </td>
@@ -66,17 +79,17 @@
                 <telerik:RadComboBox ID="o22ColorID" runat="server" Filter="None" Width="120px" AutoPostBack="true">
                     <Items>
                         <telerik:RadComboBoxItem Text="" Value="" />
-                        <telerik:RadComboBoxItem BackColor="#4986e7"  Text="9-výrazně modrá" Value="9" />    
-                        <telerik:RadComboBoxItem BackColor="#9fc6e7"  Text="1-modrá" Value="1" />  
-                        <telerik:RadComboBoxItem BackColor="#30d5c8"  Text="7-tyrkysová" Value="7" />                  
-                        <telerik:RadComboBoxItem BackColor="#7ae7bf"  Text="2-zelená" Value="2" />
-                        <telerik:RadComboBoxItem BackColor="#b3dc6c"  Text="10-výrazně zelená" Value="10" />
-                        <telerik:RadComboBoxItem BackColor="#fbd75b"  Text="5-žlutá" Value="5" />
-                        <telerik:RadComboBoxItem BackColor="#ffb878"  Text="6-oranžová" Value="6" />
-                        <telerik:RadComboBoxItem BackColor="#ff887c"  Text="4-červená" Value="4" />
-                        <telerik:RadComboBoxItem BackColor="#dc2127"  Text="11-výrazně červená" Value="11" />
-                        <telerik:RadComboBoxItem BackColor="#dbadff"  Text="3-fialová" Value="3" />
-                        <telerik:RadComboBoxItem BackColor="#e1e1e1"  Text="8-šedá" Value="8" />                                                                        
+                        <telerik:RadComboBoxItem BackColor="#4986e7" Text="9-výrazně modrá" Value="9" />
+                        <telerik:RadComboBoxItem BackColor="#9fc6e7" Text="1-modrá" Value="1" />
+                        <telerik:RadComboBoxItem BackColor="#30d5c8" Text="7-tyrkysová" Value="7" />
+                        <telerik:RadComboBoxItem BackColor="#7ae7bf" Text="2-zelená" Value="2" />
+                        <telerik:RadComboBoxItem BackColor="#b3dc6c" Text="10-výrazně zelená" Value="10" />
+                        <telerik:RadComboBoxItem BackColor="#fbd75b" Text="5-žlutá" Value="5" />
+                        <telerik:RadComboBoxItem BackColor="#ffb878" Text="6-oranžová" Value="6" />
+                        <telerik:RadComboBoxItem BackColor="#ff887c" Text="4-červená" Value="4" />
+                        <telerik:RadComboBoxItem BackColor="#dc2127" Text="11-výrazně červená" Value="11" />
+                        <telerik:RadComboBoxItem BackColor="#dbadff" Text="3-fialová" Value="3" />
+                        <telerik:RadComboBoxItem BackColor="#e1e1e1" Text="8-šedá" Value="8" />
                     </Items>
                 </telerik:RadComboBox>
 
@@ -95,7 +108,7 @@
                 <asp:Label ID="lblName" runat="server" CssClass="lblReq" Text="Název (předmět):"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="o22Name" runat="server" Style="width: 400px;background-color:lightyellow;"></asp:TextBox>
+                <asp:TextBox ID="o22Name" runat="server" Style="width: 400px; background-color: lightyellow;"></asp:TextBox>
             </td>
         </tr>
         <tr>
@@ -146,13 +159,13 @@
                 <asp:TextBox ID="o22Location" runat="server" Style="width: 400px;"></asp:TextBox>
             </td>
         </tr>
-        
+
 
     </table>
     <asp:Panel ID="panO20" runat="server" CssClass="content-box2">
         <div class="title">
             <img src="Images/person.png" style="margin-right: 5px;" />
-            Zapojení osob do události
+            Osoby v události
 
         </div>
         <div class="content">
@@ -175,16 +188,16 @@
 
         </div>
     </asp:Panel>
-    
+
     <uc:freefields ID="ff1" runat="server" />
 
-    <asp:panel ID="panDescription" runat="server"  CssClass="content-box2">
+    <asp:Panel ID="panDescription" runat="server" CssClass="content-box2">
         <div class="title">Poznámka</div>
         <div class="content">
             <asp:TextBox ID="o22Description" runat="server" Style="height: 90px; width: 99%;" TextMode="MultiLine"></asp:TextBox>
         </div>
 
-    </asp:panel>
+    </asp:Panel>
     <div class="div6">
         <asp:CheckBox ID="o22IsNoNotify" runat="server" Text="V události vypnout automatické e-mail notifikace" CssClass="chk" Visible="false" />
     </div>

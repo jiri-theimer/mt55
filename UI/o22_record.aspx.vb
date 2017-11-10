@@ -5,6 +5,23 @@ Public Class o22_record
     Protected WithEvents _MasterPage As ModalDataRecord
     Private Property _curBindingLastJ24ID As Integer
 
+    Public Enum RecMode
+        _None = 0
+        LocalAndGoogle = 11
+        LocalAndOutlook = 12
+        OnlyOutlook = 22
+        OnlyLocal = 20
+    End Enum
+    Public ReadOnly Property CurrentMode As RecMode
+        Get
+            If opgMode.SelectedItem Is Nothing Then
+                Return RecMode._None
+            Else
+                Return CType(CInt(opgMode.SelectedValue), RecMode)
+
+            End If
+        End Get
+    End Property
 
 
     Public Property CurrentX29ID As BO.x29IdEnum
@@ -44,7 +61,11 @@ Public Class o22_record
                 .HeaderIcon = "Images/calendar_32.png"
                 .DataPID = BO.BAS.IsNullInt(Request.Item("pid"))
                 .HeaderText = "Událost v kalendáři"
-
+                
+                With .Factory.j03UserBL
+                    .InhaleUserParams("o22_record-mode")
+                    basUI.SelectRadiolistValue(Me.opgMode, .GetUserParam("o22_record-mode", "12"))
+                End With
 
                 Me.CurrentX29ID = BO.BAS.GetX29FromPrefix(Request.Item("masterprefix"))
                 Me.CurrentMasterDataPID = BO.BAS.IsNullInt(Request.Item("masterpid"))
@@ -205,6 +226,9 @@ Public Class o22_record
     End Sub
 
     Private Sub _MasterPage_Master_OnSave() Handles _MasterPage.Master_OnSave
+        If Me.CurrentMode = RecMode.LocalAndGoogle And Me.o25ID.SelectedValue = "" Then
+            Master.Notify("Musíte vybrat cílový Google kalendář.", NotifyLevel.WarningMessage) : Return
+        End If
         With Master.Factory.o22MilestoneBL
             Dim cRec As BO.o22Milestone = IIf(Master.DataPID <> 0, .Load(Master.DataPID), New BO.o22Milestone)
 
@@ -271,12 +295,15 @@ Public Class o22_record
                 Master.Factory.x18EntityCategoryBL.SaveX19Binding(BO.x29IdEnum.o22Milestone, Master.DataPID, ff1.GetTags(), ff1.GetX20IDs)
 
                 cRec = Master.Factory.o22MilestoneBL.Load(Master.DataPID)
-                If cRec.o25ID > 0 Then
+                If cRec.o25ID > 0 And Me.CurrentMode = RecMode.LocalAndGoogle Then
                     Server.Transfer("o22_record_google.aspx?pid=" & Master.DataPID.ToString)
                     Return
-                    ''přesměrovat na stránku s GOOGLE javascript ovládáním kalendářových událostí
                 End If
-                
+                If Me.CurrentMode = RecMode.LocalAndOutlook Then
+                    Server.Transfer("o22_record_outlook.aspx?pid=" & Master.DataPID.ToString)
+                    Return
+                End If
+
                 Master.CloseAndRefreshParent("o22-save")
             Else
                 Master.Notify(.ErrorMessage, 2)
@@ -284,7 +311,7 @@ Public Class o22_record
         End With
     End Sub
 
-
+    
     Private Sub o21ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles o21ID.NeedMissingItem
         Dim cRec As BO.o21MilestoneType = Master.Factory.o21MilestoneTypeBL.Load(BO.BAS.IsNullInt(strFoundedMissingItemValue))
         If Not cRec Is Nothing Then
@@ -294,6 +321,7 @@ Public Class o22_record
 
 
     Private Sub o22_record_LoadComplete(sender As Object, e As EventArgs) Handles Me.LoadComplete
+
         Me.lblDateFrom.Visible = False : Me.o22DateFrom.Visible = False
         Me.lblDateUntil.Visible = False : Me.o22DateUntil.Visible = False
         Me.o22IsAllDay.Visible = False
@@ -362,6 +390,13 @@ Public Class o22_record
                 imgO21Flag.ImageUrl = "Images/notepad.png"
                 'panReservation.Visible = False
         End Select
+
+        lblO25ID.Visible = False : Me.o25ID.Visible = False
+        Select Case Me.CurrentMode
+            Case RecMode.LocalAndGoogle
+                Me.o25ID.Visible = True
+                Me.lblO25ID.Visible = True
+        End Select
         With Me.cbxSelectJ11ID
             If .Rows <= 1 Then
                 Dim lis As IEnumerable(Of BO.j11Team) = Master.Factory.j11TeamBL.GetList(New BO.myQuery)
@@ -405,7 +440,7 @@ Public Class o22_record
         ''        End With
         ''    End If
         ''End If
-        
+
 
 
         If Request.Item("t1") <> "" And Request.Item("t2") <> "" Then
@@ -572,5 +607,8 @@ Public Class o22_record
         End If
     End Sub
 
-    
+
+    Private Sub opgMode_SelectedIndexChanged(sender As Object, e As EventArgs) Handles opgMode.SelectedIndexChanged
+        Master.Factory.j03UserBL.SetUserParam("o22_record-mode", opgMode.SelectedValue)
+    End Sub
 End Class

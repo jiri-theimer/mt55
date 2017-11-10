@@ -28,7 +28,7 @@
         </tr>
         <tr>
             <td>
-                <asp:Label ID="lblO25ID" Text="Výchozí kalendář:" runat="server" CssClass="lbl"></asp:Label>
+                <asp:Label ID="lblO25ID" Text="Výchozí Google kalendář:" runat="server" CssClass="lbl"></asp:Label>
             </td>
             <td>
                 <uc:datacombo ID="o25ID" runat="server" DataTextField="o25Name" DataValueField="pid" IsFirstEmptyRow="true" Width="400px"></uc:datacombo>

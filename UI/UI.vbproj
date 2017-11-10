@@ -270,6 +270,7 @@
     <Content Include="navigator.aspx" />
     <Content Include="o22_framework_google.aspx" />
     <Content Include="o22_record_google.aspx" />
+    <Content Include="o22_record_outlook.aspx" />
     <Content Include="o23_framework.aspx" />
     <Content Include="o23_list.ascx" />
     <Content Include="o23_queue.aspx" />
@@ -1341,6 +1342,13 @@
     </Compile>
     <Compile Include="o22_record_google.aspx.vb">
       <DependentUpon>o22_record_google.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="o22_record_outlook.aspx.designer.vb">
+      <DependentUpon>o22_record_outlook.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="o22_record_outlook.aspx.vb">
+      <DependentUpon>o22_record_outlook.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="o23_framework.aspx.designer.vb">

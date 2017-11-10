@@ -26,7 +26,7 @@ Public Class p42ProjectType
     Public Property p42IsModule_o23 As Boolean
     Public Property p42IsModule_p56 As Boolean
     Public Property p42IsModule_p45 As Boolean
-    Public Property p42IsModule_o22 As Boolean
+
 
     Public Property p42SubgridO23Flag As Integer = 0
 

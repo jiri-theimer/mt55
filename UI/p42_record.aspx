@@ -43,10 +43,7 @@
                 <asp:CheckBox ID="p42IsModule_p56" runat="server" Text="ÚKOLY" />
                 <span class="infoInForm">Zakládání úkolů k řešení s termínem, jejich přidělování řešitelům (osoby/týmy). Možnost zapisovat k úkolům worksheet úkony, schvalování, fakturace.</span>
             </div>
-            <div class="div6">
-                <asp:CheckBox ID="p42IsModule_o22" runat="server" Text="Sdílené kalendáře" />
-                <span class="infoInForm">Zakládání kalendářových událostí.</span>
-            </div>
+        
             <div class="div6">
                 <asp:CheckBox ID="p42IsModule_o23" runat="server" Text="DOKUMENTY" AutoPostBack="true" />
                 <asp:DropDownList ID="p42SubgridO23Flag" runat="server">

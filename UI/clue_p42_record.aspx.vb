@@ -18,7 +18,6 @@
             sch(Me.p42IsModule_p31, .p42IsModule_p31)
             panP34IDs.Visible = .p42IsModule_p31
             sch(Me.p42IsModule_o23, .p42IsModule_o23)
-            sch(Me.p42IsModule_o22, .p42IsModule_o22)
             sch(Me.p42IsModule_p45, .p42IsModule_p45)
             sch(Me.p42IsModule_p56, .p42IsModule_p56)
         End With
