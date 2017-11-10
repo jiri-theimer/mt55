@@ -3,11 +3,21 @@
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
+    <script type="text/javascript">
+        function Handle_Download() {
+            location.replace("binaryfile.aspx?tempfile=<%=viewstate("msgfile")%>");
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="OverMainContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="div6" style="height:40px;">
+        
+        <button type="button" id="cmdOdeslat" runat="server" onclick="Handle_Download()" style="font-size:x-large;" class="cmd" visible="false">Odeslat do OUTLOOK</button>
 
+        
+    </div>
 
     <asp:panel ID="panRecord" runat="server" CssClass="content-box2">
         <div class="title">

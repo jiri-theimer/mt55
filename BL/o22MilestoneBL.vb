@@ -149,26 +149,37 @@ Class o22MilestoneBL
         Dim s As New System.Text.StringBuilder
         s.AppendLine("BEGIN:VCALENDAR")
         s.AppendLine("VERSION:2.0")
-        s.AppendLine("PRODID:-//MARKTIME//MARKTIME Scheduler//CZ")
-        s.AppendLine("METHOD:PUBLISH")
+        ''s.AppendLine("PRODID:-//MARKTIME//MARKTIME Scheduler//CZ")
+        ''s.AppendLine("METHOD:PUBLISH")
         s.AppendLine("BEGIN:VEVENT")
-        s.AppendLine("UID:" & c.PID.ToString)
+        s.AppendLine("DTSTAMP:" & CDate(c.DateInsert).ToUniversalTime.ToString("yyyyMMddTHHmmssZ"))
+        s.AppendLine("STATUS:CONFIRMED")
+        s.AppendLine("UID:O22-" & c.PID.ToString)
+        s.AppendLine("CLASS:PUBLIC")
         If c.o22DateFrom Is Nothing Then
             c.o22DateFrom = c.o22DateUntil
         End If
         s.AppendLine("DTSTART:" & CDate(c.o22DateFrom).ToUniversalTime.ToString("yyyyMMddTHHmmssZ"))
         s.AppendLine("DTEND:" & CDate(c.o22DateUntil).ToUniversalTime.ToString("yyyyMMddTHHmmssZ"))
         If c.o22Name <> "" Then
-            s.AppendLine("SUMMARY:" & c.o22Name)
-            If c.o22Description <> "" Then
-                s.AppendLine("DESCRIPTION:" & c.o22Description)
-            End If
-        Else
-            s.AppendLine("SUMMARY:" & c.o22Description)
+            s.AppendLine("SUMMARY:" & c.o22Name & "(" & c.o21Name & ")")
+            
+        End If
+        If c.o22Description <> "" Then
+            s.AppendLine("DESCRIPTION:" & c.o22Description)
         End If
         If c.o22Location <> "" Then
             s.AppendLine("LOCATION:" & c.o22Location)
         End If
+        If c.o22ReminderBeforeUnits > 0 Then
+            s.AppendLine("BEGIN:  VALARM()")
+            s.AppendLine("TRIGGER:-PT15M")
+            s.Append("ACTION:DISPLAY")
+            s.AppendLine("END:VALARM")
+        End If
+        
+
+        s.AppendLine("TRANSP:OPAQUE")
         s.AppendLine("URL:" & Factory.GetRecordLinkUrl("o22", intO22ID.ToString))
         s.AppendLine("END:VEVENT")
         s.Append("END:VCALENDAR")
@@ -181,7 +192,7 @@ Class o22MilestoneBL
         Dim objWriter As New System.IO.StreamWriter(strPath, False)
         objWriter.Write(s.ToString)
         objWriter.Close()
-        Return strPath
+        Return c.PID.ToString & ".ics"
 
         ''If cF.SaveText2File(strPath, s.ToString, , , False) Then
         ''    Return strPath

@@ -14,6 +14,15 @@ Option Explicit On
 Partial Public Class o22_record_outlook
 
     '''<summary>
+    '''cmdOdeslat control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cmdOdeslat As Global.System.Web.UI.HtmlControls.HtmlButton
+
+    '''<summary>
     '''panRecord control.
     '''</summary>
     '''<remarks>

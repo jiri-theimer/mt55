@@ -38,15 +38,14 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="content-box2">
         <div class="title">
-            Kam událost uložit...
+            <img src="Images/integration.png" />
+            INTEGRACE: Kam událost uložit...
         </div>
-        <div class="content">
-            <asp:RadioButtonList ID="opgMode" runat="server" AutoPostBack="true" RepeatDirection="Vertical">
+        <div class="content" style="background-color:#F0F8FF;">
+            <asp:RadioButtonList ID="opgMode" runat="server" AutoPostBack="true" RepeatDirection="Horizontal">
+                <asp:ListItem Text="Pouze uložit do MARKTIME" Value="20" Selected="true"></asp:ListItem>
                 <asp:ListItem Text="Po uložení odeslat do Google kalendáře" Value="11"></asp:ListItem>
-                <asp:ListItem Text="Po uložení odeslat do OUTLOOK" Value="12"></asp:ListItem>
-                
-                
-                <asp:ListItem Text="Pouze uložit do MARKTIME" Value="20"></asp:ListItem>
+                <asp:ListItem Text="Po uložení odeslat do OUTLOOK" Value="12"></asp:ListItem>                                                
             </asp:RadioButtonList>
         </div>
     </div>

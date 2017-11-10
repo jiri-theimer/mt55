@@ -71,8 +71,18 @@
 
 
             Dim c As New Independentsoft.Msg.Message
+            'c.EntryId = System.Text.Encoding.UTF8.GetBytes("o22-" & .PID.ToString)
+           
+            c.MessageClass = "IPM.Appointment"
+            c.Encoding = System.Text.Encoding.GetEncoding(1250)
             c.Subject = Me.o22Name.Text
-            c.BodyHtmlText = _Description
+
+            ''Dim rtfBody As Byte() = System.Text.Encoding.UTF8.GetBytes("{\rtf1\ansi\ansicpg1252\fromhtml1 \htmlrtf0  " & _Description & "}")
+
+            Dim cHTML As New BO.clsHandleHtml()
+            _Description = "<html><body><span>" & cHTML.ToFopCZ(_Description) & "</span></body></html>"
+            c.BodyHtml = System.Text.Encoding.UTF8.GetBytes(_Description)
+            c.Body = .o22Description
             c.Location = .o22Location
             Select Case .o22ColorID
                 Case "9", "1"
@@ -102,7 +112,19 @@
                 End Select
             End If
 
+            For Each cO20 In lisO20
+                Dim rec As New Independentsoft.Msg.Recipient()
+                rec.EmailAddress = cO20.Email
+                rec.DisplayName = cO20.Person
+                c.Recipients.Add(rec)
+            Next
+
+            ViewState("msgfile") = Master.Factory.o22MilestoneBL.CreateICalendarTempFullPath(.PID)
+
             c.Save(Master.Factory.x35GlobalParam.TempFolder & "\outlook_event_" & Master.Factory.SysUser.PID.ToString & ".msg", True)
+            ''ViewState("msgfile") = "outlook_event_" & Master.Factory.SysUser.PID.ToString & ".msg"
+            cmdOdeslat.Visible = True
+
         End With
 
         
