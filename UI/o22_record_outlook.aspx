@@ -4,6 +4,11 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <script type="text/javascript">
+        $(document).ready(function () {
+            <%if viewstate("msgfile")<>"" then%>
+            Handle_Download();
+            <%end If%>
+        });
         function Handle_Download() {
             location.replace("binaryfile.aspx?tempfile=<%=viewstate("msgfile")%>");
         }

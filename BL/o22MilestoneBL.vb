@@ -159,8 +159,14 @@ Class o22MilestoneBL
         If c.o22DateFrom Is Nothing Then
             c.o22DateFrom = c.o22DateUntil
         End If
-        s.AppendLine("DTSTART:" & CDate(c.o22DateFrom).ToUniversalTime.ToString("yyyyMMddTHHmmssZ"))
-        s.AppendLine("DTEND:" & CDate(c.o22DateUntil).ToUniversalTime.ToString("yyyyMMddTHHmmssZ"))
+        If c.o22IsAllDay Then
+            s.AppendLine("DTSTART:" & Format(c.o22DateFrom, "yyyyMMdd"))
+            s.AppendLine("DTEND:" & Format(DateSerial(Year(c.o22DateUntil), Month(c.o22DateUntil), Day(c.o22DateUntil)).AddDays(1), "yyyyMMdd"))
+        Else
+            s.AppendLine("DTSTART:" & CDate(c.o22DateFrom).ToUniversalTime.ToString("yyyyMMddTHHmmssZ"))
+            s.AppendLine("DTEND:" & CDate(c.o22DateUntil).ToUniversalTime.ToString("yyyyMMddTHHmmssZ"))
+        End If
+        
         If c.o22Name <> "" Then
             s.AppendLine("SUMMARY:" & c.o22Name & "(" & c.o21Name & ")")
             
