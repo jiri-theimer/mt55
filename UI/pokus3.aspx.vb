@@ -2,6 +2,11 @@
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If BO.ASS.GetConfigVal("cloud", "0") = "1" Then
+            Response.Write("CLOUD režim.")
+            Return
+        End If
+
         Dim strUserLogin As String = "lama@marktime50"
         Dim strCon As String = System.Configuration.ConfigurationManager.ConnectionStrings.Item("ApplicationPrimary").ToString()
         Dim x As Integer = strCon.IndexOf("cloud-db-template")

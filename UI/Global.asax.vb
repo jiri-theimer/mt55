@@ -15,7 +15,7 @@ Public Class Global_asax
             Return  'v cloud režimu se robot spouští zvenku externím programem
         End If
 
-        Dim factory As New BL.Factory(Nothing)
+        Dim factory As New BL.Factory(BO.ASS.GetConfigVal("robot_account", "admin"))
         Dim strRobotHost As String = factory.x35GlobalParam.GetValueString("robot_host")        
 
         If strRobotHost <> "" Then
@@ -44,7 +44,7 @@ Public Class Global_asax
             'je spuštěna robot stránka nebo ještě nebyla incializovaná cache
             'Dim strRobotHost As String = Context.Request.Url.GetLeftPart(UriPartial.Authority)
 
-            Dim factory As New BL.Factory(Nothing)
+            Dim factory As New BL.Factory(BO.ASS.GetConfigVal("robot_account", "admin"))
             Dim strRobotHost As String = factory.x35GlobalParam.GetValueString("robot_host")
             If strRobotHost <> "" Then
                 Dim intCacheTimeOut As Integer = factory.x35GlobalParam.GetValueInteger("robot_cache_timeout", 300)

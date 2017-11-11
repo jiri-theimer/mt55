@@ -7,8 +7,12 @@
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         _BatchGuid = Format(Now, "dd.MM.yyyy HH:mm:ss")
-
+        If BO.ASS.GetConfigVal("cloud", "0") = "1" Then
+            Response.Write("CLOUD režim.")
+            Return
+        End If
         If Not Page.IsPostBack Then
+
             If Request.Item("blank") = "1" Then panModal.Visible = True
             log4net.LogManager.GetLogger("robotlog").Info("Start")
             _Factory = New BL.Factory(BO.ASS.GetConfigVal("robot_account", "admin"))
@@ -25,7 +29,7 @@
                 _curNow = BO.BAS.ConvertString2Date(Request.Item("now"))
             End If
 
-            
+
 
 
             Handle_MailQueque()
