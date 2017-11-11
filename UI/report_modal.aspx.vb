@@ -296,9 +296,13 @@ Public Class report_modal
 
         Dim strXmlContent As String = cF.GetFileContents(strRepFullPath, , False), bolPeriod As Boolean = False
 
-
         Dim xmlRepSource As New Telerik.Reporting.XmlReportSource()
         xmlRepSource.Xml = strXmlContent
+        If BO.ASS.GetConfigVal("cloud") = "1" Then
+            Dim strDbConString As String = System.Configuration.ConfigurationManager.ConnectionStrings.Item("ApplicationPrimary").ToString
+            strDbConString = Replace(strDbConString, "cloud-db-template", BO.BAS.ParseDbNameFromCloudLogin(Master.Factory.SysUser.j03Login), , 1, CompareMethod.Binary)
+            xmlRepSource.Xml = Replace(xmlRepSource.Xml, "ApplicationPrimary", strDbConString)
+        End If
         If strXmlContent.IndexOf("@datfrom") > 0 Or strXmlContent.IndexOf("@datuntil") > 0 Or cRec.x31IsPeriodRequired Then
             period1.Visible = True
             xmlRepSource.Parameters.Add(New Parameter("datfrom", period1.DateFrom))
