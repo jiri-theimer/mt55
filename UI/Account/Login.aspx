@@ -64,7 +64,7 @@
                             </td>
                             <td>
 
-                                <asp:TextBox ID="UserName" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="UserName" runat="server" style="width:250px;"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName"
                                     CssClass="failureNotification" ErrorMessage="Uživatelské jméno je povinné." ToolTip="Uživatelské jméno je povinné."
                                     ValidationGroup="LoginUserValidationGroup">*</asp:RequiredFieldValidator>
@@ -76,7 +76,7 @@
                             </td>
 
                             <td>
-                                <asp:TextBox ID="Password" runat="server" TextMode="Password"></asp:TextBox>
+                                <asp:TextBox ID="Password" runat="server" TextMode="Password" style="width:250px;"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password"
                                     CssClass="failureNotification" ErrorMessage="Heslo je povinné. | Password is required." ToolTip="Heslo je povinné."
                                     ValidationGroup="LoginUserValidationGroup">*</asp:RequiredFieldValidator>

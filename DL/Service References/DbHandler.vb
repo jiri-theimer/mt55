@@ -86,10 +86,13 @@ Public Class DbHandler
 
     Public Sub New(strUserLogin As String)
         _conString = System.Configuration.ConfigurationManager.ConnectionStrings.Item("ApplicationPrimary").ToString()
-        Dim x As Integer = _conString.IndexOf("CLOUD-DB")
+        Dim x As Integer = _conString.IndexOf("cloud-db-template")
         If x > 0 Then
             Dim pos As Integer = strUserLogin.IndexOf("@")
-            _conString = Replace(_conString, "CLOUD-DB", strUserLogin.Substring(pos + 1, Len(strUserLogin) - pos), x, 1, CompareMethod.Binary)
+            If pos = -1 Then
+                Handle_OnError("Login neobsahuje '@' a proto v CLOUD režimu nemůže fungovat.") : Return
+            End If
+            _conString = Replace(_conString, "cloud-db-template", strUserLogin.Substring(pos + 1, Len(strUserLogin) - pos - 1), , 1, CompareMethod.Binary)
         End If
         If _conString = "" Then
             Handle_OnError("ApplicationPrimary connect string není definován ve web.config")
