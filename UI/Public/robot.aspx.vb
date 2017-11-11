@@ -7,91 +7,112 @@
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         _BatchGuid = Format(Now, "dd.MM.yyyy HH:mm:ss")
-        If BO.ASS.GetConfigVal("cloud", "0") = "1" Then
-            Response.Write("CLOUD režim.")
-            Return
-        End If
+        
         If Not Page.IsPostBack Then
-
             If Request.Item("blank") = "1" Then panModal.Visible = True
             log4net.LogManager.GetLogger("robotlog").Info("Start")
-            _Factory = New BL.Factory(BO.ASS.GetConfigVal("robot_account", "admin"))
-            If _Factory.SysUser Is Nothing Then
-                log4net.LogManager.GetLogger("robotlog").Info("Service user is not inhaled!")
-                Response.Write("Service user not exists!")
-                Return
-            End If
 
             _curNow = Now
-            Dim bolNowExplicit As Boolean = False
-            If Request.Item("now") <> "" Then
-                bolNowExplicit = True
-                _curNow = BO.BAS.ConvertString2Date(Request.Item("now"))
-            End If
+            
 
+            
 
-
-
-            Handle_MailQueque()
-
-            Handle_ImapRobot()
-
-            Handle_o22Reminder()
-            ''Handle_p56Reminder()
-
-            Handle_ScheduledReports()
-
-            Handle_SqlTasks()
-
-            Handle_AutoWorkflowSteps()
-
-            If IsTime4Run(BO.j91RobotTaskFlag.RecurrenceP41, 60) Or Request.Item("recur") = "1" Or bolNowExplicit Then   'opakované worksheet úkony, projekty a úkoly stačí jednou za hodinu
-                Handle_Recurrence_p41()
-                Handle_Recurrence_p56()
-                Handle_p40Queue()   'opakované paušální úkony
-            End If
-
-
-
-
-            If _curNow > Today.AddHours(15) And _curNow < Today.AddHours(19) Then
-                If IsTime4Run(BO.j91RobotTaskFlag.CnbKurzy, 60) Then
-                    Handle_CnbKurzy()
-                End If
-            End If
-
-            If BO.ASS.GetConfigVal("autobackup", "1") = "1" And Now > Today.AddDays(1).AddMinutes(-60) Then
-                'zbývá 60 minut do půlnoci na zálohování
-                If IsTime4Run(BO.j91RobotTaskFlag.DbBackup, 60 * 5) Then  'stačí jednou za 5 hodin
-                    Handle_DbBackup()
-                End If
-            End If
-
-            If (Now > Today.AddMinutes(2 * 60) And Now < Today.AddMinutes(3 * 60 + 20)) Or Request.Item("ping") = "1" Then
-                'mezi druhou a čtvrtou hodinou ráno vyčistit temp tabulky
-                If IsTime4Run(BO.j91RobotTaskFlag.ClearTemp, 60 * 8) Then
-                    _Factory.p85TempBoxBL.Recovery_ClearCompleteTemp()
-                    WL(BO.j91RobotTaskFlag.ClearTemp, "", "Clear TEMP")
-                End If
-                If IsTime4Run(BO.j91RobotTaskFlag.CentralPing, 60 * 8) Then
-                    Handle_CentralPing()
-                End If
-
-            End If
-
-            log4net.LogManager.GetLogger("robotlog").Info("End")
-
-            If Request.Item("now") = "" Then
-                Me.lblMessage.Text = Format(Now, "dd.MM.yyyy HH:mm:ss") & " - robot spuštěn."
+            
+            If BO.ASS.GetConfigVal("cloud", "0") = "1" Then
+                'CLOUD režim
+                Dim dbs As List(Of String) = basSys.GetCloudBdsList()
+                For Each strDB In dbs
+                    _Factory = New BL.Factory("admin@" & strDB)
+                    If Not _Factory Is Nothing Then
+                        RunRobot_OneDb()
+                    Else
+                        log4net.LogManager.GetLogger("robotlog").Info("admin@" & strDB & ":  service user is not inhaled!")
+                    End If
+                Next
             Else
-                Me.lblMessage.Text = String.Format("Robot spuštěn pro den {0}.", Request.Item("now"))
+                _Factory = New BL.Factory(BO.ASS.GetConfigVal("robot_account", "admin"))
+                If Not _Factory.SysUser Is Nothing Then
+                    RunRobot_OneDb()
+                Else
+                    log4net.LogManager.GetLogger("robotlog").Info("Service user is not inhaled!")
+                    Response.Write("Service user not exists!")
+                End If
+
+
             End If
 
-            If Request.Item("backup") = "1" Then
+
+
+            
+        End If
+
+    End Sub
+
+    Private Sub RunRobot_OneDb()
+        Dim bolNowExplicit As Boolean = False
+        If Request.Item("now") <> "" Then
+            bolNowExplicit = True
+            _curNow = BO.BAS.ConvertString2Date(Request.Item("now"))
+        End If
+
+        Handle_MailQueque()
+
+        Handle_ImapRobot()
+
+        Handle_o22Reminder()
+        ''Handle_p56Reminder()
+
+        Handle_ScheduledReports()
+
+        Handle_SqlTasks()
+
+        Handle_AutoWorkflowSteps()
+
+        If IsTime4Run(BO.j91RobotTaskFlag.RecurrenceP41, 60) Or Request.Item("recur") = "1" Or bolNowExplicit Then   'opakované worksheet úkony, projekty a úkoly stačí jednou za hodinu
+            Handle_Recurrence_p41()
+            Handle_Recurrence_p56()
+            Handle_p40Queue()   'opakované paušální úkony
+        End If
+
+
+
+
+        If _curNow > Today.AddHours(15) And _curNow < Today.AddHours(19) Then
+            If IsTime4Run(BO.j91RobotTaskFlag.CnbKurzy, 60) Then
+                Handle_CnbKurzy()
+            End If
+        End If
+
+        If BO.ASS.GetConfigVal("autobackup", "1") = "1" And Now > Today.AddDays(1).AddMinutes(-60) Then
+            'zbývá 60 minut do půlnoci na zálohování
+            If IsTime4Run(BO.j91RobotTaskFlag.DbBackup, 60 * 5) Then  'stačí jednou za 5 hodin
                 Handle_DbBackup()
             End If
         End If
 
+        If (Now > Today.AddMinutes(2 * 60) And Now < Today.AddMinutes(3 * 60 + 20)) Or Request.Item("ping") = "1" Then
+            'mezi druhou a čtvrtou hodinou ráno vyčistit temp tabulky
+            If IsTime4Run(BO.j91RobotTaskFlag.ClearTemp, 60 * 8) Then
+                _Factory.p85TempBoxBL.Recovery_ClearCompleteTemp()
+                WL(BO.j91RobotTaskFlag.ClearTemp, "", "Clear TEMP")
+            End If
+            If IsTime4Run(BO.j91RobotTaskFlag.CentralPing, 60 * 8) Then
+                Handle_CentralPing()
+            End If
+
+        End If
+
+        log4net.LogManager.GetLogger("robotlog").Info("End")
+
+        If Request.Item("now") = "" Then
+            Me.lblMessage.Text = Format(Now, "dd.MM.yyyy HH:mm:ss") & " - robot spuštěn."
+        Else
+            Me.lblMessage.Text = String.Format("Robot spuštěn pro den {0}.", Request.Item("now"))
+        End If
+
+        If Request.Item("backup") = "1" Then
+            Handle_DbBackup()
+        End If
     End Sub
 
     Private Sub Handle_MailQueque()

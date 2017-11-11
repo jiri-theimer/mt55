@@ -16,17 +16,11 @@
             lblDbVersion.Text = "Tato distribuce obsahuje db verzi: " & cF.GetFileContents(BO.ASS.GetApplicationRootFolder() & "\sys\dbupdate\version.txt")
             lblLastRunDifferenceLog.Text = "Naposledy provedená změna db struktury: " & cF.GetFileContents(Master.Factory.x35GlobalParam.UploadFolder & "\sql_db_difference.log")
 
-            If BO.ASS.GetConfigVal("dbupdate-dbs") <> "" Then
-                Dim lis As List(Of String) = BO.BAS.ConvertDelimitedString2List(BO.ASS.GetConfigVal("dbupdate-dbs"), ";")
-                If lis.Count > 0 Then
-                    panMultiDbs.Visible = True
-                    For Each s In lis
-                        Me.dbs.Items.Add(s)
-                    Next
-                End If
-
-
+            basSys.SetupCloudBdsCombo(Me.dbs)
+            If Me.dbs.Items.Count > 0 Then
+                panMultiDbs.Visible = True
             End If
+            
         End If
     End Sub
 
@@ -110,7 +104,8 @@
 
     Private Sub cmdCheckDbs_Click(sender As Object, e As EventArgs) Handles cmdCheckDbs.Click
         Dim cBL As New BL.SysDbUpdateBL()
-        cBL.ChangeConnectString(String.Format("server=Sql.mycorecloud.net\MARKTIME;database={0};uid=MARKTIME;pwd=58PMapN2jhBvdblxqnIB;", Me.dbs.SelectedItem.Text))
+        Dim strDbConString As String = System.Configuration.ConfigurationManager.ConnectionStrings.Item("ApplicationPrimary").ToString
+        cBL.ChangeConnectString(Replace(strDbConString, "cloud-db-template", Me.dbs.SelectedItem.Text, , 1, CompareMethod.Binary))
 
         Me.lblError.Text = "" : cmdRunResult.Visible = False
         Dim s As String = cBL.FindDifference()
@@ -135,8 +130,10 @@
             Return
         End If
         Dim cBL As New BL.SysDbUpdateBL()
-        cBL.ChangeConnectString(String.Format("server=Sql.mycorecloud.net\MARKTIME;database={0};uid=MARKTIME;pwd=58PMapN2jhBvdblxqnIB;", Me.dbs.SelectedItem.Text))
+        Dim strDbConString As String = System.Configuration.ConfigurationManager.ConnectionStrings.Item("ApplicationPrimary").ToString
+        cBL.ChangeConnectString(Replace(strDbConString, "cloud-db-template", Me.dbs.SelectedItem.Text, , 1, CompareMethod.Binary))
 
+        
         If Not cBL.RunDbDifferenceResult(s) Then
             Me.lblDbsMessage.Text = "<img src='Images/exclaim.png'/>" & cBL.ErrorMessage
         Else
@@ -156,8 +153,10 @@
 
     Private Sub cmdRunSpDbs_Click(sender As Object, e As EventArgs) Handles cmdRunSpDbs.Click
         Dim cBL As New BL.SysDbUpdateBL()
-        cBL.ChangeConnectString(String.Format("server=Sql.mycorecloud.net\MARKTIME;database={0};uid=MARKTIME;pwd=58PMapN2jhBvdblxqnIB;", Me.dbs.SelectedItem.Text))
+        Dim strDbConString As String = System.Configuration.ConfigurationManager.ConnectionStrings.Item("ApplicationPrimary").ToString
+        cBL.ChangeConnectString(Replace(strDbConString, "cloud-db-template", Me.dbs.SelectedItem.Text, , 1, CompareMethod.Binary))
 
+        
         If Not cBL.RunSql_step2_sp() Then
             cBL.RunFixingSQLs_BeforeDbUpdate()  'spustit fixing sql dotazy
             cBL.RunFixingSQLs_AfterDbUpdate()  'spustit fixing sql dotazy

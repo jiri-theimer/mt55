@@ -43,17 +43,9 @@ Public Class dbupdate_reports
             rp1.DataSource = lis
             rp1.DataBind()
 
-
-            If BO.ASS.GetConfigVal("dbupdate-dbs") <> "" Then
-                Dim names As List(Of String) = BO.BAS.ConvertDelimitedString2List(BO.ASS.GetConfigVal("dbupdate-dbs"), ";")
-                If names.Count > 0 Then
-                    panMultiDbs.Visible = True
-                    For Each s In names
-                        Me.dbs.Items.Add(s)
-                    Next
-                End If
-
-
+            basSys.SetupCloudBdsCombo(Me.dbs)
+            If Me.dbs.Items.Count > 0 Then
+                panMultiDbs.Visible = True
             End If
         End If
     End Sub
@@ -232,8 +224,10 @@ Public Class dbupdate_reports
 
     
     Private Sub cmdGoDbs_Click(sender As Object, e As EventArgs) Handles cmdGoDbs.Click
-        Dim s As String = String.Format("server=Sql.mycorecloud.net\MARKTIME;database={0};uid=MARKTIME;pwd=58PMapN2jhBvdblxqnIB;", Me.dbs.SelectedItem.Text)
-        Master.Factory.ChangeConnectString(s)
+        Dim strDbConString As String = System.Configuration.ConfigurationManager.ConnectionStrings.Item("ApplicationPrimary").ToString
+        Master.Factory.ChangeConnectString(Replace(strDbConString, "cloud-db-template", Me.dbs.SelectedItem.Text, , 1, CompareMethod.Binary))
+
+       
         HandleImport()
         With Master.Factory.x31ReportBL.GetList(New BO.myQuery).OrderByDescending(Function(p) p.PID)(0)
             lblDbsMessage.Text = .x31Name & " (" & .DateInsert.ToString & ")"
