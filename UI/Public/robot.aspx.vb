@@ -3,6 +3,7 @@
     Private Property _Factory As BL.Factory
     Private Property _BatchGuid As String = ""
     Private Property _curNow As Date = Now
+    Private Property _curCloudDB As String = ""
     Private _lisP53 As IEnumerable(Of BO.p53VatRate) = Nothing
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -19,9 +20,10 @@
 
             
             If BO.ASS.GetConfigVal("cloud", "0") = "1" Then
-                'CLOUD režim
+                'CLOUD režim -> projet všechny databáze v CLOUDu
                 Dim dbs As List(Of String) = basSys.GetCloudBdsList()
                 For Each strDB In dbs
+                    _curCloudDB = strDB
                     _Factory = New BL.Factory("admin@" & strDB)
                     If Not _Factory Is Nothing Then
                         RunRobot_OneDb()
@@ -613,8 +615,14 @@
         c.j91BatchGuid = _BatchGuid
         c.j91Account = _Factory.SysUser.j03Login
         c.j91Date = Now
+        If _curCloudDB <> "" Then
+            If strError <> "" Then strError = _curCloudDB & ": " & strError
+            If strInfo <> "" Then strInfo = _curCloudDB & ": " & strInfo
+        End If
         c.j91ErrorMessage = strError
         c.j91InfoMessage = strInfo
+        
+        
         c.j91TaskFlag = Task
 
         _Factory.ftBL.AppendRobotLog(c)

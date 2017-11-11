@@ -179,7 +179,8 @@ Public Class j03UserDL
             .Add("ApplicationName", "/", DbType.String)
         End With
         If _cDB.RunSP("UpdateUserName", pars) Then
-            _cDB.ChangeConString2Primary()
+            _cDB = New DL.DbHandler(strNewLogin)
+            ''_cDB.ChangeConString2Primary()
             If _cDB.RunSQL("UPDATE j03User set j03Login='" & strNewLogin & "' WHERE j03ID=" & cRec.PID.ToString) Then
                 Return True
             Else
