@@ -11,7 +11,7 @@
         If Not Page.IsPostBack Then
             If Request.Item("blank") = "1" Then panModal.Visible = True
             log4net.LogManager.GetLogger("robotlog").Info("Start")
-            _Factory = New BL.Factory(, BO.ASS.GetConfigVal("robot_account", "admin"))
+            _Factory = New BL.Factory(BO.ASS.GetConfigVal("robot_account", "admin"))
             If _Factory.SysUser Is Nothing Then
                 log4net.LogManager.GetLogger("robotlog").Info("Service user is not inhaled!")
                 Response.Write("Service user not exists!")

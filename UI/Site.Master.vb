@@ -44,8 +44,8 @@ Public Class Site
 
     Private Sub Page_Init(sender As Object, e As System.EventArgs) Handles Me.Init
         If HttpContext.Current.User.Identity.IsAuthenticated And _Factory Is Nothing Then
-            Dim strLogin As String = HttpContext.Current.User.Identity.Name
-            _Factory = New BL.Factory(, strLogin)
+            ''Dim strLogin As String = HttpContext.Current.User.Identity.Name
+            _Factory = New BL.Factory(HttpContext.Current.User.Identity.Name)
             If _Factory.SysUser Is Nothing Then DoLogOut()
             basUI.PingAccessLog(_Factory, Request)
 
@@ -61,10 +61,9 @@ Public Class Site
                 End If
             End If
 
-            ''PersonalizeMenu()
+
         End If
-        ''Response.Cache.SetCacheability(HttpCacheability.NoCache)
-        ''Response.Cache.SetNoStore()
+       
     End Sub
 
     

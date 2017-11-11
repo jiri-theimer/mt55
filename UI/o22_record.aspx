@@ -45,7 +45,7 @@
             <asp:RadioButtonList ID="opgMode" runat="server" AutoPostBack="true" RepeatDirection="Horizontal">
                 <asp:ListItem Text="Pouze uložit do MARKTIME" Value="20" Selected="true"></asp:ListItem>
                 <asp:ListItem Text="Po uložení odeslat do Google kalendáře" Value="11"></asp:ListItem>
-                <asp:ListItem Text="Po uložení odeslat do OUTLOOK" Value="12"></asp:ListItem>                                                
+                <asp:ListItem Text="Po uložení odeslat do OUTLOOK nebo APPLE" Value="12"></asp:ListItem>                                                
             </asp:RadioButtonList>
         </div>
     </div>

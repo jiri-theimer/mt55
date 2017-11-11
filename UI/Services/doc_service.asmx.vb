@@ -26,8 +26,7 @@ Public Class notepad_service
         Dim factory As BL.Factory = Nothing
 
         If HttpContext.Current.User.Identity.IsAuthenticated Then
-            Dim strLogin As String = HttpContext.Current.User.Identity.Name
-            factory = New BL.Factory(, strLogin)
+            factory = New BL.Factory(HttpContext.Current.User.Identity.Name)
         End If
         If factory Is Nothing Then
             Dim nic As List(Of RadComboBoxItemData) = New List(Of RadComboBoxItemData)(1)

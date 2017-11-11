@@ -84,8 +84,13 @@ Public Class DbHandler
         End If
     End Sub
 
-    Public Sub New()
+    Public Sub New(strUserLogin As String)
         _conString = System.Configuration.ConfigurationManager.ConnectionStrings.Item("ApplicationPrimary").ToString()
+        Dim x As Integer = _conString.IndexOf("CLOUD-DB")
+        If x > 0 Then
+            Dim pos As Integer = strUserLogin.IndexOf("@")
+            _conString = Replace(_conString, "CLOUD-DB", strUserLogin.Substring(pos + 1, Len(strUserLogin) - pos), x, 1, CompareMethod.Binary)
+        End If
         If _conString = "" Then
             Handle_OnError("ApplicationPrimary connect string není definován ve web.config")
         End If

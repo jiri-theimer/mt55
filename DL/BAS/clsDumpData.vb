@@ -29,7 +29,7 @@ Public Class clsDumpData
         Dim sb As New System.Text.StringBuilder
         Dim sd As System.Text.StringBuilder
 
-        Dim c As New DL.DbHandler()
+        Dim c As New DL.DbHandler("")
         Dim strSQL As String, bolIdentity As Boolean
 
         Dim strSQLSys As String = "select a.name from syscolumns a inner join sysobjects b on a.id=b.id where b.xtype='U' and a.iscomputed=1"

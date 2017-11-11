@@ -35,7 +35,7 @@
         
 
         Dim strSQL As String
-        Dim cDB As New DL.DbHandler
+        Dim cDB As New DL.DbHandler("")
 
         cDB.ChangeConString(strCon)
         If cDB.ErrorMessage <> "" Then

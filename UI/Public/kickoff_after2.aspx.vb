@@ -3,7 +3,7 @@
     Private _Factory As BL.Factory
 
     Private Sub kickoff_after2_Init(sender As Object, e As EventArgs) Handles Me.Init
-        _Factory = New BL.Factory(, "mtservice")
+        _Factory = New BL.Factory(BO.ASS.GetConfigVal("robot_account", "admin"))
     End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load

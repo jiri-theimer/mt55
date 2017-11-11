@@ -77,53 +77,56 @@
             c.Encoding = System.Text.Encoding.GetEncoding(1250)
             c.Subject = Me.o22Name.Text
 
+            ViewState("msgfile") = Master.Factory.o22MilestoneBL.CreateICalendarTempFullPath(.PID)
+            cmdOdeslat.Visible = True
+
             ''Dim rtfBody As Byte() = System.Text.Encoding.UTF8.GetBytes("{\rtf1\ansi\ansicpg1252\fromhtml1 \htmlrtf0  " & _Description & "}")
 
-            Dim cHTML As New BO.clsHandleHtml()
-            _Description = "<html><body><span>" & cHTML.ToFopCZ(_Description) & "</span></body></html>"
-            c.BodyHtml = System.Text.Encoding.UTF8.GetBytes(_Description)
-            c.Body = .o22Description
-            c.Location = .o22Location
-            Select Case .o22ColorID
-                Case "9", "1"
-                    c.NoteColor = Independentsoft.Msg.NoteColor.Blue
-                Case "7", "2"
-                    c.NoteColor = Independentsoft.Msg.NoteColor.Green
-                Case "3"
-                    c.NoteColor = Independentsoft.Msg.NoteColor.Pink
-                Case "5"
-                    c.NoteColor = Independentsoft.Msg.NoteColor.Yellow
+            ''Dim cHTML As New BO.clsHandleHtml()
+            ''_Description = "<html><body><span>" & cHTML.ToFopCZ(_Description) & "</span></body></html>"
+            ''c.BodyHtml = System.Text.Encoding.UTF8.GetBytes(_Description)
+            ''c.Body = .o22Description
+            ''c.Location = .o22Location
+            ''Select Case .o22ColorID
+            ''    Case "9", "1"
+            ''        c.NoteColor = Independentsoft.Msg.NoteColor.Blue
+            ''    Case "7", "2"
+            ''        c.NoteColor = Independentsoft.Msg.NoteColor.Green
+            ''    Case "3"
+            ''        c.NoteColor = Independentsoft.Msg.NoteColor.Pink
+            ''    Case "5"
+            ''        c.NoteColor = Independentsoft.Msg.NoteColor.Yellow
 
-            End Select
-            If cRec.o22IsAllDay Then
-                c.IsAllDayEvent = True
-                c.AppointmentStartTime = DateSerial(Year(.o22DateFrom), Month(.o22DateFrom), Day(.o22DateFrom))
-                c.AppointmentEndTime = DateSerial(Year(.o22DateUntil), Month(.o22DateUntil), Day(.o22DateUntil))
-            Else
-                c.AppointmentStartTime = .o22DateFrom
-                c.AppointmentEndTime = .o22DateUntil
-            End If
-            If .o22ReminderBeforeUnits > 0 Then
-                c.IsReminderSet = True
-                Select Case .o22ReminderBeforeMetric
-                    Case "m" : c.ReminderMinutesBeforeStart = .o22ReminderBeforeUnits
-                    Case "d" : c.ReminderMinutesBeforeStart = (cRec.o22ReminderBeforeUnits * 24 * 60)
-                    Case "h" : c.ReminderMinutesBeforeStart = (cRec.o22ReminderBeforeUnits * 60)
-                End Select
-            End If
+            ''End Select
+            ''If cRec.o22IsAllDay Then
+            ''    c.IsAllDayEvent = True
+            ''    c.AppointmentStartTime = DateSerial(Year(.o22DateFrom), Month(.o22DateFrom), Day(.o22DateFrom))
+            ''    c.AppointmentEndTime = DateSerial(Year(.o22DateUntil), Month(.o22DateUntil), Day(.o22DateUntil))
+            ''Else
+            ''    c.AppointmentStartTime = .o22DateFrom
+            ''    c.AppointmentEndTime = .o22DateUntil
+            ''End If
+            ''If .o22ReminderBeforeUnits > 0 Then
+            ''    c.IsReminderSet = True
+            ''    Select Case .o22ReminderBeforeMetric
+            ''        Case "m" : c.ReminderMinutesBeforeStart = .o22ReminderBeforeUnits
+            ''        Case "d" : c.ReminderMinutesBeforeStart = (cRec.o22ReminderBeforeUnits * 24 * 60)
+            ''        Case "h" : c.ReminderMinutesBeforeStart = (cRec.o22ReminderBeforeUnits * 60)
+            ''    End Select
+            ''End If
 
-            For Each cO20 In lisO20
-                Dim rec As New Independentsoft.Msg.Recipient()
-                rec.EmailAddress = cO20.Email
-                rec.DisplayName = cO20.Person
-                c.Recipients.Add(rec)
-            Next
+            ''For Each cO20 In lisO20
+            ''    Dim rec As New Independentsoft.Msg.Recipient()
+            ''    rec.EmailAddress = cO20.Email
+            ''    rec.DisplayName = cO20.Person
+            ''    c.Recipients.Add(rec)
+            ''Next
 
-            ViewState("msgfile") = Master.Factory.o22MilestoneBL.CreateICalendarTempFullPath(.PID)
 
-            c.Save(Master.Factory.x35GlobalParam.TempFolder & "\outlook_event_" & Master.Factory.SysUser.PID.ToString & ".msg", True)
+
+            ''c.Save(Master.Factory.x35GlobalParam.TempFolder & "\outlook_event_" & Master.Factory.SysUser.PID.ToString & ".msg", True)
             ''ViewState("msgfile") = "outlook_event_" & Master.Factory.SysUser.PID.ToString & ".msg"
-            cmdOdeslat.Visible = True
+
 
         End With
 

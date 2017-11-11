@@ -9,8 +9,7 @@ Public Class binaryfile
             Dim factory As BL.Factory = Nothing
 
             If HttpContext.Current.User.Identity.IsAuthenticated Then
-                Dim strLogin As String = HttpContext.Current.User.Identity.Name
-                factory = New BL.Factory(, strLogin)
+                factory = New BL.Factory(HttpContext.Current.User.Identity.Name)
             Else
                 Response.Write("Nelze ověřit přihlášeného uživatele.")
                 Return

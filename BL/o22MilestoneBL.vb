@@ -172,7 +172,7 @@ Class o22MilestoneBL
             
         End If
         If c.o22Description <> "" Then
-            s.AppendLine("DESCRIPTION:" & c.o22Description)
+            s.AppendLine("DESCRIPTION:" & Replace(c.o22Description, vbCrLf, " \n"))
         End If
         If c.o22Location <> "" Then
             s.AppendLine("LOCATION:" & c.o22Location)

@@ -5,9 +5,9 @@ Public Class report_on_behind
     Private _factory As BL.Factory
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        _factory = New BL.Factory(, "mtservice")
+        _factory = New BL.Factory(BO.ASS.GetConfigVal("robot_account", "admin"))
         If _factory.SysUser Is Nothing Then
-            lblMessage.Text = "Service user is not inhaled!"
+            lblMessage.Text = "robot_account is not inhaled!"
             Return
         End If
         Dim intX31ID As Integer = BO.BAS.IsNullInt(Request.Item("x31id"))

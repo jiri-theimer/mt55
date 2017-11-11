@@ -90,13 +90,17 @@
     Private Property _plugin As IPluginSupportBL
     Private Property _copymanager As IDataCopyManagerBL
 
-    Public Sub New(Optional sysUser As BO.j03UserSYS = Nothing, Optional strLogin As String = "")
-        If sysUser Is Nothing And strLogin <> "" Then
-            Dim cBL As BL.Ij03UserBL = New BL.j03UserBL(Nothing)
-            sysUser = cBL.LoadSysProfile(strLogin)
+    ''Public Sub New(sysUser As BO.j03UserSYS)
+    ''    _cUser = sysUser
+    ''End Sub
+    Public Sub New(strLogin As String)
+        ''Dim cBL As BL.Ij03UserBL = New BL.j03UserBL(Nothing)
+        Dim cU As New BO.j03UserSYS
+        cU.j03Login = strLogin
 
-        End If
-        _cUser = sysUser
+        ''Dim cBL As New BL.j03UserBL(cU)
+
+        _cUser = (New BL.j03UserBL(cU)).LoadSysProfile(strLogin)
     End Sub
 
     Public ReadOnly Property SysUser As BO.j03UserSYS

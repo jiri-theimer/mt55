@@ -21,14 +21,16 @@
                 FormsAuthentication.SignOut()   'definitivní odhlášení
             End If
 
-            TestUserAuthenticationMode()
+            ''TestUserAuthenticationMode()
 
             TestSystemKickoff()
         End If
     End Sub
 
     Private Sub TestSystemKickoff()
-        Dim factory As New BL.Factory()
+        'dočasně vypnuto
+        Return
+        Dim factory As New BL.Factory("")
         If factory.j03UserBL.GetList(New BO.myQueryJ03).Where(Function(p) p.j03IsSystemAccount = False).Count = 0 Then
             'v db nejsou žádní uživatelé
             Response.Redirect("../public/kickoff.aspx")
@@ -66,7 +68,7 @@
             ''    End If
             ''End If
         Else
-            bolStop = True 'toto je nutné odremovat!!
+            bolStop = True
 
         End If
 
@@ -74,7 +76,7 @@
     End Sub
 
     Private Sub LoginUser_LoggedIn(ByVal sender As Object, ByVal e As System.EventArgs) Handles LoginUser.LoggedIn
-        Dim factory As New BL.Factory(, LoginUser.UserName)
+        Dim factory As New BL.Factory(LoginUser.UserName)
         If Not factory.SysUser Is Nothing Then
 
             
@@ -86,7 +88,7 @@
     End Sub
 
     Private Function IsValidateUserByLogin(strLogin As String) As Boolean
-        Dim factory As New BL.Factory(, LoginUser.UserName), bolStop As Boolean = False
+        Dim factory As New BL.Factory(LoginUser.UserName), bolStop As Boolean = False
         If factory.SysUser Is Nothing Then
             bolStop = True
             LoginUser.FailureText = "Účet uživatele nebyl nalezen v MARKTIME databázi.<br>User account wasn't found in MARKTIME database."
@@ -118,45 +120,45 @@
     ''    FormsAuthentication.RedirectFromLoginPage(strAutoLogin, True)  'úspěšné ověření - přesměrovat na default.aspx
     ''End Sub
 
-    Private Sub TestUserAuthenticationMode()        
-        Dim factory As New BL.Factory(), bolWinDomain As Boolean = False
-        _UserAuthenticationMode = factory.x35GlobalParam.UserAuthenticationMode
-        Select Case _UserAuthenticationMode
-            Case BO.UserAuthenticationModeEnum.MixedMode
-                bolWinDomain = True
-            Case BO.UserAuthenticationModeEnum.WindowsOnly
-                bolWinDomain = True
-                LoginUser.Visible = False 'zákaz přihlašovat se aplikačně
-                lblAutoMessage.Text = "V nastavení MARKTIME je povoleno přihlašování pouze přes Windows doménu."
-                If Not HttpContext.Current.Request.LogonUserIdentity.IsAuthenticated Then
-                    lblAutoMessage.Text += "<hr>V MARKTIME Vás (" & HttpContext.Current.Request.LogonUserIdentity.Name & ") nedokážeme ověřit vůči doméně."
-                End If
-        End Select
-        lblDomainAccount.Visible = bolWinDomain
-        If bolWinDomain Then lblDomainAccount.Text = HttpContext.Current.Request.LogonUserIdentity.Name
+    ''Private Sub TestUserAuthenticationMode()        
+    ''    Dim factory As New BL.Factory(), bolWinDomain As Boolean = False
+    ''    _UserAuthenticationMode = factory.x35GlobalParam.UserAuthenticationMode
+    ''    Select Case _UserAuthenticationMode
+    ''        Case BO.UserAuthenticationModeEnum.MixedMode
+    ''            bolWinDomain = True
+    ''        Case BO.UserAuthenticationModeEnum.WindowsOnly
+    ''            bolWinDomain = True
+    ''            LoginUser.Visible = False 'zákaz přihlašovat se aplikačně
+    ''            lblAutoMessage.Text = "V nastavení MARKTIME je povoleno přihlašování pouze přes Windows doménu."
+    ''            If Not HttpContext.Current.Request.LogonUserIdentity.IsAuthenticated Then
+    ''                lblAutoMessage.Text += "<hr>V MARKTIME Vás (" & HttpContext.Current.Request.LogonUserIdentity.Name & ") nedokážeme ověřit vůči doméně."
+    ''            End If
+    ''    End Select
+    ''    lblDomainAccount.Visible = bolWinDomain
+    ''    If bolWinDomain Then lblDomainAccount.Text = HttpContext.Current.Request.LogonUserIdentity.Name
 
-        If HttpContext.Current.Request.LogonUserIdentity.IsAuthenticated And bolWinDomain Then
-            'uživatel je přihlášený do Windows - funguje, pokud v IIS je povolená Windows autentifikace
-            Dim strDomainUser As String = HttpContext.Current.Request.LogonUserIdentity.Name
-            lblDomainAccount.Text = strDomainUser
-            If strDomainUser.IndexOf("\") > 0 Then
-                'v názvu uživatele je uveden i název domény
-                Dim a() As String = Split(strDomainUser, "\")   'přihlášení přes windows doménu
-                strDomainUser = a(UBound(a))
-            End If
-            factory = New BL.Factory(, strDomainUser)
-            If factory.SysUser Is Nothing Then
-                lblAutoMessage.Text = "Doménový účet [" & strDomainUser & "] nebyl nalezen v MARKTIME databázi.<br>Domain account wasn't found in MARKTIME database."
-            Else
-                If factory.SysUser.IsClosed Then
-                    lblAutoMessage.Text = "Uzavřený účet pro přihlašování.<br>Your user account is closed."
-                Else
-                    FormsAuthentication.RedirectFromLoginPage(strDomainUser, True)  'úspěšné ověření vůči doméně - přesměrovat na default.aspx
-                End If
+    ''    If HttpContext.Current.Request.LogonUserIdentity.IsAuthenticated And bolWinDomain Then
+    ''        'uživatel je přihlášený do Windows - funguje, pokud v IIS je povolená Windows autentifikace
+    ''        Dim strDomainUser As String = HttpContext.Current.Request.LogonUserIdentity.Name
+    ''        lblDomainAccount.Text = strDomainUser
+    ''        If strDomainUser.IndexOf("\") > 0 Then
+    ''            'v názvu uživatele je uveden i název domény
+    ''            Dim a() As String = Split(strDomainUser, "\")   'přihlášení přes windows doménu
+    ''            strDomainUser = a(UBound(a))
+    ''        End If
+    ''        factory = New BL.Factory(, strDomainUser)
+    ''        If factory.SysUser Is Nothing Then
+    ''            lblAutoMessage.Text = "Doménový účet [" & strDomainUser & "] nebyl nalezen v MARKTIME databázi.<br>Domain account wasn't found in MARKTIME database."
+    ''        Else
+    ''            If factory.SysUser.IsClosed Then
+    ''                lblAutoMessage.Text = "Uzavřený účet pro přihlašování.<br>Your user account is closed."
+    ''            Else
+    ''                FormsAuthentication.RedirectFromLoginPage(strDomainUser, True)  'úspěšné ověření vůči doméně - přesměrovat na default.aspx
+    ''            End If
 
-            End If
-        End If
-    End Sub
+    ''        End If
+    ''    End If
+    ''End Sub
 
     Private Sub Login_LoadComplete(sender As Object, e As EventArgs) Handles Me.LoadComplete
         If System.IO.File.Exists(BO.ASS.GetApplicationRootFolder & "\Public\splashscreen.png") Then

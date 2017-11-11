@@ -29,7 +29,7 @@ Class mtService
             Throw New FaultException("Heslo nebo uživatelské jméno (login) je chybné.")
             'Return res(False, , "Heslo nebo uživatelské jméno (login) je chybné.")
         End If
-        _factory = New BL.Factory(, strLogin)
+        _factory = New BL.Factory(strLogin)
         If _factory.SysUser Is Nothing Then
             Throw New FaultException("Účet uživatele nebyl nalezen v MARKTIME databázi.")
         End If

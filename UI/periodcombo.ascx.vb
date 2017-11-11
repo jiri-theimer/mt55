@@ -141,7 +141,7 @@
         'Me.period1.SelectedValue = Me.hidExplicitValue.Value
         If Me.hidExplicitValue.Value = "-1" Or Me.hidExplicitValue.Value = "-2" Then
             'nutnost kompletně naplnit combo
-            Dim factory As New BL.Factory(, Me.hidLogin.Value)
+            Dim factory As New BL.Factory(Me.hidLogin.Value)
             SetupData(factory, factory.j03UserBL.GetUserParam("periodcombo-custom_query"))
             If Me.hidExplicitValue.Value = "-2" Then
                 Me.per1.SelectedIndex = 1

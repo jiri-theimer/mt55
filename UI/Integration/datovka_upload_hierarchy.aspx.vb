@@ -30,7 +30,7 @@ Public Class datovka_upload_hierarchy
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Response.ContentType = "application/json"
 
-        Dim factory As New BL.Factory(Nothing, "mtservice")
+        Dim factory As New BL.Factory(BO.ASS.GetConfigVal("robot_account", "admin"))
 
 
         Dim c0 As New DatovkaRoot

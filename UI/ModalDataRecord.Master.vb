@@ -180,8 +180,8 @@
 
     Private Sub Page_Init(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Init
         If HttpContext.Current.User.Identity.IsAuthenticated And _Factory Is Nothing Then
-            Dim strLogin As String = HttpContext.Current.User.Identity.Name
-            _Factory = New BL.Factory(, strLogin)
+            ''Dim strLogin As String = HttpContext.Current.User.Identity.Name
+            _Factory = New BL.Factory(HttpContext.Current.User.Identity.Name)
             If _Factory.SysUser Is Nothing Then DoLogOut()
             basUI.PingAccessLog(_Factory, Request)
             

@@ -10,9 +10,14 @@ Public Class Global_asax
     
     Sub Application_Start(ByVal sender As Object, ByVal e As EventArgs)
         log4net.Config.XmlConfigurator.Configure()
+
+        If BO.ASS.GetConfigVal("cloud") = "1" Then
+            Return  'v cloud režimu se robot spouští zvenku externím programem
+        End If
+
         Dim factory As New BL.Factory(Nothing)
         Dim strRobotHost As String = factory.x35GlobalParam.GetValueString("robot_host")        
-        'Dim strWakeHost As String = BO.ASS.GetConfigVal("wakeup_host")
+
         If strRobotHost <> "" Then
             Dim intCacheTimeOut As Integer = factory.x35GlobalParam.GetValueInteger("robot_cache_timeout", 300)
             RegisterCacheEntry(strRobotHost, intCacheTimeOut)

@@ -6,7 +6,7 @@
         If Not basMemberShip.RecoverySystemAccount() Then
             Me.lblError.Text = basMemberShip.ErrorMessage
         End If
-        _Factory = New BL.Factory(, "mtservice")
+        _Factory = New BL.Factory(BO.ASS.GetConfigVal("robot_account", "admin"))
 
     End Sub
 

@@ -18,8 +18,7 @@ Public Class combo_external_datasource
         Dim strX23ID As String = (DirectCast(contextDictionary("x23id"), String))
         Dim strJ03ID As String = (DirectCast(contextDictionary("j03id"), String))
 
-        Dim cUser As New BO.j03UserSYS
-        Dim factory As New BL.Factory(cUser)
+        Dim factory As New BL.Factory("")
 
         Dim result As List(Of RadComboBoxItemData) = Nothing
 

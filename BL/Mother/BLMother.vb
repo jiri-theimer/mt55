@@ -20,7 +20,7 @@
     Friend ReadOnly Property Factory As BL.Factory
         Get
             If _factory Is Nothing And Not _cUser Is Nothing Then
-                _factory = New BL.Factory(_cUser)
+                _factory = New BL.Factory(_cUser.j03Login)
             End If
             Return _factory
         End Get
