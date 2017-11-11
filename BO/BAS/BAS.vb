@@ -580,4 +580,13 @@
         End Select
         Return "?"
     End Function
+
+    Public Shared Function ParseDbNameFromCloudLogin(strLogin As String) As String
+        Dim pos As Integer = strLogin.IndexOf("@")
+        If pos = -1 Then
+            Return ""
+        End If
+        Return strLogin.Substring(pos + 1, Len(strLogin) - pos - 1)
+
+    End Function
 End Class

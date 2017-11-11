@@ -41,6 +41,10 @@ Public Class Global_asax
         
         
         If Context.Request.Url.PathAndQuery.IndexOf("robot.aspx") > 0 Then
+            If BO.ASS.GetConfigVal("cloud") = "1" Then
+                'v CLOUDu robot stránku spouští externí stroj
+                Return
+            End If
             'je spuštěna robot stránka nebo ještě nebyla incializovaná cache
             'Dim strRobotHost As String = Context.Request.Url.GetLeftPart(UriPartial.Authority)
 

@@ -107,7 +107,11 @@ Public Class report_framework_detail1
 
         Dim xmlRepSource As New Telerik.Reporting.XmlReportSource()
         xmlRepSource.Xml = strXmlContent
-
+        If BO.ASS.GetConfigVal("cloud") = "1" Then
+            Dim strDbConString As String = System.Configuration.ConfigurationManager.ConnectionStrings.Item("ApplicationPrimary").ToString
+            strDbConString = Replace(strDbConString, "cloud-db-template", BO.BAS.ParseDbNameFromCloudLogin(Master.Factory.SysUser.j03Login), , 1, CompareMethod.Binary)
+            xmlRepSource.Xml = Replace(xmlRepSource.Xml, "ApplicationPrimary", strDbConString)
+        End If
 
         If Me.CurrentJ70ID > 0 Then
             Dim strW As String = Master.Factory.j70QueryTemplateBL.GetSqlWhere(Me.CurrentJ70ID)
