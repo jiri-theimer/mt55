@@ -147,6 +147,9 @@
     <div>
     <asp:TextBox ID="p93FreeText04" runat="server" Style="width: 100%;height:50px;" TextMode="MultiLine"></asp:TextBox>
     </div>
+    <div class="div6">
+        <asp:Image ID="imgLogo" runat="server" />
+    </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="FootContent" runat="server">
 </asp:Content>

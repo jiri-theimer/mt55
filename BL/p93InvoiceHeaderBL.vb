@@ -31,13 +31,15 @@ Class p93InvoiceHeaderBL
             If Trim(.p93Name) = "" Then _Error = "Chybí název hlavičky." : Return False
 
         End With
-        If lisP88.Where(Function(p) p.j27ID = 0 Or p.p86ID = 0).Count > 0 Then
-            _Error = "V nastavení bankovních účtů je nevyplněná měna nebo účet." : Return False
-        End If
+        
         If Not lisP88 Is Nothing Then
+            If lisP88.Where(Function(p) p.j27ID = 0 Or p.p86ID = 0).Count > 0 Then
+                _Error = "V nastavení bankovních účtů je nevyplněná měna nebo účet." : Return False
+            End If
+
             For Each c In lisP88.GroupBy(Function(p) p.j27ID)
                 If c.Count > 1 Then
-                    
+
                     _Error = "Pro měnu [" & Me.Factory.ftBL.LoadJ27(c(0).j27ID).j27Code & "] není možné definovat více bankovních účtů." : Return False
                 End If
             Next

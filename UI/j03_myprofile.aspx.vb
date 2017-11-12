@@ -43,6 +43,7 @@
                 .AddItem("Změnit přístupové heslo", "pwd", "changepassword.aspx", "root", "Images/password.png")
                 .ExpandAll()
             End With
+            imgLogo.ImageUrl = basUIMT.GetLogoPath(Master.Factory.SysUser.j03Login, True)
         End If
     End Sub
 

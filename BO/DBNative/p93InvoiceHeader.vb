@@ -16,5 +16,6 @@
     Public Property p93FreeText03 As String
     Public Property p93FreeText04 As String
     Public Property p93FreeText05 As String
+    Public Property p93LogoFile As String
 
 End Class

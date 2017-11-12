@@ -23,6 +23,15 @@ Partial Public Class j03_myprofile
     Protected WithEvents panelmenu1 As Global.UI.panelmenu
 
     '''<summary>
+    '''imgLogo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents imgLogo As Global.System.Web.UI.WebControls.Image
+
+    '''<summary>
     '''j02clue control.
     '''</summary>
     '''<remarks>

@@ -16,7 +16,8 @@
             End With
             
             Dim cF As New BO.clsFile
-            imgLogoPreview.DataValue = cF.GetBinaryContent(BO.ASS.GetApplicationRootFolder & "\Plugins\company_logo.png")
+            imgLogoPreview.DataValue = cF.GetBinaryContent(basUIMT.GetLogoPath(Master.Factory.SysUser.j03Login, False))
+
 
         End If
     End Sub
@@ -32,7 +33,14 @@
 
             For Each validFile As Telerik.Web.UI.UploadedFile In upload1.UploadedFiles
                 Dim cF As New BO.clsFile
-                Dim strDest As String = BO.ASS.GetApplicationRootFolder & "\Plugins\company_logo.png"
+                Dim strFileName As String = "company_logo.png"
+                If BO.ASS.GetConfigVal("cloud", "0") = "1" Then
+                    strFileName = BO.BAS.ParseDbNameFromCloudLogin(Master.Factory.SysUser.j03Login) & ".png"
+                End If
+
+                Dim strDestFullPath As String = BO.ASS.GetApplicationRootFolder & "\Plugins\" & strFileName
+
+                
                 Dim strTemp As String = Master.Factory.x35GlobalParam.TempFolder & "\" & validFile.FileName
 
                 Try
@@ -42,7 +50,12 @@
                         Master.Notify("Podmínky: PNG formát, maximální šířka 600px, maximální výška 200px.", NotifyLevel.InfoMessage)
                         Return
                     End If
-                    If cF.CopyFile(strTemp, strDest) Then
+                    If cF.CopyFile(strTemp, strDestFullPath) Then
+                        Dim lis As IEnumerable(Of BO.p93InvoiceHeader) = Master.Factory.p93InvoiceHeaderBL.GetList(New BO.myQuery)  'uložit logo do hlavičky vystavovatele faktury
+                        For Each c In lis
+                            c.p93LogoFile = strDestFullPath
+                            Master.Factory.p93InvoiceHeaderBL.Save(c, Nothing)
+                        Next
                         Master.CloseAndRefreshParent("logo")
                     End If
 

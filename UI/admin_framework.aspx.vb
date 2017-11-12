@@ -61,13 +61,7 @@ Public Class admin_framework
             End Select
 
             Dim cF As New BO.clsFile
-            If Not cF.FileExist(BO.ASS.GetApplicationRootFolder & "\Plugins\company_logo.png") Then
-                'zkopírovat výchozí logo obrázek do company_logo.png
-                If cF.FileExist(BO.ASS.GetApplicationRootFolder & "\Plugins\company_logo_default.png") Then
-                    cF.CopyFile(BO.ASS.GetApplicationRootFolder & "\Plugins\company_logo_default.png", BO.ASS.GetApplicationRootFolder & "\Plugins\company_logo.png")
-                End If
-            End If
-            imgLogoPreview.DataValue = cF.GetBinaryContent(BO.ASS.GetApplicationRootFolder & "\Plugins\company_logo.png")
+            imgLogoPreview.DataValue = cF.GetBinaryContent(basUIMT.GetLogoPath(Master.Factory.SysUser.j03Login, False))
 
         End If
     End Sub

@@ -60,7 +60,12 @@
             Master.InhaleRecordValidity(.ValidFrom, .ValidUntil, .DateInsert)
             Master.Timestamp = .Timestamp
 
-
+            If .p93LogoFile = "" Then
+                imgLogo.Visible = False
+            Else
+                imgLogo.ImageUrl = .p93LogoFile
+                imgLogo.Visible = True
+            End If
         End With
 
         Dim lisP88 As IEnumerable(Of BO.p88InvoiceHeader_BankAccount) = Master.Factory.p93InvoiceHeaderBL.GetList_p88(Master.DataPID)

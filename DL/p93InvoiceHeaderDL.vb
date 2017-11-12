@@ -35,6 +35,7 @@
                 pars.Add("p93FreeText02", .p93FreeText02, DbType.String, , , True, "Volné pole2")
                 pars.Add("p93FreeText03", .p93FreeText03, DbType.String, , , True, "Volné pole3")
                 pars.Add("p93FreeText04", .p93FreeText04, DbType.String, , , True, "Volné pole4")
+                pars.Add("p93LogoFile", .p93LogoFile, DbType.String)
 
                 pars.Add("p93validfrom", .ValidFrom, DbType.DateTime)
                 pars.Add("p93validuntil", .ValidUntil, DbType.DateTime)

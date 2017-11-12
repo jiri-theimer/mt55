@@ -786,4 +786,42 @@ Public Class basUIMT
         
         Return ""
     End Function
+
+    Public Shared Function GetLogoPath(strUserLogin As String, bolRelativePath As Boolean) As String
+        Dim strPath As String = ""
+        If BO.ASS.GetConfigVal("cloud", "0") = "1" Then
+            strPath = BO.ASS.GetApplicationRootFolder & "\Plugins\" & BO.BAS.ParseDbNameFromCloudLogin(strUserLogin) & ".png"
+            If System.IO.File.Exists(strPath) Then
+                If bolRelativePath Then
+                    Return "Plugins/" & BO.BAS.ParseDbNameFromCloudLogin(strUserLogin) & ".png"
+                Else
+                    Return strPath
+                End If
+
+            End If
+        End If
+        strPath = BO.ASS.GetApplicationRootFolder & "\Plugins\company_logo.png"
+        If System.IO.File.Exists(strPath) Then
+            If bolRelativePath Then
+                Return "Plugins/company_logo.png"
+            Else
+                Return strPath
+            End If
+        Else
+            Dim cF As New BO.clsFile
+            If cF.FileExist(BO.ASS.GetApplicationRootFolder & "\Plugins\company_logo_default.png") Then
+                If cF.CopyFile(BO.ASS.GetApplicationRootFolder & "\Plugins\company_logo_default.png", strPath) Then
+                    If bolRelativePath Then
+                        Return "Plugins/company_logo.png"
+                    Else
+                        Return strPath
+                    End If
+
+                End If
+            End If
+        End If
+
+        Return ""
+    End Function
+    
 End Class
