@@ -134,7 +134,7 @@
             <asp:Label ID="PersonalMessage" runat="server" CssClass="valboldblue"></asp:Label>
 
 
-            <asp:Panel ID="panJ02Update" runat="server" CssClass="content-box2">
+            <asp:Panel ID="panJ02Update" runat="server" CssClass="content-box2" style="margin-left:5px;">
                 <div class="title">
 
                     <asp:Label ID="ph1" runat="server" Text="Aktualizovat můj MARKTIME profil" Style="display: inline-block; min-width: 150px;"></asp:Label>

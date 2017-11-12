@@ -53,7 +53,7 @@
                     If cF.CopyFile(strTemp, strDestFullPath) Then
                         Dim lis As IEnumerable(Of BO.p93InvoiceHeader) = Master.Factory.p93InvoiceHeaderBL.GetList(New BO.myQuery)  'uložit logo do hlavičky vystavovatele faktury
                         For Each c In lis
-                            c.p93LogoFile = strDestFullPath
+                            c.p93LogoFile = strFileName
                             Master.Factory.p93InvoiceHeaderBL.Save(c, Nothing)
                         Next
                         Master.CloseAndRefreshParent("logo")

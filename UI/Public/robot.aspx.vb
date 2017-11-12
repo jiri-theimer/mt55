@@ -552,7 +552,7 @@
     End Sub
 
     Private Sub Handle_DbBackup()
-        Dim cBL As New BL.SysObjectBL()
+        Dim cBL As New BL.SysObjectBL(_Factory.SysUser.j03Login)
         Dim strDir As String = BO.ASS.GetConfigVal("backupdir", ""), bolTestFileSystem As Boolean = False
         If strDir = "" Then
             strDir = _Factory.x35GlobalParam.UploadFolder & "\dbBackup"

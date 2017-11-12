@@ -2,9 +2,11 @@
     Private _cDL As DL.SysDbObjectDL
     Private _factory As BL.Factory
 
-    Public Sub New()
-        _cDL = New DL.SysDbObjectDL(Nothing)
-        _factory = New BL.Factory(Nothing)
+    Public Sub New(strLogin As String)
+        Dim c As New BO.j03UserSYS
+        c.j03Login = strLogin
+        _cDL = New DL.SysDbObjectDL(c)
+        _factory = New BL.Factory(strLogin)
     End Sub
 
     Public Function CreateDbBackup(Optional strCon As String = "", Optional strBackupDir As String = "", Optional strBakFileName As String = "", Optional bolTestFileSystem As Boolean = True) As String

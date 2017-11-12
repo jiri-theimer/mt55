@@ -14,6 +14,15 @@ Option Explicit On
 Partial Public Class p93_record
 
     '''<summary>
+    '''imgLogo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents imgLogo As Global.System.Web.UI.WebControls.Image
+
+    '''<summary>
     '''lblName control.
     '''</summary>
     '''<remarks>
@@ -309,15 +318,6 @@ Partial Public Class p93_record
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents p93FreeText04 As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
-    '''imgLogo control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents imgLogo As Global.System.Web.UI.WebControls.Image
 
     '''<summary>
     '''Master property.

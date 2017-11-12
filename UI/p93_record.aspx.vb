@@ -63,7 +63,7 @@
             If .p93LogoFile = "" Then
                 imgLogo.Visible = False
             Else
-                imgLogo.ImageUrl = .p93LogoFile
+                imgLogo.ImageUrl = "Plugins/" & .p93LogoFile
                 imgLogo.Visible = True
             End If
         End With

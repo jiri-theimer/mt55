@@ -8,6 +8,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <asp:Image ID="imgLogo" runat="server" style="position:absolute;top:60px;left:630px;" />
     <table cellpadding="6" cellspacing="2">
         <tr>
             <td style="width: 180px;">
@@ -84,6 +85,9 @@
                 <asp:TextBox ID="p93Signature" runat="server" Style="width: 200px; height: 40px;" TextMode="MultiLine"></asp:TextBox>
                 <asp:Label ID="Label9" runat="server" CssClass="lbl" Text="Referent:" Style="vertical-align: top;"></asp:Label>
                 <asp:TextBox ID="p93Referent" runat="server" Style="width: 200px; height: 40px;" TextMode="MultiLine"></asp:TextBox>
+                
+        
+    
             </td>
         </tr>
     </table>
@@ -147,9 +151,7 @@
     <div>
     <asp:TextBox ID="p93FreeText04" runat="server" Style="width: 100%;height:50px;" TextMode="MultiLine"></asp:TextBox>
     </div>
-    <div class="div6">
-        <asp:Image ID="imgLogo" runat="server" />
-    </div>
+    
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="FootContent" runat="server">
 </asp:Content>
