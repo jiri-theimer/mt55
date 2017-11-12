@@ -20,13 +20,17 @@
             If Me.dbs.Items.Count > 0 Then
                 panMultiDbs.Visible = True
             End If
-            
+
+            If BO.ASS.GetConfigVal("cloud") = "1" Then
+                panSingleDb.Visible = False
+
+            End If
         End If
     End Sub
 
     Private Sub cmdGo_Click(sender As Object, e As EventArgs) Handles cmdGo.Click
         Me.lblError.Text = "" : cmdRunResult.Visible = False
-        Dim cBL As New BL.SysDbUpdateBL()
+        Dim cBL As New BL.SysDbUpdateBL(Master.Factory.SysUser.j03Login)
         Dim s As String = cBL.FindDifference()
         If cBL.ErrorMessage <> "" Then
             Me.lblError.Text = cBL.ErrorMessage
@@ -44,7 +48,7 @@
   
 
     Private Sub cmdSP_Click(sender As Object, e As EventArgs) Handles cmdSP.Click
-        Dim cBL As New BL.SysDbUpdateBL()
+        Dim cBL As New BL.SysDbUpdateBL(Master.Factory.SysUser.j03Login)
         If Not cBL.RunSql_step2_sp() Then
             cBL.RunFixingSQLs_BeforeDbUpdate()  'spustit fixing sql dotazy
             cBL.RunFixingSQLs_AfterDbUpdate()  'spustit fixing sql dotazy
@@ -64,7 +68,7 @@
             Master.Notify("Není co spouštět!", NotifyLevel.WarningMessage)
             Return
         End If
-        Dim cBL As New BL.SysDbUpdateBL()
+        Dim cBL As New BL.SysDbUpdateBL(Master.Factory.SysUser.j03Login)
         If Not cBL.RunDbDifferenceResult(s) Then
             Master.Notify(cBL.ErrorMessage, NotifyLevel.ErrorMessage)
         Else
@@ -103,7 +107,7 @@
     End Sub
 
     Private Sub cmdCheckDbs_Click(sender As Object, e As EventArgs) Handles cmdCheckDbs.Click
-        Dim cBL As New BL.SysDbUpdateBL()
+        Dim cBL As New BL.SysDbUpdateBL(Master.Factory.SysUser.j03Login)
         Dim strDbConString As String = System.Configuration.ConfigurationManager.ConnectionStrings.Item("ApplicationPrimary").ToString
         cBL.ChangeConnectString(Replace(strDbConString, "cloud-db-template", Me.dbs.SelectedItem.Text, , 1, CompareMethod.Binary))
 
@@ -129,7 +133,7 @@
             Me.lblDbsMessage.Text = "Není co spouštět!"
             Return
         End If
-        Dim cBL As New BL.SysDbUpdateBL()
+        Dim cBL As New BL.SysDbUpdateBL(Master.Factory.SysUser.j03Login)
         Dim strDbConString As String = System.Configuration.ConfigurationManager.ConnectionStrings.Item("ApplicationPrimary").ToString
         cBL.ChangeConnectString(Replace(strDbConString, "cloud-db-template", Me.dbs.SelectedItem.Text, , 1, CompareMethod.Binary))
 
@@ -152,7 +156,7 @@
     End Sub
 
     Private Sub cmdRunSpDbs_Click(sender As Object, e As EventArgs) Handles cmdRunSpDbs.Click
-        Dim cBL As New BL.SysDbUpdateBL()
+        Dim cBL As New BL.SysDbUpdateBL(Master.Factory.SysUser.j03Login)
         Dim strDbConString As String = System.Configuration.ConfigurationManager.ConnectionStrings.Item("ApplicationPrimary").ToString
         cBL.ChangeConnectString(Replace(strDbConString, "cloud-db-template", Me.dbs.SelectedItem.Text, , 1, CompareMethod.Binary))
 

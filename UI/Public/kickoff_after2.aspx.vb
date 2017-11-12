@@ -40,7 +40,7 @@
             .UpdateValue("robot_host", Me.robot_host.Text)
 
             'spustit fixační sql skripty
-            Dim cBL As New BL.SysDbUpdateBL()
+            Dim cBL As New BL.SysDbUpdateBL(_Factory.SysUser.j03Login)
             cBL.RunFixingSQLs_BeforeDbUpdate()  'spustit fixing sql dotazy
             cBL.RunFixingSQLs_AfterDbUpdate()  'spustit fixing sql dotazy
 

@@ -50,6 +50,15 @@ Partial Public Class dbupdate
     Protected WithEvents lblError As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''panSingleDb control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents panSingleDb As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
     '''cmdGo control.
     '''</summary>
     '''<remarks>

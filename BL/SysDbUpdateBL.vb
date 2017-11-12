@@ -26,9 +26,11 @@
         End Get
     End Property
 
-    Public Sub New()
-        _cDL = New DL.SysDbObjectDL(Nothing)
-        _factory = New BL.Factory(Nothing)
+    Public Sub New(strLogin As String)
+        Dim c As New BO.j03UserSYS
+        c.j03Login = strLogin
+        _cDL = New DL.SysDbObjectDL(c)
+        _factory = New BL.Factory(strLogin)
         _result = New System.Text.StringBuilder
     End Sub
     Public Sub ChangeConnectString(strConString As String)
