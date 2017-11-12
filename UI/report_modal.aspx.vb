@@ -298,11 +298,7 @@ Public Class report_modal
 
         Dim xmlRepSource As New Telerik.Reporting.XmlReportSource()
         xmlRepSource.Xml = strXmlContent
-        If BO.ASS.GetConfigVal("cloud") = "1" Then
-            Dim strDbConString As String = System.Configuration.ConfigurationManager.ConnectionStrings.Item("ApplicationPrimary").ToString
-            strDbConString = Replace(strDbConString, "cloud-db-template", BO.BAS.ParseDbNameFromCloudLogin(Master.Factory.SysUser.j03Login), , 1, CompareMethod.Binary)
-            xmlRepSource.Xml = Replace(xmlRepSource.Xml, "ApplicationPrimary", strDbConString)
-        End If
+        
         If strXmlContent.IndexOf("@datfrom") > 0 Or strXmlContent.IndexOf("@datuntil") > 0 Or cRec.x31IsPeriodRequired Then
             period1.Visible = True
             xmlRepSource.Parameters.Add(New Parameter("datfrom", period1.DateFrom))
@@ -331,6 +327,11 @@ Public Class report_modal
             For Each par In params
                 xmlRepSource.Parameters.Add(New Parameter(par.Key, par.Value))
             Next
+        End If
+        If BO.ASS.GetConfigVal("cloud") = "1" Then
+            Dim strDbConString As String = System.Configuration.ConfigurationManager.ConnectionStrings.Item("ApplicationPrimary").ToString
+            strDbConString = Replace(strDbConString, "cloud-db-template", BO.BAS.ParseDbNameFromCloudLogin(Master.Factory.SysUser.j03Login), , 1, CompareMethod.Binary)
+            xmlRepSource.Xml = Replace(xmlRepSource.Xml, "ApplicationPrimary", strDbConString)
         End If
         Dim strExportName As String = Master.Factory.GetRecordFileName(Me.CurrentX29ID, Master.DataPID, "", False, cRec.PID)
         xmlRepSource.Xml = Replace(xmlRepSource.Xml, "Name=" & Chr(34) & "report1" & Chr(34), "Name=" & Chr(34) & strExportName & Chr(34))
