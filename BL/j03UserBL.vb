@@ -50,17 +50,38 @@ Class j03UserBL
         _cDL = New DL.j03UserDL(ServiceUser)
         _cUser = ServiceUser
     End Sub
+
+    Private Function ValidateLogin(strLogin As String) As Boolean
+        If BO.ASS.GetConfigVal("cloud") = "1" Then
+            Dim a() As String = Split(_cUser.j03Login, "@")
+            Dim strDomain As String = a(1)
+            a = Split(strLogin, "@")
+            If UBound(a) <> 1 Then
+                _Error = String.Format("V CLOUD režimu musí přihlašovací jméno (login) končit výrazem: @{0}", strDomain) : Return False
+            End If
+            If a(1) <> strDomain Then
+                _Error = String.Format("V CLOUD režimu musí přihlašovací jméno (login) končit výrazem: @{0}", strDomain) : Return False
+            End If
+            If Trim(a(0)) = "" Then _Error = "Nedostatečná délka přihlašovacího jména." : Return False
+        Else
+            If Len(strLogin) < 2 Then _Error = "Přihlašovací jméno (login) musí obsahovat minimálně 2 znaky." : Return False
+        End If
+        Return True
+    End Function
     Public Function Save(cRec As BO.j03User) As Boolean Implements Ij03UserBL.Save
         With cRec
             If Trim(.j03Login) = "" Then _Error = "Chybí přihlašovací jméno (login)." : Return False
+            .j03Login = LCase(Trim(.j03Login).Replace(" ", ""))
             If .j04ID = 0 Then _Error = "Chybí aplikační role." : Return False
             If .PID <> 0 And .j02ID = 0 Then _Error = "Chybí vazba na osobní profil." : Return False
             If .PID = 0 Then .j03ModalWindowsFlag = 1
+            If Not ValidateLogin(.j03Login) Then Return False
         End With
+        
         If IsExistUserByLogin(cRec.j03Login, cRec.PID) Then
             _Error = "Uživatelské jméno [" & cRec.j03Login & "] již je v databázi obsazeno." : Return False
         End If
-
+        
         Return _cDL.Save(cRec)
     End Function
     Public Function Load(intPID As Integer) As BO.j03User Implements Ij03UserBL.Load
@@ -132,9 +153,8 @@ Class j03UserBL
     
     
     Public Function RenameLogin(cRec As BO.j03User, strNewLogin As String) As Boolean Implements Ij03UserBL.RenameLogin
-        If Trim(strNewLogin) = "" Then
-            _Error = "Chybí nový login." : Return False
-        End If
+        If Not ValidateLogin(strNewLogin) Then Return False
+        
         Return _cDL.RenameLogin(cRec, strNewLogin)
     End Function
 

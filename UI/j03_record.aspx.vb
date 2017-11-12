@@ -47,8 +47,8 @@
             Master.Timestamp = .Timestamp
 
 
-            If .j03IsSystemAccount Then
-                Master.StopPage("Tento účet si vyhrazuje systém pro jeho vnitřní potřeby.<hr>Přes systémový účet se nelze uživatelsky přihlašovat do systému.", False)
+            If .j03IsSystemAccount And Master.Factory.SysUser.PID <> Master.DataPID Then
+                Master.StopPage("Tento účet je vyhrazen pro technickou podporu ze strany výrobce software MARKTIME.", False)
 
             Else
                 Me.j03IsLiveChatSupport.Checked = .j03IsLiveChatSupport

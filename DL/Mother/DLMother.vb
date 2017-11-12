@@ -26,7 +26,7 @@
         _curUser = ServiceUser
 
         _cDB = New DL.DbHandler(_curUser.j03Login)
-        If _curUser Is Nothing Then Return
+
         If _curUser.ExplicitConnectString = "" Then Return
         _cDB.ChangeConString(_curUser.ExplicitConnectString)    'požadavek za změnu aplikační databáze
     End Sub

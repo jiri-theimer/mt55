@@ -190,7 +190,7 @@ Class o22MilestoneBL
         s.AppendLine("END:VEVENT")
         s.Append("END:VCALENDAR")
 
-        Dim strPath As String = Factory.x35GlobalParam.TempFolder & "\" & c.PID.ToString & ".ics"
+        Dim strPath As String = Factory.x35GlobalParam.TempFolder & "\marktime_calendar_event" & c.PID.ToString & ".ics"
         Dim cF As New BO.clsFile
 
 
@@ -198,7 +198,7 @@ Class o22MilestoneBL
         Dim objWriter As New System.IO.StreamWriter(strPath, False)
         objWriter.Write(s.ToString)
         objWriter.Close()
-        Return c.PID.ToString & ".ics"
+        Return "marktime_calendar_event" & c.PID.ToString & ".ics"
 
         ''If cF.SaveText2File(strPath, s.ToString, , , False) Then
         ''    Return strPath

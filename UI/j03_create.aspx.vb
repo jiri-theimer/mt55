@@ -25,6 +25,12 @@
             c21ID.DataBind()
             Me.j03PasswordExpiration.SelectedDate = DateAdd(DateInterval.Month, 6, Today)
 
+            If BO.ASS.GetConfigVal("cloud") = "1" Then
+                Dim a() As String = Split(Master.Factory.SysUser.j03Login, "@")
+                If UBound(a) = 1 Then Me.j03login.Text = "@" & a(1)
+            End If
+
+
             If Request.Item("clone") = "1" And Request.Item("pid") <> "" Then
                 Dim cRec As BO.j03User = Master.Factory.j03UserBL.Load(BO.BAS.IsNullInt(Request.Item("pid")))
                 With cRec

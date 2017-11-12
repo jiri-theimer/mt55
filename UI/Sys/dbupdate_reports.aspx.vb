@@ -4,6 +4,7 @@ Public Class dbupdate_reports
     Inherits System.Web.UI.Page
     Protected WithEvents _MasterPage As Site
     Private _dir As String
+
     Private Class RecordINI
         Public x31FileName As String
         Public x31FormatFlag As Integer
@@ -51,24 +52,24 @@ Public Class dbupdate_reports
     End Sub
 
 
-    Private Sub HandleImport()
+    Private Sub HandleImport(factoryExplicit As BL.Factory)
         Dim strDIR As String = BO.ASS.GetApplicationRootFolder & "\sys\reports"
         Dim cF As New BO.clsFile
         Dim lis As List(Of String) = cF.GetFileListFromDir(strDIR, "*.*")
 
-        Dim lisX31Pre As IEnumerable(Of BO.x31Report) = Master.Factory.x31ReportBL.GetList(New BO.myQuery)
+        Dim lisX31Pre As IEnumerable(Of BO.x31Report) = factoryExplicit.x31ReportBL.GetList(New BO.myQuery)
 
         Dim cRole As New BO.x69EntityRole_Assign()
-        cRole.j11ID = Master.Factory.j11TeamBL.GetList().Where(Function(p) p.j11IsAllPersons = True)(0).PID
-        cRole.x67ID = Master.Factory.x67EntityRoleBL.GetList().Where(Function(p) p.x29ID = BO.x29IdEnum.x31Report)(0).PID
-        Dim intO13ID As Integer = Master.Factory.o13AttachmentTypeBL.GetList().Where(Function(p) p.x29ID = BO.x29IdEnum.x31Report)(0).PID
+        cRole.j11ID = factoryExplicit.j11TeamBL.GetList().Where(Function(p) p.j11IsAllPersons = True)(0).PID
+        cRole.x67ID = factoryExplicit.x67EntityRoleBL.GetList().Where(Function(p) p.x29ID = BO.x29IdEnum.x31Report)(0).PID
+        Dim intO13ID As Integer = factoryExplicit.o13AttachmentTypeBL.GetList().Where(Function(p) p.x29ID = BO.x29IdEnum.x31Report)(0).PID
         For Each strFileName In lis.Where(Function(p) Trim(p) <> "")
             Dim cRI As RecordINI = LoadRecordINI(strFileName)
             If Not cRI Is Nothing Then
-                Dim cRec As BO.x31Report = Master.Factory.x31ReportBL.LoadByFilename(cRI.x31FileName)
+                Dim cRec As BO.x31Report = factoryExplicit.x31ReportBL.LoadByFilename(cRI.x31FileName)
                 If cRec Is Nothing Then
                     'zjistit, zda neexistuje podle shody v x31Code
-                    cRec = Master.Factory.x31ReportBL.LoadByCode(Replace(cRI.x31FileName, ".trdx", "", , , CompareMethod.Text).Replace(".aspx", ""))
+                    cRec = factoryExplicit.x31ReportBL.LoadByCode(Replace(cRI.x31FileName, ".trdx", "", , , CompareMethod.Text).Replace(".aspx", ""))
                 End If
                 If cRec Is Nothing Then
                     cRec = New BO.x31Report
@@ -103,17 +104,17 @@ Public Class dbupdate_reports
                     If s.IndexOf("102=102") > 0 Then cRec.x31QueryFlag = BO.x31QueryFlagENUM.j02
                     If s.IndexOf("@datfrom") > 0 Or s.IndexOf("@datuntil") > 0 Then cRec.x31IsPeriodRequired = True
                 End If
-                
+
                 Dim lisX69 As New List(Of BO.x69EntityRole_Assign)
                 lisX69.Add(cRole)
                 Dim strUploadGUID As String = BO.BAS.GetGUID
-                If Not Master.Factory.o27AttachmentBL.UploadAndSaveOnFile2Temp(strUploadGUID, strDIR & "\" & strFileName, intO13ID) Then
-                    WE(strFileName & " | " & Master.Factory.o27AttachmentBL.ErrorMessage)
+                If Not factoryExplicit.o27AttachmentBL.UploadAndSaveOnFile2Temp(strUploadGUID, strDIR & "\" & strFileName, intO13ID) Then
+                    WE(strFileName & " | " & factoryExplicit.o27AttachmentBL.ErrorMessage)
                 End If
 
 
-                If Not Master.Factory.x31ReportBL.Save(cRec, strUploadGUID, lisX69) Then
-                    WE(strFileName & " | " & Master.Factory.x31ReportBL.ErrorMessage)
+                If Not factoryExplicit.x31ReportBL.Save(cRec, strUploadGUID, lisX69) Then
+                    WE(strFileName & " | " & factoryExplicit.x31ReportBL.ErrorMessage)
                 End If
             End If
         Next
@@ -147,7 +148,7 @@ Public Class dbupdate_reports
 
     Private Sub cmdGo_Click(sender As Object, e As EventArgs) Handles cmdGo.Click
         Me.lblError.Text = ""
-        HandleImport()
+        HandleImport(Master.Factory)
         HandleImportX55()
         If Me.lblError.Text = "" Then
             Master.Notify("Aktualizace byla dokončena", NotifyLevel.InfoMessage)
@@ -224,12 +225,14 @@ Public Class dbupdate_reports
 
     
     Private Sub cmdGoDbs_Click(sender As Object, e As EventArgs) Handles cmdGoDbs.Click
-        Dim strDbConString As String = System.Configuration.ConfigurationManager.ConnectionStrings.Item("ApplicationPrimary").ToString
-        Master.Factory.ChangeConnectString(Replace(strDbConString, "cloud-db-template", Me.dbs.SelectedItem.Text, , 1, CompareMethod.Binary))
 
-       
-        HandleImport()
-        With Master.Factory.x31ReportBL.GetList(New BO.myQuery).OrderByDescending(Function(p) p.PID)(0)
+        Dim factory As New BL.Factory("admin@" & Me.dbs.SelectedValue)
+        'Dim strDbConString As String = System.Configuration.ConfigurationManager.ConnectionStrings.Item("ApplicationPrimary").ToString
+        'Master.Factory.ChangeConnectString(Replace(strDbConString, "cloud-db-template", Me.dbs.SelectedItem.Text, , 1, CompareMethod.Binary))
+
+
+        HandleImport(factory)
+        With factory.x31ReportBL.GetList(New BO.myQuery).OrderByDescending(Function(p) p.PID)(0)
             lblDbsMessage.Text = .x31Name & " (" & .DateInsert.ToString & ")"
         End With
 
