@@ -525,7 +525,6 @@
     <Content Include="Public\kickoff.aspx" />
     <Content Include="Public\kickoff_after1.aspx" />
     <Content Include="Public\kickoff_after2.aspx" />
-    <Content Include="Public\report_on_behind.aspx" />
     <Content Include="Public\robot.aspx" />
     <Content Include="record_code.aspx" />
     <Content Include="record_validity.aspx" />
@@ -3022,13 +3021,6 @@
     </Compile>
     <Compile Include="Public\kickoff_after2.aspx.vb">
       <DependentUpon>kickoff_after2.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="Public\report_on_behind.aspx.designer.vb">
-      <DependentUpon>report_on_behind.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Public\report_on_behind.aspx.vb">
-      <DependentUpon>report_on_behind.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Public\robot.aspx.designer.vb">

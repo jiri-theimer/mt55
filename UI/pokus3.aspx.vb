@@ -2,25 +2,19 @@
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        If BO.ASS.GetConfigVal("cloud", "0") = "1" Then
-            Response.Write("CLOUD režim.")
-            Return
-        End If
+        
 
-        Dim strUserLogin As String = "lama@marktime50"
-        Dim strCon As String = System.Configuration.ConfigurationManager.ConnectionStrings.Item("ApplicationPrimary").ToString()
-        Dim x As Integer = strCon.IndexOf("cloud-db-template")
-        If x > 0 Then
-            Dim pos As Integer = strUserLogin.IndexOf("@")
-            Response.Write("pos = " & pos.ToString)
-            Response.Write("<hr>")
-            Response.Write("ret: " & strUserLogin.Substring(pos + 1, Len(strUserLogin) - pos - 1))
-
-            strCon = Replace(strCon, "cloud-db-template", strUserLogin.Substring(pos + 1, Len(strUserLogin) - pos - 1), , 1, CompareMethod.Binary)
-            Response.Write("<hr>con: " & strCon)
-
-
-        End If
+        Response.Write("lama@marktime50: " & BO.BAS.ParseDbNameFromCloudLogin("lama@marktime50"))
+        Response.Write("<hr>")
+        Response.Write("iveta@cleverapp.cz: " & BO.BAS.ParseDbNameFromCloudLogin("iveta@cleverapp.cz"))
+        Response.Write("<hr>")
+        Response.Write("jiri.theimer@cleverapp.cz: " & BO.BAS.ParseDbNameFromCloudLogin("jiri.theimer@cleverapp.cz"))
+        Response.Write("<hr>")
+        Response.Write("jiri.theimer@cleverapp: " & BO.BAS.ParseDbNameFromCloudLogin("jiri.theimer@cleverapp"))
+        Response.Write("<hr>")
+        Response.Write("jiri.theimer: " & BO.BAS.ParseDbNameFromCloudLogin("jiri.theimer"))
+        Response.Write("<hr>")
+        Response.Write("theimer: " & BO.BAS.ParseDbNameFromCloudLogin("theimer"))
     End Sub
 
 End Class

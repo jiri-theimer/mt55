@@ -127,6 +127,14 @@ Public Class admin_framework
             End If
             If grid1.radGridOrig.SelectedItems.Count > 0 Then hiddatapid.Value = intPID.ToString
         End If
+
+        If panDashboard.Visible Then
+            If BO.ASS.GetConfigVal("cloud", "0") = "1" Then
+                panUpload.Visible = False
+                panRobot.Visible = False
+                OtherInfo.Text = String.Format("Čas posledního spuštění robota: <b>{0}</b>.", Me.robot_cache_lastrequest.Text)
+            End If
+        End If
     End Sub
 
     Private Sub SetupTreeMenu()

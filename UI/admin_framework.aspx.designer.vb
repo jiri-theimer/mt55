@@ -293,6 +293,15 @@ Partial Public Class admin_framework
     Protected WithEvents lblRealUsersCount As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''panRobot control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents panRobot As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
     '''Label3 control.
     '''</summary>
     '''<remarks>
@@ -329,6 +338,15 @@ Partial Public Class admin_framework
     Protected WithEvents AppName As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''panUpload control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents panUpload As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
     '''Upload_Folder control.
     '''</summary>
     '''<remarks>
@@ -345,6 +363,15 @@ Partial Public Class admin_framework
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents UserAuthenticationMode As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''OtherInfo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents OtherInfo As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''panGRID control.

@@ -586,7 +586,11 @@
         If pos = -1 Then
             Return ""
         End If
-        Return strLogin.Substring(pos + 1, Len(strLogin) - pos - 1)
+
+        Dim tecka As Integer = strLogin.IndexOf(".", pos)
+        If tecka > -1 Then tecka = Len(strLogin) - tecka Else tecka = 0
+
+        Return strLogin.Substring(pos + 1, Len(strLogin) - pos - 1 - tecka)
 
     End Function
 End Class

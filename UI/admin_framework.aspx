@@ -230,12 +230,7 @@
 
             <div style="clear: both; width: 100%;"></div>
 
-            <div style="width: 100%;">
-                <img style="display: inline;" src="Images/license_32.png" />
-                <span style="display: inline;" class="framework_header_span">Systém</span>
-                
-            </div>
-
+           
 
             <div class="content-box1">
                 <div class="title">
@@ -258,7 +253,7 @@
                 </div>
             </div>
 
-            <div class="content-box1">
+            <asp:panel ID="panRobot" runat="server" CssClass="content-box1">
                 <div class="title">Aplikační robot</div>
                 <div class="content">
                     <asp:Label CssClass="lbl" ID="Label3" runat="server" Text="Host URL pro spouštění robota:"></asp:Label>
@@ -275,7 +270,7 @@
 
                     </div>
                 </div>
-            </div>
+            </asp:panel>
             <div class="content-box1" style="display: none;">
                 <div class="title">
                     Název databáze
@@ -287,7 +282,7 @@
 
                 </div>
             </div>
-            <div class="content-box1">
+            <asp:panel ID="panUpload" runat="server" CssClass="content-box1">
                 <div class="title">
                     Upload složka na serveru
                 </div>
@@ -295,7 +290,7 @@
                     <asp:Label ID="Upload_Folder" runat="server" CssClass="valbold"></asp:Label>
                     <button type="button" onclick="sw_master('x35_record.aspx?key=Upload_Folder','Images/setting_32.png')">Nastavit</button>
                 </div>
-            </div>
+            </asp:panel>
             <div class="content-box1" style="display:none;">
                 <div class="title">
                     Režim přihlašování/ověřování uživatelů
@@ -305,7 +300,9 @@
                     <button type="button" onclick="sw_master('x35_record.aspx?key=UserAuthenticationMode','Images/setting_32.png')">Nastavit</button>
                 </div>
             </div>
-
+            <div style="clear:both;padding:6px;">
+                <asp:Label ID="OtherInfo" runat="server"></asp:Label>
+            </div>
 
 
         </asp:Panel>
