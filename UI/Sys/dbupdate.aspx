@@ -8,8 +8,7 @@
     <div style="padding: 20px; background-color: white;">
         <div class="div6">
             <asp:Label ID="lblHeader" runat="server" CssClass="page_header_span" Text="Aktualizace aplikační databáze"></asp:Label>
-            <asp:Button ID="cmdSP" runat="server" Text="Aktualizovat uložené procedury" CssClass="cmd" style="margin-left:30px;" />
-            <asp:Label ID="lblLastSpLog" runat="server"></asp:Label>
+            
         </div>
         <div class="div6">
             <asp:Label ID="lblError" runat="server" CssClass="failureNotification"></asp:Label>
@@ -17,6 +16,8 @@
         <asp:panel ID="panSingleDb" runat="server" CssClass="div6">
             <asp:Button ID="cmdGo" runat="server" CssClass="cmd" Text="Otestovat změny ve struktuře aplikační databáze" />
             <asp:Label ID="lblDbVersion" runat="server"></asp:Label>
+            <asp:Button ID="cmdSP" runat="server" Text="Aktualizovat uložené procedury" CssClass="cmd" style="margin-left:30px;" />
+            <asp:Label ID="lblLastSpLog" runat="server"></asp:Label>
             
             <div>
                 <asp:Label ID="lblLastRunDifferenceLog" runat="server"></asp:Label>
@@ -33,7 +34,7 @@
                 <asp:DropDownList ID="dbs" runat="server" AutoPostBack="true"></asp:DropDownList>
                 <asp:Button ID="cmdCheckDbs" runat="server" CssClass="cmd" Text="Otestovat" />
                 <asp:Button ID="cmdRunDbs" runat="server" CssClass="cmd" Text="Spustit aktualizaci" Visible="false" />
-                <asp:Button ID="cmdRunSpDbs" runat="server" CssClass="cmd" Text="Spustit aktualizaci SQL uložených procedur" Visible="true" />
+                <asp:Button ID="cmdRunSpDbs" runat="server" CssClass="cmd" Text="Spustit aktualizaci SQL uložených procedur" Visible="true" style="margin-left:200px;" />
                 <asp:Label ID="lblDbsMessage" runat="server" CssClass="infoNotificationRed"></asp:Label>
             </div>
            

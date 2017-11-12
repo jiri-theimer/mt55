@@ -11,9 +11,30 @@ Public Class clsReportOnBehind
         Dim settings As New System.Xml.XmlReaderSettings()
         settings.IgnoreWhitespace = True
 
+        ''Dim fileStream As New System.IO.StreamReader(strFullPathTRDX)
+        
+        If BO.ASS.GetConfigVal("cloud") = "1" Then
+            Dim cF As New BO.clsFile
+            Dim strXML As String = cF.GetFileContents(strFullPathTRDX, , False)
+            Dim strDbConString As String = System.Configuration.ConfigurationManager.ConnectionStrings.Item("ApplicationPrimary").ToString
+            strDbConString = Replace(strDbConString, "cloud-db-template", BO.BAS.ParseDbNameFromCloudLogin(factory.SysUser.j03Login), , 1, CompareMethod.Binary)
+            strXML = Replace(strXML, "ApplicationPrimary", strDbConString)
+
+            strFullPathTRDX = factory.x35GlobalParam.TempFolder & "\" & factory.SysUser.PID.ToString & "rep.trdx"
+            cF.SaveText2File(strFullPathTRDX, strXML, , , False)
+            ''fileStream = New System.IO.StreamReader(strFullPathTRDX)
+        End If
+
+
+
+        ''Dim xmlReader As System.Xml.XmlReader = System.Xml.XmlReader.Create(fileStream, settings)
         Dim xmlReader As System.Xml.XmlReader = System.Xml.XmlReader.Create(strFullPathTRDX, settings)
+
         Dim xmlSerializer As New XmlSerialization.ReportXmlSerializer()
+
         Dim report As Telerik.Reporting.Report = DirectCast(xmlSerializer.Deserialize(xmlReader), Telerik.Reporting.Report)
+
+
 
         Dim reportProcessor As New Processing.ReportProcessor()
         Dim instanceReportSource As New InstanceReportSource()

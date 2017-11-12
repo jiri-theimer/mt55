@@ -23,24 +23,6 @@ Partial Public Class dbupdate
     Protected WithEvents lblHeader As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''cmdSP control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cmdSP As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''lblLastSpLog control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblLastSpLog As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
     '''lblError control.
     '''</summary>
     '''<remarks>
@@ -75,6 +57,24 @@ Partial Public Class dbupdate
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblDbVersion As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''cmdSP control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cmdSP As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''lblLastSpLog control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblLastSpLog As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''lblLastRunDifferenceLog control.
