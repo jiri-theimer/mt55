@@ -158,9 +158,21 @@
                 pars.Add("p28id", .p28ID, DbType.Int32)
                 strW += " AND (a.p28ID=@p28id OR a.p41ID IN (SELECT p41ID FROM p41Project WHERE p28ID_Client=@p28id))"
             End If
+            If Not _curUser.IsAdmin Then
+                If .MyRecordsDisponible Then
+                    If .j02IDs Is Nothing Then
+                        .j02IDs = New List(Of Integer)
+                    End If
+                    .j02IDs.Add(_curUser.j02ID)
+                End If
+            End If
             If Not .j02IDs Is Nothing Then
                 If .j02IDs.Count > 0 Then
-                    strW += " AND (a.j02ID IN (" & String.Join(",", .j02IDs) & ") OR a.o22ID IN (SELECT o22ID FROM o20Milestone_Receiver WHERE j02ID IN (" & String.Join(",", .j02IDs) & ") OR j11ID IN (SELECT j11ID FROM j12Team_Person WHERE j02ID IN (" & String.Join(",", .j02IDs) & "))))"
+                    Dim strIN As String = ""
+                    If .MyRecordsDisponible Then
+                        strIN = " OR a.j02ID_Owner=" & _curUser.j02ID.ToString
+                    End If
+                    strW += " AND (a.j02ID IN (" & String.Join(",", .j02IDs) & ") " & strIN & " OR a.o22ID IN (SELECT o22ID FROM o20Milestone_Receiver WHERE j02ID IN (" & String.Join(",", .j02IDs) & ") OR j11ID IN (SELECT j11ID FROM j12Team_Person WHERE j02ID IN (" & String.Join(",", .j02IDs) & "))))"
                 End If
             End If
 

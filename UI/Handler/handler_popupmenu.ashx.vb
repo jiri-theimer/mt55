@@ -145,16 +145,19 @@ Public Class handler_popupmenu
 
         Dim cP41 As BO.p41Project = factory.p41ProjectBL.Load(cRec.p41ID)
 
-        If cDisp.P31_Create Then
-            SEP()
-            CI("[ZAPSAT WORKSHEET]", "p31_record.aspx?p56id=" & intPID.ToString, cRec.IsClosed, "Images/worksheet.png")
-            If Not cRec.IsClosed Then
-                Dim lisP34 As IEnumerable(Of BO.p34ActivityGroup) = factory.p34ActivityGroupBL.GetList_WorksheetEntryInProject(cP41.PID, cP41.p42ID, cP41.j18ID, factory.SysUser.j02ID)
-                For Each c In lisP34
-                    CI(c.p34Name, "p31_record.aspx?pid=0&p56id=" & cRec.PID.ToString & "&p34id=" + c.PID.ToString, , "Images/worksheet.png", True)
-                Next
+        If factory.SysUser.j04IsMenu_Worksheet Then
+            If cDisp.P31_Create Then
+                SEP()
+                CI("[ZAPSAT WORKSHEET]", "p31_record.aspx?p56id=" & intPID.ToString, cRec.IsClosed, "Images/worksheet.png")
+                If Not cRec.IsClosed Then
+                    Dim lisP34 As IEnumerable(Of BO.p34ActivityGroup) = factory.p34ActivityGroupBL.GetList_WorksheetEntryInProject(cP41.PID, cP41.p42ID, cP41.j18ID, factory.SysUser.j02ID)
+                    For Each c In lisP34
+                        CI(c.p34Name, "p31_record.aspx?pid=0&p56id=" & cRec.PID.ToString & "&p34id=" + c.PID.ToString, , "Images/worksheet.png", True)
+                    Next
+                End If
             End If
         End If
+        
 
         Dim cDispP41 As BO.p41RecordDisposition = factory.p41ProjectBL.InhaleRecordDisposition(cP41)
         Dim mq As New BO.myQueryP31
@@ -199,24 +202,27 @@ Public Class handler_popupmenu
             SEP()
             REL("Statistiky úkolu", "p31_sumgrid.aspx?masterprefix=p56&masterpid=" & cRec.PID.ToString, "_top", "Images/pivot.png")
         End If
-        SEP()
-        CI("Tisková sestava", "report_modal.aspx?prefix=p56&pid=" & intPID.ToString, , "Images/report.png")
-        CI("Odeslat e-mail", "sendmail.aspx?prefix=p56&pid=" & cRec.PID.ToString, , "Images/email.png")
+        If factory.SysUser.j04IsMenu_Task Then
+            SEP()
+            CI("Tisková sestava", "report_modal.aspx?prefix=p56&pid=" & intPID.ToString, , "Images/report.png")
+            CI("Odeslat e-mail", "sendmail.aspx?prefix=p56&pid=" & cRec.PID.ToString, , "Images/email.png")
 
-        SEP()
-        CI("[DALŠÍ]", "", , "Images/more.png")
-        CI("Oštítkovat", "tag_binding.aspx?prefix=p56&pids=" & intPID.ToString, , "Images/tag.png", True)
+            SEP()
+            CI("[DALŠÍ]", "", , "Images/more.png")
+            CI("Oštítkovat", "tag_binding.aspx?prefix=p56&pids=" & intPID.ToString, , "Images/tag.png", True)
 
 
-        If cRec.b01ID = 0 Then CI("Doplnit poznámku, komentář, přílohu", "b07_create.aspx?masterprefix=p56&masterpid=" & cRec.PID.ToString, , "Images/comment.png", True)
+            If cRec.b01ID = 0 Then CI("Doplnit poznámku, komentář, přílohu", "b07_create.aspx?masterprefix=p56&masterpid=" & cRec.PID.ToString, , "Images/comment.png", True)
 
-        REL("Historie odeslané pošty", "x40_framework.aspx?masterprefix=p56&masterpid=" & cRec.PID.ToString, "_top", "Images/email.png", True)
-        If cDisp.OwnerAccess Then
-            CI("Historie záznamu", "entity_timeline.aspx?prefix=p56&pid=" & cRec.PID.ToString, , "Images/event.png", True)
+            REL("Historie odeslané pošty", "x40_framework.aspx?masterprefix=p56&masterpid=" & cRec.PID.ToString, "_top", "Images/email.png", True)
+            If cDisp.OwnerAccess Then
+                CI("Historie záznamu", "entity_timeline.aspx?prefix=p56&pid=" & cRec.PID.ToString, , "Images/event.png", True)
+            End If
+
+            CI("Plugin", "plugin_modal.aspx?prefix=p56&pid=" & cRec.PID.ToString, , "Images/plugin.png", True)
+
         End If
-
-        CI("Plugin", "plugin_modal.aspx?prefix=p56&pid=" & cRec.PID.ToString, , "Images/plugin.png", True)
-
+        
 
     End Sub
     Private Sub HandleP91(intPID As Integer, factory As BL.Factory, strFlag As String)
@@ -560,28 +566,24 @@ Public Class handler_popupmenu
             SEP()
             REL("Statistiky klienta", "p31_sumgrid.aspx?masterprefix=p28&masterpid=" & cRec.PID.ToString, "_top", "Images/pivot.png")
         End If
-        SEP()
-        CI("Tisková sestava", "report_modal.aspx?prefix=p28&pid=" & intPID.ToString, , "Images/report.png")
-        CI("Odeslat e-mail", "sendmail.aspx?prefix=p28&pid=" & cRec.PID.ToString, , "Images/email.png")
+        If factory.SysUser.j04IsMenu_Contact Then
+            SEP()
+            CI("Tisková sestava", "report_modal.aspx?prefix=p28&pid=" & intPID.ToString, , "Images/report.png")
+            CI("Odeslat e-mail", "sendmail.aspx?prefix=p28&pid=" & cRec.PID.ToString, , "Images/email.png")
 
-     
+            SEP()
+            CI("[DALŠÍ]", "", , "Images/more.png")
+            CI("Oštítkovat", "tag_binding.aspx?prefix=p28&pids=" & intPID.ToString, , "Images/tag.png", True)
 
-        SEP()
-        CI("[DALŠÍ]", "", , "Images/more.png")
-        CI("Oštítkovat", "tag_binding.aspx?prefix=p28&pids=" & intPID.ToString, , "Images/tag.png", True)
+            REL("Historie odeslané pošty", "x40_framework.aspx?masterprefix=p28&masterpid=" & cRec.PID.ToString, "_top", "Images/email.png", True)
+            If cDisp.OwnerAccess Then
+                CI("Historie záznamu", "entity_timeline.aspx?prefix=p28&pid=" & cRec.PID.ToString, , "Images/event.png", True)
+            End If
 
-        
-        
-
-
-
-        REL("Historie odeslané pošty", "x40_framework.aspx?masterprefix=p28&masterpid=" & cRec.PID.ToString, "_top", "Images/email.png", True)
-        If cDisp.OwnerAccess Then
-            CI("Historie záznamu", "entity_timeline.aspx?prefix=p28&pid=" & cRec.PID.ToString, , "Images/event.png", True)
+            CI("Plugin", "plugin_modal.aspx?prefix=p28&pid=" & cRec.PID.ToString, , "Images/plugin.png", True)
+            CI("Čárový kód", "barcode.aspx?prefix=p28&pid=" & cRec.PID.ToString, , "Images/barcode.png", True)
         End If
-
-        CI("Plugin", "plugin_modal.aspx?prefix=p28&pid=" & cRec.PID.ToString, , "Images/plugin.png", True)
-        CI("Čárový kód", "barcode.aspx?prefix=p28&pid=" & cRec.PID.ToString, , "Images/barcode.png", True)
+        
 
 
     End Sub
@@ -639,7 +641,9 @@ Public Class handler_popupmenu
 
 
         If Not cDisp.ReadAccess Then CI("Nemáte přístup k tomuto projektu.", "", True) : Return
-        If cP42.p42IsModule_p31 Then
+        Dim b As Boolean = factory.SysUser.j04IsMenu_Worksheet
+        If Not cP42.p42IsModule_p31 Then b = False
+        If b Then
             If Not (cRec.IsClosed Or cRec.p41IsDraft) Then
                 SEP()
                 CI("[ZAPSAT WORKSHEET]", "p31_record.aspx?pid=0&p41id=" & cRec.PID.ToString, , "Images/worksheet.png")
@@ -747,41 +751,46 @@ Public Class handler_popupmenu
         End If
         
 
-        SEP()
-        CI("Tisková sestava", "report_modal.aspx?prefix=p41&pid=" & intPID.ToString, , "Images/report.png")
-        CI("Odeslat e-mail", "sendmail.aspx?prefix=p41&pid=" & cRec.PID.ToString, , "Images/email.png")
+
+        If factory.SysUser.j04IsMenu_Project Then
+            SEP()
+            CI("Tisková sestava", "report_modal.aspx?prefix=p41&pid=" & intPID.ToString, , "Images/report.png")
+            CI("Odeslat e-mail", "sendmail.aspx?prefix=p41&pid=" & cRec.PID.ToString, , "Images/email.png")
+
         
-        
 
-        'If strFlag = "pagemenu" Then
-        SEP()
-        CI("[DALŠÍ]", "", , "Images/more.png")
-        CI("Oštítkovat", "tag_binding.aspx?prefix=p41&pids=" & intPID.ToString, , "Images/tag.png", True)
-        If cDisp.OwnerAccess Then
-            CI("Kontaktní osoby projektu", "p30_binding.aspx?masterprefix=p41&masterpid=" & cRec.PID.ToString, , "Images/person.png", True)
+
+            SEP()
+            CI("[DALŠÍ]", "", , "Images/more.png")
+
+
+
+            CI("Oštítkovat", "tag_binding.aspx?prefix=p41&pids=" & intPID.ToString, , "Images/tag.png", True)
+            If cDisp.OwnerAccess Then
+                CI("Kontaktní osoby projektu", "p30_binding.aspx?masterprefix=p41&masterpid=" & cRec.PID.ToString, , "Images/person.png", True)
+            End If
+
+            If factory.p41ProjectBL.IsMyFavouriteProject(cRec.PID) Then
+                CI("Vyřadit z mých oblíbených projektů", "javascript:Handle_Project_Favourite(" & cRec.PID.ToString & ")", , "Images/favourite_clear.png", True)
+            Else
+                CI("Zařadit mezi mé oblíbené projekty", "javascript:Handle_Project_Favourite(" & cRec.PID.ToString & ")", , "Images/favourite_add.png", True)
+            End If
+
+            If cDisp.OwnerAccess Then
+                CI("Nastavit jako opakovaný projekt", "p41_recurrence.aspx?pid=" & cRec.PID.ToString, , "Images/recurrence.png", True)
+            End If
+
+
+
+            REL("Historie odeslané pošty", "x40_framework.aspx?masterprefix=p41&masterpid=" & cRec.PID.ToString, "_top", "Images/email.png", True)
+            If cDisp.OwnerAccess Then
+                CI("Historie záznamu", "entity_timeline.aspx?prefix=p41&pid=" & cRec.PID.ToString, , "Images/event.png", True)
+            End If
+            CI("Plugin", "plugin_modal.aspx?prefix=p41&pid=" & cRec.PID.ToString, , "Images/plugin.png", True)
+            CI("Čárový kód", "barcode.aspx?prefix=p41&pid=" & cRec.PID.ToString, , "Images/barcode.png", True)
+
+
         End If
-
-        If factory.p41ProjectBL.IsMyFavouriteProject(cRec.PID) Then
-            CI("Vyřadit z mých oblíbených projektů", "javascript:Handle_Project_Favourite(" & cRec.PID.ToString & ")", , "Images/favourite_clear.png", True)
-        Else
-            CI("Zařadit mezi mé oblíbené projekty", "javascript:Handle_Project_Favourite(" & cRec.PID.ToString & ")", , "Images/favourite_add.png", True)
-        End If
-
-        If cDisp.OwnerAccess Then
-            CI("Nastavit jako opakovaný projekt", "p41_recurrence.aspx?pid=" & cRec.PID.ToString, , "Images/recurrence.png", True)
-        End If
-        
-        
-       
-        REL("Historie odeslané pošty", "x40_framework.aspx?masterprefix=p41&masterpid=" & cRec.PID.ToString, "_top", "Images/email.png", True)
-        If cDisp.OwnerAccess Then
-            CI("Historie záznamu", "entity_timeline.aspx?prefix=p41&pid=" & cRec.PID.ToString, , "Images/event.png", True)
-        End If
-        CI("Plugin", "plugin_modal.aspx?prefix=p41&pid=" & cRec.PID.ToString, , "Images/plugin.png", True)
-        CI("Čárový kód", "barcode.aspx?prefix=p41&pid=" & cRec.PID.ToString, , "Images/barcode.png", True)
-
-
-        'End If
     End Sub
     Private Sub HandleO23(intPID As Integer, factory As BL.Factory, strFlag As String)
         Dim cRec As BO.o23Doc = factory.o23DocBL.Load(intPID)
