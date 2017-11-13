@@ -602,30 +602,33 @@ Public Class p31_subgrid
         _curIsExport = True
         Me.AllowMultiSelect = False
         SetupP31Grid()
-        With grid2
-            .Page.Response.ClearHeaders()
-            .Page.Response.Cache.SetCacheability(HttpCacheability.[Private])
-            .PageSize = 2000
-            .Rebind(False)
-            Select Case strFormat
-                Case "xls"
-                    .radGridOrig.ExportToExcel()
-                Case "pdf"
-                    With .radGridOrig.ExportSettings.Pdf
-                        If grid2.radGridOrig.Columns.Count > 4 Then
-                            .PageWidth = Unit.Parse("297mm")
-                            .PageHeight = Unit.Parse("210mm")
-                        Else
-                            .PageHeight = Unit.Parse("297mm")
-                            .PageWidth = Unit.Parse("210mm")
-                        End If
-                    End With
-                    .radGridOrig.ExportToPdf()
-                Case "doc"
-                    .radGridOrig.ExportToWord()
-            End Select
+        basUIMT.Handle_GridTelerikExport(Me.grid2, strFormat)
+        ''With grid2
+        ''    .Page.Response.ClearHeaders()
+        ''    .Page.Response.Cache.SetCacheability(HttpCacheability.[Private])
+        ''    .PageSize = 2000
+        ''    .radGridOrig.ClientSettings.Scrolling.AllowScroll = False
+        ''    .radGridOrig.ClientSettings.Scrolling.UseStaticHeaders = False
+        ''    .Rebind(False)
+        ''    Select Case strFormat
+        ''        Case "xls"
+        ''            .radGridOrig.ExportToExcel()
+        ''        Case "pdf"
+        ''            With .radGridOrig.ExportSettings.Pdf
+        ''                If grid2.radGridOrig.Columns.Count > 4 Then
+        ''                    .PageWidth = Unit.Parse("297mm")
+        ''                    .PageHeight = Unit.Parse("210mm")
+        ''                Else
+        ''                    .PageHeight = Unit.Parse("297mm")
+        ''                    .PageWidth = Unit.Parse("210mm")
+        ''                End If
+        ''            End With
+        ''            .radGridOrig.ExportToPdf()
+        ''        Case "doc"
+        ''            .radGridOrig.ExportToWord()
+        ''    End Select
 
-        End With
+        ''End With
     End Sub
 
     Private Sub cmdPDF_Click(sender As Object, e As EventArgs) Handles cmdPDF.Click
