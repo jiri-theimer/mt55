@@ -3,17 +3,22 @@
     Private _Factory As BL.Factory
 
     Private Sub kickoff_Init(sender As Object, e As EventArgs) Handles Me.Init
-        If Not basMemberShip.RecoverySystemAccount() Then
-            Me.lblError.Text = basMemberShip.ErrorMessage
+        ''If Not basMemberShip.RecoverySystemAccount() Then
+        ''    Me.lblError.Text = basMemberShip.ErrorMessage
+        ''End If
+        If Request.Item("login") <> "" Then
+            _Factory = New BL.Factory(Request.Item("login"))
+        Else
+            _Factory = New BL.Factory(BO.ASS.GetConfigVal("robot_account", "admin"))
         End If
-        _Factory = New BL.Factory(BO.ASS.GetConfigVal("robot_account", "admin"))
+       
+
 
     End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        
-
         If Not Page.IsPostBack Then
+            
             Dim lisJ03 As IEnumerable(Of BO.j03User) = _Factory.j03UserBL.GetList(New BO.myQueryJ03).Where(Function(p) p.j03IsSystemAccount = False)
             If lisJ03.Count > 0 Then
                 'v systému už jsou založeni uživatelé

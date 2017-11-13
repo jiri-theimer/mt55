@@ -99,17 +99,17 @@
         End Try
     End Function
 
-    Public Shared Function RecoverySystemAccount() As Boolean
-        Dim strMI As String = basMemberShip.GetUserID("mtservice")
-        If strMI = "" Then
-            Randomize()
-            If Not basMemberShip.CreateUser("mtservice", "info@marktime.cz", "A.2" & (Rnd() * 100000).ToString) Then
-                _Error = basMemberShip.ErrorMessage
-                Return False
-            End If
-        End If
+    ''Public Shared Function RecoverySystemAccount() As Boolean
+    ''    Dim strMI As String = basMemberShip.GetUserID("mtservice")
+    ''    If strMI = "" Then
+    ''        Randomize()
+    ''        If Not basMemberShip.CreateUser("mtservice", "info@marktime.cz", "A.2" & (Rnd() * 100000).ToString) Then
+    ''            _Error = basMemberShip.ErrorMessage
+    ''            Return False
+    ''        End If
+    ''    End If
 
-        Return True
-    End Function
+    ''    Return True
+    ''End Function
 
 End Class

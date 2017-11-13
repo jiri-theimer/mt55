@@ -14609,7 +14609,6 @@ SELECT a.RowID as pid
 ,p57.p57Name as [Typ úkolu]
 ,a.p56Code as [Kód]
 ,p41.p41Name as [Projekt]
-,o22.o22Name as [Milník úkolu]
 ,p65.p65Name as [Šablona opakování]
 
 ,a.p56Description as [Podrobný popis]
@@ -14625,7 +14624,6 @@ FROM
 p56Task_Log a
 LEFT OUTER JOIN p41Project p41 ON a.p41ID=p41.p41ID
 LEFT OUTER JOIN p57TaskType p57 ON a.p57ID=p57.p57ID
-LEFT OUTER JOIN o22Milestone o22 ON a.o22ID=o22.o22ID
 LEFT OUTER JOIN b02WorkflowStatus b02 ON a.b02ID=b02.b02ID
 LEFT OUTER JOIN p65Recurrence p65 ON a.p65ID=p65.p65ID
 WHERE a.p56ID=@p56id

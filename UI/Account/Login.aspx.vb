@@ -23,19 +23,11 @@
 
             ''TestUserAuthenticationMode()
 
-            TestSystemKickoff()
+
         End If
     End Sub
 
-    Private Sub TestSystemKickoff()
-        'dočasně vypnuto
-        Return
-        Dim factory As New BL.Factory("")
-        If factory.j03UserBL.GetList(New BO.myQueryJ03).Where(Function(p) p.j03IsSystemAccount = False).Count = 0 Then
-            'v db nejsou žádní uživatelé
-            Response.Redirect("../public/kickoff.aspx")
-        End If
-    End Sub
+    
 
     Private Sub LoginUser_Authenticate(sender As Object, e As System.Web.UI.WebControls.AuthenticateEventArgs) Handles LoginUser.Authenticate
         If _UserAuthenticationMode = BO.UserAuthenticationModeEnum.WindowsOnly Then Return
@@ -79,10 +71,9 @@
         Dim factory As New BL.Factory(LoginUser.UserName)
         If Not factory.SysUser Is Nothing Then
 
-            
-
             basUI.Write2AccessLog(factory, True, Request, screenwidth.Value, screenheight.Value)
 
+            TestSystemKickoff(LoginUser.UserName)
         End If
 
     End Sub
@@ -105,6 +96,14 @@
         ''End If
         Return bolStop
     End Function
+
+    Private Sub TestSystemKickoff(strLogin As String)
+        Dim factory As New BL.Factory(strLogin)
+        If factory.j03UserBL.GetList(New BO.myQueryJ03).Where(Function(p) p.j03IsSystemAccount = False).Count = 0 Or 1 = 1 Then
+            'v db nejsou žádní uživatelé
+            LoginUser.DestinationPageUrl = "../public/kickoff.aspx?login=" & strLogin
+        End If
+    End Sub
 
     ''Private Sub TestUserAutoLoginPerDB(strAutoLogin As String)
     ''    Dim factory As New BL.Factory()
@@ -166,4 +165,6 @@
             Me.imgSplashScreen.Visible = True
         End If
     End Sub
+
+    
 End Class
