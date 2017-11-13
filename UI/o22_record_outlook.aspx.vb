@@ -70,14 +70,19 @@
             End If
 
 
-            Dim c As New Independentsoft.Msg.Message
-            'c.EntryId = System.Text.Encoding.UTF8.GetBytes("o22-" & .PID.ToString)
-           
-            c.MessageClass = "IPM.Appointment"
-            c.Encoding = System.Text.Encoding.GetEncoding(1250)
-            c.Subject = Me.o22Name.Text
+            ''Dim c As New Independentsoft.Msg.Message
+            ' ''c.EntryId = System.Text.Encoding.UTF8.GetBytes("o22-" & .PID.ToString)
 
-            ViewState("msgfile") = Master.Factory.o22MilestoneBL.CreateICalendarTempFullPath(.PID)
+            ''c.MessageClass = "IPM.Appointment"
+            ''c.Encoding = System.Text.Encoding.GetEncoding(1250)
+            ''c.Subject = Me.o22Name.Text
+
+            If Not System.IO.File.Exists(Master.Factory.x35GlobalParam.TempFolder & "\marktime_calendar_event" & .PID.ToString & ".ics") Or Request.Item("force") = "1" Then
+                hidIcsFile.Value = Master.Factory.o22MilestoneBL.CreateICalendarTempFullPath(.PID)
+            Else
+                hidIcsFile.Value = "marktime_calendar_event" & .PID.ToString & ".ics"
+            End If
+
             cmdOdeslat.Visible = True
 
             ''Dim rtfBody As Byte() = System.Text.Encoding.UTF8.GetBytes("{\rtf1\ansi\ansicpg1252\fromhtml1 \htmlrtf0  " & _Description & "}")

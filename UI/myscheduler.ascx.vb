@@ -24,6 +24,7 @@ Public Class myscheduler
         Public Property Status As String
         Public Property Receivers As String
         Public Property NavigateUrl As String
+        Public Property Target As String
         Public Property p41ID As Integer
         Public Property Project As String
         Public Property ImageUrl As String
@@ -160,7 +161,18 @@ Public Class myscheduler
                 If .o22Description <> "" Then c.Tooltip += .o22Description
                 c.BackColor = .Color.BackColor
                 c.Status = .o21Name
-                c.NavigateUrl = .o22AppUrl
+                If .o22AppUrl = "" Then
+                    If .j02ID_Owner = factory.SysUser.j02ID Or factory.SysUser.IsAdmin Then
+                        c.NavigateUrl = "javascript:contMenu('o22_record.aspx?pid=" & .PID.ToString & "',false)"
+                    Else
+                        c.NavigateUrl = "javascript:contMenu('o22_record_outlook.aspx?pid=" & .PID.ToString & "',false)"
+                    End If
+                    c.Target = ""
+                Else
+                    c.NavigateUrl = .o22AppUrl
+                    c.Target = "_blank"
+                End If
+
 
                 Select Case .o21Flag
                     Case BO.o21FlagEnum.DeadlineOrMilestone, BO.o21FlagEnum.TaskDeadline, BO.o21FlagEnum.ProjectDeadline

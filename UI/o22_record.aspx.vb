@@ -300,7 +300,7 @@ Public Class o22_record
                     Return
                 End If
                 If Me.CurrentMode = RecMode.LocalAndOutlook Then
-                    Server.Transfer("o22_record_outlook.aspx?pid=" & Master.DataPID.ToString)
+                    Server.Transfer("o22_record_outlook.aspx?force=1&pid=" & Master.DataPID.ToString)
                     Return
                 End If
 

@@ -5,12 +5,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <script type="text/javascript">
         $(document).ready(function () {
-            <%if viewstate("msgfile")<>"" then%>
+            <%If Request.Item("force") = "1" Then%>
             Handle_Download();
             <%end If%>
         });
         function Handle_Download() {
-            location.replace("binaryfile.aspx?tempfile=<%=viewstate("msgfile")%>");
+            var ics=document.getElementById("<%=hidIcsFile.ClientID%>").value;
+            location.replace("binaryfile.aspx?tempfile="+ics);
         }
     </script>
 </asp:Content>
@@ -19,7 +20,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     <div class="div6" style="height:40px;">
         
-        <button type="button" id="cmdOdeslat" runat="server" onclick="Handle_Download()" style="font-size:x-large;" class="cmd" visible="false">Odeslat do OUTLOOK</button>
+        <button type="button" id="cmdOdeslat" runat="server" onclick="Handle_Download()" style="font-size:x-large;" class="cmd" visible="false">Odeslat do OUTLOOK (nebo APPLE)</button>
 
         
     </div>
@@ -72,7 +73,7 @@
             </div>
         </div>
     </asp:panel>
-
+    <asp:HiddenField ID="hidIcsFile" runat="server" />
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="FootContent" runat="server">
 </asp:Content>

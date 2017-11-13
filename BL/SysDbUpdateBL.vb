@@ -33,9 +33,9 @@
         _factory = New BL.Factory(strLogin)
         _result = New System.Text.StringBuilder
     End Sub
-    Public Sub ChangeConnectString(strConString As String)
-        _cDL.ChangeConnectString(strConString)
-    End Sub
+    ''Public Sub ChangeConnectString(strConString As String)
+    ''    _cDL.ChangeConnectString(strConString)
+    ''End Sub
 
     Public Function RunSql_step2_sp() As Boolean
         Dim strFile As String = BO.ASS.GetApplicationRootFolder() & "\sys\wfa\sql_step2_sp.sql"

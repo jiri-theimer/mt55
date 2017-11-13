@@ -113,6 +113,15 @@ Partial Public Class o22_record_outlook
     Protected WithEvents o22Description As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''hidIcsFile control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hidIcsFile As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
     '''Master property.
     '''</summary>
     '''<remarks>

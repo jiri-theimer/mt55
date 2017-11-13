@@ -27,8 +27,8 @@
 
         _cDB = New DL.DbHandler(_curUser.j03Login)
 
-        If _curUser.ExplicitConnectString = "" Then Return
-        _cDB.ChangeConString(_curUser.ExplicitConnectString)    'požadavek za změnu aplikační databáze
+        ''If _curUser.ExplicitConnectString = "" Then Return
+        ''_cDB.ChangeConString(_curUser.ExplicitConnectString)    'požadavek za změnu aplikační databáze
     End Sub
 
 
@@ -40,8 +40,8 @@
         RaiseEvent OnSaveRecord(intLastSavedPID)
     End Sub
 
-    Public Sub ChangeConnectString(strConString As String)
-        _cDB.ChangeConString(strConString)
-    End Sub
+    ''Public Sub ChangeConnectString(strConString As String)
+    ''    _cDB.ChangeConString(strConString)
+    ''End Sub
     
 End Class
