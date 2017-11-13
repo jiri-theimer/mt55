@@ -27,6 +27,8 @@
                     _Factory = New BL.Factory("admin@" & strDB)
                     If Not _Factory Is Nothing Then
                         RunRobot_OneDb()
+
+                        _Factory.x35GlobalParam.UpdateValue("robot_cache_lastrequest", Format(Now, "dd.MM.yyyy HH:mm:ss"))
                     Else
                         log4net.LogManager.GetLogger("robotlog").Info("admin@" & strDB & ":  service user is not inhaled!")
                     End If
@@ -615,10 +617,7 @@
         c.j91BatchGuid = _BatchGuid
         c.j91Account = _Factory.SysUser.j03Login
         c.j91Date = Now
-        If _curCloudDB <> "" Then
-            If strError <> "" Then strError = _curCloudDB & ": " & strError
-            If strInfo <> "" Then strInfo = _curCloudDB & ": " & strInfo
-        End If
+        
         c.j91ErrorMessage = strError
         c.j91InfoMessage = strInfo
         
