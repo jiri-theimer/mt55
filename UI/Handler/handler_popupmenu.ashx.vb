@@ -607,6 +607,9 @@ Public Class handler_popupmenu
             CI("Upravit kartu projektu", "p41_record.aspx?pid=" & intPID.ToString, , "Images/edit.png")
 
         End If
+        If cDisp.ReadAccess Or cDisp.OwnerAccess Then
+
+        End If
         SEP()
         CI("[NOVÝ]", "", , "Images/new4menu.png")
         If cDisp.OwnerAccess Then CI("Kopírovat projekt", "p41_create.aspx?clone=1&pid=" & intPID.ToString, , "Images/copy.png", True)

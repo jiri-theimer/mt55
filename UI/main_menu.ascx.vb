@@ -153,6 +153,7 @@ Public Class main_menu
         Dim ns As New Dictionary(Of Integer, NavigationNode), bolGO As Boolean = False
         Dim nSeps As New List(Of NavigationNode)
 
+
         For Each c In lisJ62
             bolGO = True
             With factory.SysUser
@@ -224,6 +225,8 @@ Public Class main_menu
             ns.Add(c.PID, n)
           
         Next
+
+        
 
         For Each n In nSeps
             If n.Nodes.Count = 0 Then
