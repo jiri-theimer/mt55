@@ -69,4 +69,6 @@
         <asp:Button ID="cmdGo" runat="server" CssClass="cmd" Text="Uložit nastavení a pokračovat ->" />
         <asp:Label ID="lblError" runat="server" ForeColor="red" Font-Size="120%" Font-Bold="true"></asp:Label>
     </div>
+
+    <asp:HiddenField ID="hidLogin" runat="server" />
 </asp:Content>

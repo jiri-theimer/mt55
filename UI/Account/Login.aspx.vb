@@ -99,7 +99,7 @@
 
     Private Sub TestSystemKickoff(strLogin As String)
         Dim factory As New BL.Factory(strLogin)
-        If factory.j03UserBL.GetList(New BO.myQueryJ03).Where(Function(p) p.j03IsSystemAccount = False).Count = 0 Or 1 = 1 Then
+        If factory.j03UserBL.GetList(New BO.myQueryJ03).Where(Function(p) p.j03IsSystemAccount = False).Count = 0 Then
             'v db nejsou žádní uživatelé
             LoginUser.DestinationPageUrl = "../public/kickoff.aspx?login=" & strLogin
         End If

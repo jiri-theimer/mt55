@@ -7,12 +7,10 @@
         ''    Me.lblError.Text = basMemberShip.ErrorMessage
         ''End If
         If Request.Item("login") <> "" Then
-            _Factory = New BL.Factory(Request.Item("login"))
-        Else
-            _Factory = New BL.Factory(BO.ASS.GetConfigVal("robot_account", "admin"))
+            hidLogin.Value = Request.Item("login")
         End If
-       
-
+        If hidLogin.Value = "" Then hidLogin.Value = BO.ASS.GetConfigVal("robot_account", "admin")
+        _Factory = New BL.Factory(hidLogin.Value)
 
     End Sub
 
@@ -85,7 +83,12 @@
                     Me.lblError.Text += "Uživatelský účet byl založen, ale u zakládání osobního profilu došlo k chybě: " & _Factory.j02PersonBL.ErrorMessage
                 End If
                 _Factory.j03UserBL.Save(cJ03)
-                Response.Redirect("kickoff_after1.aspx")
+
+                Dim strURL As String = "kickoff_after1.aspx"
+                If hidLogin.Value <> "" Then
+                    strURL += "?login=" & hidLogin.Value
+                End If
+                Response.Redirect(strURL)
             Else
                 Me.lblError.Text = _Factory.j03UserBL.ErrorMessage
             End If

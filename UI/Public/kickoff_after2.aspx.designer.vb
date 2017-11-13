@@ -84,4 +84,13 @@ Partial Public Class kickoff_after2
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblError As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''hidLogin control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hidLogin As Global.System.Web.UI.WebControls.HiddenField
 End Class

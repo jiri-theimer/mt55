@@ -3,7 +3,11 @@
     Private _Factory As BL.Factory
 
     Private Sub kickoff_after2_Init(sender As Object, e As EventArgs) Handles Me.Init
-        _Factory = New BL.Factory(BO.ASS.GetConfigVal("robot_account", "admin"))
+        If Request.Item("login") <> "" Then
+            hidLogin.Value = Request.Item("login")
+        End If
+        If hidLogin.Value = "" Then hidLogin.Value = BO.ASS.GetConfigVal("robot_account", "admin")
+        _Factory = New BL.Factory(hidLogin.Value)
     End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load

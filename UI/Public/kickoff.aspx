@@ -83,4 +83,5 @@
 
         </div>
     </asp:Panel>
+    <asp:HiddenField ID="hidLogin" runat="server" />
 </asp:Content>
