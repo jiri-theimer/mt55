@@ -8,6 +8,7 @@
 <%@ Register TagPrefix="uc" TagName="entityrole_assign" Src="~/entityrole_assign.ascx" %>
 <%@ Register TagPrefix="uc" TagName="freefields" Src="~/freefields.ascx" %>
 <%@ Register TagPrefix="uc" TagName="mytags" Src="~/mytags.ascx" %>
+<%@ Register TagPrefix="uc" TagName="project" Src="~/project.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <script type="text/javascript">
@@ -52,24 +53,25 @@
                     </td>
                 </tr>
 
+                
+                <tr>
+                    <td>
+                        <asp:Label ID="lblName" runat="server" CssClass="lblReq" Text="Název úkolu:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="p56Name" runat="server" Style="width: 450px;background-color:#ffffcc;"></asp:TextBox>
+                        <asp:HyperLink ID="p56Code" runat="server" ToolTip="Kód záznamu"></asp:HyperLink>
+                    </td>
+                </tr>
+                
                 <tr>
                     <td>
                         <asp:Label ID="lblProject" runat="server" CssClass="lbl" Text="Projekt:"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="Project" runat="server" CssClass="valbold"></asp:Label>
+                        <uc:project ID="p41ID" runat="server" Width="450px" />
                     </td>
                 </tr>
-                <tr style="border-top: dashed gray 1px;">
-                    <td>
-                        <asp:Label ID="lblName" runat="server" CssClass="lblReq" Text="Název úkolu:"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="p56Name" runat="server" Style="width: 450px;"></asp:TextBox>
-                        <asp:HyperLink ID="p56Code" runat="server" ToolTip="Kód záznamu"></asp:HyperLink>
-                    </td>
-                </tr>
-
                 <tr>
                     <td>
                         <asp:Label ID="lblDateFrom" Text="Plánované zahájení:" runat="server" AssociatedControlID="p56PlanFrom" CssClass="lbl"></asp:Label></td>
@@ -104,14 +106,7 @@
                 </tr>
               
 
-                <tr>
-                    <td>
-                        <asp:Label ID="lblOwner" runat="server" Text="Vlastník záznamu:" CssClass="lblReq"></asp:Label>
-                    </td>
-                    <td>
-                        <uc:person ID="j02ID_Owner" runat="server" Width="150px" />
-                    </td>
-                </tr>
+                
                 <tr>
                     <td>
                         <asp:Label ID="lblCompletePercent" Text="Hotovo (%):" runat="server" CssClass="lbl"></asp:Label>
@@ -135,7 +130,7 @@
                     </td>
                 </tr>
             </table>
-            <uc:mytags ID="tags1" ModeUi="1" Prefix="p56" runat="server" />
+            
 
             <asp:Panel ID="panRoles" runat="server" CssClass="content-box2">
                 <div class="title">
@@ -190,9 +185,15 @@
                 </div>
 
             </asp:Panel>
+            <uc:mytags ID="tags1" ModeUi="1" Prefix="p56" runat="server" />
             <div class="div6">
+                <asp:Label ID="lblOwner" runat="server" Text="Vlastník záznamu:" CssClass="lblReq"></asp:Label>
+                <uc:person ID="j02ID_Owner" runat="server" Width="150px" />
+            </div>
+            <div class="div6">                 
                 <asp:CheckBox ID="p56IsNoNotify" runat="server" Text="V úkolu vypnout automatické e-mail notifikace" CssClass="chk" />
             </div>
+            
 
             <telerik:RadCalendar ID="SharedCalendar" runat="server" EnableMultiSelect="False" UseColumnHeadersAsSelectors="False" UseRowHeadersAsSelectors="False">
 
@@ -201,7 +202,7 @@
                 </SpecialDays>
             </telerik:RadCalendar>
 
-            <asp:HiddenField ID="hidP41ID" runat="server" />
+            
 
         </telerik:RadPageView>
         <telerik:RadPageView ID="ff" runat="server">

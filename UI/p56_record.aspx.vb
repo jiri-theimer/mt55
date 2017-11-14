@@ -2,13 +2,11 @@
     Inherits System.Web.UI.Page
     Protected WithEvents _MasterPage As ModalDataRecord
 
-    Public Property CurrentP41ID As Integer
+    Public ReadOnly Property CurrentP41ID As Integer
         Get
-            Return BO.BAS.IsNullInt(Me.hidP41ID.Value)
+            Return BO.BAS.IsNullInt(Me.p41ID.Value)
         End Get
-        Set(value As Integer)
-            Me.hidP41ID.Value = value.ToString
-        End Set
+        
     End Property
     Private Sub p56_record_Init(sender As Object, e As EventArgs) Handles Me.Init
         _MasterPage = Me.Master
@@ -26,21 +24,13 @@
                 .DataPID = BO.BAS.IsNullInt(Request.Item("pid"))
                 .HeaderText = "Úkol"
 
-                Me.CurrentP41ID = BO.BAS.IsNullInt(Request.Item("p41id"))
-                If Me.CurrentP41ID = 0 And Request.Item("masterprefix") = "p41" And BO.BAS.IsNullInt(Request.Item("masterpid")) <> 0 Then
-                    Me.CurrentP41ID = BO.BAS.IsNullInt(Request.Item("masterpid"))
+                Me.p41ID.Value = Request.Item("p41id")
+                If .DataPID = 0 And Me.CurrentP41ID > 0 Then
+
+                    p41ID.Text = Master.Factory.GetRecordCaption(BO.x29IdEnum.p41Project, Me.CurrentP41ID)
                 End If
 
-                If Me.CurrentP41ID = 0 And .DataPID = 0 Then
-                    If Request.Item("masterprefix") <> "" And Request.Item("masterpid") <> "" Then
-                        Server.Transfer("select_project.aspx?oper=createtask&" & basUI.GetCompleteQuerystring(Request))
-                    Else
-                        .StopPage("Na vstupu chybí ID projektu.")
-                    End If
-
-                End If
-                
-                
+               
                 Me.p57ID.DataSource = .Factory.p57TaskTypeBL.GetList(New BO.myQuery)
                 Me.p57ID.DataBind()
                
@@ -87,6 +77,10 @@
             Return
         End If
         With cRecLast
+            If Me.CurrentP41ID = 0 Then
+                Me.p41ID.Value = .p41ID.ToString
+                Me.p41ID.Text = Master.Factory.GetRecordCaption(BO.x29IdEnum.p41Project, .p41ID)
+            End If
             Me.p56IsNoNotify.Checked = .p56IsNoNotify
             Me.p57ID.SelectedValue = .p57ID.ToString
             roles1.InhaleInitialData(.PID)
@@ -97,7 +91,6 @@
         If Master.DataPID = 0 Then
             InhaleMyDefault()
 
-            Me.Project.Text = Master.Factory.GetRecordCaption(BO.x29IdEnum.p41Project, Me.CurrentP41ID)
             If Me.p57ID.SelectedIndex = 0 And Me.p57ID.Rows > 1 Then
                 Me.p57ID.SelectedIndex = 1
             End If
@@ -114,9 +107,9 @@
         Handle_Permissions(cRec)
         
         With cRec
-            Me.CurrentP41ID = .p41ID
-            Me.Project.Text = Master.Factory.GetRecordCaption(BO.x29IdEnum.p41Project, Me.CurrentP41ID)
-
+            Me.p41ID.Value = .p41ID.ToString
+            Me.p41ID.Text = Master.Factory.GetRecordCaption(BO.x29IdEnum.p41Project, .p41ID)
+            
             Me.p57ID.SelectedValue = .p57ID.ToString
 
             Me.p59ID_Submitter.SelectedValue = .p59ID_Submitter
@@ -177,7 +170,7 @@
         
 
         If Me.p57ID.SelectedIndex > 0 Then
-            Master.HeaderText = Me.p57ID.Text & " | " & Me.Project.Text
+            Master.HeaderText = Me.p57ID.Text & " | " & Me.p41ID.Text
             If Me.p57ID.Rows = 2 Then
                 Me.p57ID.Visible = False : lblP57ID.Visible = False
             End If
@@ -220,7 +213,7 @@
                 End If
             End With
         Else
-            Master.HeaderText = "Úkol | " & Me.Project.Text
+            Master.HeaderText = "Úkol | " & Me.p41ID.Text
         End If
 
         ''If Me.chkMore.Visible Then

@@ -81,6 +81,9 @@
 
         }
 
+        function hardrefresh(pid, flag) {
+            //nic
+        }
     </script>
 
 </asp:Content>

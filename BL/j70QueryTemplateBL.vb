@@ -904,6 +904,8 @@ Class j70QueryTemplateBL
             .Add(AGC(My.Resources.common.Projekt, "p41Name", , , "isnull(p41NameShort,p41Name)", , , "Projekt"))
             .Add(AGC(My.Resources.common.KodProjektu, "p41Code", , , , , , "Projekt"))
             .Add(AGC(My.Resources.common.Prijemce, "ReceiversInLine", , , "dbo.p56_getroles_inline(a.p56ID)"))
+            .Add(AGC("Podrobný popis", "p56Description"))
+
 
             .Add(AGC(My.Resources.common.Termin, "p56PlanUntil", BO.cfENUM.DateTime, , , , , "Plán úkolu"))
             .Add(AGC(My.Resources.common.PlanStart, "p56PlanFrom", BO.cfENUM.DateTime, , , , , "Plán úkolu"))

@@ -107,6 +107,9 @@
                                         <asp:ListItem Text="Zobrazovat pouze přesunuté do archivu" Value="3"></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
+                                <div class="div6">
+                                    <asp:CheckBox ID="chkShowP82" runat="server" AutoPostBack="true" Text="Zobrazovat i úhrady zálohy" />
+                                </div>
 
                                 <div class="div6">
                                     <span>Stránkování:</span>

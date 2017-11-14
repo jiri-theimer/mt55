@@ -33,6 +33,19 @@
             Return _p82Code
         End Get
     End Property
+    Private Property _p82Date As Date?
+    Public ReadOnly Property p82Date As Date
+        Get
+            Return _p82Date
+        End Get
+    End Property
+    Private Property _p82Amount As Double?
+    Public ReadOnly Property p82Amount As Double?
+        Get
+            Return _p82Amount
+        End Get
+    End Property
+
 
     Private Property _j27Code As String
     Public ReadOnly Property j27Code As String

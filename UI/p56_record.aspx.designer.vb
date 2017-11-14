@@ -59,24 +59,6 @@ Partial Public Class p56_record
     Protected WithEvents p57ID As Global.UI.datacombo
 
     '''<summary>
-    '''lblProject control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblProject As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''Project control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Project As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
     '''lblName control.
     '''</summary>
     '''<remarks>
@@ -102,6 +84,24 @@ Partial Public Class p56_record
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents p56Code As Global.System.Web.UI.WebControls.HyperLink
+
+    '''<summary>
+    '''lblProject control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblProject As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''p41ID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents p41ID As Global.UI.project
 
     '''<summary>
     '''lblDateFrom control.
@@ -140,24 +140,6 @@ Partial Public Class p56_record
     Protected WithEvents p56PlanUntil As Global.Telerik.Web.UI.RadDateTimePicker
 
     '''<summary>
-    '''lblOwner control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblOwner As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''j02ID_Owner control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents j02ID_Owner As Global.UI.person
-
-    '''<summary>
     '''lblCompletePercent control.
     '''</summary>
     '''<remarks>
@@ -192,15 +174,6 @@ Partial Public Class p56_record
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents p59ID_Submitter As Global.UI.datacombo
-
-    '''<summary>
-    '''tags1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents tags1 As Global.UI.mytags
 
     '''<summary>
     '''panRoles control.
@@ -320,6 +293,33 @@ Partial Public Class p56_record
     Protected WithEvents p56Description As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''tags1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tags1 As Global.UI.mytags
+
+    '''<summary>
+    '''lblOwner control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblOwner As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''j02ID_Owner control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents j02ID_Owner As Global.UI.person
+
+    '''<summary>
     '''p56IsNoNotify control.
     '''</summary>
     '''<remarks>
@@ -336,15 +336,6 @@ Partial Public Class p56_record
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents SharedCalendar As Global.Telerik.Web.UI.RadCalendar
-
-    '''<summary>
-    '''hidP41ID control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents hidP41ID As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
     '''ff control.

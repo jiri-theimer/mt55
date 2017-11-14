@@ -211,7 +211,7 @@
         Dim s As String = "SELECT"
         If intTOP > 0 Then s += " TOP " & intTOP.ToString
         s += " a.*,j27.j27Code as _j27Code,p89.p89Name as _p89Name," & bas.RecTail("p90", "a")
-        s += ",p28.p28Name as _p28Name,j02owner.j02LastName+' '+j02owner.j02FirstName as _Owner,p82.p82Code as _p82Code,p82.p82ID as _p82ID"
+        s += ",p28.p28Name as _p28Name,j02owner.j02LastName+' '+j02owner.j02FirstName as _Owner,p82.p82Code as _p82Code,p82.p82ID as _p82ID,p82.p82Date as _p82Date,p82.p82Amount as _p82Amount"
         If bolIncludeTags Then s += ",dbo.tag_values_inline_html(390,a.p90ID) as TagsInlineHtml" Else s += ",NULL as TagsInlineHtml"
         s += " FROM p90Proforma a INNER JOIN p89ProformaType p89 ON a.p89ID=p89.p89ID"
         s += " LEFT OUTER JOIN p28Contact p28 ON a.p28ID=p28.p28ID"
