@@ -127,7 +127,7 @@
     
 
     Private Sub ReloadPage()
-        Response.Redirect("bdo_o23_record_posudek.aspx?pid=" & Master.DataPID.ToString)
+        Response.Redirect("bdo_o23_record_znalecka_zprava.aspx?pid=" & Master.DataPID.ToString)
     End Sub
         
     

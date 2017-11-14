@@ -124,7 +124,7 @@ Public Class handler_popupmenu
             CI("Kopírovat", "p56_record.aspx?clone=1&pid=" & intPID.ToString, , "Images/copy.png", True)    'pod nový
         End If
 
-        CI("Založit úkol", "p56_record.aspx?pid=0&masterprefix=p41&masterpid=0", , "Images/new4menu.png", True)   'pod nový
+        CI("Založit úkol", "p56_record.aspx?pid=0", , "Images/new4menu.png", True)   'pod nový
 
         If factory.SysUser.j04IsMenu_Notepad Then
             CI("Vytvořit dokument", "o23_record.aspx?masterprefix=p56&masterpid=" & cRec.PID.ToString, , "Images/notepad.png", True)    'pod nový
@@ -621,7 +621,7 @@ Public Class handler_popupmenu
             CI("Vytvořit dokument", "o23_record.aspx?masterprefix=p41&masterpid=" & cRec.PID.ToString, , "Images/notepad.png", True)    'pod nový
         End If
         If Not cRec.IsClosed Then
-            If cP42.p42IsModule_p56 Then CI("Vytvořit úkol", "p56_record.aspx?masterprefix=p41&masterpid=" & cRec.PID.ToString, , "Images/task.png", True) 'pod nový
+            If cP42.p42IsModule_p56 Then CI("Vytvořit úkol", "p56_record.aspx?p41id=" & cRec.PID.ToString, , "Images/task.png", True) 'pod nový
             ''If Not cRec.p41PlanUntil Is Nothing Then
             ''    Dim mqO22 As New BO.myQueryO22
             ''    mqO22.p41ID = cRec.PID
@@ -1066,7 +1066,7 @@ Public Class handler_popupmenu
                 CI(Resources.common.Dokument, "select_doctype.aspx?hrjs=hardrefresh_menu", , "Images/notepad.png")
             End If
             If factory.SysUser.j04IsMenu_Task Then
-                CI(Resources.common.Ukol, "p56_record.aspx?masterprefix=p41&masterpid=0&hrjs=hardrefresh_menu", , "Images/task.png")
+                CI(Resources.common.Ukol, "p56_record.aspx?pid=0&hrjs=hardrefresh_menu", , "Images/task.png")
             End If
             CI("Událost v kalendáři", "select_event_type.aspx?hrjs=hardrefresh_menu", , "Images/event.png")
 
