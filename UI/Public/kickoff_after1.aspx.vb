@@ -211,6 +211,9 @@
             .p42IsDefault = True
             .p42Code = "FP"
             .x38ID = lisX38(0).PID
+            .p42IsModule_o23 = True
+            .p42IsModule_p31 = True
+            .p42IsModule_p56 = True
         End With
         Dim lis As New List(Of BO.p43ProjectType_Workload)
         For Each cP34 In lisP34.Where(Function(p) p.p34Code <> "TN")
@@ -226,6 +229,9 @@
             .p42Name = "Interní"
             .p42Code = "NP"
             .x38ID = lisX38(0).PID
+            .p42IsModule_o23 = True
+            .p42IsModule_p31 = True
+            .p42IsModule_p56 = True
         End With
         For Each cP34 In lisP34.Where(Function(p) p.p34Code = "TN" Or p.p34Code = "EX")
             Dim c As New BO.p43ProjectType_Workload()

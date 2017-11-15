@@ -46,6 +46,9 @@ Public Class handler_approve
                             If cRec.p32ManualFeeFlag = 1 Then
                                 .ManualFee_Approved = cRec.p31Amount_WithoutVat_Orig
                             End If
+                        Case BO.p33IdENUM.PenizeBezDPH, BO.p33IdENUM.PenizeVcDPHRozpisu
+                            .VatRate_Approved = cRec.p31VatRate_Orig
+
                     End Select
                     .Value_Approved_Billing = cRec.p31Value_Orig
 
