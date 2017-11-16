@@ -41,6 +41,7 @@
                     .Add("p41_menu-x31id-plugin")
                     .Add("p41_menu-show-level1")
                     .Add("myscheduler-firstday")
+                    .Add("myscheduler-tasksnoterm")
                 End With
                 With .Factory.j03UserBL
                     .InhaleUserParams(lisPars)
@@ -75,6 +76,7 @@
 
                     Master.DataPID = intPID
                     cal1.FirstDayMinus = BO.BAS.IsNullInt(.GetUserParam("myscheduler-firstday", "-1"))
+                    cal1.ShowTasksNoTerm = BO.BAS.BG(.GetUserParam("myscheduler-tasksnoterm", "1"))
                     ''menu1.MenuSkin = .GetUserParam("p41_menu-menuskin")
                     menu1.TabSkin = .GetUserParam("p41_menu-tabskin")
                     menu1.x31ID_Plugin = .GetUserParam("p41_menu-x31id-plugin")
@@ -308,7 +310,6 @@
             cal1.Visible = True
             cal1.RecordPID = Master.DataPID
             cal1.RefreshData(Today)
-            cal1.RefreshTasksWithoutDate(False)
         Else
             cal1.Visible = False
         End If

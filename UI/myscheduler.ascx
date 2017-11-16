@@ -14,6 +14,7 @@
             <asp:ListItem Text="-1" Value="-1" Selected="true"></asp:ListItem>
             <asp:ListItem Text="0" Value="0"></asp:ListItem>
         </asp:DropDownList>
+        <asp:CheckBox ID="chkShowTasksNoTerms" runat="server" AutoPostBack="true" Text="Zobrazovat i otevřené úkoly bez termínu" Checked="true" style="font-weight:normal;font-size:10px;" />
         <asp:HyperLink ID="linkO25" runat="server" Visible="false" Target="_blank"></asp:HyperLink>
         
         <button type="button" class="button-link" id="cmdSchedulers" runat="server" onclick="window.open('o22_framework_google.aspx','_top')" title="Přejít do kalendářů" style="float: right;" visible="false">

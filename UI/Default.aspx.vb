@@ -11,6 +11,10 @@
         If Not Page.IsPostBack Then
             hidURL.Value = FindDefaultPage()
 
+            If hidURL.Value <> "" Then
+
+            End If
+
             Master.SiteMenuValue = "dashboard"
 
         End If

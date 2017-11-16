@@ -42,6 +42,14 @@ Public Class myscheduler
             cbxFirstDay.SelectedValue = value.ToString
         End Set
     End Property
+    Public Property ShowTasksNoTerm As Boolean
+        Get
+            Return Me.chkShowTasksNoTerms.Checked
+        End Get
+        Set(value As Boolean)
+            Me.chkShowTasksNoTerms.Checked = value
+        End Set
+    End Property
     Public ReadOnly Property ProgramRowCount As Integer
         Get
             Return rpProgram.Items.Count
@@ -123,6 +131,12 @@ Public Class myscheduler
             linkO25.Text = cO25.o25Name
             linkO25.NavigateUrl = cO25.GoogleCalendarUrl
             linkO25.Visible = True
+        End If
+
+        If Me.chkShowTasksNoTerms.Checked Then
+            RefreshTasksWithoutDate(True)
+        Else
+            panP56.Visible = False
         End If
     End Sub
     Private Sub fill_o22(d1 As Date)
@@ -266,7 +280,7 @@ Public Class myscheduler
 
    
 
-    Public Sub RefreshTasksWithoutDate(bolShowProjectRow As Boolean)
+    Private Sub RefreshTasksWithoutDate(bolShowProjectRow As Boolean)
         _showProjectRow = bolShowProjectRow
         If Me.RecordPID = 0 Or Me.Prefix = "" Then
             panP56.Style.Item("width") = ""
@@ -454,5 +468,10 @@ Public Class myscheduler
         
         _lastP41ID = cRec.p41ID
         _lastDate = cRec.recDate
+    End Sub
+
+    Private Sub chkShowTasksNoTerms_CheckedChanged(sender As Object, e As EventArgs) Handles chkShowTasksNoTerms.CheckedChanged
+        factory.j03UserBL.SetUserParam("myscheduler-tasksnoterm", BO.BAS.GB(chkShowTasksNoTerms.Checked))
+        RefreshData(Today)
     End Sub
 End Class

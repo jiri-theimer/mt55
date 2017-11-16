@@ -13,6 +13,7 @@
                     .Add("o22_framework_google-o25ids")
                     .Add("o22_framework_google-view")
                     .Add("myscheduler-firstday")
+                    .Add("myscheduler-tasksnoterm")
                 End With
 
                 With .Factory.j03UserBL
@@ -20,22 +21,20 @@
                     .InhaleUserParams(lisPars)
 
                     cal1.FirstDayMinus = BO.BAS.IsNullInt(.GetUserParam("myscheduler-firstday", "-1"))
+                    cal1.ShowTasksNoTerm = BO.BAS.BG(.GetUserParam("myscheduler-tasksnoterm", "1"))
 
                     SetupO25(.GetUserParam("o22_framework_google-o25ids"))
                 End With
             End With
 
             If opgView.SelectedValue = "1" Then
-                RefreshMyScheduler()
+                cal1.RefreshData(Today)
             End If
 
         End If
     End Sub
 
-    Private Sub RefreshMyScheduler()
-        cal1.RefreshData(Today)
-        cal1.RefreshTasksWithoutDate(True)
-    End Sub
+  
 
     Private Sub SetupO25(strO25IDs As String)
         Dim lis As IEnumerable(Of BO.o25App) = Master.Factory.o25AppBL.GetList(New BO.myQuery).Where(Function(p) p.o25AppFlag = BO.o25AppFlagENUM.GoogleCalendar And p.o25IsMainMenu = True)

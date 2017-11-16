@@ -39,6 +39,7 @@
                     .Add("p28_menu-x31id-plugin")
                     .Add("p28_menu-show-level1")
                     .Add("myscheduler-firstday")
+                    .Add("myscheduler-tasksnoterm")
                 End With
 
                 Dim intPID As Integer = Master.DataPID
@@ -66,6 +67,7 @@
                             'zůstat zde na BOARD stránce
                     End Select
                     cal1.FirstDayMinus = BO.BAS.IsNullInt(.GetUserParam("myscheduler-firstday", "-1"))
+                    cal1.ShowTasksNoTerm = BO.BAS.BG(.GetUserParam("myscheduler-tasksnoterm", "1"))
 
                     menu1.TabSkin = .GetUserParam("p28_menu-tabskin")
                     ''menu1.MenuSkin = .GetUserParam("p28_menu-menuskin")
@@ -259,7 +261,7 @@
             cal1.o25ID = cRec.o25ID_Calendar
             cal1.RecordPID = Master.DataPID
             cal1.RefreshData(Today)
-            cal1.RefreshTasksWithoutDate(True)
+
         Else
             cal1.Visible = False
         End If

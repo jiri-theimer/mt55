@@ -37,6 +37,7 @@
                 .Add("j03_mypage_greeting-chkScheduler")
                 .Add("j03_mypage_greeting-chkX18")
                 .Add("myscheduler-firstday")
+                .Add("myscheduler-tasksnoterm")
             End With
 
             With Master.Factory
@@ -55,7 +56,7 @@
                 chkScheduler.Checked = BO.BAS.BG(.j03UserBL.GetUserParam("j03_mypage_greeting-chkScheduler", "1"))
                 cal1.FirstDayMinus = BO.BAS.IsNullInt(.j03UserBL.GetUserParam("myscheduler-firstday", "-1"))
                 chkX18.Checked = BO.BAS.BG(.j03UserBL.GetUserParam("j03_mypage_greeting-chkX18", "0"))
-             
+                cal1.ShowTasksNoTerm = BO.BAS.BG(.j03UserBL.GetUserParam("myscheduler-tasksnoterm", "1"))
 
                 panSearch_j02.Visible = .SysUser.j04IsMenu_People
                 panSearch_p28.Visible = .SysUser.j04IsMenu_Contact
@@ -120,7 +121,6 @@
             If chkScheduler.Checked Then
                 cal1.RecordPID = Master.Factory.SysUser.j02ID
                 cal1.RefreshData(Today)
-                cal1.RefreshTasksWithoutDate(True)
             End If
 
 
