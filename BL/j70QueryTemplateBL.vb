@@ -496,6 +496,7 @@ Class j70QueryTemplateBL
             .Add(AGC(My.Resources.common.Stitky + " (text)", "TagsText", , , "dbo.tag_values_inline(141,a.p41ID)"))
             .Add(AGC("Otevřené úkoly", "PendingTasks", , , "dbo.p41_get_tasks_inline_html(a.p41ID)"))
 
+            .Add(AGC("Aktuální stav", "b02Name"))
             .Add(AGC(My.Resources.common.PlanStart, "p41PlanFrom", BO.cfENUM.DateOnly, , "a.p41PlanFrom"))
             .Add(AGC(My.Resources.common.PlanEnd, "p41PlanUntil", BO.cfENUM.DateOnly, , "a.p41PlanUntil"))
             .Add(AGC(My.Resources.common.LimitHodin, "p41LimitHours_Notification", BO.cfENUM.Numeric, , "a.p41LimitHours_Notification", True))
@@ -908,6 +909,8 @@ Class j70QueryTemplateBL
 
 
             .Add(AGC(My.Resources.common.Termin, "p56PlanUntil", BO.cfENUM.DateTime, , , , , "Plán úkolu"))
+            .Add(AGC("Dnů do termínu", "DnuDoTerminu", BO.cfENUM.Numeric0, , "datediff(day,p56PlanUntil,getdate())", , , "Plán úkolu"))
+            .Add(AGC("Hodin do termínu", "HodinDoTerminu", BO.cfENUM.Numeric0, , "datediff(hour,p56PlanUntil,getdate())", , , "Plán úkolu"))
             .Add(AGC(My.Resources.common.PlanStart, "p56PlanFrom", BO.cfENUM.DateTime, , , , , "Plán úkolu"))
 
             .Add(AGC(My.Resources.common.Stitky, "TagsHtml", , , "dbo.tag_values_inline_html(356,a.p56ID)"))

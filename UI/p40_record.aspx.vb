@@ -125,7 +125,11 @@
                 .x15ID = BO.BAS.IsNullInt(Me.x15ID.SelectedValue)
                 .j27ID = BO.BAS.IsNullInt(Me.j27ID.SelectedValue)
                 .j02ID = BO.BAS.IsNullInt(Me.j02ID.Value)
-                .p56ID = BO.BAS.IsNullInt(Me.p56ID.SelectedValue)
+                If Me.opgGenType.SelectedValue = "2" Then
+                    .p56ID = BO.BAS.IsNullInt(Me.p56ID.SelectedValue)
+                Else
+                    .p56ID = 0
+                End If
                 .p40RecurrenceType = CType(CInt(Me.p40RecurrenceType.SelectedValue), BO.RecurrenceType)
                 .p40FirstSupplyDate = BO.BAS.IsNullDBDate(Me.p40FirstSupplyDate.SelectedDate)
                 .p40LastSupplyDate = BO.BAS.IsNullDBDate(Me.p40LastSupplyDate.SelectedDate)

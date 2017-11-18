@@ -232,9 +232,9 @@
                 else
                     document.getElementById("<%=Me.lblP31Text.ClientID%>").className = "lbl";
 
-                if (data.IsDefaultVatRate == true) {
+                if (data.IsDefaultVatRate == true) {                    
                     var combo = $find("<%= p31VatRate_Orig.RadCombo.ClientID%>");
-                    combo.set_text(data.DefaultVatRate);
+                    combo.set_text(data.DefaultVatRate.toString());
                 }
 
 

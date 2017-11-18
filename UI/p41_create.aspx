@@ -168,7 +168,7 @@
                  <uc:project ID="p41ParentID" runat="server" Width="400px" />
             </div>
             
-            <asp:Panel ID="panCloneTasks" runat="server" CssClass="content-box2">
+            <asp:Panel ID="panCloneTasks" runat="server" CssClass="content-box2" Visible="false">
                 <div class="title">
                     <img src="Images/task.png" />
                     Zaškrtněte úkoly, které se mají naklonovat do nového projektu

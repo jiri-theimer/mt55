@@ -7,7 +7,7 @@
 
         <asp:Localize ID="locCalendar" runat="server" Text="Kalendář" meta:resourcekey="locCalendar"></asp:Localize>
         
-        <asp:DropDownList ID="cbxFirstDay" runat="server" AutoPostBack="true" ToolTip="První zobrazený den vůči dnešku" Style="margin-left: 10px;" meta:resourcekey="cbxFirstDay">
+        <asp:DropDownList ID="cbxFirstDay" runat="server" AutoPostBack="true" ToolTip="První zobrazený den vůči dnešku" Style="margin-left: 10px;font-size:10px;" meta:resourcekey="cbxFirstDay">
             <asp:ListItem Text="-30" Value="-30"></asp:ListItem>
             <asp:ListItem Text="-14" Value="-14"></asp:ListItem>
             <asp:ListItem Text="-5" Value="-5"></asp:ListItem>

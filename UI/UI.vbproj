@@ -445,6 +445,7 @@
     <Content Include="Services\fulltext_service.asmx" />
     <Content Include="Services\invoice_service.asmx" />
     <Content Include="Services\doc_service.asmx" />
+    <Content Include="Services\remotelist_service.asmx" />
     <Content Include="Services\tag_service.asmx" />
     <Content Include="Services\task_service.asmx" />
     <Content Include="Styles\SiteMobile_v2.css" />
@@ -2440,6 +2441,10 @@
     </Compile>
     <Compile Include="Services\doc_service.asmx.vb">
       <DependentUpon>doc_service.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Services\remotelist_service.asmx.vb">
+      <DependentUpon>remotelist_service.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Services\tag_service.asmx.vb">

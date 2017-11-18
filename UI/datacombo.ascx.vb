@@ -6,6 +6,19 @@ Public Class datacombo
     Public Event ItemDataBound(ByVal sender As Object, ByVal e As Telerik.Web.UI.RadComboBoxItemEventArgs)
     Public Event NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String)
 
+    
+    Public Property RemoteListPrefix As String
+        Get
+            Return hidRemoteList.Value
+        End Get
+        Set(value As String)
+            hidRemoteList.Value = value
+            
+        End Set
+    End Property
+
+
+
     Public ReadOnly Property RadComboClientID As String
         Get
             Return cbx1.ClientID
@@ -87,6 +100,11 @@ Public Class datacombo
             Return Me.cbx1.SelectedValue
         End Get
         Set(ByVal value As String)
+            If Me.RemoteListPrefix <> "" Then
+                Me.cbx1.SelectedValue = value
+
+                Return
+            End If
             Dim strMissingItemText As String = ""
             Try
                 Me.cbx1.SelectedValue = value
@@ -376,4 +394,21 @@ Public Class datacombo
             Next
         End Set
     End Property
+
+    Private Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        If Me.RemoteListPrefix <> "" Then
+            With cbx1
+                ''.DataValueField = ""
+                ''.DataTextField = ""
+                .EnableTextSelection = True
+                .MarkFirstMatch = True
+                .EnableLoadOnDemand = True
+                .WebServiceSettings.Method = "LoadComboData"
+                .WebServiceSettings.UseHttpGet = False
+                .WebServiceSettings.Path = "~/Services/remotelist_service.asmx"
+                .OnClientItemsRequesting = Me.ClientID & "_OnClientItemsRequesting"
+            End With
+        End If
+
+    End Sub
 End Class

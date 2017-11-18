@@ -1,7 +1,6 @@
 ﻿
 
-Imports Telerik.Web.UI
-Imports System.Web.Script.Serialization
+
 
 'Imports Aspose.Words
 
@@ -13,7 +12,11 @@ Public Class pokus
     Protected WithEvents _MasterPage As Site
     'Private fileFormatProvider As IFormatProvider
 
-
+    Private _lis As List(Of MyListItem)
+    Private Class MyListItem
+        Public Property Value As Integer
+        Public Property Text As String
+    End Class
 
     Private Sub pokus_Init(sender As Object, e As EventArgs) Handles Me.Init
         _MasterPage = Me.Master
@@ -24,7 +27,7 @@ Public Class pokus
 
    
     Private Sub pokus_Load(sender As Object, e As EventArgs) Handles Me.Load
-
+        Me.j07ID.SelectedValue = "2"
     End Sub
 
     
@@ -32,16 +35,21 @@ Public Class pokus
 
     
     Private Sub cmdPokus_Click(sender As Object, e As EventArgs) Handles cmdPokus.Click
+      
 
-        Master.Factory.ChangeConnectString("server=Sql.mycorecloud.net\MARKTIME;database=marktime50_vrajik;uid=MARKTIME;pwd=58PMapN2jhBvdblxqnIB;")
+        Master.Notify("j07ID: " & Me.j07ID.SelectedValue & ", klient: " & Me.p28ID.Value)
 
-        txt1.Text = Master.Factory.p28ContactBL.GetList(New BO.myQueryP28).OrderByDescending(Function(p) p.PID)(0).p28Name
+    End Sub
 
-        Master.Factory.ChangeConnectString("server=Sql.mycorecloud.net\MARKTIME;database=marktime50_strabag;uid=MARKTIME;pwd=58PMapN2jhBvdblxqnIB;")
-        txt1.Text += vbCrLf & Master.Factory.p28ContactBL.GetList(New BO.myQueryP28).OrderByDescending(Function(p) p.PID)(0).p28Name
+    Private Sub FillList(qry As IEnumerable(Of Object))
+        For Each c In qry
+            Dim item As New MyListItem
+            item.Value = c.pid
+            item.Text = c.item("j07Name")
 
-        Master.Factory.ChangeConnectString("server=Sql.mycorecloud.net\MARKTIME;database=marktime50_rutland;uid=MARKTIME;pwd=58PMapN2jhBvdblxqnIB;")
-        txt1.Text += vbCrLf & Master.Factory.p28ContactBL.GetList(New BO.myQueryP28).OrderByDescending(Function(p) p.PID)(0).p28Name
+            _lis.Add(item)
+        Next
+
 
 
     End Sub

@@ -30,4 +30,22 @@ Partial Public Class datacombo
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents hidIsEmptyFirstRow As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
+    '''hidSelectedValue control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hidSelectedValue As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
+    '''hidRemoteList control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hidRemoteList As Global.System.Web.UI.WebControls.HiddenField
 End Class
