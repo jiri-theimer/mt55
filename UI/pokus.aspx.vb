@@ -20,14 +20,13 @@ Public Class pokus
 
     Private Sub pokus_Init(sender As Object, e As EventArgs) Handles Me.Init
         _MasterPage = Me.Master
-
-
+        
     End Sub
 
 
    
     Private Sub pokus_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Me.j07ID.SelectedValue = "2"
+
     End Sub
 
     
@@ -36,9 +35,8 @@ Public Class pokus
     
     Private Sub cmdPokus_Click(sender As Object, e As EventArgs) Handles cmdPokus.Click
       
-
-        Master.Notify("j07ID: " & Me.j07ID.SelectedValue & ", klient: " & Me.p28ID.Value)
-
+        Me.j07ID.SelectedValue = "2"
+        
     End Sub
 
     Private Sub FillList(qry As IEnumerable(Of Object))
@@ -51,6 +49,11 @@ Public Class pokus
         Next
 
 
+
+    End Sub
+
+    Private Sub cmdPostback_Click(sender As Object, e As EventArgs) Handles cmdPostback.Click
+        Master.Notify("j07ID: " & Me.j07ID.SelectedValue & ", klient: " & Me.p28ID.Value)
 
     End Sub
 End Class

@@ -46,11 +46,21 @@ Public Class remotelist_service
         Select Case _prefix
             Case "j07"
                 FillList(factory.j07PersonPositionBL.GetList(New BO.myQuery))
+            Case "j17"
+                FillList(factory.j17CountryBL.GetList(New BO.myQuery))
+            Case "j18"
+                FillList(factory.j18RegionBL.GetList(New BO.myQuery))
+            Case "c21"
+                FillList(factory.c21FondCalendarBL.GetList(New BO.myQuery))
+            Case "o40"
+                FillList(factory.o40SmtpAccountBL.GetList(New BO.myQuery))
 
             Case "p42"
                 FillList(factory.p42ProjectTypeBL.GetList(New BO.myQuery))
             Case "j04"
                 FillList(factory.j04UserRoleBL.GetList(New BO.myQuery))
+            Case "o25"
+                FillList(factory.o25AppBL.GetList(New BO.myQuery))
 
         End Select
 
@@ -74,6 +84,11 @@ Public Class remotelist_service
         End Select
         If itemData.Text <> "" Then _result.Add(itemData)
 
+        itemData = New RadComboBoxItemData()
+        itemData.Value = ""
+        itemData.Text = ""
+        _result.Add(itemData)
+
         For Each c In lis
             itemData = New RadComboBoxItemData()
             itemData.Value = c.pid.ToString
@@ -81,6 +96,11 @@ Public Class remotelist_service
                 Case "j07" : itemData.Text = c.j07Name
                 Case "p42" : itemData.Text = c.p42Name
                 Case "j04" : itemData.Text = c.j04Name
+                Case "j17" : itemData.Text = c.j17Name
+                Case "j18" : itemData.Text = c.j18Name
+                Case "c21" : itemData.Text = c.c21Name
+                Case "o40" : itemData.Text = c.o40Name
+                Case "o25" : itemData.Text = c.o25Name
             End Select
             ''itemData.Text += " (" & Now.ToString & ")"
             _result.Add(itemData)

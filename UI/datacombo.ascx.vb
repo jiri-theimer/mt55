@@ -5,7 +5,6 @@ Public Class datacombo
     Public Event SelectedIndexChanged(ByVal OldValue As String, ByVal OldText As String, ByVal CurValue As String, ByVal CurText As String)
     Public Event ItemDataBound(ByVal sender As Object, ByVal e As Telerik.Web.UI.RadComboBoxItemEventArgs)
     Public Event NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String)
-
     
     Public Property RemoteListPrefix As String
         Get
@@ -100,11 +99,6 @@ Public Class datacombo
             Return Me.cbx1.SelectedValue
         End Get
         Set(ByVal value As String)
-            If Me.RemoteListPrefix <> "" Then
-                Me.cbx1.SelectedValue = value
-
-                Return
-            End If
             Dim strMissingItemText As String = ""
             Try
                 Me.cbx1.SelectedValue = value
@@ -409,6 +403,47 @@ Public Class datacombo
                 .OnClientItemsRequesting = Me.ClientID & "_OnClientItemsRequesting"
             End With
         End If
+
+    End Sub
+
+    Public Sub SelectRemoteValue(strValue As String, factory As BL.Factory)
+        With cbx1
+            If strValue = "" Or strValue = "0" Then
+                .Text = ""
+                .SelectedValue = ""
+                Return
+            End If
+            If factory Is Nothing Then
+                .SelectedValue = strValue
+                Return
+            End If
+            
+            Try
+                Dim intRecPID As Integer = BO.BAS.IsNullInt(strValue)
+                Select Case Me.hidRemoteList.Value
+                    Case "j07"
+                        .Text = factory.j07PersonPositionBL.Load(intRecPID).j07Name
+                    Case "j04"
+                        .Text = factory.j04UserRoleBL.Load(intRecPID).j04Name
+                    Case "c21"
+                        .Text = factory.c21FondCalendarBL.Load(intRecPID).c21Name
+                    Case "j17"
+                        .Text = factory.j17CountryBL.Load(intRecPID).j17Name
+                    Case "j18"
+                        .Text = factory.j18RegionBL.Load(intRecPID).j18Name
+                    Case "o25"
+                        .Text = factory.o25AppBL.Load(intRecPID).o25Name
+                    Case "o40"
+                        .Text = factory.o40SmtpAccountBL.Load(intRecPID).o40Name
+                End Select
+                .SelectedValue = strValue
+            Catch ex As Exception
+
+                .Text = ""
+                .SelectedValue = ""
+            End Try
+
+        End With
 
     End Sub
 End Class

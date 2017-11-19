@@ -10,13 +10,10 @@
 
 <asp:HiddenField ID="hidRemoteList" runat="server" Value="" />
 
+<%If hidRemoteList.Value <> "" Then%>
 <script type="text/javascript">
     function <%=Me.ClientID%>_OnClientItemsRequesting(sender, eventArgs) {
         var combo = $find("<%= cbx1.ClientID %>");
-
-        //if (combo.get_value() != "")
-            //alert(combo.get_value());
-        
 
         if (sender.get_items().get_count() > 0) {
             eventArgs.set_cancel(true);
@@ -28,16 +25,7 @@
         context["prefix"] = document.getElementById("<%=hidRemoteList.ClientID%>").value;
         
         
-
     }
-
-    function <%=me.clientid %>_get_value() {
-        var combo = $find("<%= cbx1.ClientID %>");
-
-        return (combo.get_value())
-    }
-
-  
-
 
 </script>
+<%end if%>

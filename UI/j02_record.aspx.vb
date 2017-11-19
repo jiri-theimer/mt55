@@ -5,8 +5,6 @@
     Private Sub j02_record_Init(sender As Object, e As EventArgs) Handles Me.Init
         _MasterPage = Me.Master
         Master.HelpTopicID = "j02_record"
-
-
     End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -35,18 +33,10 @@
                 .DataPID = BO.BAS.IsNullInt(Request.Item("pid"))
                 .HeaderText = "Osobní profil"
 
-                Me.c21ID.DataSource = .Factory.c21FondCalendarBL.GetList(New BO.myQuery)
-                Me.c21ID.DataBind()
-                Me.j17ID.DataSource = .Factory.j17CountryBL.GetList(New BO.myQuery)
-                Me.j17ID.DataBind()
-                Me.j18ID.DataSource = Master.Factory.j18RegionBL.GetList(New BO.myQuery)
-                Me.j18ID.DataBind()
-                Me.o40ID.DataSource = .Factory.o40SmtpAccountBL.GetList(New BO.myQuery)
-                Me.o40ID.DataBind()
+               
                 Me.j02TimesheetEntryDaysBackLimit_p34IDs.DataSource = Master.Factory.p34ActivityGroupBL.GetList(New BO.myQuery).Where(Function(p) p.p33ID = BO.p33IdENUM.Cas Or p.p33ID = BO.p33IdENUM.Kusovnik)
                 Me.j02TimesheetEntryDaysBackLimit_p34IDs.DataBind()
-                Me.o25ID_Calendar.DataSource = Master.Factory.o25AppBL.GetList(New BO.myQuery).Where(Function(p) p.o25AppFlag = BO.o25AppFlagENUM.GoogleCalendar)
-                Me.o25ID_Calendar.DataBind()
+               
             End With
 
             RefreshRecord()
@@ -59,9 +49,7 @@
     End Sub
 
     Private Sub RefreshRecord()
-        j07ID.DataSource = Master.Factory.j07PersonPositionBL.GetList(New BO.myQuery)
-        j07ID.DataBind()
-
+       
 
         If Master.DataPID = 0 Then
             Handle_FF()
@@ -78,12 +66,12 @@
             Me.j02TitleBeforeName.SetText(.j02TitleBeforeName)
             Me.j02Mobile.Text = .j02Mobile
             Me.j02Phone.Text = .j02Phone
-            Me.j07ID.SelectedValue = .j07ID.ToString
+            Me.j07ID.SelectRemoteValue(.j07ID.ToString, Master.Factory)
             Handle_FF()
-            Me.j17ID.SelectedValue = .j17ID.ToString
-            Me.c21ID.SelectedValue = .c21ID.ToString
-            Me.j18ID.SelectedValue = .j18ID.ToString
-            Me.o40ID.SelectedValue = .o40ID.ToString
+            Me.j17ID.SelectRemoteValue(.j17ID.ToString, Master.Factory)
+            Me.c21ID.SelectRemoteValue(.c21ID.ToString, Master.Factory)
+            Me.j18ID.SelectRemoteValue(.j18ID.ToString, Master.Factory)
+            Me.o40ID.SelectRemoteValue(.o40ID.ToString, Master.Factory)
             Me.j02Office.Text = .j02Office
             Me.j02Salutation.Text = .j02Salutation
             Me.j02EmailSignature.Text = .j02EmailSignature
@@ -104,7 +92,7 @@
             basUI.SelectDropdownlistValue(Me.p72ID_NonBillable, CInt(.p72ID_NonBillable).ToString)
             Me.j02AvatarImage.Value = .j02AvatarImage
             Master.Timestamp = .Timestamp & " <a href='javascript:changelog()' class='wake_link'>CHANGE-LOG</a>"
-            Me.o25ID_Calendar.SelectedValue = .o25ID_Calendar.ToString
+            Me.o25ID_Calendar.SelectRemoteValue(.o25ID_Calendar.ToString, Master.Factory)
             
             tags1.RefreshData(cRec.PID)
 
@@ -225,25 +213,6 @@
     End Sub
 
    
-    Private Sub j07ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles j07ID.NeedMissingItem
-        Dim cRec As BO.j07PersonPosition = Master.Factory.j07PersonPositionBL.Load(BO.BAS.IsNullInt(strFoundedMissingItemValue))
-        strAddMissingItemText = cRec.j07Name
-    End Sub
-
-    Private Sub c21ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles c21ID.NeedMissingItem
-        Dim cRec As BO.c21FondCalendar = Master.Factory.c21FondCalendarBL.Load(CInt(strFoundedMissingItemValue))
-        If Not cRec Is Nothing Then strAddMissingItemText = cRec.c21Name
-    End Sub
-
-    Private Sub j17ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles j17ID.NeedMissingItem
-        Dim cRec As BO.j17Country = Master.Factory.j17CountryBL.Load(CInt(strFoundedMissingItemValue))
-        If Not cRec Is Nothing Then strAddMissingItemText = cRec.j17Name
-    End Sub
-
-    Private Sub j18ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles j18ID.NeedMissingItem
-        Dim cRec As BO.j18Region = Master.Factory.j18RegionBL.Load(CInt(strFoundedMissingItemValue))
-        If Not cRec Is Nothing Then strAddMissingItemText = cRec.j18Name
-    End Sub
 
     Private Sub j02_record_LoadComplete(sender As Object, e As EventArgs) Handles Me.LoadComplete
         Dim b As Boolean = BO.BAS.BG(Me.j02IsIntraPerson.SelectedValue)
@@ -302,8 +271,5 @@
         Master.Notify("Změna se uloží do osobního profilu až stisknutím tlačítka [Uložit změny].")
     End Sub
 
-    Private Sub o25ID_Calendar_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles o25ID_Calendar.NeedMissingItem
-        Dim cRec As BO.o25App = Master.Factory.o25AppBL.Load(BO.BAS.IsNullInt(strFoundedMissingItemValue))
-        strAddMissingItemText = cRec.o25Name
-    End Sub
+  
 End Class

@@ -561,6 +561,7 @@
             Case 5 : Return "pátek"
             Case 6 : Return "sobota"
             Case 7 : Return "neděle"
+            Case Else : Return "??"
         End Select
     End Function
     Public Shared Function MonthName(d As Date) As String

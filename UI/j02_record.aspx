@@ -109,14 +109,14 @@
                     <td>
                         <asp:Label ID="lblJ07ID" Text="Pozice (hladina sazby):" runat="server" CssClass="lbl" meta:resourcekey="lblJ07ID"></asp:Label></td>
                     <td>
-                        <uc:datacombo ID="j07ID" runat="server" DataTextField="j07Name" DataValueField="pid" IsFirstEmptyRow="true" Width="300px"></uc:datacombo>
+                        <uc:datacombo ID="j07ID" runat="server" DataTextField="j07Name" DataValueField="pid" IsFirstEmptyRow="true" Width="300px" RemoteListPrefix="j07"></uc:datacombo>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <asp:Label ID="lblC21ID" Text="Pracovní fond:" runat="server" CssClass="lbl" meta:resourcekey="lblC21ID"></asp:Label></td>
                     <td>
-                        <uc:datacombo ID="c21ID" runat="server" DataTextField="c21Name" DataValueField="pid" IsFirstEmptyRow="true" Width="300px"></uc:datacombo>
+                        <uc:datacombo ID="c21ID" runat="server" DataTextField="c21Name" DataValueField="pid" IsFirstEmptyRow="true" Width="300px" RemoteListPrefix="c21"></uc:datacombo>
                     </td>
                 </tr>
                 <tr>
@@ -124,7 +124,7 @@
                         <asp:Label ID="lblJ18ID" runat="server" CssClass="lbl" Text="Středisko:" meta:resourcekey="lblJ18ID"></asp:Label></td>
                     <td>
 
-                        <uc:datacombo ID="j18ID" runat="server" DataTextField="j18Name" DataValueField="pid" IsFirstEmptyRow="true" Width="300px"></uc:datacombo>
+                        <uc:datacombo ID="j18ID" runat="server" DataTextField="j18Name" DataValueField="pid" IsFirstEmptyRow="true" Width="300px" RemoteListPrefix="j18"></uc:datacombo>
                     </td>
                 </tr>
 
@@ -132,7 +132,7 @@
                     <td>
                         <asp:Label ID="lblJ17ID" Text="Region:" runat="server" CssClass="lbl"></asp:Label></td>
                     <td>
-                        <uc:datacombo ID="j17ID" runat="server" DataTextField="j17Name" DataValueField="pid" IsFirstEmptyRow="true" Width="300px"></uc:datacombo>
+                        <uc:datacombo ID="j17ID" runat="server" DataTextField="j17Name" DataValueField="pid" IsFirstEmptyRow="true" Width="300px" RemoteListPrefix="j17"></uc:datacombo>
                         <span class="infoInForm">Vazba na [Region] se využívá kvůli zohlednění dnů svátků pro pracovní fondy osob z různých zemí (regionů).</span>
                     </td>
                 </tr>
@@ -140,7 +140,7 @@
                     <td>
                         <asp:Label ID="lblO40ID" Text="Vlastní SMTP účet:" runat="server" CssClass="lbl" meta:resourcekey="lblO40ID"></asp:Label></td>
                     <td>
-                        <uc:datacombo ID="o40ID" runat="server" DataTextField="o40Name" DataValueField="pid" IsFirstEmptyRow="true" Width="300px"></uc:datacombo>
+                        <uc:datacombo ID="o40ID" runat="server" DataTextField="o40Name" DataValueField="pid" IsFirstEmptyRow="true" Width="300px" RemoteListPrefix="o40"></uc:datacombo>
 
                     </td>
                 </tr>
@@ -149,7 +149,7 @@
                         <asp:Label ID="lblO25ID" Text="Osobní kalendář:" runat="server" CssClass="lbl"></asp:Label>
                     </td>
                     <td>
-                        <uc:datacombo ID="o25ID_Calendar" runat="server" DataTextField="o25Name" DataValueField="pid" IsFirstEmptyRow="true" Width="300px"></uc:datacombo>
+                        <uc:datacombo ID="o25ID_Calendar" runat="server" DataTextField="o25Name" DataValueField="pid" IsFirstEmptyRow="true" Width="300px" RemoteListPrefix="o25"></uc:datacombo>
 
                     </td>
                 </tr>

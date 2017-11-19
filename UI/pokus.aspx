@@ -20,7 +20,7 @@
                 Pozice nově:
             </td>
             <td>
-                <uc:datacombo ID="j07ID" runat="server" AutoPostBack="true" RemoteListPrefix="j07" Width="400px"></uc:datacombo>
+                <uc:datacombo ID="j07ID" runat="server" AutoPostBack="false" RemoteListPrefix="j07" Width="400px"></uc:datacombo>
             </td>
         </tr>
         <tr>
@@ -41,7 +41,9 @@
     
 
     <asp:Button ID="cmdPokus" runat="server" Text="FlexiBee" />
-    
+
+    <asp:Button ID="cmdPostback" runat="server" Text="postback" />
+
 </asp:Content>
 
 
