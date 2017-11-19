@@ -266,6 +266,15 @@ Partial Public Class ModalDataRecord
     Protected WithEvents hidHRJS As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
+    '''RadContextMenu1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents RadContextMenu1 As Global.Telerik.Web.UI.RadContextMenu
+
+    '''<summary>
     '''okno_dialog control.
     '''</summary>
     '''<remarks>

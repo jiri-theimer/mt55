@@ -162,6 +162,11 @@
         <asp:HiddenField ID="hidPageTitle" runat="server" />
         <asp:HiddenField ID="hidHRJS" runat="server" />
 
+        <telerik:RadContextMenu ID="RadContextMenu1" runat="server" EnableViewState="false" Skin="Metro" ExpandDelay="0" RenderMode="Lightweight" OnClientHidden="RadContextMenu1_Hidden" OnClientShown="RadContextMenu1_Shown">            
+            <CollapseAnimation Type="None" />
+            <ExpandAnimation Type="None" />                
+        </telerik:RadContextMenu>
+
         <telerik:RadWindow ID="okno_dialog" runat="server" Modal="true" KeepInScreenBounds="true" VisibleTitlebar="true" VisibleStatusbar="false" Skin="WebBlue" ShowContentDuringLoad="false" Width="700px" Height="400px" Behaviors="Close,Maximize,Move,Reload" IconUrl="Images/window.png">
             <Shortcuts>
                 <telerik:WindowShortcut CommandName="Close" Shortcut="Esc" />
@@ -299,5 +304,113 @@
     }
 
     
+    var _lastCmClosedTime = null;
+    var _CmIsClosed = null;
+    var _CmLastGuid = null;
+
+    
+
+    function RadContextMenu1_Hidden(menu) {
+        var d = new Date();
+        _lastCmClosedTime = d.getTime();
+        _CmIsClosed = 1;
+
+    }
+    function RadContextMenu1_Shown(menu) {
+        _CmIsClosed = 0;
+    }
+
+    function RCM(curPREFIX, curPID, ctl, strFlag) {
+        
+        if (_CmLastGuid != curPREFIX + curPID) {
+            _CmIsClosed = 1;
+        }
+        var d = new Date();
+        var n = d.getTime();
+
+        var contextMenu = $find("<%= RadContextMenu1.ClientID %>");
+        if (_CmIsClosed == 0 || n - _lastCmClosedTime < 2) {
+            return;     //n - _lastCmClosedTime < 2 - je tam kvůli newrec menu, které nefunguje přes onclick, ale přes href
+        }
+
+        _CmIsClosed = 0;
+        _CmLastGuid = curPREFIX + curPID;
+        
+        $.ajax({
+            method: "POST",
+            url: "Handler/handler_popupmenu.ashx",
+            beforeSend: function () {
+
+            },
+            async: true,
+            timeout: 3000,
+            data: { prefix: curPREFIX, pid: curPID, flag: strFlag },
+            success: function (data) {
+                //alert("načítání");
+                //$('#html5menu').html('');    
+                
+                contextMenu.get_items().clear();
+                
+                var x = 180;
+                var y = 30;
+
+                if (ctl != null) {
+                    x = $(ctl).offset().left;
+                    y = $(ctl).offset().top;
+                }
+                
+
+                var miLastRoot = null;
+
+                for (var i in data) {
+                    var c = data[i];
+                    var mi = new Telerik.Web.UI.RadMenuItem();
+
+
+                    if (c.IsSeparator == true) {
+                        mi.set_isSeparator(true);
+                    }
+
+                    if (c.IsSeparator == false) {
+                        mi.set_text(c.Text);
+
+                        mi.set_navigateUrl(c.NavigateUrl);
+
+                    }
+
+                    if (c.ImageUrl != "") {
+                        mi.set_imageUrl(c.ImageUrl);
+                    }
+
+                    if (c.IsDisabled == true) {
+                        mi.disable();
+                    }
+
+                    if (c.IsChildOfPrevious == true) {
+                        miLastRoot.get_items().add(mi);
+                    }
+
+                    if (c.IsChildOfPrevious == false) {
+                        contextMenu.get_items().add(mi);
+                        miLastRoot = mi;
+                    }
+
+
+                }
+
+                contextMenu.showAt(x + 20, y);
+
+
+
+            },
+            complete: function () {
+                // do the job here
+
+            }
+        });
+
+
+
+    }
 </script>
 </html>

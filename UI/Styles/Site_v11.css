@@ -423,6 +423,23 @@ A.pp2 {
          background-color:#25a0da;
     } 
 
+
+    A.pp3 {
+    display:inline-block;
+    background-image: url('../Images/p1.png');
+    background-repeat: no-repeat;   
+    width:14px;
+    height:14px;          
+    cursor: pointer;
+    
+}
+
+    A.pp3:hover {
+        
+         background-repeat: no-repeat;
+         background-color:lightskyblue;
+    } 
+
 /* MISC  
 ----------------------------------------------------------*/
 

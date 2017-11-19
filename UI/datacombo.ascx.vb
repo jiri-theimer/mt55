@@ -390,7 +390,10 @@ Public Class datacombo
     End Property
 
     Private Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        If Me.RemoteListPrefix <> "" Then
+        If Me.RemoteListPrefix = "" Then
+            cm1.Visible = False
+        Else
+            cm1.Visible = True
             With cbx1
                 ''.DataValueField = ""
                 ''.DataTextField = ""
@@ -402,6 +405,7 @@ Public Class datacombo
                 .WebServiceSettings.Path = "~/Services/remotelist_service.asmx"
                 .OnClientItemsRequesting = Me.ClientID & "_OnClientItemsRequesting"
             End With
+            cm1.Attributes("onclick") = Me.ClientID & "_RCM(this)"
         End If
 
     End Sub
