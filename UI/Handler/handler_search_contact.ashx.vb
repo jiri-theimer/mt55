@@ -26,7 +26,7 @@ Public Class handler_search_contact
         mq.Closed = BO.BooleanQueryMode.NoQuery
         Select Case strFO
             Case "p28Name"
-                mq.ColumnFilteringExpression = "a.p28Name LIKE '%" & strFilterString & "%'"    'hledat pouze podle názvu klienta
+                mq.ColumnFilteringExpression = "a.p28Name LIKE '%" & strFilterString & "%' OR a.p28CompanyName LIKE '%" & strFilterString & "%'"    'hledat pouze podle názvu klienta
             Case "p28RegID"
                 mq.ColumnFilteringExpression = "a.p28RegID LIKE '%" & strFilterString & "%'"    'hledat pouze podle IČ
             Case "p28VatID"
@@ -43,32 +43,43 @@ Public Class handler_search_contact
         Dim lisP28 As IEnumerable(Of BO.p28Contact) = factory.p28ContactBL.GetList(mq)
         Dim lis As New List(Of BO.SearchBoxItem)
         Dim c As New BO.SearchBoxItem
-        If strFO = "" Then
-            Select Case lisP28.Count
-                Case 0
-                    c.ItemText = "Ani jeden klient pro zadanou podmínku."
-                Case Is >= mq.TopRecordsOnly
-                    c.ItemText = String.Format("Nalezeno více než {0} klientů.<br>Je třeba zpřesnit hledání nebo si zvýšit počet vypisovaných klientů.", mq.TopRecordsOnly.ToString)
-                Case Else
-                    c.ItemText = String.Format("Počet nalezených klientů: {0}.", lisP28.Count.ToString)
-            End Select
-            c.FilterString = strFilterString : lis.Add(c)
-        End If
+
+        Select Case lisP28.Count
+            Case 0
+                c.ItemText = "Ani jeden klient pro zadanou podmínku."
+            Case Is >= mq.TopRecordsOnly
+                c.ItemText = String.Format("Nalezeno více než {0} klientů.<br>Je třeba zpřesnit hledání nebo si zvýšit počet vypisovaných klientů.", mq.TopRecordsOnly.ToString)
+            Case Else
+                c.ItemText = String.Format("Počet nalezených klientů: {0}.", lisP28.Count.ToString)
+        End Select
+        c.FilterString = strFilterString : lis.Add(c)
+
         For Each cP28 In lisP28
             c = New BO.SearchBoxItem
             With cP28
+
+                Dim strName As String = .p28Name
                 If .p28CompanyShortName = "" Then
-                    c.ItemText = .p28Name
+                    strName = .p28Name
                 Else
-                    c.ItemText = .p28CompanyShortName & " - " & .p28CompanyName
+                    strName = .p28CompanyShortName & " - " & .p28CompanyName
                 End If
-                c.ItemText += " (" & .p28Code & ")"
+                Select Case strFO
+                    Case "p28Name"
+                        c.ItemText = Replace(.p28Name, strFilterString, "<strong>" & strFilterString & "</strong>", , , CompareMethod.Text)
+                        c.ItemComment = .p28RegID
+                    Case "p28RegID"
+                        c.ItemText = Replace(.p28RegID, strFilterString, "<strong>" & strFilterString & "</strong>", , , CompareMethod.Text)
+                        c.ItemComment = strName
+                    Case "p28VatID"
+                        c.ItemText = Replace(.p28VatID, strFilterString, "<strong>" & strFilterString & "</strong>", , , CompareMethod.Text)
+                        c.ItemComment = strName
+                End Select
+
+                c.ItemComment += " (" & .p28Code & ")"
                 If .p28SupplierFlag = BO.p28SupplierFlagENUM.NotClientNotSupplier Then c.Italic = "1"
 
-                Select Case strFO
-                    Case "p28RegID" : c.ItemText = .p28RegID & " - " & c.ItemText
-                    Case "p28VatID" : c.ItemText = .p28VatID & " - " & c.ItemText
-                End Select
+
                 c.PID = .PID.ToString
                 If .IsClosed Then c.Closed = "1"
                 If .p28IsDraft Then c.Draft = "1"

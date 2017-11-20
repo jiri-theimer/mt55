@@ -303,6 +303,9 @@
         dialog_master(url, is_maximize,null,null);
     }
 
+    function contMenu(url, isTopWindow) {
+        sw_everywhere(url, "", true);
+    }
     
     var _lastCmClosedTime = null;
     var _CmIsClosed = null;

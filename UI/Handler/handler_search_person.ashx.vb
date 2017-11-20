@@ -6,7 +6,7 @@ Public Class handler_search_person
 
     Sub ProcessRequest(ByVal context As HttpContext) Implements IHttpHandler.ProcessRequest
 
-        context.Response.ContentType = "text/plain"
+        context.Response.ContentType = "application/json"
 
         Dim factory As BL.Factory = Nothing
         If HttpContext.Current.User.Identity.IsAuthenticated Then
@@ -26,7 +26,7 @@ Public Class handler_search_person
         mq.Closed = BO.BooleanQueryMode.NoQuery
         Select Case strFO
             Case "j02LastName"
-                mq.ColumnFilteringExpression = "a.j02LastName LIKE '%" & strFilterString & "%'"    'hledat pouze podle příjmení
+                mq.ColumnFilteringExpression = "a.j02LastName LIKE '%" & strFilterString & "%' OR a.j02FirstName LIKE '%" & strFilterString & "%'"    'hledat pouze podle příjmení
             Case "j02Email"
                 mq.ColumnFilteringExpression = "a.j02Email LIKE '%" & strFilterString & "%'"    'hledat pouze podle mailu             
             Case Else
@@ -40,7 +40,7 @@ Public Class handler_search_person
         Dim c As New BO.SearchBoxItem
         Select Case lisJ02.Count
             Case 0
-                c.ItemText = "Ani jedna osoba pro zadanou podmínku."
+                c.ItemText = "Pro zadané hledání ani jedna osoba."
             Case Is >= mq.TopRecordsOnly
                 c.ItemText = String.Format("Nalezeno více než {0} osob. Je třeba zpřesnit podmínku hledání.", mq.TopRecordsOnly.ToString)
             Case Else
@@ -50,13 +50,21 @@ Public Class handler_search_person
         For Each cJ02 In lisJ02
             c = New BO.SearchBoxItem
             With cJ02
-                c.ItemText = .FullNameDesc
-                If cJ02.j02IsIntraPerson Then
-                    If .j07ID <> 0 Then c.ItemText += " [" & .j07Name & "]"
-                Else
-                    If .j02Email <> "" Then c.ItemText += " [" & cJ02.j02Email & "]"
+                Select Case strFO
+                    Case "j02LastName"
+                        c.ItemText = Replace(.FullNameDesc, strFilterString, "<strong>" & strFilterString & "</strong>", , , CompareMethod.Text)
+                        c.ItemComment = .j02Email
+                    Case "j02Email"
+                        c.ItemText = Replace(.j02Email, strFilterString, "<strong>" & strFilterString & "</strong>", , , CompareMethod.Text)
+                        c.ItemComment = .FullNameDesc
+                End Select
+
+                If .j07ID <> 0 Then c.ItemComment += " (" & .j07Name & ")"
+
+                If Not cJ02.j02IsIntraPerson Then
                     c.Italic = "1"
                 End If
+                
 
                 c.PID = .PID.ToString
                 If .IsClosed Then c.Closed = "1"
@@ -68,7 +76,7 @@ Public Class handler_search_person
             lis.Add(c)
         Next
 
-
+        
 
         Dim jss As New System.Web.Script.Serialization.JavaScriptSerializer
         Dim s As String = jss.Serialize(lis)

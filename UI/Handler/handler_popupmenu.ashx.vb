@@ -56,6 +56,8 @@ Public Class handler_popupmenu
                 HandleP51(intPID, factory)
             Case "x40"
                 HandleX40(intPID, factory)
+            Case "j07", "j04", "j18", "j17", "c21", "o40", "o25", "p42", "p32"
+                HandleCiselnikyDataCombo(strPREFIX, intPID, factory)
             Case Else
                 CI("Nezpracovatelný PREFIX", "")
         End Select
@@ -67,7 +69,7 @@ Public Class handler_popupmenu
 
 
     End Sub
-
+    
     Private Sub HandleO22(intPID As Integer, factory As BL.Factory, strFlag As String)
         Dim cRec As BO.o22Milestone = factory.o22MilestoneBL.Load(intPID)
         If cRec Is Nothing Then CI("Záznam nebyl nalezen.", "", True) : Return
@@ -1035,8 +1037,22 @@ Public Class handler_popupmenu
             CI("Nedisponujete oprávněním administrátora.", "", True) : Return
         End If
 
-        CI("Upravit záznam", Right(a(1), 3) & "_record.aspx?pid=" & intPID.ToString, , "Images/edit.png")
+        CI("Detail", Right(a(1), 3) & "_record.aspx?pid=" & intPID.ToString, , "Images/edit.png")
         CI("Kopírovat", Right(a(1), 3) & "_record.aspx?clone=1&pid=" & intPID.ToString, , "Images/copy.png")
+        CI("Nový", Right(a(1), 3) & "_record.aspx?pid=0", , "Images/new.png")
+    End Sub
+    Private Sub HandleCiselnikyDataCombo(strPrefix As String, intPID As Integer, factory As BL.Factory)
+        If factory.TestPermission(BO.x53PermValEnum.GR_Admin) Then
+            If intPID > 0 Then
+                CI("Detail", strPrefix & "_record.aspx?pid=" & intPID.ToString, , "Images/edit.png")
+                SEP()
+                CI("Kopírovat", strPrefix & "_record.aspx?clone=1&pid=" & intPID.ToString, , "Images/copy.png")
+                SEP()
+            End If
+
+            CI("Přidat", strPrefix & "_record.aspx?pid=0", , "Images/new.png")
+        End If
+        
     End Sub
     Private Sub RenderNewRecMenu(factory As BL.Factory)
         With factory.SysUser

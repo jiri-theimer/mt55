@@ -14,49 +14,13 @@ Option Explicit On
 Partial Public Class pokus
 
     '''<summary>
-    '''j07ID control.
+    '''txt1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents j07ID As Global.UI.datacombo
-
-    '''<summary>
-    '''j04ID control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents j04ID As Global.UI.datacombo
-
-    '''<summary>
-    '''p28ID control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents p28ID As Global.UI.contact
-
-    '''<summary>
-    '''cmdPokus control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cmdPokus As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''cmdPostback control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cmdPostback As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents txt1 As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''Master property.

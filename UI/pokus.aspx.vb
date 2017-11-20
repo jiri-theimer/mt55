@@ -25,35 +25,10 @@ Public Class pokus
 
 
    
-    Private Sub pokus_Load(sender As Object, e As EventArgs) Handles Me.Load
-
-    End Sub
-
+    
     
     
 
-    
-    Private Sub cmdPokus_Click(sender As Object, e As EventArgs) Handles cmdPokus.Click
-      
-        Me.j07ID.SelectedValue = "2"
-        
-    End Sub
 
-    Private Sub FillList(qry As IEnumerable(Of Object))
-        For Each c In qry
-            Dim item As New MyListItem
-            item.Value = c.pid
-            item.Text = c.item("j07Name")
-
-            _lis.Add(item)
-        Next
-
-
-
-    End Sub
-
-    Private Sub cmdPostback_Click(sender As Object, e As EventArgs) Handles cmdPostback.Click
-        Master.Notify("j07ID: " & Me.j07ID.SelectedValue & ", klient: " & Me.p28ID.Value)
-
-    End Sub
+   
 End Class

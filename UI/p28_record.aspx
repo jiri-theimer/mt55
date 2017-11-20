@@ -11,9 +11,7 @@
 <%@ Register TagPrefix="uc" TagName="mytags" Src="~/mytags.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-    <link rel="stylesheet" href="Scripts/jqueryui/jquery-ui.min.css" />
-    <script src="Scripts/jqueryui/jquery-ui.min.js" type="text/javascript"></script>
-
+ 
     <script type="text/javascript">
         function recordcode() {
 
@@ -189,7 +187,8 @@
                 <asp:Label ID="lblSupplierID" runat="server" Text="Kód dodavatele:"></asp:Label>
                 <asp:TextBox ID="p28SupplierID" runat="server"></asp:TextBox>
             </div>
-            <div id="search_dupl_result" style="position: relative; left: 0px; top: 0px; z-index: 1000;"></div>
+            <div id="search_dupl_result" style="position: absolute; left: 0px; top: 250px; z-index: 1000;background-color:khaki;padding:10px;display:none;"></div>
+            
             <uc:mytags ID="tags1" ModeUi="1" Prefix="p28" runat="server" />
             <div class="div6">
                 <asp:CheckBox ID="chkDefineLimits" runat="server" AutoPostBack="true" Text="Definovat limity k upozornění" CssClass="chk" />
@@ -582,163 +581,76 @@
 
 
     <script type="text/javascript">
-        <%If Me.chkWhisper.Checked Then%>
-        $(function () {
+       <%If Me.chkWhisper.Checked Then%>
+        $(document).ready(function () {
+            $("#<%=Me.p28CompanyName.ClientID%>").keyup(function () {
+                TrySearch(this.value, "p28Name");
+            });
 
-            $("#<%=p28CompanyName.ClientID%>").autocomplete({
-                source: "Handler/handler_search_contact.ashx?fo=p28Name",
-                minLength: 1,
-                select: function (event, ui) {
-                    if (ui.item) {
-                        if (ui.item.PID != null)
-                            dialog_master("clue_p28_record.aspx?pid=" + ui.item.PID, false)
+            $("#<%=Me.p28CompanyName.ClientID%>").blur(function () {
+                $('#search_dupl_result').empty();
+                $('#search_dupl_result').hide();
+            });
 
-                        return false;
-                    }
-                },
-                open: function (event, ui) {
-                    $('ul.ui-autocomplete')
-                       .removeAttr('style').hide()
-                       .appendTo('#search_dupl_result').show();
-                },
-                close: function (event, ui) {
-                    $('ul.ui-autocomplete')
-                    .html("")
-                    .hide();
-                }
+            $("#<%=Me.p28RegID.ClientID%>").keyup(function () {
+                TrySearch(this.value, "p28RegID");
+            });
 
+            $("#<%=Me.p28RegID.ClientID%>").blur(function () {
+                $('#search_dupl_result').empty();
+                $('#search_dupl_result').hide();
+            });
 
-            }).data("ui-autocomplete")._renderItem = function (ul, item) {
-                var s = "<div style='background-color:khaki;width:500px;'>";
-                if (item.Closed == "1")
-                    s = s + "<a style='text-decoration:line-through;'>";
-                else
-                    s = s + "<a>";
+            $("#<%=Me.p28VatID.ClientID%>").keyup(function () {
+                TrySearch(this.value, "p28VatID");
+            });
 
-                s = s + __highlight(item.ItemText, item.FilterString);
+            $("#<%=Me.p28VatID.ClientID%>").blur(function () {
+                $('#search_dupl_result').empty();
+                $('#search_dupl_result').hide();
+            });
 
-
-                s = s + "</a>";
-
-
-                if (item.Italic == "1")
-                    s = "<i>" + s + "</i>"
-
-                s = s + "</div>";
-
-
-                return $(s).appendTo(ul);
-
-
-            };
         });
 
-        $(function () {
+        function TrySearch(searchExpr, searchFo) {
+            if (searchExpr == "") {
+                $('#search_dupl_result').hide();
+                return;
+            }
 
-            $("#<%=p28RegID.ClientID%>").autocomplete({
-                source: "Handler/handler_search_contact.ashx?fo=p28RegID",
-                minLength: 1,
-                select: function (event, ui) {
-                    if (ui.item) {
-                        if (ui.item.PID != null)
-                            dialog_master("clue_p28_record.aspx?pid=" + ui.item.PID, false)
-
-                        return false;
-                    }
-                },
-                open: function (event, ui) {
-                    $('ul.ui-autocomplete')
-                       .removeAttr('style').hide()
-                       .appendTo('#search_dupl_result').show();
-                },
-                close: function (event, ui) {
-                    $('ul.ui-autocomplete')
-                    .html("")
-                    .hide();
+            $.post("Handler/handler_search_contact.ashx", { term: searchExpr, fo: searchFo }, function (data) {
+                if (data == ' ') {
+                    return;
                 }
 
-
-            }).data("ui-autocomplete")._renderItem = function (ul, item) {
-                var s = "<div style='background-color:khaki;width:500px;'>";
-                if (item.Closed == "1")
-                    s = s + "<a style='text-decoration:line-through;'>";
-                else
-                    s = s + "<a>";
-
-                s = s + __highlight(item.ItemText, item.FilterString);
-
-
-                s = s + "</a>";
-
-
-                if (item.Italic == "1")
-                    s = "<i>" + s + "</i>"
-
-                s = s + "</div>";
-
-
-                return $(s).appendTo(ul);
-
-
-            };
-        });
-
-        $(function () {
-
-            $("#<%=p28VatID.ClientID%>").autocomplete({
-                source: "Handler/handler_search_contact.ashx?fo=p28VatID",
-                minLength: 1,
-                select: function (event, ui) {
-                    if (ui.item) {
-                        if (ui.item.PID != null)
-                            dialog_master("clue_p28_record.aspx?pid=" + ui.item.PID, false)
-
-                        return false;
+                $('#search_dupl_result').show();
+                $('#search_dupl_result').empty();
+                $('#search_dupl_result').append("<table>");
+                for (var i in data) {
+                    var s = data[i].ItemText;
+                    if (i == 0) {
+                        s = "<tr><td colspan=2>" + data[i].ItemText + "<hr></td></tr>";
                     }
-                },
-                open: function (event, ui) {
-                    $('ul.ui-autocomplete')
-                       .removeAttr('style').hide()
-                       .appendTo('#search_dupl_result').show();
-                },
-                close: function (event, ui) {
-                    $('ul.ui-autocomplete')
-                    .html("")
-                    .hide();
+                    if (i > 0) {
+                        s = "<tr><td>" + data[i].ItemText + "</td><td>" + data[i].ItemComment + "</td></tr>";
+                    }
+
+
+                    $('#search_dupl_result').append(s);
                 }
+                $('#search_dupl_result').append("</table>");
 
 
-            }).data("ui-autocomplete")._renderItem = function (ul, item) {
-                var s = "<div style='background-color:khaki;width:500px;'>";
-                if (item.Closed == "1")
-                    s = s + "<a style='text-decoration:line-through;'>";
-                else
-                    s = s + "<a>";
 
-                s = s + __highlight(item.ItemText, item.FilterString);
-
-
-                s = s + "</a>";
-
-
-                if (item.Italic == "1")
-                    s = "<i>" + s + "</i>"
-
-                s = s + "</div>";
-
-
-                return $(s).appendTo(ul);
-
-
-            };
-        });
-
-        function __highlight(s, t) {
-            var matcher = new RegExp("(" + $.ui.autocomplete.escapeRegex(t) + ")", "ig");
-            return s.replace(matcher, "<strong>$1</strong>");
+            });
         }
 
 
         <%End If%>
+
+
+       
+
+       
     </script>
 </asp:Content>
