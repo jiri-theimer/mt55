@@ -79,7 +79,7 @@
                     </td>
                     <td>
 
-                        <uc:datacombo ID="p42ID" runat="server" DataTextField="p42Name" DataValueField="pid" AutoPostBack="true" IsFirstEmptyRow="true" Width="400px"></uc:datacombo>
+                        <uc:datacombo ID="p42ID" runat="server" DataTextField="p42Name" DataValueField="pid" AutoPostBack="true" IsFirstEmptyRow="true" Width="400px" RemoteListPrefix="p42"></uc:datacombo>
                     </td>
                 </tr>
                 <tr>
@@ -89,7 +89,7 @@
                     </td>
                     <td>
                         
-                        <uc:datacombo ID="j18ID" runat="server" DataTextField="j18Name" DataValueField="pid" IsFirstEmptyRow="true" AutoPostBack="true" Width="400px"></uc:datacombo>
+                        <uc:datacombo ID="j18ID" runat="server" DataTextField="j18Name" DataValueField="pid" IsFirstEmptyRow="true" AutoPostBack="true" Width="400px" RemoteListPrefix="j18"></uc:datacombo>
                     </td>
                 </tr>
                 <tr valign="top">
@@ -269,7 +269,7 @@
 
                         </td>
                         <td>
-                            <uc:datacombo ID="p92id" runat="server" Width="300px" DataTextField="p92Name" IsFirstEmptyRow="true" DataValueField="pid" />
+                            <uc:datacombo ID="p92id" runat="server" Width="300px" DataTextField="p92Name" IsFirstEmptyRow="true" DataValueField="pid" RemoteListPrefix="p92-clientinvoice" />
                         </td>
                     </tr>
                     <tr>
@@ -347,7 +347,7 @@
 
                     </td>
                     <td>
-                        <uc:datacombo ID="p61ID" runat="server" DataTextField="p61Name" AutoPostBack="false" DataValueField="pid" IsFirstEmptyRow="true" Width="300px" />
+                        <uc:datacombo ID="p61ID" runat="server" DataTextField="p61Name" AutoPostBack="false" DataValueField="pid" IsFirstEmptyRow="true" Width="300px" RemoteListPrefix="p61" />
                        
                     </td>
                 </tr>
@@ -370,7 +370,7 @@
                         <asp:Label ID="lblO25ID" Text="Kalendář projektu:" runat="server" CssClass="lbl"></asp:Label>
                     </td>
                     <td>
-                        <uc:datacombo ID="o25ID_Calendar" runat="server" DataTextField="o25Name" DataValueField="pid" IsFirstEmptyRow="true" Width="300px"></uc:datacombo>
+                        <uc:datacombo ID="o25ID_Calendar" runat="server" DataTextField="o25Name" DataValueField="pid" IsFirstEmptyRow="true" Width="300px" RemoteListPrefix="o25"></uc:datacombo>
 
                     </td>
                 </tr>

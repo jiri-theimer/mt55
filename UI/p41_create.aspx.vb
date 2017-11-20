@@ -30,24 +30,18 @@
 
             End With
 
-            Dim lisP42 As IEnumerable(Of BO.p42ProjectType) = Master.Factory.p42ProjectTypeBL.GetList(New BO.myQuery)
-            Me.p42ID.DataSource = lisP42
-            Me.p42ID.DataBind()
-            If lisP42.Where(Function(p) p.p42IsDefault = True).Count > 0 Then
-                Me.p42ID.SelectedValue = lisP42.Where(Function(p) p.p42IsDefault = True)(0).PID.ToString
-            End If
-            Me.j18ID.DataSource = Master.Factory.j18RegionBL.GetList(New BO.myQuery)
-            Me.j18ID.DataBind()
-            Me.p61ID.DataSource = Master.Factory.p61ActivityClusterBL.GetList(New BO.myQuery)
-            Me.p61ID.DataBind()
+            ''Dim lisP42 As IEnumerable(Of BO.p42ProjectType) = Master.Factory.p42ProjectTypeBL.GetList(New BO.myQuery)
+            ''Me.p42ID.DataSource = lisP42
+            ''Me.p42ID.DataBind()
+            ''If lisP42.Where(Function(p) p.p42IsDefault = True).Count > 0 Then
+            ''    Me.p42ID.SelectedValue = lisP42.Where(Function(p) p.p42IsDefault = True)(0).PID.ToString
+            ''End If
+            
 
             basUI.SetupP87Combo(Master.Factory, Me.p87ID)
             SetupPriceList()
 
-            Me.p92id.DataSource = Master.Factory.p92InvoiceTypeBL.GetList(New BO.myQuery).Where(Function(p) p.p92InvoiceType = BO.p92InvoiceTypeENUM.ClientInvoice)
-            Me.p92id.DataBind()
-            
-            Me.p92id.ChangeItemText("", "--Dědit z nastavení klienta projektu--")
+           
             Me.p87ID.ChangeItemText("", "--Dědit z nastavení klienta projektu--")
 
             Me.p41PlanFrom.SelectedDate = DateSerial(Year(Now), Month(Now), Day(Now))
@@ -88,8 +82,8 @@
             Dim cRec As BO.p41Project = Master.Factory.p41ProjectBL.Load(BO.BAS.IsNullInt(hidCloneP41ID.Value))
             If cRec Is Nothing Then Return
             With cRec
-                Me.p42ID.SelectedValue = .p42ID.ToString
-                Me.j18ID.SelectedValue = .j18ID.ToString
+                Me.p42ID.SelectRemoteValue(.p42ID.ToString, Master.Factory)
+                Me.j18ID.SelectRemoteValue(.j18ID.ToString, Master.Factory)
                 If .p28ID_Client <> 0 Then
                     Me.p28ID_Client.Value = .p28ID_Client.ToString
                     Me.p28ID_Client.Text = .Client
@@ -98,7 +92,7 @@
 
 
                 Me.p87ID.SelectedValue = .p87ID.ToString
-                Me.p92id.SelectedValue = .p92ID.ToString
+                Me.p92id.SelectRemoteValue(.p92ID.ToString, Master.Factory)
             End With
             roles1.InhaleInitialData(cRec.PID)
             If Request.Item("create_parent") = "1" Then
@@ -138,7 +132,7 @@
                 Handle_ShowPriceListReference(False, .p51ID_Billing)
 
                 Me.p87ID.SelectedValue = .p87ID.ToString
-                Me.p92id.SelectedValue = .p92ID.ToString
+                Me.p92id.SelectRemoteValue(.p92ID.ToString, Master.Factory)
                 Me.p41InvoiceMaturityDays.Value = .p41InvoiceMaturityDays
                 Me.p41InvoiceDefaultText1.Text = .p41InvoiceDefaultText1
                 Me.p41InvoiceDefaultText2.Text = .p41InvoiceDefaultText2
@@ -164,10 +158,10 @@
         If Not cRecLast Is Nothing Then
             With cRecLast
                 If Me.p42ID.SelectedValue <> .p42ID.ToString Then
-                    Me.p42ID.SelectedValue = p42ID.ToString
+                    Me.p42ID.SelectRemoteValue(p42ID.ToString, Master.Factory)
                 End If
                 Me.p51ID_Billing.SelectedValue = .p51ID_Billing.ToString
-                Me.j18ID.SelectedValue = .j18ID.ToString
+                Me.j18ID.SelectRemoteValue(.j18ID.ToString, Master.Factory)
                 roles1.InhaleInitialData(.PID)
                 If .p41LimitFee_Notification > 0 Or .p41LimitHours_Notification > 0 Then
                     Me.chkDefineLimits.Checked = True

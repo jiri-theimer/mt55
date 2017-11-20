@@ -404,6 +404,7 @@ Public Class datacombo
                 .WebServiceSettings.UseHttpGet = False
                 .WebServiceSettings.Path = "~/Services/remotelist_service.asmx"
                 .OnClientItemsRequesting = Me.ClientID & "_OnClientItemsRequesting"
+                .OnClientLoad = "OnClientComboLoad"
             End With
             cm1.Attributes("onclick") = Me.ClientID & "_RCM(this)"
         End If

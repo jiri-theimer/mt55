@@ -5,6 +5,7 @@
 
     Shared Function GetX29EntityAlias(x29id As BO.x29IdEnum, bolMnozneCislo As Boolean) As String
         Select Case x29id
+            Case x29IdEnum._NotSpecified : Return ""
             Case BO.x29IdEnum.p41Project And Not bolMnozneCislo : Return "Projekt"
             Case BO.x29IdEnum.p41Project And bolMnozneCislo : Return "Projekty"
             Case BO.x29IdEnum.p28Contact And Not bolMnozneCislo : Return "Klient"
@@ -12,7 +13,6 @@
             Case x29IdEnum.o23Doc And Not bolMnozneCislo : Return "Dokument"
             Case x29IdEnum.o23Doc And bolMnozneCislo : Return "Dokumenty"
             Case BO.x29IdEnum.p31Worksheet : Return "Worksheet úkon"
-            Case BO.x29IdEnum.p56Task And Not bolMnozneCislo : Return "Úkol"
 
             Case BO.x29IdEnum.x31Report And Not bolMnozneCislo : Return "Tisková sestava"
 
@@ -45,6 +45,11 @@
             Case BO.x29IdEnum.p63Overhead And bolMnozneCislo : Return "Režijní přirážky"
             Case BO.x29IdEnum.o25App And Not bolMnozneCislo : Return "Integrovaný kalendář"
             Case BO.x29IdEnum.o25App And bolMnozneCislo : Return "Integrované kalendáře"
+            Case BO.x29IdEnum.p29ContactType And Not bolMnozneCislo : Return "Typ klienta"
+            Case BO.x29IdEnum.p29ContactType And bolMnozneCislo : Return "Typy klientů"
+            Case BO.x29IdEnum.c21FondCalendar And Not bolMnozneCislo : Return "Časový fond"
+            Case BO.x29IdEnum.c21FondCalendar And bolMnozneCislo : Return "Časové fondy"
+
             Case Else
                 Return ""
         End Select
@@ -88,6 +93,8 @@
             Case "j61" : Return x29IdEnum.j61TextTemplate
             Case "p63" : Return x29IdEnum.p63Overhead
             Case "p92" : Return x29IdEnum.p92InvoiceType
+            Case "j07" : Return x29IdEnum.j07PersonPosition
+            Case "c21" : Return x29IdEnum.c21FondCalendar
 
             Case Else
                 Return x29IdEnum._NotSpecified
