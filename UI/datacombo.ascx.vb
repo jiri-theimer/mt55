@@ -441,6 +441,8 @@ Public Class datacombo
                         .Text = factory.o40SmtpAccountBL.Load(intRecPID).o40Name
                     Case "p29"
                         .Text = factory.p29ContactTypeBL.Load(intRecPID).p29Name
+                    Case "p61"
+                        .Text = factory.p61ActivityClusterBL.Load(intRecPID).p61Name
                     Case "p63"
                         .Text = factory.p63OverheadBL.Load(intRecPID).NameWithRate
                     Case "j61"

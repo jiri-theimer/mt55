@@ -56,7 +56,7 @@ Public Class handler_popupmenu
                 HandleP51(intPID, factory)
             Case "x40"
                 HandleX40(intPID, factory)
-            Case "j07", "j04", "j18", "j17", "c21", "o40", "o25", "p42", "p32", "p92", "p29", "p63", "j61", "j61-invoice", "p92-clientinvoice", "p51-billing", "p51-internal"
+            Case "j07", "j04", "j18", "j17", "c21", "o40", "o25", "p42", "p32", "p92", "p29", "p63", "j61", "j61-invoice", "p92-clientinvoice", "p51-billing", "p51-internal", "p61"
                 HandleCiselnikyDataCombo(Left(strPREFIX, 3), intPID, factory)
             Case Else
                 CI("Nezpracovatelný PREFIX", "")
@@ -1042,6 +1042,10 @@ Public Class handler_popupmenu
         CI("Nový", Right(a(1), 3) & "_record.aspx?pid=0", , "Images/new.png")
     End Sub
     Private Sub HandleCiselnikyDataCombo(strPrefix As String, intPID As Integer, factory As BL.Factory)
+        Dim s As String = BO.BAS.GetX29EntityAlias(BO.BAS.GetX29FromPrefix(strPrefix), False)
+        If s <> "" Then
+            CI(s, "", True)
+        End If
         If factory.TestPermission(BO.x53PermValEnum.GR_Admin) Then
             If intPID > 0 Then
                 CI("Detail", strPrefix & "_record.aspx?pid=" & intPID.ToString, , "Images/edit.png")
@@ -1052,7 +1056,7 @@ Public Class handler_popupmenu
 
             CI("Přidat", strPrefix & "_record.aspx?pid=0", , "Images/new.png")
         End If
-        
+
     End Sub
     Private Sub RenderNewRecMenu(factory As BL.Factory)
         With factory.SysUser

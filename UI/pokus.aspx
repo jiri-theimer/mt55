@@ -43,7 +43,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-
+    <telerik:RadComboBox ID="cbx1" runat="server" ShowToggleImage="true"></telerik:RadComboBox>
     <span>Příjmení:</span>
     <asp:TextBox ID="txt1" runat="server"></asp:TextBox>
 

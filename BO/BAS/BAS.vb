@@ -22,6 +22,8 @@
             Case BO.x29IdEnum.p91Invoice And bolMnozneCislo : Return "Faktury"
             Case BO.x29IdEnum.p90Proforma And Not bolMnozneCislo : Return "Záloha"
             Case BO.x29IdEnum.p90Proforma And bolMnozneCislo : Return "Zálohy"
+            Case BO.x29IdEnum.p92InvoiceType And Not bolMnozneCislo : Return "Typ faktury"
+            Case BO.x29IdEnum.p92InvoiceType And bolMnozneCislo : Return "Typy faktur"
             Case BO.x29IdEnum.p56Task And Not bolMnozneCislo : Return "Úkol"
             Case BO.x29IdEnum.p56Task And bolMnozneCislo : Return "Úkoly"
 
@@ -33,7 +35,16 @@
             Case BO.x29IdEnum.p34ActivityGroup And bolMnozneCislo : Return "Sešity"
             Case BO.x29IdEnum.p32Activity And Not bolMnozneCislo : Return "Aktivita"
             Case BO.x29IdEnum.p32Activity And bolMnozneCislo : Return "Aktivity"
-
+            Case BO.x29IdEnum.p42ProjectType And Not bolMnozneCislo : Return "Typ projektu"
+            Case BO.x29IdEnum.p42ProjectType And bolMnozneCislo : Return "Typy projektů"
+            Case BO.x29IdEnum.p51PriceList And Not bolMnozneCislo : Return "Ceník hodinových sazeb"
+            Case BO.x29IdEnum.p51PriceList And bolMnozneCislo : Return "Ceníky hodinových sazeb"
+            Case BO.x29IdEnum.j61TextTemplate And Not bolMnozneCislo : Return "Textová e-mail šablona"
+            Case BO.x29IdEnum.j61TextTemplate And bolMnozneCislo : Return "Textové e-mail šablony"
+            Case BO.x29IdEnum.p63Overhead And Not bolMnozneCislo : Return "Režijní přirážka"
+            Case BO.x29IdEnum.p63Overhead And bolMnozneCislo : Return "Režijní přirážky"
+            Case BO.x29IdEnum.o25App And Not bolMnozneCislo : Return "Integrovaný kalendář"
+            Case BO.x29IdEnum.o25App And bolMnozneCislo : Return "Integrované kalendáře"
             Case Else
                 Return ""
         End Select
@@ -74,6 +85,10 @@
             Case "p32" : Return x29IdEnum.p32Activity
             Case "p34" : Return x29IdEnum.p34ActivityGroup
             Case "p51" : Return x29IdEnum.p51PriceList
+            Case "j61" : Return x29IdEnum.j61TextTemplate
+            Case "p63" : Return x29IdEnum.p63Overhead
+            Case "p92" : Return x29IdEnum.p92InvoiceType
+
             Case Else
                 Return x29IdEnum._NotSpecified
         End Select

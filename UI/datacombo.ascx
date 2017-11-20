@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="datacombo.ascx.vb" Inherits="UI.datacombo" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 
-<telerik:RadComboBox ID="cbx1" runat="server" DataValueField="pid" >
+<telerik:RadComboBox ID="cbx1" runat="server" DataValueField="pid" OnClientLoad="OnClientLoad" >
     <Localization AllItemsCheckedString="Všechny položky zaškrtnuty" ItemsCheckedString="x zaškrtnuto" />
 </telerik:RadComboBox>
 <asp:HyperLink ID="cm1" runat="server" CssClass="pp3" Visible="false"></asp:HyperLink>
@@ -36,6 +36,11 @@
         
         RCM(prefix, pid, ctl);
     }
+
+    function OnClientLoad(sender) {
+        sender.get_inputDomElement().readOnly = "true";
+    }
+
 
 </script>
 <%end if%>

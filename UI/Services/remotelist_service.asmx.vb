@@ -57,6 +57,8 @@ Public Class remotelist_service
 
             Case "p42"
                 FillList(factory.p42ProjectTypeBL.GetList(New BO.myQuery))
+            Case "p61"
+                FillList(factory.p61ActivityClusterBL.GetList(New BO.myQuery))
             Case "j04"
                 FillList(factory.j04UserRoleBL.GetList(New BO.myQuery))
             Case "o25"
@@ -117,6 +119,7 @@ Public Class remotelist_service
                 Case "j61" : itemData.Text = c.j61Name
                 Case "p29" : itemData.Text = c.p29Name
                 Case "p51" : itemData.Text = c.p51Name
+                Case "p61" : itemData.Text = c.p61Name
             End Select
             ''itemData.Text += " (" & Now.ToString & ")"
             _result.Add(itemData)

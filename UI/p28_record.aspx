@@ -282,7 +282,7 @@
                                     
                                 </td>
                                 <td>
-                                    <asp:HyperLink ID="clue_j02" runat="server" CssClass="reczoom" Text="i" title="Detail"></asp:HyperLink>
+                                    <asp:HyperLink ID="clue_j02" runat="server" CssClass="reczoom" Text="i"></asp:HyperLink>
                                     <asp:HyperLink ID="linkPerson" runat="server"></asp:HyperLink>
                                     <asp:HiddenField ID="p85id" runat="server" />
                                 </td>

@@ -14,6 +14,15 @@ Option Explicit On
 Partial Public Class pokus
 
     '''<summary>
+    '''cbx1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cbx1 As Global.Telerik.Web.UI.RadComboBox
+
+    '''<summary>
     '''txt1 control.
     '''</summary>
     '''<remarks>

@@ -32,17 +32,17 @@
 
             SetupPricelistCombo()
 
-            Me.p92id.DataSource = Master.Factory.p92InvoiceTypeBL.GetList(New BO.myQuery).Where(Function(p) p.p92InvoiceType = BO.p92InvoiceTypeENUM.ClientInvoice)
-            Me.p92id.DataBind()
+            'Me.p92id.DataSource = Master.Factory.p92InvoiceTypeBL.GetList(New BO.myQuery).Where(Function(p) p.p92InvoiceType = BO.p92InvoiceTypeENUM.ClientInvoice)
+            'Me.p92id.DataBind()
 
-            Me.p92id.ChangeItemText("", "--Dědit z nastavení klienta projektu--")
+            'Me.p92id.ChangeItemText("", "--Dědit z nastavení klienta projektu--")
             Me.p87ID.ChangeItemText("", "--Dědit z nastavení klienta projektu--")
-            Me.j18ID.DataSource = Master.Factory.j18RegionBL.GetList(New BO.myQuery)
-            Me.j18ID.DataBind()
-            Me.p61ID.DataSource = Master.Factory.p61ActivityClusterBL.GetList(New BO.myQuery)
-            Me.p61ID.DataBind()
-            Me.o25ID_Calendar.DataSource = Master.Factory.o25AppBL.GetList(New BO.myQuery).Where(Function(p) p.o25AppFlag = BO.o25AppFlagENUM.GoogleCalendar)
-            Me.o25ID_Calendar.DataBind()
+            'Me.j18ID.DataSource = Master.Factory.j18RegionBL.GetList(New BO.myQuery)
+            'Me.j18ID.DataBind()
+            'Me.p61ID.DataSource = Master.Factory.p61ActivityClusterBL.GetList(New BO.myQuery)
+            'Me.p61ID.DataBind()
+            'Me.o25ID_Calendar.DataSource = Master.Factory.o25AppBL.GetList(New BO.myQuery).Where(Function(p) p.o25AppFlag = BO.o25AppFlagENUM.GoogleCalendar)
+            'Me.o25ID_Calendar.DataBind()
            
             RefreshRecord()
         End If
@@ -54,10 +54,10 @@
         Me.p51ID_Billing.DataSource = lis.Where(Function(p) p.p51IsInternalPriceList = False And p.p51IsMasterPriceList = False And p.p51IsCustomTailor = False)
         Me.p51ID_Billing.DataBind()
 
-        Me.p51ID_Internal.DataSource = lis.Where(Function(p) p.p51IsInternalPriceList = True And p.p51IsMasterPriceList = False And p.p51IsCustomTailor = False)
+        'Me.p51ID_Internal.DataSource = lis.Where(Function(p) p.p51IsInternalPriceList = True And p.p51IsMasterPriceList = False And p.p51IsCustomTailor = False)
 
-        Me.p51ID_Internal.DataBind()
-        Me.p51ID_Internal.ChangeItemText("", "--Dědit z nastavení systému--")
+        'Me.p51ID_Internal.DataBind()
+        'Me.p51ID_Internal.ChangeItemText("", "--Dědit z nastavení systému--")
 
     End Sub
     Private Sub Handle_Permissions(cRec As BO.p41Project)
@@ -81,9 +81,9 @@
             Me.p41NameShort.Text = .p41NameShort
             Me.p41Code.Text = .p41Code
             Me.p41Code.NavigateUrl = "javascript:recordcode()"
-            Me.p42ID.SelectedValue = .p42ID.ToString
-            Me.j18ID.SelectedValue = .j18ID.ToString
-            Me.p61id.selectedvalue = .p61ID.ToString
+            Me.p42ID.SelectRemoteValue(.p42ID.ToString, Master.Factory)
+            Me.j18ID.SelectRemoteValue(.j18ID.ToString, Master.Factory)
+            Me.p61ID.SelectRemoteValue(.p61ID.ToString, Master.Factory)
             Me.j02ID_Owner.Value = .j02ID_Owner.ToString
             Me.j02ID_Owner.Text = .Owner
             If .p28ID_Client <> 0 Then
@@ -111,7 +111,7 @@
             Else
                 Me.opgPriceList.SelectedValue = "1"
             End If
-            Me.p51ID_Internal.SelectedValue = .p51ID_Internal.ToString
+            Me.p51ID_Internal.SelectRemoteValue(.p51ID_Internal.ToString, Master.Factory)
             If .p41ParentID <> 0 Then
                 Me.p41ParentID.Value = .p41ParentID.ToString
                 Dim cParent As BO.p41Project = Master.Factory.p41ProjectBL.Load(.p41ParentID)
@@ -119,7 +119,7 @@
             End If
 
             Me.p87ID.SelectedValue = .p87ID.ToString
-            Me.p92id.SelectedValue = .p92ID.ToString
+            Me.p92id.SelectRemoteValue(.p92ID.ToString, Master.Factory)
             Me.p41InvoiceMaturityDays.Value = .p41InvoiceMaturityDays
             Me.p41InvoiceDefaultText1.Text = .p41InvoiceDefaultText1
             Me.p41InvoiceDefaultText2.Text = .p41InvoiceDefaultText2
@@ -139,7 +139,7 @@
 
             Master.InhaleRecordValidity(.ValidFrom, .ValidUntil, .DateInsert)
             Me.p41BillingMemo.Text = .p41BillingMemo
-            Me.o25ID_Calendar.SelectedValue = .o25ID_Calendar.ToString
+            Me.o25ID_Calendar.SelectRemoteValue(.o25ID_Calendar.ToString, Master.Factory)
 
         End With
         roles1.InhaleInitialData(cRec.PID)
@@ -244,10 +244,10 @@
         End Select
     End Sub
 
-    Private Sub p42ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles p42ID.NeedMissingItem
-        Dim cRec As BO.p42ProjectType = Master.Factory.p42ProjectTypeBL.Load(CInt(strFoundedMissingItemValue))
-        If Not cRec Is Nothing Then strAddMissingItemText = cRec.p42Name
-    End Sub
+    ''Private Sub p42ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles p42ID.NeedMissingItem
+    ''    Dim cRec As BO.p42ProjectType = Master.Factory.p42ProjectTypeBL.Load(CInt(strFoundedMissingItemValue))
+    ''    If Not cRec Is Nothing Then strAddMissingItemText = cRec.p42Name
+    ''End Sub
 
     Private Sub p51ID_Billing_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles p51ID_Billing.NeedMissingItem
         Dim cRec As BO.p51PriceList = Master.Factory.p51PriceListBL.Load(CInt(strFoundedMissingItemValue))
@@ -342,10 +342,10 @@
         End With
     End Sub
 
-    Private Sub j18ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles j18ID.NeedMissingItem
-        Dim cRec As BO.j18Region = Master.Factory.j18RegionBL.Load(CInt(strFoundedMissingItemValue))
-        If Not cRec Is Nothing Then strAddMissingItemText = cRec.j18Name
-    End Sub
+    ''Private Sub j18ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles j18ID.NeedMissingItem
+    ''    Dim cRec As BO.j18Region = Master.Factory.j18RegionBL.Load(CInt(strFoundedMissingItemValue))
+    ''    If Not cRec Is Nothing Then strAddMissingItemText = cRec.j18Name
+    ''End Sub
 
     
    
@@ -376,17 +376,17 @@
 
     
 
-    Private Sub p51ID_Internal_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles p51ID_Internal.NeedMissingItem
-        Dim cRec As BO.p51PriceList = Master.Factory.p51PriceListBL.Load(CInt(strFoundedMissingItemValue))
-        If Not cRec Is Nothing Then strAddMissingItemText = cRec.p51Name
-    End Sub
+    ''Private Sub p51ID_Internal_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles p51ID_Internal.NeedMissingItem
+    ''    Dim cRec As BO.p51PriceList = Master.Factory.p51PriceListBL.Load(CInt(strFoundedMissingItemValue))
+    ''    If Not cRec Is Nothing Then strAddMissingItemText = cRec.p51Name
+    ''End Sub
 
     Private Sub p42ID_SelectedIndexChanged(OldValue As String, OldText As String, CurValue As String, CurText As String) Handles p42ID.SelectedIndexChanged
         Handle_FF()
     End Sub
 
-    Private Sub o25ID_Calendar_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles o25ID_Calendar.NeedMissingItem
-        Dim cRec As BO.o25App = Master.Factory.o25AppBL.Load(BO.BAS.IsNullInt(strFoundedMissingItemValue))
-        strAddMissingItemText = cRec.o25Name
-    End Sub
+    ''Private Sub o25ID_Calendar_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles o25ID_Calendar.NeedMissingItem
+    ''    Dim cRec As BO.o25App = Master.Factory.o25AppBL.Load(BO.BAS.IsNullInt(strFoundedMissingItemValue))
+    ''    strAddMissingItemText = cRec.o25Name
+    ''End Sub
 End Class
