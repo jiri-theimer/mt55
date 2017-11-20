@@ -138,6 +138,16 @@
 
             
         }
+
+        function clientShow(sender, args) {
+            if ($telerik.isChrome) {
+                sender.get_contentFrame().style.width = "";
+                setTimeout(function () {
+                    sender.get_contentFrame().style.width = "100%";
+                }, 0);
+            }
+        }
+        
     </script>
 
 </head>
@@ -151,10 +161,10 @@
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
 
-        <telerik:RadWindow ID="okno1" runat="server" ShowOnTopWhenMaximized="true" RenderMode="Auto" Modal="false" KeepInScreenBounds="true" VisibleStatusbar="false" Skin="MetroTouch" IconUrl="Images/setting.png" ShowContentDuringLoad="false" InitialBehaviors="None" Behaviors="Close,Reload" Style="z-index: 9000;">
+        <telerik:RadWindow ID="okno1" runat="server" ShowOnTopWhenMaximized="true" KeepInScreenBounds="true" Modal="true" VisibleStatusbar="false" Skin="Simple"  IconUrl="Images/setting.png" ShowContentDuringLoad="false" Behaviors="Close,Reload" Style="z-index: 9000;">
             <Shortcuts>
                 <telerik:WindowShortcut CommandName="Close" Shortcut="Esc" />
-            </Shortcuts>
+            </Shortcuts>            
             <Localization Close="Zavřít" Restore="Základní velikost" Maximize="Maximalizovat" />
         </telerik:RadWindow>
 

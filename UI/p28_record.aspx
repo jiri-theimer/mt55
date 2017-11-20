@@ -414,7 +414,7 @@
 
                     </td>
                     <td>
-                        <uc:datacombo ID="p92id" runat="server" Width="300px" DataTextField="p92Name" DataValueField="pid" IsFirstEmptyRow="true" RemoteListPrefix="p92" />
+                        <uc:datacombo ID="p92id" runat="server" Width="300px" DataTextField="p92Name" DataValueField="pid" IsFirstEmptyRow="true" RemoteListPrefix="p92-clientinvoice" />
                     </td>
                 </tr>
                 <tr>
@@ -452,7 +452,7 @@
                     </td>
                     <td>
                         
-                        <uc:datacombo ID="j61ID_Invoice" runat="server" DataTextField="j61Name" DataValueField="pid" IsFirstEmptyRow="true" Width="300px" RemoteListPrefix="j61" />
+                        <uc:datacombo ID="j61ID_Invoice" runat="server" DataTextField="j61Name" DataValueField="pid" IsFirstEmptyRow="true" Width="300px" RemoteListPrefix="j61-invoice" />
                     </td>
                 </tr>
                 <tr>
@@ -469,7 +469,7 @@
 
                     </td>
                     <td>
-                        <uc:datacombo ID="p51ID_Internal" runat="server" DataTextField="NameWithCurr" AutoPostBack="false" DataValueField="pid" IsFirstEmptyRow="true" Width="300px" />
+                        <uc:datacombo ID="p51ID_Internal" runat="server" DataTextField="NameWithCurr" AutoPostBack="false" DataValueField="pid" IsFirstEmptyRow="true" Width="300px" RemoteListPrefix="p51-internal" />
                     </td>
                 </tr>
             </table>

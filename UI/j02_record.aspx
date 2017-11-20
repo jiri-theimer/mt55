@@ -142,7 +142,7 @@
 
                     </td>
                 </tr>
-                <tr>
+                <tr valign="top" id="trO25" runat="server">
                     <td>
                         <asp:Label ID="lblO25ID" Text="Osobní kalendář:" runat="server" CssClass="lbl"></asp:Label>
                     </td>

@@ -221,6 +221,7 @@
         lblC21ID.Visible = b : Me.c21ID.Visible = b
         trJ17ID.Visible = b
         trO40.Visible = b
+        trO25.Visible = b
         lblj02EmailSignature.Visible = b : Me.j02EmailSignature.Visible = b
 
         Me.panCreateContactPerson.Visible = False

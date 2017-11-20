@@ -61,14 +61,18 @@ Public Class remotelist_service
                 FillList(factory.j04UserRoleBL.GetList(New BO.myQuery))
             Case "o25"
                 FillList(factory.o25AppBL.GetList(New BO.myQuery))
-            Case "j61"
+            Case "j61-invoice"
                 FillList(factory.j61TextTemplateBL.GetList(New BO.myQuery).Where(Function(p) p.x29ID = BO.x29IdEnum.p91Invoice))
-            Case "p92"
+            Case "p92-clientinvoice"
                 FillList(factory.p92InvoiceTypeBL.GetList(New BO.myQuery).Where(Function(p) p.p92InvoiceType = BO.p92InvoiceTypeENUM.ClientInvoice))
             Case "p63"
                 FillList(factory.p63OverheadBL.GetList(New BO.myQuery))
             Case "p29"
                 FillList(factory.p29ContactTypeBL.GetList(New BO.myQuery))
+            Case "p51-internal"
+                FillList(factory.p51PriceListBL.GetList(New BO.myQuery).Where(Function(p) p.p51IsInternalPriceList = True And p.p51IsMasterPriceList = False And p.p51IsCustomTailor = False))
+            Case "p51-billing"
+                FillList(factory.p51PriceListBL.GetList(New BO.myQuery).Where(Function(p) p.p51IsInternalPriceList = False And p.p51IsMasterPriceList = False And p.p51IsCustomTailor = False))
         End Select
 
 
@@ -99,7 +103,7 @@ Public Class remotelist_service
         For Each c In lis
             itemData = New RadComboBoxItemData()
             itemData.Value = c.pid.ToString
-            Select Case _prefix
+            Select Case Left(_prefix, 3)
                 Case "j07" : itemData.Text = c.j07Name
                 Case "p42" : itemData.Text = c.p42Name
                 Case "j04" : itemData.Text = c.j04Name
@@ -109,9 +113,10 @@ Public Class remotelist_service
                 Case "o40" : itemData.Text = c.o40Name
                 Case "o25" : itemData.Text = c.o25Name
                 Case "p92" : itemData.Text = c.p92Name
-                Case "p63" : itemData.Text = c.p63Name
+                Case "p63" : itemData.Text = c.NameWithRate
                 Case "j61" : itemData.Text = c.j61Name
                 Case "p29" : itemData.Text = c.p29Name
+                Case "p51" : itemData.Text = c.p51Name
             End Select
             ''itemData.Text += " (" & Now.ToString & ")"
             _result.Add(itemData)

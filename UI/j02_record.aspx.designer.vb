@@ -347,6 +347,15 @@ Partial Public Class j02_record
     Protected WithEvents o40ID As Global.UI.datacombo
 
     '''<summary>
+    '''trO25 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents trO25 As Global.System.Web.UI.HtmlControls.HtmlTableRow
+
+    '''<summary>
     '''lblO25ID control.
     '''</summary>
     '''<remarks>

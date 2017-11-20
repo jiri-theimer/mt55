@@ -424,7 +424,7 @@ Public Class datacombo
             
             Try
                 Dim intRecPID As Integer = BO.BAS.IsNullInt(strValue)
-                Select Case Me.hidRemoteList.Value
+                Select Case Left(Me.hidRemoteList.Value, 3)
                     Case "j07"
                         .Text = factory.j07PersonPositionBL.Load(intRecPID).j07Name
                     Case "j04"
@@ -442,7 +442,7 @@ Public Class datacombo
                     Case "p29"
                         .Text = factory.p29ContactTypeBL.Load(intRecPID).p29Name
                     Case "p63"
-                        .Text = factory.p63OverheadBL.Load(intRecPID).p63Name
+                        .Text = factory.p63OverheadBL.Load(intRecPID).NameWithRate
                     Case "j61"
                         .Text = factory.j61TextTemplateBL.Load(intRecPID).j61Name
                     Case "p92"

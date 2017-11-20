@@ -56,8 +56,8 @@ Public Class handler_popupmenu
                 HandleP51(intPID, factory)
             Case "x40"
                 HandleX40(intPID, factory)
-            Case "j07", "j04", "j18", "j17", "c21", "o40", "o25", "p42", "p32", "p92", "p29", "p63", "j61"
-                HandleCiselnikyDataCombo(strPREFIX, intPID, factory)
+            Case "j07", "j04", "j18", "j17", "c21", "o40", "o25", "p42", "p32", "p92", "p29", "p63", "j61", "j61-invoice", "p92-clientinvoice", "p51-billing", "p51-internal"
+                HandleCiselnikyDataCombo(Left(strPREFIX, 3), intPID, factory)
             Case Else
                 CI("Nezpracovatelný PREFIX", "")
         End Select

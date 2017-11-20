@@ -70,8 +70,8 @@
         Dim lis As IEnumerable(Of BO.p51PriceList) = Master.Factory.p51PriceListBL.GetList(New BO.myQuery)
         Me.p51ID_Billing.DataSource = lis.Where(Function(p) p.p51IsInternalPriceList = False And p.p51IsMasterPriceList = False And p.p51IsCustomTailor = False)
         Me.p51ID_Billing.DataBind()
-        Me.p51ID_Internal.DataSource = lis.Where(Function(p) p.p51IsInternalPriceList = True And p.p51IsMasterPriceList = False And p.p51IsCustomTailor = False)
-        Me.p51ID_Internal.DataBind()
+        ''Me.p51ID_Internal.DataSource = lis.Where(Function(p) p.p51IsInternalPriceList = True And p.p51IsMasterPriceList = False And p.p51IsCustomTailor = False)
+        ''Me.p51ID_Internal.DataBind()
     End Sub
     Private Sub RefreshRecord()
         If Master.DataPID = 0 Then
@@ -132,7 +132,7 @@
             Else
                 Me.opgPriceList.SelectedValue = "1"
             End If
-            Me.p51ID_Internal.SelectedValue = .p51ID_Internal.ToString
+            Me.p51ID_Internal.SelectRemoteValue(.p51ID_Internal.ToString, Master.Factory)
             Me.p63ID.SelectRemoteValue(.p63ID.ToString, Master.Factory)
 
             'basUI.SelectDropdownlistValue(Me.j61ID_Invoice, .j61ID_Invoice.ToString)
@@ -583,12 +583,7 @@
         RefreshTempO37()
     End Sub
 
-    ''Private Sub p29ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles p29ID.NeedMissingItem
-    ''    Dim cRec As BO.p29ContactType = Master.Factory.p29ContactTypeBL.Load(CInt(strFoundedMissingItemValue))
-    ''    If Not cRec Is Nothing Then
-    ''        strAddMissingItemText = cRec.p29Name
-    ''    End If
-    ''End Sub
+   
 
     Private Sub p51ID_Billing_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles p51ID_Billing.NeedMissingItem
         Dim cRec As BO.p51PriceList = Master.Factory.p51PriceListBL.Load(CInt(strFoundedMissingItemValue))
@@ -738,10 +733,10 @@
   
 
     
-    Private Sub p51ID_Internal_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles p51ID_Internal.NeedMissingItem
-        Dim cRec As BO.p51PriceList = Master.Factory.p51PriceListBL.Load(CInt(strFoundedMissingItemValue))
-        If Not cRec Is Nothing Then strAddMissingItemText = cRec.p51Name
-    End Sub
+    ''Private Sub p51ID_Internal_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles p51ID_Internal.NeedMissingItem
+    ''    Dim cRec As BO.p51PriceList = Master.Factory.p51PriceListBL.Load(CInt(strFoundedMissingItemValue))
+    ''    If Not cRec Is Nothing Then strAddMissingItemText = cRec.p51Name
+    ''End Sub
 
     Private Sub p29ID_SelectedIndexChanged(OldValue As String, OldText As String, CurValue As String, CurText As String) Handles p29ID.SelectedIndexChanged
         Handle_FF()

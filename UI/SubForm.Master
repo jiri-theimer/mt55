@@ -92,7 +92,7 @@
         <asp:HiddenField ID="hidSource" runat="server" />
         <menu id="html5menu" style="display: none" class="showcase"></menu>
 
-        <telerik:RadWindow ID="okno1" runat="server" RenderMode="Auto" ShowOnTopWhenMaximized="true" Modal="true" KeepInScreenBounds="true" VisibleStatusbar="false" Skin="MetroTouch" IconUrl="Images/setting.png" ShowContentDuringLoad="false" InitialBehaviors="None" Behaviors="Close,Reload" Style="z-index: 9000;">
+        <telerik:RadWindow ID="okno1" runat="server" ShowOnTopWhenMaximized="true" Modal="true" KeepInScreenBounds="true" VisibleStatusbar="false" Skin="Simple" IconUrl="Images/setting.png" ShowContentDuringLoad="false" InitialBehaviors="None" Behaviors="Close,Reload" Style="z-index: 9000;">
             <Shortcuts>
                 <telerik:WindowShortcut CommandName="Close" Shortcut="Esc" />
 
