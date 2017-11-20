@@ -93,7 +93,7 @@
             </div>
             <div style="float: left; padding: 10px;">
                 <asp:Label ID="lblp29ID" Text="Typ klienta:" runat="server" CssClass="lbl"></asp:Label>
-                <uc:datacombo ID="p29ID" runat="server" DataTextField="p29Name" DataValueField="pid" AutoPostBack="true" IsFirstEmptyRow="true"></uc:datacombo>
+                <uc:datacombo ID="p29ID" runat="server" DataTextField="p29Name" DataValueField="pid" AutoPostBack="true" IsFirstEmptyRow="true" RemoteListPrefix="p29"></uc:datacombo>
             </div>
             <div style="float: right;">
                 <asp:CheckBox ID="chkWhisper" runat="server" Text="Zapnutý našeptávač podobných klientů" AutoPostBack="true" Checked="true" />
@@ -311,20 +311,13 @@
                         </ItemTemplate>
                     </asp:Repeater>
                     </table>
-                    <table id="tabDefaultPerson" runat="server">
-                        <tr>
-                            <td>Výchozí kontaktní osoba pro vykazování úkonů:</td>
-                            <td>
-                                <asp:DropDownList ID="j02ID_ContactPerson_DefaultInWorksheet" runat="server" DataValueField="p85OtherKey1" DataTextField="p85FreeText01"></asp:DropDownList>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Kontaktní osoba na faktuře:</td>
-                            <td>
-                                <asp:DropDownList ID="j02ID_ContactPerson_DefaultInInvoice" runat="server" DataValueField="p85OtherKey1" DataTextField="p85FreeText01"></asp:DropDownList>
-                            </td>
-                        </tr>
-                    </table>
+
+                    <asp:panel id="panDefaultPerson" runat="server">
+                        <span>Výchozí kontaktní osoba pro vykazování úkonů:</span>
+                        <asp:DropDownList ID="j02ID_ContactPerson_DefaultInWorksheet" runat="server" DataValueField="p85OtherKey1" DataTextField="p85FreeText01"></asp:DropDownList>
+                        <span>Kontaktní osoba na faktuře:</span>
+                        <asp:DropDownList ID="j02ID_ContactPerson_DefaultInInvoice" runat="server" DataValueField="p85OtherKey1" DataTextField="p85FreeText01"></asp:DropDownList>
+                    </asp:panel>
                 </div>
             </div>
 
@@ -421,7 +414,7 @@
 
                     </td>
                     <td>
-                        <uc:datacombo ID="p92id" runat="server" Width="300px" DataTextField="p92Name" DataValueField="pid" IsFirstEmptyRow="true" />
+                        <uc:datacombo ID="p92id" runat="server" Width="300px" DataTextField="p92Name" DataValueField="pid" IsFirstEmptyRow="true" RemoteListPrefix="p92" />
                     </td>
                 </tr>
                 <tr>
@@ -458,7 +451,8 @@
                         <asp:Label ID="lblJ61ID" runat="server" Text="Textová e-mail šablona:" CssClass="lbl"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="j61ID_Invoice" runat="server" DataTextField="j61Name" DataValueField="pid" Width="300px"></asp:DropDownList>
+                        
+                        <uc:datacombo ID="j61ID_Invoice" runat="server" DataTextField="j61Name" DataValueField="pid" IsFirstEmptyRow="true" Width="300px" RemoteListPrefix="j61" />
                     </td>
                 </tr>
                 <tr>
@@ -466,7 +460,7 @@
                         <asp:Label ID="lblP63ID" runat="server" Text="Režijní přirážka k faktuře:" CssClass="lbl"></asp:Label>
                     </td>
                     <td>
-                        <uc:datacombo ID="p63ID" runat="server" DataTextField="NameWithRate" DataValueField="pid" IsFirstEmptyRow="true" Width="300px" />
+                        <uc:datacombo ID="p63ID" runat="server" DataTextField="NameWithRate" DataValueField="pid" IsFirstEmptyRow="true" Width="300px" RemoteListPrefix="p63" />
                     </td>
                 </tr>
                 <tr>
@@ -517,7 +511,7 @@
                         <asp:Label ID="lblO25ID" Text="Kalendář klienta:" runat="server" CssClass="lbl"></asp:Label>
                     </td>
                     <td>
-                        <uc:datacombo ID="o25ID_Calendar" runat="server" DataTextField="o25Name" DataValueField="pid" IsFirstEmptyRow="true" Width="300px"></uc:datacombo>
+                        <uc:datacombo ID="o25ID_Calendar" runat="server" DataTextField="o25Name" DataValueField="pid" IsFirstEmptyRow="true" Width="300px" RemoteListPrefix="o25"></uc:datacombo>
 
                     </td>
                 </tr>

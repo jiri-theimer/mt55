@@ -30,25 +30,25 @@
                 End With
 
             End With
-            Me.p29ID.DataSource = Master.Factory.p29ContactTypeBL.GetList(New BO.myQuery)
-            Me.p29ID.DataBind()
+            ''Me.p29ID.DataSource = Master.Factory.p29ContactTypeBL.GetList(New BO.myQuery)
+            ''Me.p29ID.DataBind()
 
             basUI.SetupP87Combo(Master.Factory, Me.p87ID)
 
             SetupPriceList()
             
-            Me.p63ID.DataSource = Master.Factory.p63OverheadBL.GetList(New BO.myQuery)
-            Me.p63ID.DataBind()
-            Me.j61ID_Invoice.DataSource = Master.Factory.j61TextTemplateBL.GetList(New BO.myQuery).Where(Function(p) p.x29ID = BO.x29IdEnum.p91Invoice)
-            Me.j61ID_Invoice.DataBind()
-            Me.j61ID_Invoice.Items.Insert(0, "")
-            Me.o25ID_Calendar.DataSource = Master.Factory.o25AppBL.GetList(New BO.myQuery).Where(Function(p) p.o25AppFlag = BO.o25AppFlagENUM.GoogleCalendar)
-            Me.o25ID_Calendar.DataBind()
+            'Me.p63ID.DataSource = Master.Factory.p63OverheadBL.GetList(New BO.myQuery)
+            'Me.p63ID.DataBind()
+            'Me.j61ID_Invoice.DataSource = Master.Factory.j61TextTemplateBL.GetList(New BO.myQuery).Where(Function(p) p.x29ID = BO.x29IdEnum.p91Invoice)
+            'Me.j61ID_Invoice.DataBind()
+            'Me.j61ID_Invoice.Items.Insert(0, "")
+            'Me.o25ID_Calendar.DataSource = Master.Factory.o25AppBL.GetList(New BO.myQuery).Where(Function(p) p.o25AppFlag = BO.o25AppFlagENUM.GoogleCalendar)
+            'Me.o25ID_Calendar.DataBind()
             
-            If Me.p92id.Visible Then
-                Me.p92id.DataSource = Master.Factory.p92InvoiceTypeBL.GetList(New BO.myQuery).Where(Function(p) p.p92InvoiceType = BO.p92InvoiceTypeENUM.ClientInvoice)
-                Me.p92id.DataBind()
-            End If
+            ''If Me.p92id.Visible Then
+            ''    Me.p92id.DataSource = Master.Factory.p92InvoiceTypeBL.GetList(New BO.myQuery).Where(Function(p) p.p92InvoiceType = BO.p92InvoiceTypeENUM.ClientInvoice)
+            ''    Me.p92id.DataBind()
+            ''End If
            
             RefreshRecord()
 
@@ -94,7 +94,7 @@
         End If
         With cRec
             Master.HeaderText = "Klient | " & .p28Name
-            Me.p29ID.SelectedValue = .p29ID.ToString
+            Me.p29ID.SelectRemoteValue(.p29ID.ToString, Master.Factory)
             Handle_FF()
             Me.p28IsCompany.SelectedValue = BO.BAS.GB(.p28IsCompany)
             Me.p28Code.Text = .p28Code
@@ -133,11 +133,12 @@
                 Me.opgPriceList.SelectedValue = "1"
             End If
             Me.p51ID_Internal.SelectedValue = .p51ID_Internal.ToString
-            Me.p63ID.SelectedValue = .p63ID.ToString
-            basUI.SelectDropdownlistValue(Me.j61ID_Invoice, .j61ID_Invoice.ToString)
+            Me.p63ID.SelectRemoteValue(.p63ID.ToString, Master.Factory)
 
+            'basUI.SelectDropdownlistValue(Me.j61ID_Invoice, .j61ID_Invoice.ToString)
+            Me.j61ID_Invoice.SelectRemoteValue(.j61ID_Invoice.ToString, Master.Factory)
             Me.p87ID.SelectedValue = .p87ID.ToString
-            Me.p92id.SelectedValue = .p92ID.ToString
+            Me.p92id.SelectRemoteValue(.p92ID.ToString, Master.Factory)
             Me.p28InvoiceDefaultText1.Text = .p28InvoiceDefaultText1
             Me.p28InvoiceDefaultText2.Text = .p28InvoiceDefaultText2
             Me.p28InvoiceMaturityDays.Value = .p28InvoiceMaturityDays
@@ -154,7 +155,9 @@
             Me.p28ExternalPID.Text = .p28ExternalPID
             Master.Timestamp = .Timestamp & " <a href='javascript:changelog()' class='wake_link'>CHANGE-LOG</a>"
 
-            Me.o25ID_Calendar.SelectedValue = .o25ID_Calendar.ToString
+            Me.o25ID_Calendar.SelectRemoteValue(.o25ID_Calendar.ToString, Master.Factory)
+
+
             If .p28ParentID <> 0 Then
                 Me.p28ParentID.Value = .p28ParentID
                 Me.p28ParentID.Text = Master.Factory.GetRecordCaption(BO.x29IdEnum.p28Contact, .p28ParentID, True)
@@ -326,9 +329,9 @@
                 lblSupplierID.Visible = False : p28SupplierID.Visible = False
         End Select
         If rpP30.Items.Count > 0 Then
-            tabDefaultPerson.Visible = True
+            panDefaultPerson.Visible = True
         Else
-            tabDefaultPerson.Visible = False
+            panDefaultPerson.Visible = False
         End If
     End Sub
     Private Sub RefreshState_Pricelist()
@@ -580,12 +583,12 @@
         RefreshTempO37()
     End Sub
 
-    Private Sub p29ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles p29ID.NeedMissingItem
-        Dim cRec As BO.p29ContactType = Master.Factory.p29ContactTypeBL.Load(CInt(strFoundedMissingItemValue))
-        If Not cRec Is Nothing Then
-            strAddMissingItemText = cRec.p29Name
-        End If
-    End Sub
+    ''Private Sub p29ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles p29ID.NeedMissingItem
+    ''    Dim cRec As BO.p29ContactType = Master.Factory.p29ContactTypeBL.Load(CInt(strFoundedMissingItemValue))
+    ''    If Not cRec Is Nothing Then
+    ''        strAddMissingItemText = cRec.p29Name
+    ''    End If
+    ''End Sub
 
     Private Sub p51ID_Billing_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles p51ID_Billing.NeedMissingItem
         Dim cRec As BO.p51PriceList = Master.Factory.p51PriceListBL.Load(CInt(strFoundedMissingItemValue))
@@ -752,7 +755,7 @@
         Dim cRecLast As BO.p28Contact = Master.Factory.p28ContactBL.LoadMyLastCreated()
         If cRecLast Is Nothing Then Return
         With cRecLast
-            Me.p29ID.SelectedValue = .p29ID.ToString
+            Me.p29ID.SelectRemoteValue(.p29ID.ToString, Master.Factory)
             Me.p28IsCompany.SelectedValue = BO.BAS.GB(.p28IsCompany)
             Me.p28InvoiceMaturityDays.Value = .p28InvoiceMaturityDays
             roles1.InhaleInitialData(.PID)
@@ -760,10 +763,10 @@
 
     End Sub
 
-    Private Sub p63ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles p63ID.NeedMissingItem
-        Dim cRec As BO.p63Overhead = Master.Factory.p63OverheadBL.Load(CInt(strFoundedMissingItemValue))
-        If Not cRec Is Nothing Then strAddMissingItemText = cRec.NameWithRate
-    End Sub
+    ''Private Sub p63ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles p63ID.NeedMissingItem
+    ''    Dim cRec As BO.p63Overhead = Master.Factory.p63OverheadBL.Load(CInt(strFoundedMissingItemValue))
+    ''    If Not cRec Is Nothing Then strAddMissingItemText = cRec.NameWithRate
+    ''End Sub
 
     Private Sub cmdVIES_Click(sender As Object, e As EventArgs) Handles cmdVIES.Click
         Dim strVAT As String = Trim(Me.p28VatID.Text)
@@ -894,8 +897,8 @@
         Me.j02ID.Value = ""
     End Sub
 
-    Private Sub o25ID_Calendar_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles o25ID_Calendar.NeedMissingItem
-        Dim cRec As BO.o25App = Master.Factory.o25AppBL.Load(BO.BAS.IsNullInt(strFoundedMissingItemValue))
-        strAddMissingItemText = cRec.o25Name
-    End Sub
+    ''Private Sub o25ID_Calendar_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles o25ID_Calendar.NeedMissingItem
+    ''    Dim cRec As BO.o25App = Master.Factory.o25AppBL.Load(BO.BAS.IsNullInt(strFoundedMissingItemValue))
+    ''    strAddMissingItemText = cRec.o25Name
+    ''End Sub
 End Class

@@ -439,6 +439,16 @@ Public Class datacombo
                         .Text = factory.o25AppBL.Load(intRecPID).o25Name
                     Case "o40"
                         .Text = factory.o40SmtpAccountBL.Load(intRecPID).o40Name
+                    Case "p29"
+                        .Text = factory.p29ContactTypeBL.Load(intRecPID).p29Name
+                    Case "p63"
+                        .Text = factory.p63OverheadBL.Load(intRecPID).p63Name
+                    Case "j61"
+                        .Text = factory.j61TextTemplateBL.Load(intRecPID).j61Name
+                    Case "p92"
+                        .Text = factory.p92InvoiceTypeBL.Load(intRecPID).p92Name
+                    Case "p51"
+                        .Text = factory.p51PriceListBL.Load(intRecPID).p51Name
                 End Select
                 .SelectedValue = strValue
             Catch ex As Exception

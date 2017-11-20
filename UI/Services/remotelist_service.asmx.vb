@@ -61,7 +61,14 @@ Public Class remotelist_service
                 FillList(factory.j04UserRoleBL.GetList(New BO.myQuery))
             Case "o25"
                 FillList(factory.o25AppBL.GetList(New BO.myQuery))
-
+            Case "j61"
+                FillList(factory.j61TextTemplateBL.GetList(New BO.myQuery).Where(Function(p) p.x29ID = BO.x29IdEnum.p91Invoice))
+            Case "p92"
+                FillList(factory.p92InvoiceTypeBL.GetList(New BO.myQuery).Where(Function(p) p.p92InvoiceType = BO.p92InvoiceTypeENUM.ClientInvoice))
+            Case "p63"
+                FillList(factory.p63OverheadBL.GetList(New BO.myQuery))
+            Case "p29"
+                FillList(factory.p29ContactTypeBL.GetList(New BO.myQuery))
         End Select
 
 
@@ -101,6 +108,10 @@ Public Class remotelist_service
                 Case "c21" : itemData.Text = c.c21Name
                 Case "o40" : itemData.Text = c.o40Name
                 Case "o25" : itemData.Text = c.o25Name
+                Case "p92" : itemData.Text = c.p92Name
+                Case "p63" : itemData.Text = c.p63Name
+                Case "j61" : itemData.Text = c.j61Name
+                Case "p29" : itemData.Text = c.p29Name
             End Select
             ''itemData.Text += " (" & Now.ToString & ")"
             _result.Add(itemData)

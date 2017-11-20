@@ -401,13 +401,13 @@ Partial Public Class p28_record
     Protected WithEvents rpP30 As Global.System.Web.UI.WebControls.Repeater
 
     '''<summary>
-    '''tabDefaultPerson control.
+    '''panDefaultPerson control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents tabDefaultPerson As Global.System.Web.UI.HtmlControls.HtmlTable
+    Protected WithEvents panDefaultPerson As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
     '''j02ID_ContactPerson_DefaultInWorksheet control.
@@ -641,7 +641,7 @@ Partial Public Class p28_record
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents j61ID_Invoice As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents j61ID_Invoice As Global.UI.datacombo
 
     '''<summary>
     '''lblP63ID control.
