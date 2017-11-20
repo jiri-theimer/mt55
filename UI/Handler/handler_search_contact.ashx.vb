@@ -57,7 +57,7 @@ Public Class handler_search_contact
         For Each cP28 In lisP28
             c = New BO.SearchBoxItem
             With cP28
-
+                c.ItemComment = ""
                 Dim strName As String = .p28Name
                 If .p28CompanyShortName = "" Then
                     strName = .p28Name

@@ -613,7 +613,7 @@
         });
 
         function TrySearch(searchExpr, searchFo) {
-            if (searchExpr == "") {
+            if (searchExpr == "" || searchExpr==null) {
                 $('#search_dupl_result').hide();
                 return;
             }

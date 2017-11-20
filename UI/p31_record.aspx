@@ -12,7 +12,7 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-    <link rel="stylesheet" href="Scripts/jqueryui/jquery-ui.min.css" />
+    <link rel="stylesheet" href="Scripts/jqueryui/jquery-ui.min_autocomplete.css" />
     <style type="text/css">
         .ui-autocomplete {
             max-height: 300px;
@@ -25,7 +25,7 @@
 
        
     </style>
-    <script src="Scripts/jqueryui/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="Scripts/jqueryui/jquery-ui.min_autocomplete.js" type="text/javascript"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {

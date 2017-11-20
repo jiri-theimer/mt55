@@ -49,6 +49,7 @@ Public Class handler_search_person
         c.FilterString = strFilterString : lis.Add(c)
         For Each cJ02 In lisJ02
             c = New BO.SearchBoxItem
+            c.ItemComment = ""
             With cJ02
                 Select Case strFO
                     Case "j02LastName"
