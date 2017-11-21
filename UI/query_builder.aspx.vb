@@ -127,6 +127,8 @@
                 lis.Add(New myItem(BO.x29IdEnum.System, "a.p41NameShort", "Zkrácený název projektu", BO.x24IdENUM.tString))
                 lis.Add(New myItem(BO.x29IdEnum.System, "a.p41Code", "Kód projektu", BO.x24IdENUM.tString))
 
+                lis.Add(New myItem(BO.x29IdEnum.b02WorkflowStatus, "b02id", "Aktuální workflow stav"))
+
                 lis.Add(New myItem(BO.x29IdEnum.System, "a.p41BillingMemo", "Fakturační poznámka projektu", BO.x24IdENUM.tString))
                 lis.Add(New myItem(BO.x29IdEnum.System, "a.p41InvoiceDefaultText1", "Výchozí text faktury", BO.x24IdENUM.tString))
                 lis.Add(New myItem(BO.x29IdEnum.System, "a.p41InvoiceMaturityDays", "Výchozí počet dní splatnosti", BO.x24IdENUM.tDecimal))

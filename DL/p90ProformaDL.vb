@@ -127,7 +127,7 @@
 
     Public Function GetList_p99(intP91ID As Integer, intP90ID As Integer, intP82ID As Integer) As IEnumerable(Of BO.p99Invoice_Proforma)
         Dim pars As New DbParameters
-        Dim s As String = "SELECT a.*,p90.p90Code as _p90Code,p91.p91Code as _p91Code,p82.p82Code as _p82Code"
+        Dim s As String = "SELECT a.*,p90.p90Code as _p90Code,p91.p91Code as _p91Code,p82.p82Code as _p82Code," & bas.RecTail("p99", "a", False, True)
         s += " FROM p99Invoice_Proforma a INNER JOIN p82Proforma_Payment p82 ON a.p82ID=p82.p82ID INNER JOIN p91Invoice p91 ON a.p91ID=p91.p91ID INNER JOIN p90Proforma p90 ON p82.p90ID=p90.p90ID"
         If intP91ID <> 0 Then
             pars.Add("p91id", intP91ID, DbType.Int32)

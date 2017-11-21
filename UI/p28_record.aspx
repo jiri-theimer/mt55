@@ -465,7 +465,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <asp:Label ID="lblp51ID_Internal" runat="server" Text="Nákladový ceník projektů klienta:" CssClass="lbl"></asp:Label>
+                        <asp:Label ID="lblp51ID_Internal" runat="server" Text="Ceník nákladových sazeb:" CssClass="lbl"></asp:Label>
 
                     </td>
                     <td>

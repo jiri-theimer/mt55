@@ -153,10 +153,18 @@
                     <asp:Button ID="cmdAddP82" runat="server" CssClass="cmd" Text="Přidat úhradu" />
                     <table cellpadding="8" cellspacing="2">
                         <tr>
-                            <th>Datum úhrady</th>
-                            <th>Částka úhrady</th>
-                            <th>Text k dokladu o přijaté platbě</th>
                             <th></th>
+                            <th colspan="3">Částka úhrady</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th>Datum úhrady</th>
+                            <th>Vč. DPH</th>
+                            <th>Bez DPH</th>
+                            <th>Částka DPH</th>
+                            <th>Text k dokladu o přijaté platbě</th>
                             <th></th>
                         </tr>
                     <asp:Repeater ID="rpP82" runat="server">
@@ -169,6 +177,12 @@
                                 </td>
                                 <td>
                                     <telerik:RadNumericTextBox ID="p82Amount" runat="server" Width="100px"></telerik:RadNumericTextBox>
+                                </td>
+                                <td>
+                                    <telerik:RadNumericTextBox ID="p82Amount_WithoutVat" runat="server" Width="100px"></telerik:RadNumericTextBox>
+                                </td>
+                                <td>
+                                    <telerik:RadNumericTextBox ID="p82Amount_Vat" runat="server" Width="100px"></telerik:RadNumericTextBox>
                                 </td>
                                 <td>
                                     <asp:TextBox ID="p82Text" runat="server" style="width:300px;height:50px;" TextMode="MultiLine"></asp:TextBox>

@@ -111,6 +111,8 @@
                 .p85FreeText01 = c.p82Code
                 .p85FreeDate01 = c.p82Date
                 .p85FreeFloat01 = c.p82Amount
+                .p85FreeFloat02 = c.p82Amount_WithoutVat
+                .p85FreeFloat03 = c.p82Amount_Vat
                 .p85Message = c.p82Text
                 .p85OtherKey1 = cP89.x31ID_Payment
                 If Not Page.IsPostBack Then
@@ -193,6 +195,8 @@
                     c.SetPID(cTMP.p85DataPID)
                     c.IsSetAsDeleted = .p85IsDeleted
                     c.p82Amount = .p85FreeFloat01
+                    c.p82Amount_WithoutVat = .p85FreeFloat02
+                    c.p82Amount_Vat = .p85FreeFloat03
                     c.p82Date = .p85FreeDate01
                     c.p82Text = .p85Message
                 End With
@@ -248,7 +252,9 @@
             Dim cRec As BO.p85TempBox = lisTEMP.Where(Function(p) p.PID = intP85ID)(0)
             With cRec
                 .p85FreeDate01 = CType(ri.FindControl("p82Date"), Telerik.Web.UI.RadDatePicker).SelectedDate
-                .p85FreeFloat01 = CType(ri.FindControl("p82Amount"), Telerik.Web.UI.RadNumericTextBox).Value
+                .p85FreeFloat01 = BO.BAS.IsNullNum(CType(ri.FindControl("p82Amount"), Telerik.Web.UI.RadNumericTextBox).Value)
+                .p85FreeFloat02 = BO.BAS.IsNullNum(CType(ri.FindControl("p82Amount_WithoutVat"), Telerik.Web.UI.RadNumericTextBox).Value)
+                .p85FreeFloat03 = BO.BAS.IsNullNum(CType(ri.FindControl("p82Amount_Vat"), Telerik.Web.UI.RadNumericTextBox).Value)
                 .p85Message = CType(ri.FindControl("p82Text"), TextBox).Text
             End With
             Master.Factory.p85TempBoxBL.Save(cRec)
@@ -266,6 +272,8 @@
             CType(e.Item.FindControl("p85id"), HiddenField).Value = .PID.ToString
             CType(e.Item.FindControl("p82Date"), Telerik.Web.UI.RadDatePicker).SelectedDate = .p85FreeDate01
             CType(e.Item.FindControl("p82Amount"), Telerik.Web.UI.RadNumericTextBox).Value = .p85FreeFloat01
+            CType(e.Item.FindControl("p82Amount_WithoutVat"), Telerik.Web.UI.RadNumericTextBox).Value = .p85FreeFloat02
+            CType(e.Item.FindControl("p82Amount_Vat"), Telerik.Web.UI.RadNumericTextBox).Value = .p85FreeFloat03
             CType(e.Item.FindControl("p82Text"), TextBox).Text = .p85Message
             If .p85FreeText01 <> "" Then
                 CType(e.Item.FindControl("p82Code"), HyperLink).Text = .p85FreeText01

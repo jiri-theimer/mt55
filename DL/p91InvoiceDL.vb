@@ -589,22 +589,22 @@
 
     End Function
 
-    Public Function SaveP99(intP91ID As Integer, intP90ID As Integer, intP82ID As Integer) As Boolean
+    Public Function SaveP99(intP91ID As Integer, intP90ID As Integer, intP82ID As Integer, dblPercentage As Double) As Boolean
         Dim pars As New DbParameters
         With pars
             .Add("p91id", intP91ID, DbType.Int32)
             .Add("p90id", intP90ID, DbType.Int32)
             .Add("p82id", intP82ID, DbType.Int32)
+            .Add("percentage", dblPercentage, DbType.Double)
             .Add("j03id_sys", _curUser.PID, DbType.Int32)
             pars.Add("err_ret", , DbType.String, ParameterDirection.Output, 500)
         End With
         Return _cDB.RunSP("p91_proforma_save", pars)
     End Function
-    Public Function DeleteP99(intP91ID As Integer, intP90ID As Integer) As Boolean
+    Public Function DeleteP99(intP99ID As Integer) As Boolean
         Dim pars As New DbParameters
         With pars
-            .Add("p91id", intP91ID, DbType.Int32)
-            .Add("p90id", intP90ID, DbType.Int32)
+            .Add("p99id", intP99ID, DbType.Int32)
             .Add("j03id_sys", _curUser.PID, DbType.Int32)
             pars.Add("err_ret", , DbType.String, ParameterDirection.Output, 500)
         End With

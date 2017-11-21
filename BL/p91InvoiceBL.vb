@@ -20,8 +20,8 @@
     Function LoadP94ByCode(strP94Code As String) As BO.p94Invoice_Payment
     Function GetVirtualCount(myQuery As BO.myQueryP91) As Integer
     Function GetSumRow(myQuery As BO.myQueryP91) As BO.p91InvoiceSum
-    Function SaveP99(intP91ID As Integer, intP90ID As Integer, intP82ID As Integer) As Boolean
-    Function DeleteP99(intP91ID As Integer, intP90ID As Integer) As Boolean
+    Function SaveP99(intP91ID As Integer, intP90ID As Integer, intP82ID As Integer, dblPercentage As Double) As Boolean
+    Function DeleteP99(intP99ID As Integer) As Boolean
     Function CreateCreditNote(intP91ID As Integer, intP92ID_CreditNote As Integer) As Integer
     Function RecalcFPR(d1 As Date, d2 As Date, Optional intP51ID As Integer = 0) As Boolean
     Function InhaleRecordDisposition(cRec As BO.p91Invoice) As BO.p91RecordDisposition
@@ -162,19 +162,19 @@ Class p91InvoiceBL
     Public Function GetSumRow(myQuery As BO.myQueryP91) As BO.p91InvoiceSum Implements Ip91InvoiceBL.GetSumRow
         Return _cDL.GetSumRow(myQuery)
     End Function
-    Public Function SaveP99(intP91ID As Integer, intP90ID As Integer, intP82ID As Integer) As Boolean Implements Ip91InvoiceBL.SaveP99
+    Public Function SaveP99(intP91ID As Integer, intP90ID As Integer, intP82ID As Integer, dblPercentage As Double) As Boolean Implements Ip91InvoiceBL.SaveP99
         If intP82ID = 0 Then
             _Error = "Na vstupu chybí ID úhrady (p82ID)." : Return False
         End If
-        If Factory.p90ProformaBL.GetList_p99(0, 0, intP82ID).Count > 0 Then
-            _Error = "Tato úhrada již byla dříve spárována s daňovou fakturou" : Return False
-        End If
+        ''If Factory.p90ProformaBL.GetList_p99(0, 0, intP82ID).Count > 0 Then
+        ''    _Error = "Tato úhrada již byla dříve spárována s daňovou fakturou" : Return False
+        ''End If
 
 
-        Return _cDL.SaveP99(intP91ID, intP90ID, intP82ID)
+        Return _cDL.SaveP99(intP91ID, intP90ID, intP82ID, dblPercentage)
     End Function
-    Public Function DeleteP99(intP91ID As Integer, intP90ID As Integer) As Boolean Implements Ip91InvoiceBL.DeleteP99
-        Return _cDL.DeleteP99(intP91ID, intP90ID)
+    Public Function DeleteP99(intP99ID As Integer) As Boolean Implements Ip91InvoiceBL.DeleteP99
+        Return _cDL.DeleteP99(intP99ID)
     End Function
     Public Function CreateCreditNote(intP91ID As Integer, intP92ID_CreditNote As Integer) As Integer Implements Ip91InvoiceBL.CreateCreditNote
         If intP91ID = 0 Then

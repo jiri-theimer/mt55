@@ -14,13 +14,13 @@ Option Explicit On
 Partial Public Class p91_proforma
 
     '''<summary>
-    '''clue_p90 control.
+    '''chkClientOnly control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents clue_p90 As Global.System.Web.UI.WebControls.HyperLink
+    Protected WithEvents chkClientOnly As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
     '''Label1 control.
@@ -41,13 +41,22 @@ Partial Public Class p91_proforma
     Protected WithEvents p90ID As Global.UI.datacombo
 
     '''<summary>
-    '''chkClientOnly control.
+    '''clue_p90 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents chkClientOnly As Global.System.Web.UI.WebControls.CheckBox
+    Protected WithEvents clue_p90 As Global.System.Web.UI.WebControls.HyperLink
+
+    '''<summary>
+    '''trUhrada control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents trUhrada As Global.System.Web.UI.HtmlControls.HtmlTableRow
 
     '''<summary>
     '''Label2 control.
@@ -66,6 +75,51 @@ Partial Public Class p91_proforma
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents p82ID As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''trPerc control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents trPerc As Global.System.Web.UI.HtmlControls.HtmlTableRow
+
+    '''<summary>
+    '''lblPercentage control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblPercentage As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''perc control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents perc As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''AfterPerc control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents AfterPerc As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''panP99 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents panP99 As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
     '''rpP99 control.
