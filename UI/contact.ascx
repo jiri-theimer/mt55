@@ -10,7 +10,7 @@ Width="250px">
 <WebServiceSettings Method="LoadComboData" Path="~/Services/contact_service.asmx" UseHttpGet="false" />
 
 </telerik:RadComboBox>
-
+<asp:HyperLink ID="cm1" runat="server" CssClass="pp3"></asp:HyperLink>
     
 <asp:HiddenField ID="hidvalue" runat="server" />
 <asp:HiddenField ID="hidj03id_system" runat="server" />
@@ -40,5 +40,10 @@ Width="250px">
     return(combo.get_value())
     }
 
-        
+    function <%=Me.ClientID%>_RCM(ctl) {        
+        var combo = $find("<%= cbx1.ClientID %>");
+        var pid = combo.get_value();
+
+        RCM("p28-combo", pid, ctl);
+    }
 </script>

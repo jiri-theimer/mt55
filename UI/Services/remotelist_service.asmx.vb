@@ -67,6 +67,8 @@ Public Class remotelist_service
                 FillList(factory.j61TextTemplateBL.GetList(New BO.myQuery).Where(Function(p) p.x29ID = BO.x29IdEnum.p91Invoice))
             Case "p92-clientinvoice"
                 FillList(factory.p92InvoiceTypeBL.GetList(New BO.myQuery).Where(Function(p) p.p92InvoiceType = BO.p92InvoiceTypeENUM.ClientInvoice))
+            Case "p92"
+                FillList(factory.p92InvoiceTypeBL.GetList(New BO.myQuery))
             Case "p63"
                 FillList(factory.p63OverheadBL.GetList(New BO.myQuery))
             Case "p29"
@@ -75,6 +77,10 @@ Public Class remotelist_service
                 FillList(factory.p51PriceListBL.GetList(New BO.myQuery).Where(Function(p) p.p51IsInternalPriceList = True And p.p51IsMasterPriceList = False And p.p51IsCustomTailor = False))
             Case "p51-billing"
                 FillList(factory.p51PriceListBL.GetList(New BO.myQuery).Where(Function(p) p.p51IsInternalPriceList = False And p.p51IsMasterPriceList = False And p.p51IsCustomTailor = False))
+            Case "p80"
+                FillList(factory.p80InvoiceAmountStructureBL.GetList(New BO.myQuery))
+            Case "p98"
+                FillList(factory.p98Invoice_Round_Setting_TemplateBL.GetList(New BO.myQuery))
         End Select
 
 
@@ -120,6 +126,8 @@ Public Class remotelist_service
                 Case "p29" : itemData.Text = c.p29Name
                 Case "p51" : itemData.Text = c.p51Name
                 Case "p61" : itemData.Text = c.p61Name
+                Case "p80" : itemData.Text = c.p80Name
+                Case "p98" : itemData.Text = c.p98Name
             End Select
             ''itemData.Text += " (" & Now.ToString & ")"
             _result.Add(itemData)

@@ -49,7 +49,10 @@
             Case BO.x29IdEnum.p29ContactType And bolMnozneCislo : Return "Typy klientů"
             Case BO.x29IdEnum.c21FondCalendar And Not bolMnozneCislo : Return "Časový fond"
             Case BO.x29IdEnum.c21FondCalendar And bolMnozneCislo : Return "Časové fondy"
-
+            Case BO.x29IdEnum.p98Invoice_Round_Setting_Template And Not bolMnozneCislo : Return "Zaokrouhlovací pravidlo"
+            Case BO.x29IdEnum.p98Invoice_Round_Setting_Template And bolMnozneCislo : Return "Zaokrouhlovací pravidla"
+            Case BO.x29IdEnum.p80InvoiceAmountStructure And Not bolMnozneCislo : Return "Struktura cenového rozpisu"
+            Case BO.x29IdEnum.p80InvoiceAmountStructure And bolMnozneCislo : Return "Struktury cenového rozpisu"
             Case Else
                 Return ""
         End Select
@@ -92,9 +95,11 @@
             Case "p51" : Return x29IdEnum.p51PriceList
             Case "j61" : Return x29IdEnum.j61TextTemplate
             Case "p63" : Return x29IdEnum.p63Overhead
+            Case "p80" : Return x29IdEnum.p80InvoiceAmountStructure
             Case "p92" : Return x29IdEnum.p92InvoiceType
             Case "j07" : Return x29IdEnum.j07PersonPosition
             Case "c21" : Return x29IdEnum.c21FondCalendar
+            Case "p98" : Return x29IdEnum.p98Invoice_Round_Setting_Template
 
             Case Else
                 Return x29IdEnum._NotSpecified

@@ -17,14 +17,8 @@
                 'režim zakládání kontaktní osoby
                 Me.j02IsIntraPerson.SelectedValue = "0"
                 Me.j02IsIntraPerson.Enabled = False
-                If BO.BAS.IsNullInt(Request.Item("p28id")) > 0 Then
-                    Me.p28ID.Value = Request.Item("p28id")
-                    Me.p28ID.Text = Master.Factory.GetRecordCaption(BO.x29IdEnum.p28Contact, BO.BAS.IsNullInt(Request.Item("p28id")))
-                End If
-                If BO.BAS.IsNullInt(Request.Item("p41id")) > 0 Then
-                    Me.p41ID.Value = Request.Item("p41id")
-                    Me.p41ID.Text = Master.Factory.GetRecordCaption(BO.x29IdEnum.p41Project, BO.BAS.IsNullInt(Request.Item("p41id")))
-                End If
+                Handle_Default_ContactPerson(Request.Item("p28id"), Request.Item("p41id"))
+                
             Else
                 Master.neededPermission = BO.x53PermValEnum.GR_Admin
             End If
@@ -42,9 +36,25 @@
             RefreshRecord()
 
             If Master.IsRecordClone Then
+                If Me.j02IsIntraPerson.SelectedValue = "0" Then
+                    Dim lisP30 As IEnumerable(Of BO.p30Contact_Person) = Master.Factory.p30Contact_PersonBL.GetList(0, 0, Master.DataPID)
+                    If lisP30.Count > 0 Then
+                        Handle_Default_ContactPerson(lisP30(0).p28ID.ToString, lisP30(0).p41ID.ToString)
+                    End If
+                End If
                 Master.DataPID = 0
 
             End If
+        End If
+    End Sub
+    Private Sub Handle_Default_ContactPerson(strP28ID As String, strP41ID As String)
+        If BO.BAS.IsNullInt(strP28ID) > 0 Then
+            Me.p28ID.Value = strP28ID
+            Me.p28ID.Text = Master.Factory.GetRecordCaption(BO.x29IdEnum.p28Contact, BO.BAS.IsNullInt(strP28ID))
+        End If
+        If BO.BAS.IsNullInt(strP41ID) > 0 Then
+            Me.p41ID.Value = strP41ID
+            Me.p41ID.Text = Master.Factory.GetRecordCaption(BO.x29IdEnum.p41Project, BO.BAS.IsNullInt(strP41ID))
         End If
     End Sub
 

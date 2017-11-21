@@ -25,8 +25,8 @@ Class j18RegionBL
     End Sub
     Public Function Save(cRec As BO.j18Region, lisX69 As List(Of BO.x69EntityRole_Assign)) As Boolean Implements Ij18RegionBL.Save
         With cRec
-            If Trim(.j18Name) = "" Then _Error = "Chybí název skupiny." : Return False
-            If Trim(.j18Code) = "" Then _Error = "Chybí kód skupiny." : Return False
+            If Trim(.j18Name) = "" Then _Error = "Chybí název střediska." : Return False
+            If Trim(.j18Code) = "" Then _Error = "Chybí kód střediska." : Return False
 
         End With
         If Not lisX69 Is Nothing Then

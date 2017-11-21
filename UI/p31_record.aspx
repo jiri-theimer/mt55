@@ -84,12 +84,7 @@
 
 
           
-            $(".slidingDiv1").hide();
-            $("#show_hide1").show();
-
-            $('#show_hide1').click(function () {                
-                $(".slidingDiv1").slideToggle();
-            });
+            
 
            
 
@@ -332,6 +327,13 @@
             dialog_master("changelog.aspx?prefix=p31&pid=<%=Master.DataPID%>", true)
         }
 
+        function j02_RCM(ctl) {
+            var combo = $find("<%= Me.j02ID_ContactPerson.RadComboClientID%>");
+            var pid = combo.get_value();
+            
+            RCM("j02-p31", pid, ctl);
+        }
+
         function contact_person_create() {
             var url = "j02_record.aspx?pid=0&iscontact=1";
 
@@ -350,16 +352,7 @@
             dialog_master(url,true);
 
         }
-        function contact_person_edit() {            
-            var combo = $find("<%= Me.j02ID_ContactPerson.RadComboClientID%>");           
-            var j02id = combo.get_value();
-            if (j02id == "" || j02id == "0") {
-                $.alert("Musíte vybrat osobu.");
-                return;
-            }
-            dialog_master("j02_record.aspx?pid="+j02id, true);
-
-        }
+        
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -559,17 +552,11 @@
         <uc:freefields ID="ff1" runat="server" />
     </div>
     <div class="div6">
-        <a class="pp1" id="show_hide1" href="#" title="Menu pro kontaktní osobu"></a>
-
+        
         <span class="lbl" style="padding-right: 10px;">Kontaktní osoba:</span>
         <uc:datacombo ID="j02ID_ContactPerson" runat="server" Width="400px" DataTextField="FullNameDescWithEmail" DataValueField="pid" IsFirstEmptyRow="true" AutoPostBack="false" Filter="Contains" BackgroundColor="#FFFFF0" />
-        <div class="slidingDiv1" style="display:none;">
-            <div>
-                <button type="button" onclick="contact_person_create()">Založit novou kontaktní osobu</button>
-           
-                <button type="button" onclick="contact_person_edit()">Upravit kartu vybrané osoby</button>
-            </div>
-        </div>
+        <a id="cm1" class="pp3" onclick="j02_RCM(this)"></a>
+        
     </div>
 
 

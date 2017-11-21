@@ -55,7 +55,9 @@
     c21FondCalendar = 421
     p34ActivityGroup = 334
     p32Activity = 332
+    p80InvoiceAmountStructure = 380
     p95InvoiceRow = 395
+    p98Invoice_Round_Setting_Template = 398
     p71ApproveStatus = 371
     p72PreBillingStatus = 372
     p70BillingStatus = 370

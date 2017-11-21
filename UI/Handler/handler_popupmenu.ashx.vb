@@ -42,6 +42,8 @@ Public Class handler_popupmenu
                 HandleP56(intPID, factory, strFlag)
             Case "p28"
                 HandleP28(intPID, factory, strFlag)
+            Case "p28-combo"
+                HandleP28_Combo(intPID, factory, strFlag)
             Case "p41"
                 HandleP41(intPID, factory, strFlag)
             Case "p91"
@@ -50,13 +52,15 @@ Public Class handler_popupmenu
                 HandleO23(intPID, factory, strFlag)
             Case "j02"
                 HandleJ02(intPID, factory, strFlag)
+            Case "j02-p31"
+                HandleJ02_p31(intPID, factory, strFlag)
             Case "p90"
                 HandleP90(intPID, factory)
             Case "p51"
                 HandleP51(intPID, factory)
             Case "x40"
                 HandleX40(intPID, factory)
-            Case "j07", "j04", "j18", "j17", "c21", "o40", "o25", "p42", "p32", "p92", "p29", "p63", "j61", "j61-invoice", "p92-clientinvoice", "p51-billing", "p51-internal", "p61"
+            Case "j07", "j04", "j18", "j17", "c21", "o40", "o25", "p42", "p32", "p92", "p29", "p63", "j61", "j61-invoice", "p92-clientinvoice", "p51-billing", "p51-internal", "p61", "p80", "p98"
                 HandleCiselnikyDataCombo(Left(strPREFIX, 3), intPID, factory)
             Case Else
                 CI("Nezpracovatelný PREFIX", "")
@@ -457,6 +461,27 @@ Public Class handler_popupmenu
         End If
         SEP()
         CI("Oštítkovat", "tag_binding.aspx?prefix=p31&pids=" & intPID.ToString, , "Images/tag.png")
+    End Sub
+
+    Private Sub HandleP28_Combo(intPID As Integer, factory As BL.Factory, strFlag As String)
+        If intPID > 0 Then
+            Dim cRec As BO.p28Contact = factory.p28ContactBL.Load(intPID)
+            If cRec Is Nothing Then CI("Záznam nebyl nalezen", "", True) : Return
+            Dim cDisp As BO.p28RecordDisposition = factory.p28ContactBL.InhaleRecordDisposition(cRec)
+            If Not cDisp.ReadAccess Then CI("Ke klientovi nemáte oprávnění.", "", True) : Return
+            If cDisp.OwnerAccess Then
+                CI("Upravit kartu klienta", "p28_record.aspx?pid=" & intPID.ToString, , "Images/edit.png")
+            End If
+            If cDisp.OwnerAccess Then
+                SEP()
+                CI("Kopírovat klienta", "p28_record.aspx?clone=1&pid=" & intPID.ToString, , "Images/copy.png") 'pod nový
+            End If
+        End If
+        
+        If factory.TestPermission(BO.x53PermValEnum.GR_P28_Creator, BO.x53PermValEnum.GR_P28_Draft_Creator) Then
+            SEP()
+            CI("Založit klienta", "p28_record.aspx?pid=0;", , "Images/new.png")
+        End If
     End Sub
     Private Sub HandleP28(intPID As Integer, factory As BL.Factory, strFlag As String)
         Dim cRec As BO.p28Contact = factory.p28ContactBL.Load(intPID)
@@ -911,7 +936,23 @@ Public Class handler_popupmenu
             REL("Nastavení interních ceníků", "admin_framework.aspx?prefix=p50", "_top", "Images/setting.png")
         End If
     End Sub
+    Private Sub HandleJ02_p31(intPID As Integer, factory As BL.Factory, strFlag As String)
+        If intPID > 0 Then
+            Dim cRec As BO.j02Person = factory.j02PersonBL.Load(intPID)
+            If cRec Is Nothing Then CI("Záznam nebyl nalezen.", "", True) : Return
+            CI("Upravit kartu osoby", "j02_record.aspx?pid=" & intPID.ToString, , "Images/edit.png")
+        End If
+        
 
+        If factory.TestPermission(BO.x53PermValEnum.GR_J02_ContactPerson_Create) Then
+            If intPID > 0 Then
+                SEP()
+                CI("Kopírovat osobu", "j02_record.aspx?clone=1&pid=" & intPID.ToString, , "Images/copy.png")
+            End If
+            
+            CI("Založit osobu", "javascript:contact_person_create()", , "Images/new.png")
+        End If
+    End Sub
     Private Sub HandleJ02(intPID As Integer, factory As BL.Factory, strFlag As String)
         Dim cRec As BO.j02Person = factory.j02PersonBL.Load(intPID)
         If cRec Is Nothing Then CI("Záznam nebyl nalezen.", "", True) : Return
@@ -927,7 +968,7 @@ Public Class handler_popupmenu
             SEP()
             CI("Upravit kartu osoby", "j02_record.aspx?pid=" & intPID.ToString, , "Images/edit.png")
 
-           
+
         End If
         CI("[NOVÝ]", "", , "Images/new4menu.png")
         If factory.TestPermission(BO.x53PermValEnum.GR_Admin) Then
@@ -940,7 +981,7 @@ Public Class handler_popupmenu
         If Not cRec.IsClosed Then CI("Vytvořit kalendářovou událost", "o22_record.aspx?masterprefix=j02&masterpid=" & cRec.PID.ToString, , "Images/calendar.png", True) 'pod nový
         CI("Doplnit přílohu, komentář, poznámku", "b07_create.aspx?masterprefix=j02&masterpid=" & cRec.PID.ToString, , "Images/comment.png", True)  'pod nový
 
-        
+
         If cRec.j02IsIntraPerson Then
             If factory.TestPermission(BO.x53PermValEnum.GR_P31_Approver) Then
                 SEP()
@@ -968,7 +1009,7 @@ Public Class handler_popupmenu
                     REL(c.p28Name, "p28_framework.aspx?pid=" & c.p28ID.ToString, "_top", "Images/contact.png", True)
                 End If
             Next
-          
+
         End If
 
         If cRec.j02Email <> "" Then
@@ -989,9 +1030,9 @@ Public Class handler_popupmenu
                 CI("Přepočítat sazby rozpracovaných hodin", "p31_recalc.aspx?prefix=j02&pid=" & cRec.PID.ToString, , "Images/recalc.png", True)
             End If
 
-           
-            
-            
+
+
+
             CI("Osobní plány", "j02_personalplan.aspx?j02id=" & cRec.PID.ToString, , "Images/plan.png", True, True)
 
             REL("Historie odeslané pošty", "x40_framework.aspx?masterprefix=j02&masterpid=" & cRec.PID.ToString, "_top", "Images/email.png", True)

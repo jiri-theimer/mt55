@@ -84,7 +84,7 @@ Public Class contact_service
                     itemData.Text = rec.p28Name
                 End If
                 If .p29ID > 0 Then
-                    itemData.Text += " [" & .p29Name & "]"
+                    itemData.Text += " (" & .p29Name & ")"
                 End If
                 If .p28IsDraft Then itemData.Text += " DRAFT"
                 If .IsClosed Then itemData.Text = "<span class='radcomboitem_archive'>" & itemData.Text & "</span>"

@@ -82,6 +82,7 @@
 
     Private Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         cbx1.OnClientItemsRequesting = Me.ClientID & "_OnClientItemsRequesting"
+        cm1.Attributes("onclick") = Me.ClientID & "_RCM(this)"
     End Sub
 
 

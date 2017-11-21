@@ -14,18 +14,8 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <script type="text/javascript">
-        function p28_client_add() {
-            document.getElementById("<%=HardRefreshWindow.ClientID%>").value = "p28_client_add";
-
-            dialog_master("p28_record.aspx?pid=0", true)
-        }
-        function p28_billing_add() {
-            document.getElementById("<%=HardRefreshWindow.ClientID%>").value = "p28_billing_add";
-
-            dialog_master("p28_record.aspx?pid=0", true)
-
-        }
-
+       
+       
         function p51_billing_add(customtailor) {
             document.getElementById("<%=HardRefreshWindow.ClientID%>").value = "p51_billing_add";
 
@@ -99,7 +89,7 @@
                     </td>
                     <td>
                         <uc:contact ID="p28ID_Client" runat="server" Width="400px" Flag="client" />
-                        <a href="javascript:p28_client_add()">Založit nového klienta</a>
+                        
 
                     </td>
                 </tr>
@@ -253,7 +243,7 @@
                         </td>
                         <td>
                             <uc:contact ID="p28ID_Billing" runat="server" Width="300px" />
-                            <a href="javascript:p28_billing_add()">Založit nového odběratele do klientů</a>
+                            
 
                         </td>
                     </tr>

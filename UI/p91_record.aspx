@@ -47,7 +47,7 @@
                     <td style="width: 180px;">
                         <asp:Label ID="lblType" runat="server" CssClass="lblReq" Text="Typ faktury:"></asp:Label></td>
                     <td>
-                        <uc:datacombo ID="p92ID" runat="server" DataTextField="p92Name" DataValueField="pid" AutoPostBack="true" IsFirstEmptyRow="true" Width="400px"></uc:datacombo>
+                        <uc:datacombo ID="p92ID" runat="server" DataTextField="p92Name" DataValueField="pid" AutoPostBack="true" IsFirstEmptyRow="true" Width="400px" RemoteListPrefix="p92"></uc:datacombo>
                         <asp:HyperLink ID="p91Code" runat="server" ToolTip="Číslo faktury"></asp:HyperLink>
                     </td>
                 </tr>
@@ -91,7 +91,7 @@
                         <asp:Label ID="lblJ17ID" Text="DPH region:" runat="server" CssClass="lbl"></asp:Label>
                     </td>
                     <td>
-                        <uc:datacombo ID="j17ID" runat="server" AutoPostBack="false" DataTextField="j17Name" DataValueField="pid" IsFirstEmptyRow="true" Width="400px"></uc:datacombo>
+                        <uc:datacombo ID="j17ID" runat="server" AutoPostBack="false" DataTextField="j17Name" DataValueField="pid" IsFirstEmptyRow="true" Width="400px" RemoteListPrefix="j17"></uc:datacombo>
 
                     </td>
                 </tr>
@@ -100,7 +100,7 @@
                         <asp:Label ID="Label5" Text="Zaokrouhlovací pravidlo:" runat="server" CssClass="lbl"></asp:Label>
                     </td>
                     <td>
-                        <uc:datacombo ID="p98ID" runat="server" AutoPostBack="false" DataTextField="p98Name" DataValueField="pid" IsFirstEmptyRow="true" Width="400px"></uc:datacombo>
+                        <uc:datacombo ID="p98ID" runat="server" AutoPostBack="false" DataTextField="p98Name" DataValueField="pid" IsFirstEmptyRow="true" Width="400px" RemoteListPrefix="p98"></uc:datacombo>
 
                     </td>
                 </tr>
@@ -109,7 +109,7 @@
                         <asp:Label ID="Label15" runat="server" Text="Struktura cenového rozpisu:" CssClass="lbl"></asp:Label>
                     </td>
                     <td>
-                        <uc:datacombo ID="p80ID" runat="server" DataTextField="p80Name" DataValueField="pid" IsFirstEmptyRow="true" Width="400px" />
+                        <uc:datacombo ID="p80ID" runat="server" DataTextField="p80Name" DataValueField="pid" IsFirstEmptyRow="true" Width="400px" RemoteListPrefix="p80" />
                     </td>
                 </tr>
                 <tr>
@@ -117,7 +117,7 @@
                         <asp:Label ID="lblP63ID" runat="server" Text="Režijní přirážka k faktuře:" CssClass="lbl"></asp:Label>
                     </td>
                     <td>
-                        <uc:datacombo ID="p63ID" runat="server" DataTextField="NameWithRate" DataValueField="pid" IsFirstEmptyRow="true" Width="400px" />
+                        <uc:datacombo ID="p63ID" runat="server" DataTextField="NameWithRate" DataValueField="pid" IsFirstEmptyRow="true" Width="400px" RemoteListPrefix="p63" />
                     </td>
                 </tr>
                 <tr>

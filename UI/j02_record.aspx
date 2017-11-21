@@ -100,7 +100,7 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <div id="search_dupl_result" style="position: absolute; left: 50px; top: 300px; z-index: 1000;background-color:khaki;padding:10px;display:none;"></div>
+                        <div id="search_dupl_result" style="position: absolute; left: 50px; top: 400px; z-index: 1000;background-color:khaki;padding:10px;display:none;"></div>
                     </td>
                 </tr>
                 <tr>

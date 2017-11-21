@@ -20,16 +20,7 @@
                 End If
                 .AddToolbarButton("Odstranit", "mydelete", 2, "Images/delete.png")
 
-                Me.j17ID.DataSource = .Factory.j17CountryBL.GetList()
-                Me.j17ID.DataBind()
-                Me.p92ID.DataSource = .Factory.p92InvoiceTypeBL.GetList(New BO.myQuery)
-                Me.p92ID.DataBind()
-                Me.p98ID.DataSource = .Factory.p98Invoice_Round_Setting_TemplateBL.GetList()
-                Me.p98ID.DataBind()
-                Me.p63ID.DataSource = .Factory.p63OverheadBL.GetList(New BO.myQuery)
-                Me.p63ID.DataBind()
-                Me.p80ID.DataSource = .Factory.p80InvoiceAmountStructureBL.GetList(New BO.myQuery)
-                Me.p80ID.DataBind()
+                
                
             End With
 
@@ -58,11 +49,11 @@
             Master.HeaderText = "Nastavení faktury " & .p91Code
             Me.p91Code.Text = .p91Code
             Me.p91Code.NavigateUrl = "javascript:recordcode()"
-            Me.j17ID.SelectedValue = .j17ID.ToString
-            Me.p98ID.SelectedValue = .p98ID.ToString
-            Me.p63ID.SelectedValue = .p63ID.ToString
-            Me.p80ID.SelectedValue = .p80ID.ToString
-            Me.p92ID.SelectedValue = .p92ID.ToString
+            Me.j17ID.SelectRemoteValue(.j17ID.ToString, Master.Factory)
+            Me.p98ID.SelectRemoteValue(.p98ID.ToString, Master.Factory)
+            Me.p63ID.SelectRemoteValue(.p63ID.ToString, Master.Factory)
+            Me.p80ID.SelectRemoteValue(.p80ID.ToString, Master.Factory)
+            Me.p92ID.SelectRemoteValue(.p92ID.ToString, Master.Factory)
             Me.p28ID.Value = .p28ID.ToString
             Me.p28ID.Text = .p28Name
             Me.j02ID_Owner.Value = .j02ID_Owner.ToString
@@ -208,10 +199,7 @@
         InhaleAddresses()
     End Sub
 
-    Private Sub p92ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles p92ID.NeedMissingItem
-        Dim cRec As BO.p92InvoiceType = Master.Factory.p92InvoiceTypeBL.Load(CInt(strFoundedMissingItemValue))
-        If Not cRec Is Nothing Then strAddMissingItemText = cRec.p92Name
-    End Sub
+   
 
     Private Sub p92ID_SelectedIndexChanged(OldValue As String, OldText As String, CurValue As String, CurText As String) Handles p92ID.SelectedIndexChanged
         Handle_FF()
@@ -248,20 +236,7 @@
         End If
     End Sub
 
-    Private Sub j17ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles j17ID.NeedMissingItem
-        Dim cRec As BO.j17Country = Master.Factory.j17CountryBL.Load(CInt(strFoundedMissingItemValue))
-        If Not cRec Is Nothing Then strAddMissingItemText = cRec.j17Name
-    End Sub
-
-    Private Sub p63ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles p63ID.NeedMissingItem
-        Dim cRec As BO.p63Overhead = Master.Factory.p63OverheadBL.Load(CInt(strFoundedMissingItemValue))
-        If Not cRec Is Nothing Then strAddMissingItemText = cRec.NameWithRate
-    End Sub
-
-    Private Sub p80ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles p80ID.NeedMissingItem
-        Dim cRec As BO.p80InvoiceAmountStructure = Master.Factory.p80InvoiceAmountStructureBL.Load(CInt(strFoundedMissingItemValue))
-        If Not cRec Is Nothing Then strAddMissingItemText = cRec.p80Name
-    End Sub
+    
     Private Sub cmdAddX69_Click(sender As Object, e As EventArgs) Handles cmdAddX69.Click
         roles1.AddNewRow()
     End Sub

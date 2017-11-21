@@ -32,18 +32,10 @@
 
             SetupPricelistCombo()
 
-            'Me.p92id.DataSource = Master.Factory.p92InvoiceTypeBL.GetList(New BO.myQuery).Where(Function(p) p.p92InvoiceType = BO.p92InvoiceTypeENUM.ClientInvoice)
-            'Me.p92id.DataBind()
-
+          
             'Me.p92id.ChangeItemText("", "--Dědit z nastavení klienta projektu--")
             Me.p87ID.ChangeItemText("", "--Dědit z nastavení klienta projektu--")
-            'Me.j18ID.DataSource = Master.Factory.j18RegionBL.GetList(New BO.myQuery)
-            'Me.j18ID.DataBind()
-            'Me.p61ID.DataSource = Master.Factory.p61ActivityClusterBL.GetList(New BO.myQuery)
-            'Me.p61ID.DataBind()
-            'Me.o25ID_Calendar.DataSource = Master.Factory.o25AppBL.GetList(New BO.myQuery).Where(Function(p) p.o25AppFlag = BO.o25AppFlagENUM.GoogleCalendar)
-            'Me.o25ID_Calendar.DataBind()
-           
+          
             RefreshRecord()
         End If
     End Sub
@@ -54,11 +46,7 @@
         Me.p51ID_Billing.DataSource = lis.Where(Function(p) p.p51IsInternalPriceList = False And p.p51IsMasterPriceList = False And p.p51IsCustomTailor = False)
         Me.p51ID_Billing.DataBind()
 
-        'Me.p51ID_Internal.DataSource = lis.Where(Function(p) p.p51IsInternalPriceList = True And p.p51IsMasterPriceList = False And p.p51IsCustomTailor = False)
-
-        'Me.p51ID_Internal.DataBind()
-        'Me.p51ID_Internal.ChangeItemText("", "--Dědit z nastavení systému--")
-
+      
     End Sub
     Private Sub Handle_Permissions(cRec As BO.p41Project)
         With Master
@@ -244,11 +232,7 @@
         End Select
     End Sub
 
-    ''Private Sub p42ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles p42ID.NeedMissingItem
-    ''    Dim cRec As BO.p42ProjectType = Master.Factory.p42ProjectTypeBL.Load(CInt(strFoundedMissingItemValue))
-    ''    If Not cRec Is Nothing Then strAddMissingItemText = cRec.p42Name
-    ''End Sub
-
+ 
     Private Sub p51ID_Billing_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles p51ID_Billing.NeedMissingItem
         Dim cRec As BO.p51PriceList = Master.Factory.p51PriceListBL.Load(CInt(strFoundedMissingItemValue))
         If Not cRec Is Nothing Then strAddMissingItemText = cRec.p51Name
@@ -342,12 +326,7 @@
         End With
     End Sub
 
-    ''Private Sub j18ID_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles j18ID.NeedMissingItem
-    ''    Dim cRec As BO.j18Region = Master.Factory.j18RegionBL.Load(CInt(strFoundedMissingItemValue))
-    ''    If Not cRec Is Nothing Then strAddMissingItemText = cRec.j18Name
-    ''End Sub
-
-    
+   
    
     Private Sub cmdHardRefresh_Click(sender As Object, e As EventArgs) Handles cmdHardRefresh.Click
         Dim strPID As String = Me.HardRefreshPID.Value
@@ -376,17 +355,10 @@
 
     
 
-    ''Private Sub p51ID_Internal_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles p51ID_Internal.NeedMissingItem
-    ''    Dim cRec As BO.p51PriceList = Master.Factory.p51PriceListBL.Load(CInt(strFoundedMissingItemValue))
-    ''    If Not cRec Is Nothing Then strAddMissingItemText = cRec.p51Name
-    ''End Sub
-
+    
     Private Sub p42ID_SelectedIndexChanged(OldValue As String, OldText As String, CurValue As String, CurText As String) Handles p42ID.SelectedIndexChanged
         Handle_FF()
     End Sub
 
-    ''Private Sub o25ID_Calendar_NeedMissingItem(strFoundedMissingItemValue As String, ByRef strAddMissingItemText As String) Handles o25ID_Calendar.NeedMissingItem
-    ''    Dim cRec As BO.o25App = Master.Factory.o25AppBL.Load(BO.BAS.IsNullInt(strFoundedMissingItemValue))
-    ''    strAddMissingItemText = cRec.o25Name
-    ''End Sub
+   
 End Class

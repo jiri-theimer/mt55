@@ -23,6 +23,15 @@ Partial Public Class contact
     Protected WithEvents cbx1 As Global.Telerik.Web.UI.RadComboBox
 
     '''<summary>
+    '''cm1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cm1 As Global.System.Web.UI.WebControls.HyperLink
+
+    '''<summary>
     '''hidvalue control.
     '''</summary>
     '''<remarks>

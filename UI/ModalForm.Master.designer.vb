@@ -140,6 +140,15 @@ Partial Public Class ModalForm
     Protected WithEvents okno_dialog As Global.Telerik.Web.UI.RadWindow
 
     '''<summary>
+    '''RadContextMenu1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents RadContextMenu1 As Global.Telerik.Web.UI.RadContextMenu
+
+    '''<summary>
     '''hidDataPID control.
     '''</summary>
     '''<remarks>
