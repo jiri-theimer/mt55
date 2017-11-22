@@ -291,6 +291,7 @@
     <Content Include="p31_framework_timer.aspx" />
     <Content Include="p31_sumgrid.aspx" />
     <Content Include="p31_sumgrid_pivot.aspx" />
+    <Content Include="p38_record.aspx" />
     <Content Include="p40_chrono.aspx" />
     <Content Include="p41_recurrence.aspx" />
     <Content Include="p65_record.aspx" />
@@ -539,7 +540,7 @@
     <Content Include="Services\person_service.asmx" />
     <Content Include="stoppage.aspx" />
     <Content Include="stoppage_site.aspx" />
-    <Content Include="Styles\Site_v11.css" />
+    <Content Include="Styles\Site_v12.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Sys\sys_dbobjects.aspx" />
@@ -1489,6 +1490,13 @@
     </Compile>
     <Compile Include="p31_sumgrid_pivot.aspx.vb">
       <DependentUpon>p31_sumgrid_pivot.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="p38_record.aspx.designer.vb">
+      <DependentUpon>p38_record.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="p38_record.aspx.vb">
+      <DependentUpon>p38_record.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="p40_chrono.aspx.designer.vb">

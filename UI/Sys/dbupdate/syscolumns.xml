@@ -94497,7 +94497,7 @@
     <TableName>p99Invoice_Proforma</TableName>
   </Table>
   <Table>
-    <name>p90ID</name>
+    <name>p82ID</name>
     <id>605245211</id>
     <xtype>56</xtype>
     <typestat>0</typestat>
@@ -94530,13 +94530,13 @@
     <TableName>p99Invoice_Proforma</TableName>
   </Table>
   <Table>
-    <name>p82ID</name>
+    <name>p99Amount</name>
     <id>605245211</id>
-    <xtype>56</xtype>
+    <xtype>62</xtype>
     <typestat>0</typestat>
-    <xusertype>56</xusertype>
-    <length>4</length>
-    <xprec>10</xprec>
+    <xusertype>62</xusertype>
+    <length>8</length>
+    <xprec>53</xprec>
     <xscale>0</xscale>
     <colid>4</colid>
     <xoffset>0</xoffset>
@@ -94551,19 +94551,18 @@
     <collationid>0</collationid>
     <language>0</language>
     <status>8</status>
-    <type>38</type>
-    <usertype>7</usertype>
-    <prec>10</prec>
-    <scale>0</scale>
+    <type>109</type>
+    <usertype>8</usertype>
+    <prec>53</prec>
     <iscomputed>0</iscomputed>
     <isoutparam>0</isoutparam>
     <isnullable>1</isnullable>
     <tdscollation>AAAAAAA=</tdscollation>
-    <type_name>int</type_name>
+    <type_name>float</type_name>
     <TableName>p99Invoice_Proforma</TableName>
   </Table>
   <Table>
-    <name>p99Amount</name>
+    <name>p99Amount_WithoutVat</name>
     <id>605245211</id>
     <xtype>62</xtype>
     <typestat>0</typestat>
@@ -94595,7 +94594,7 @@
     <TableName>p99Invoice_Proforma</TableName>
   </Table>
   <Table>
-    <name>p99Amount_WithoutVat</name>
+    <name>p99Amount_Vat</name>
     <id>605245211</id>
     <xtype>62</xtype>
     <typestat>0</typestat>
@@ -94627,38 +94626,6 @@
     <TableName>p99Invoice_Proforma</TableName>
   </Table>
   <Table>
-    <name>p99Amount_Vat</name>
-    <id>605245211</id>
-    <xtype>62</xtype>
-    <typestat>0</typestat>
-    <xusertype>62</xusertype>
-    <length>8</length>
-    <xprec>53</xprec>
-    <xscale>0</xscale>
-    <colid>7</colid>
-    <xoffset>0</xoffset>
-    <bitpos>0</bitpos>
-    <reserved>0</reserved>
-    <colstat>0</colstat>
-    <cdefault>0</cdefault>
-    <domain>0</domain>
-    <number>0</number>
-    <colorder>7</colorder>
-    <offset>-5</offset>
-    <collationid>0</collationid>
-    <language>0</language>
-    <status>8</status>
-    <type>109</type>
-    <usertype>8</usertype>
-    <prec>53</prec>
-    <iscomputed>0</iscomputed>
-    <isoutparam>0</isoutparam>
-    <isnullable>1</isnullable>
-    <tdscollation>AAAAAAA=</tdscollation>
-    <type_name>float</type_name>
-    <TableName>p99Invoice_Proforma</TableName>
-  </Table>
-  <Table>
     <name>p99DateInsert</name>
     <id>605245211</id>
     <xtype>61</xtype>
@@ -94667,7 +94634,7 @@
     <length>8</length>
     <xprec>23</xprec>
     <xscale>3</xscale>
-    <colid>8</colid>
+    <colid>7</colid>
     <xoffset>0</xoffset>
     <bitpos>0</bitpos>
     <reserved>0</reserved>
@@ -94675,8 +94642,8 @@
     <cdefault>637245325</cdefault>
     <domain>0</domain>
     <number>0</number>
-    <colorder>8</colorder>
-    <offset>-6</offset>
+    <colorder>7</colorder>
+    <offset>-5</offset>
     <collationid>0</collationid>
     <language>0</language>
     <status>8</status>
@@ -94700,7 +94667,7 @@
     <length>50</length>
     <xprec>0</xprec>
     <xscale>0</xscale>
-    <colid>9</colid>
+    <colid>8</colid>
     <xoffset>0</xoffset>
     <bitpos>0</bitpos>
     <reserved>0</reserved>
@@ -94708,8 +94675,8 @@
     <cdefault>0</cdefault>
     <domain>0</domain>
     <number>0</number>
-    <colorder>9</colorder>
-    <offset>-7</offset>
+    <colorder>8</colorder>
+    <offset>-6</offset>
     <collationid>53252</collationid>
     <language>0</language>
     <status>24</status>
@@ -94733,7 +94700,7 @@
     <length>8</length>
     <xprec>23</xprec>
     <xscale>3</xscale>
-    <colid>10</colid>
+    <colid>9</colid>
     <xoffset>0</xoffset>
     <bitpos>0</bitpos>
     <reserved>0</reserved>
@@ -94741,8 +94708,8 @@
     <cdefault>0</cdefault>
     <domain>0</domain>
     <number>0</number>
-    <colorder>10</colorder>
-    <offset>-8</offset>
+    <colorder>9</colorder>
+    <offset>-7</offset>
     <collationid>0</collationid>
     <language>0</language>
     <status>8</status>
@@ -94766,7 +94733,7 @@
     <length>50</length>
     <xprec>0</xprec>
     <xscale>0</xscale>
-    <colid>11</colid>
+    <colid>10</colid>
     <xoffset>0</xoffset>
     <bitpos>0</bitpos>
     <reserved>0</reserved>
@@ -94774,8 +94741,8 @@
     <cdefault>0</cdefault>
     <domain>0</domain>
     <number>0</number>
-    <colorder>11</colorder>
-    <offset>-9</offset>
+    <colorder>10</colorder>
+    <offset>-8</offset>
     <collationid>53252</collationid>
     <language>0</language>
     <status>24</status>

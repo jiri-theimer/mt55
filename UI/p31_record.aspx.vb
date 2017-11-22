@@ -744,6 +744,29 @@
 
         End If
     End Sub
+
+    Private Function GetActivityList(mq As BO.myQueryP32) As List(Of BO.p32Activity)
+        Dim lisP32 As List(Of BO.p32Activity) = Master.Factory.p32ActivityBL.GetList(mq).ToList
+        If lisP32.Exists(Function(p) p.p38ID > 0) Then
+            lisP32 = lisP32.OrderBy(Function(p) p.p38Ordinary).ThenBy(Function(p) p.p38Name).ToList
+            Dim intLastP38ID As Integer = 0, xx As Integer = lisP32.Count - 1
+            For x As Integer = 0 To xx
+                With lisP32(x)
+                    If .p38ID <> intLastP38ID And .PID > -1 Then
+                        Dim cc As New BO.p32Activity
+                        cc.SetPID(-1)
+                        cc.p32Name = .p38Name
+                        cc.p38ID = .p38ID
+                        lisP32.Insert(x, cc)
+                        xx += 1
+                    End If
+                    intLastP38ID = .p38ID
+                End With
+
+            Next
+        End If
+        Return lisP32
+    End Function
     Private Sub Handle_ChangeP34()
         If Me.CurrentP34ID = 0 Then
             _Sheet = Nothing
@@ -756,7 +779,9 @@
         Dim mq As New BO.myQueryP32
         mq.p34ID = Me.CurrentP34ID
         If Me.hidP61ID.Value <> "" Then mq.p61ID = CInt(Me.hidP61ID.Value)
-        Me.p32ID.DataSource = Master.Factory.p32ActivityBL.GetList(mq)
+        
+        'Me.p32ID.DataSource = Master.Factory.p32ActivityBL.GetList(mq)
+        Me.p32ID.DataSource = GetActivityList(mq)
         Me.p32ID.DataBind()
 
         panT.Visible = False : panU.Visible = False : panM.Visible = False
@@ -869,9 +894,14 @@
 
     Private Sub p32ID_ItemDataBound(sender As Object, e As Telerik.Web.UI.RadComboBoxItemEventArgs) Handles p32ID.ItemDataBound
         Dim cRec As BO.p32Activity = CType(e.Item.DataItem, BO.p32Activity)
-        If Not cRec.p32IsBillable Then
-            e.Item.ForeColor = Drawing.Color.Red
-        End If
+        With cRec
+            If Not .p32IsBillable Then
+                e.Item.ForeColor = Drawing.Color.Red
+            End If
+            If .PID = -1 Then e.Item.Enabled = False : e.Item.BackColor = Drawing.Color.Khaki : e.Item.ForeColor = Nothing
+        End With
+        
+        
     End Sub
 
     Private Sub _MasterPage_Master_OnDelete() Handles _MasterPage.Master_OnDelete

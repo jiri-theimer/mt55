@@ -107,6 +107,7 @@
     <Compile Include="p11AttendanceDL.vb" />
     <Compile Include="p30Contact_PersonDL.vb" />
     <Compile Include="p35UnitDL.vb" />
+    <Compile Include="p38ActivityTagDL.vb" />
     <Compile Include="p40WorkSheet_RecurrenceDL.vb" />
     <Compile Include="p45BudgetDL.vb" />
     <Compile Include="p50OfficePriceListDL.vb" />

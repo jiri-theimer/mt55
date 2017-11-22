@@ -155,6 +155,7 @@ Public Class admin_framework
             .AddItem("Sešity", "p34", NU("p34"), "p31")
             .AddItem("Aktivity", "p32", NU("p32"), "p31")
             .AddItem("Klastry aktivit", "p61", NU("p61"), "p31")
+            .AddItem("Kategorie aktivit", "p38", NU("p38"), "p31")
             .AddItem("Uzamknutá období", "p36", NU("p36"), "p31")
             .AddItem("Kusovníkové jednotky", "p35", NU("p35"), "p31")
             .AddItem("Nastavení interních ceníků", "p50", NU("p50"), "p31")
@@ -461,19 +462,25 @@ Public Class admin_framework
 
                 Case "p32"
                     bolSearch = True
+                    .AddColumn("p32Code", "")
                     .AddColumn("p32name", "Název aktivity")
                     .AddColumn("p34name", "Sešit")
-                    .AddColumn("p32Code", "Kód aktivity")
+
                     .AddColumn("p32IsBillable", "Fakturovatelné", BO.cfENUM.Checkbox)
                     .AddColumn("p95Name", "Fakt.oddíl")
-                    .AddColumn("p32Color", "Barva")
-                    .AddColumn("p32Ordinary", "#", BO.cfENUM.Numeric0)
+                    .AddColumn("p38Name", "Kategorie")
+                    ''.AddColumn("p32Color", "Barva")
+                    .AddColumn("p32Ordinary", "#", BO.cfENUM.Numeric0, , , , , , False)
                 Case "p34"
                     .AddColumn("p34name", "Název sešitu")
                     .AddColumn("p34Code", "Kód")
                     .AddColumn("p33Name", "Vstupní data")
                     .AddColumn("p34Color", "Barva")
                     .AddColumn("p34Ordinary", "#", BO.cfENUM.Numeric0)
+                Case "p38"
+                    .AddColumn("p38name", "Název")
+                    .AddColumn("p38Code", "Kód")
+                    .AddColumn("p38Ordinary", "#", BO.cfENUM.Numeric0)
                 Case "p61"
                     .AddColumn("p61Name", "Název klastru")
                 Case "p36"
@@ -620,7 +627,8 @@ Public Class admin_framework
             Case "p32"
                 Dim cRec As BO.p32Activity = CType(e.Item.DataItem, BO.p32Activity)
                 If cRec.p32Color <> "" Then
-                    dataItem("p32Color").Style.Item("background-color") = cRec.p32Color
+                    'dataItem("p32Name").Style.Item("background-color") = cRec.p32Color
+                    dataItem.BackColor = System.Drawing.Color.FromName(cRec.p32Color)
                 End If
                 Select Case cRec.p33ID
                     Case 1
@@ -731,6 +739,9 @@ Public Class admin_framework
                     grid1.DataSource = lis
                 Case "p35"
                     Dim lis As IEnumerable(Of BO.p35Unit) = .p35UnitBL.GetList(mqDef)
+                    grid1.DataSource = lis
+                Case "p38"
+                    Dim lis As IEnumerable(Of BO.p38ActivityTag) = .p38ActivityTagBL.GetList(mqDef)
                     grid1.DataSource = lis
                 Case "p42"
                     Dim lis As IEnumerable(Of BO.p42ProjectType) = .p42ProjectTypeBL.GetList(mqDef)

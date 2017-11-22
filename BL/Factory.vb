@@ -47,6 +47,7 @@
     Private Property _p59 As Ip59PriorityBL
     Private Property _x67 As Ix67EntityRoleBL
     Private Property _p95 As Ip95InvoiceRowBL
+    Private Property _p38 As Ip38ActivityTagBL
     Private Property _p85 As Ip85TempBoxBL
 
     Private Property _j77 As Ij77WorksheetStatTemplateBL
@@ -435,6 +436,12 @@
         Get
             If _x67 Is Nothing Then _x67 = New x67EntityRoleBL(_cUser)
             Return _x67
+        End Get
+    End Property
+    Public ReadOnly Property p38ActivityTagBL As Ip38ActivityTagBL
+        Get
+            If _p38 Is Nothing Then _p38 = New p38ActivityTagBL(_cUser)
+            Return _p38
         End Get
     End Property
     Public ReadOnly Property p95InvoiceRowBL As Ip95InvoiceRowBL

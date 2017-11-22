@@ -320,6 +320,24 @@ Partial Public Class p32_record
     Protected WithEvents p95id As Global.UI.datacombo
 
     '''<summary>
+    '''lblP38ID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblP38ID As Global.UI.datalabel
+
+    '''<summary>
+    '''p38ID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents p38ID As Global.UI.datacombo
+
+    '''<summary>
     '''lblp32AttendanceFlag control.
     '''</summary>
     '''<remarks>

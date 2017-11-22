@@ -106,6 +106,7 @@
     <Compile Include="DBNative\o52TagBinding.vb" />
     <Compile Include="DBNative\p11Attendance.vb" />
     <Compile Include="DBNative\p27ContactPersonRole.vb" />
+    <Compile Include="DBNative\p38ActivityTag.vb" />
     <Compile Include="DBNative\p39WorkSheet_Recurrence_Plan.vb" />
     <Compile Include="DBNative\p40WorkSheet_Recurrence.vb" />
     <Compile Include="DBNative\p44CapacityPlan_Exception.vb" />

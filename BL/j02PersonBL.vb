@@ -126,7 +126,7 @@ Class j02PersonBL
             lisJ02 = GetList(mq).Where(Function(p) p.j02Email <> "").ToList
         End If
         If lisJ11WithoutAddress.Count > 0 Then
-            Dim lisAppend As List(Of BO.j02Person) = GetList_j02_join_j11(New List(Of Integer), lisJ11WithoutAddress.Select(Function(p) p.PID).ToList).ToList
+            Dim lisAppend As List(Of BO.j02Person) = GetList_j02_join_j11(New List(Of Integer), lisJ11WithoutAddress.Select(Function(p) p.PID).ToList).Where(Function(x) x.IsClosed = False).ToList 'vzít pouze otevřené osoby
             For Each c In lisAppend
                 lisJ02.Add(c)
             Next

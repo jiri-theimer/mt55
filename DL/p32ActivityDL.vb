@@ -23,6 +23,7 @@
             pars.Add("p95ID", BO.BAS.IsNullDBKey(.p95ID), DbType.Int32)
             pars.Add("p35ID", BO.BAS.IsNullDBKey(.p35ID), DbType.Int32)
             pars.Add("x15ID", BO.BAS.IsNullDBKey(.x15ID), DbType.Int32)
+            pars.Add("p38ID", BO.BAS.IsNullDBKey(.p38ID), DbType.Int32)
             
             pars.Add("p32Name", .p32Name, DbType.String, , , True, "Název")
             pars.Add("p32Code", .p32Code, DbType.String, , , True, "Kód")
@@ -132,11 +133,12 @@
 
 
     Private Function GetSQLPart1() As String
-        Dim s As String = "SELECT a.*," & bas.RecTail("p32", "a")
-        s += ",p34.p34Name as _p34Name,p95.p95Name as _p95Name,x15.x15Name as _x15Name,p34.p33ID as _p33ID,p34.p34IncomeStatementFlag as _p34IncomeStatementFlag"
-        s += " FROM p32Activity a INNER JOIN p34ActivityGroup p34 ON a.p34ID=p34.p34ID"
-        s += " LEFT OUTER JOIN p95InvoiceRow p95 ON a.p95ID=p95.p95ID"
-        s += " LEFT OUTER JOIN x15VatRateType x15 ON a.x15ID=x15.x15ID"
-        Return s
+        Dim s As New System.Text.StringBuilder
+        s.Append("SELECT a.*," & bas.RecTail("p32", "a"))
+        s.Append(",p34.p34Name as _p34Name,p95.p95Name as _p95Name,x15.x15Name as _x15Name,p34.p33ID as _p33ID,p34.p34IncomeStatementFlag as _p34IncomeStatementFlag,p38.p38Name as _p38Name,p38.p38Ordinary as _p38Ordinary")
+        s.Append(" FROM p32Activity a INNER JOIN p34ActivityGroup p34 ON a.p34ID=p34.p34ID")
+        s.Append(" LEFT OUTER JOIN p95InvoiceRow p95 ON a.p95ID=p95.p95ID LEFT OUTER JOIN p38ActivityTag p38 ON a.p38ID=p38.p38ID")
+        s.Append(" LEFT OUTER JOIN x15VatRateType x15 ON a.x15ID=x15.x15ID")
+        Return s.ToString
     End Function
 End Class

@@ -159,6 +159,7 @@
     <Compile Include="p34ActivityGroupBL.vb" />
     <Compile Include="p35UnitBL.vb" />
     <Compile Include="p36LockPeriodBL.vb" />
+    <Compile Include="p38ActivityTagBL.vb" />
     <Compile Include="p40WorkSheet_RecurrenceBL.vb" />
     <Compile Include="p41ProjectBL.vb" />
     <Compile Include="p42ProjectTypeBL.vb" />
@@ -170,12 +171,12 @@
     <Compile Include="p65RecurrenceBL.vb" />
     <Compile Include="p80InvoiceAmountStructureBL.vb" />
     <Compile Include="p98Invoice_Round_Setting_TemplateBL.vb" />
-    <Compile Include="Resources\common.Designer.vb">
+    <Compile Include="Mother\Resources\common.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>common.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\p31.Designer.vb">
+    <Compile Include="Mother\Resources\p31.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>p31.resx</DependentUpon>
@@ -221,14 +222,14 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\common.en-us.resx" />
-    <EmbeddedResource Include="Resources\common.resx">
+    <EmbeddedResource Include="Mother\Resources\common.en-us.resx" />
+    <EmbeddedResource Include="Mother\Resources\common.resx">
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>common.Designer.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\p31.en-us.resx" />
-    <EmbeddedResource Include="Resources\p31.resx">
+    <EmbeddedResource Include="Mother\Resources\p31.en-us.resx" />
+    <EmbeddedResource Include="Mother\Resources\p31.resx">
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>p31.Designer.vb</LastGenOutput>

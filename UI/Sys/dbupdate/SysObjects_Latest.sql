@@ -934,7 +934,7 @@ if @prefix='p28'
 if @prefix='p41'
  begin
   if not exists(select p41ID FROM p41Project WHERE p41ID=@pid AND p41ParentID IS NOT NULL)
-   select @ret=isnull(p41NameShort,p41Name)+isnull(' | '+b.p28name,'') FROM p41Project a LEFT OUTER JOIN p28Contact b on a.p28ID_Client=b.p28ID where a.p41id=@pid
+   select @ret=isnull(b.p28name+' - ','')+isnull(p41NameShort,p41Name) FROM p41Project a LEFT OUTER JOIN p28Contact b on a.p28ID_Client=b.p28ID where a.p41id=@pid
   else
    select @ret=isnull(b.p41NameShort,b.p41Name)+'->'+isnull(a.p41NameShort,a.p41name) FROM p41Project a LEFT OUTER JOIN p41Project b on a.p41ParentID=b.p41ID where a.p41id=@pid
  end
@@ -13368,9 +13368,7 @@ BEGIN TRY
 		DELETE FROM p45Budget WHERE p41ID=@pid
 	 end
 
-	if exists(select p48ID FROM p48OperativePlan WHERE p41ID=@pid)
-	 DELETE FROM p48OperativePlan WHERE p41ID=@pid
-
+	
 	if exists(select j13ID FROM j13FavourteProject WHERE p41ID=@pid)
 	 DELETE FROM j13FavourteProject WHERE p41ID=@pid
 
@@ -15267,7 +15265,7 @@ DEALLOCATE curTR
 declare @p91id int
 
 DECLARE curTRX CURSOR FOR 
-SELECT p91ID from p99Invoice_Proforma WHERE p90ID=@p90id
+SELECT p91ID from p99Invoice_Proforma WHERE p82ID IN (select p82ID FROM p82Proforma_Payment WHERE p90ID=@p90id)
 
 OPEN curTRX
 FETCH NEXT FROM curTRX 
@@ -16988,22 +16986,22 @@ GO
 
 
 CREATE     procedure [dbo].[p91_proforma_delete]
-@p91id int
-,@p90id int
+@p99id int
 ,@j03id_sys int
 ,@err_ret varchar(1000) OUTPUT
 
 AS
 
-set @p91id=isnull(@p91id,0)
-set @p90id=isnull(@p90id,0)
+declare @p91id int
+
+select @p91id=p91ID FROM p99Invoice_Proforma WHERE p99ID=@p99id
 
 
 if @err_ret<>''
   return
 
 
-delete from p99Invoice_Proforma WHERE p91ID=@p91id AND p90ID=@p90id
+delete from p99Invoice_Proforma WHERE p99ID=@p99id
 
 exec p91_recalc_amount @p91id
 
@@ -17055,10 +17053,13 @@ CREATE     procedure [dbo].[p91_proforma_save]
 @p91id int
 ,@p90id int
 ,@p82id int
+,@percentage float
 ,@j03id_sys int
 ,@err_ret varchar(1000) OUTPUT
 
 AS
+
+set @percentage=isnull(@percentage,100)
 
 set @p91id=isnull(@p91id,0)
 
@@ -17089,8 +17090,14 @@ declare @amount float,@amount_withoutvat float,@amount_vat float,@vatrate float
 
 select @vatrate=p90VatRate FROM p90Proforma WHERE p90ID=@p90id
 
-select @amount=p82Amount,@amount_withoutvat=p82Amount_WithoutVat,@amount_vat=p82Amount_Vat FROM p82Proforma_Payment WHERE p82ID=@p82id
+if @percentage=100
+ select @amount=p82Amount,@amount_withoutvat=p82Amount_WithoutVat,@amount_vat=p82Amount_Vat FROM p82Proforma_Payment WHERE p82ID=@p82id
+else
+ begin
+  select @amount=p82Amount*@percentage/100,@amount_withoutvat=p82Amount_WithoutVat*@percentage/100 FROM p82Proforma_Payment WHERE p82ID=@p82id
 
+  set @amount_vat=@amount-@amount_withoutvat
+ end
 
 
 if @amount<>(@amount_withoutvat+@amount_vat)
@@ -17099,13 +17106,42 @@ if @amount<>(@amount_withoutvat+@amount_vat)
   set @amount_vat=@amount-@amount_withoutvat
  end
 
-if not exists(select p99ID from p99Invoice_Proforma WHERE p91ID=@p91id AND p90ID=@p90id AND p82ID=@p82id)
- INSERT INTO p99Invoice_Proforma(p82ID,p91ID,p90ID,p99UserInsert,p99UserUpdate,p99DateUpdate,p99Amount) values(@p82id,@p91id,@p90id,@login,@login,getdate(),@amount)
+declare @test_amount1 float,@test_amount2 float
+select @test_amount1=p91Amount_WithVat+isnull(p91RoundFitAmount,0) FROM p91Invoice WHERE p91ID=@p91id
+select @test_amount2=p99Amount FROM p99Invoice_Proforma WHERE p91ID=@p91id
+
+if @test_amount1<(isnull(@test_amount2,0)+@amount)
+ begin
+  set @err_ret='Částky úhrad záloh ('+convert(varchar(10),isnull(@test_amount2,0)+@amount)+',-) by dohromady přesáhli částku daňové faktury ('+convert(varchar(10),@test_amount1)+',-)!'
+  return
+ end
+
+if @percentage=100
+ begin
+   if not exists(select p99ID from p99Invoice_Proforma WHERE p91ID=@p91id AND p82ID=@p82id)
+	INSERT INTO p99Invoice_Proforma(p82ID,p91ID,p99UserInsert,p99UserUpdate,p99DateUpdate,p99Amount) values(@p82id,@p91id,@login,@login,getdate(),@amount)
+
+    update p99Invoice_Proforma set p99Amount=@amount,p99Amount_WithoutVat=@amount_withoutvat,p99Amount_Vat=@amount_vat
+	WHERE p91ID=@p91id AND p82ID=@p82id
+ end
+
+if @percentage<100
+ begin
+  declare @p99id int
+
+  INSERT INTO p99Invoice_Proforma(p82ID,p91ID,p99UserInsert,p99UserUpdate,p99DateUpdate,p99Amount) values(@p82id,@p91id,@login,@login,getdate(),@amount)
+
+  SELECT @p99id=@@IDENTITY
+
+  update p99Invoice_Proforma set p99Amount=@amount,p99Amount_WithoutVat=@amount_withoutvat,p99Amount_Vat=@amount_vat
+  WHERE p99ID=@p99id
+ 
+ end
 
 
 
-update p99Invoice_Proforma set p99Amount=@amount,p99Amount_WithoutVat=@amount_withoutvat,p99Amount_Vat=@amount_vat
-WHERE p91ID=@p91id AND p90ID=@p90id AND p82ID=@p82id
+
+
 
 
 exec p91_recalc_amount @p91id
@@ -17340,16 +17376,16 @@ if @p91amount_withVat<>(@p91amount_withoutVat+@p91amount_Vat)
 declare @p91amount_billed float,@p91amount_debt float,@datLastBilled datetime,@p91proformaamount_withoutvat_low float,@p91proformaamount_withoutvat_standard float
 declare @p91proformaamount float,@p91proformabilledamount float,@p91proformaamount_vat_low float,@p91proformaamount_vat_standard float,@p91proformaamount_withoutvat_none float
 declare @p91proformaamount_vatrate float
-select @p91proformaamount=sum(b.p99Amount),@p91proformabilledamount=sum(b.p99Amount)
+select @p91proformaamount=sum(p99.p99Amount),@p91proformabilledamount=sum(p99.p99Amount)
 ,@p91proformaamount_vat_low=sum(case when a.p90VatRate=@p91vatrate_low then p99Amount_Vat end)
 ,@p91proformaamount_vat_standard=sum(case when a.p90VatRate=@p91vatrate_standard then p99Amount_Vat end)
 ,@p91proformaamount_withoutvat_low=sum(case when a.p90VatRate=@p91vatrate_low then p99Amount_WithoutVat end)
 ,@p91proformaamount_withoutvat_standard=sum(case when a.p90VatRate=@p91vatrate_standard then p99Amount_WithoutVat end)
 ,@p91proformaamount_withoutvat_none=sum(case when a.p90VatRate=0 then p99Amount_WithoutVat end)
-FROM p90Proforma a inner join p99Invoice_Proforma b on a.p90id=b.p90id
-where b.p91id=@p91id
+FROM p90Proforma a inner join p82Proforma_Payment p82 ON a.p90ID=p82.p90ID INNER JOIN p99Invoice_Proforma p99 ON p82.p82ID=p99.p82ID
+where p99.p91ID=@p91id
 
-select TOP 1 @p91proformaamount_vatrate=p90VatRate FROM p90Proforma WHERE p90ID IN (select p90ID FROM p99Invoice_Proforma WHERE p91ID=@p91id)
+select TOP 1 @p91proformaamount_vatrate=a.p90VatRate FROM p90Proforma a INNER JOIN p82Proforma_Payment b ON a.p90ID=b.p90ID WHERE b.p82ID IN (select p82ID FROM p99Invoice_Proforma WHERE p91ID=@p91id)
 
 set @p91proformabilledamount=isnull(@p91proformabilledamount,0)
 set @p91proformaamount=isnull(@p91proformaamount,0)

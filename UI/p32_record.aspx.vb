@@ -36,6 +36,7 @@
         Me.p34ID.FillData(Master.Factory.p34ActivityGroupBL.GetList(New BO.myQuery), True)
         Me.x15id.FillData(Master.Factory.ftBL.GetList_X15(New BO.myQuery), True)
         Me.p95id.FillData(Master.Factory.p95InvoiceRowBL.GetList(New BO.myQuery), True)
+        Me.p38ID.FillData(Master.Factory.p38ActivityTagBL.GetList(New BO.myQuery), True)
         Me.p35id.DataSource = Master.Factory.ftBL.GetList_P35()
         Me.p35id.DataBind()
         If Master.DataPID = 0 Then Return
@@ -49,6 +50,7 @@
             Me.p34ID.SelectedValue = .p34ID.ToString
             Me.x15id.SelectedValue = CInt(.x15ID).ToString
             Me.p95id.SelectedValue = .p95ID.ToString
+            Me.p38ID.SelectedValue = .p38ID.ToString
 
             Me.p32Ordinary.Value = .p32Ordinary
             Me.p32Value_Default.Value = .p32Value_Default
@@ -105,6 +107,7 @@
                 .p34ID = BO.BAS.IsNullInt(Me.p34ID.SelectedValue)
                 .x15ID = BO.BAS.IsNullInt(Me.x15id.SelectedValue)
                 .p95ID = BO.BAS.IsNullInt(Me.p95id.SelectedValue)
+                .p38ID = BO.BAS.IsNullInt(Me.p38ID.SelectedValue)
                 If Me.p35id.Visible Then .p35ID = BO.BAS.IsNullInt(Me.p35id.SelectedValue)
 
                 .p32Code = Me.p32Code.Text

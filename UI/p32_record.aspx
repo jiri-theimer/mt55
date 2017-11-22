@@ -132,6 +132,14 @@
                 </tr>
                 <tr>
                     <td>
+                        <uc:datalabel ID="lblP38ID" runat="server" Text="Kategorie:"></uc:datalabel>
+                    </td>
+                    <td>
+                        <uc:datacombo ID="p38ID" Width="300px" runat="server" DataTextField="p38Name"></uc:datacombo>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         <asp:Label ID="lblp32AttendanceFlag" runat="server" Text="Rychlá volba v rozhraní docházky:"></asp:Label>
                     </td>
                     <td>
@@ -179,7 +187,7 @@
                         <asp:Label runat="server" ID="Label3" Text="Barva:"></asp:Label>
                     </td>
                     <td>
-                        <telerik:RadColorPicker ID="p32Color" runat="server" CurrentColorText="Vybraná barva" NoColorText="Bez barvy" ShowIcon="true" Preset="Default">
+                        <telerik:RadColorPicker ID="p32Color" runat="server" CurrentColorText="Vybraná barva" NoColorText="Bez barvy" ShowIcon="true" Preset="Standard">
                         </telerik:RadColorPicker>
                         <span class="infoInForm">Barva pro odlišení aktivity v DAYLINE zobrazení a v operativním plánování.</span>
                     </td>

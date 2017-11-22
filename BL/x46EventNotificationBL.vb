@@ -110,25 +110,7 @@ Class x46EventNotificationBL
                 objects.Add(Factory.j02PersonBL.Load(cX47.x47RecordPID))
             Case BO.x29IdEnum.p51PriceList
                 objects.Add(Factory.p51PriceListBL.Load(cX47.x47RecordPID))
-                ''Case BO.x29IdEnum.b07Comment
-                ''    Dim cRec As BO.b07Comment = Factory.b07CommentBL.Load(cX47.x47RecordPID)
-                ''    intJ02ID_Owner = cRec.j02ID_Owner
-                ''    objects.Add(cRec)
-                ''    With cRec
-                ''        If .x29ID = BO.x29IdEnum.p41Project Then objectReference = Factory.p41ProjectBL.Load(.b07RecordPID)
-                ''        If .x29ID = BO.x29IdEnum.p28Contact Then objectReference = Factory.p28ContactBL.Load(.b07RecordPID)
-                ''        If .x29ID = BO.x29IdEnum.p56Task Then objectReference = Factory.p56TaskBL.Load(.b07RecordPID)
-                ''        If .x29ID = BO.x29IdEnum.p91Invoice Then objectReference = Factory.p91InvoiceBL.Load(.b07RecordPID)
-                ''        If .x29ID = BO.x29IdEnum.o22Milestone Then objectReference = Factory.o22MilestoneBL.Load(.b07RecordPID)
-                ''        If .x29ID = BO.x29IdEnum.p31Worksheet Then objectReference = Factory.p31WorksheetBL.Load(.b07RecordPID)
-                ''        If .x29ID = BO.x29IdEnum.o23Doc Then
-                ''            Dim c As BO.o23Doc = Factory.o23DocBL.Load(.b07RecordPID)
-                ''            If c.o23IsEncrypted Then
-                ''                c.o23BigText = "Obsah je zašifrovaný."
-                ''            End If
-                ''            objectReference = c
-                ''        End If
-                ''    End With
+              
             Case BO.x29IdEnum.o23Doc
                 Dim cRec As BO.o23Doc = Factory.o23DocBL.Load(cX47.x47RecordPID)
                 intJ02ID_Owner = cRec.j02ID_Owner

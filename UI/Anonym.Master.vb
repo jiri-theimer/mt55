@@ -19,7 +19,7 @@
             css1.Href = "~/Styles/SiteMobile_v2.css"
         Else
             
-            css1.Href = "~/Styles/Site_v11.css"
+            css1.Href = "~/Styles/Site_v12.css"
         End If
     End Sub
 
