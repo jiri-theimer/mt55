@@ -148,6 +148,7 @@
     <Compile Include="Helpers\EventColor.vb" />
     <Compile Include="Helpers\FullTextQueryInput.vb" />
     <Compile Include="Helpers\FullTextRecord.vb" />
+    <Compile Include="Helpers\Integration\FlexiBeeObjects.vb" />
     <Compile Include="Helpers\MsOfficeBinding.vb" />
     <Compile Include="Helpers\p56TaskSum.vb" />
     <Compile Include="Helpers\PersonOrTeam.vb" />
