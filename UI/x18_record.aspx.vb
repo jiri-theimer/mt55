@@ -732,7 +732,7 @@
 
     Private Sub Handle_Change_IsManyItems()
         If Master.DataPID = 0 And Me.x18IsManyItems.SelectedValue = "1" Then
-            Me.x18UploadFlag.SelectedValue = "1"
+            Me.x18UploadFlag.SelectedValue = "0"
         End If
     End Sub
 

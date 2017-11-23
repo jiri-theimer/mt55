@@ -400,7 +400,7 @@
                             <td>
                                 <asp:DropDownList ID="x18EntryCodeFlag" runat="server">
                                     <asp:ListItem Text="Ručně" Value="1"></asp:ListItem>
-                                    <asp:ListItem Text="Nepoužívat" Value="2"></asp:ListItem>
+                                    <asp:ListItem Text="Nepoužívat" Value="2" Selected="true"></asp:ListItem>
                                     <asp:ListItem Text="Generovat automaticky v rámci všech dokumentů" Value="3"></asp:ListItem>
                                     <asp:ListItem Text="Generovat automaticky v rámci projektu" Value="4"></asp:ListItem>
                                 </asp:DropDownList>
@@ -413,7 +413,7 @@
                             <td>
                                 <asp:DropDownList ID="x18EntryOrdinaryFlag" runat="server">
                                     <asp:ListItem Text="Ručně" Value="1"></asp:ListItem>
-                                    <asp:ListItem Text="Nepoužívat" Value="2"></asp:ListItem>
+                                    <asp:ListItem Text="Nepoužívat" Value="2" Selected="true"></asp:ListItem>
                                 </asp:DropDownList>
                             </td>
                         </tr>
