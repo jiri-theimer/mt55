@@ -71,7 +71,6 @@ Public Class flexibee
         CType(e.Item.FindControl("hidID"), HiddenField).Value = c.id
 
         CType(e.Item.FindControl("kod"), Label).Text = c.kod
-        CType(e.Item.FindControl("varSym"), Label).Text = c.varSym
         CType(e.Item.FindControl("popis"), Label).Text = c.popis
         CType(e.Item.FindControl("firma"), Label).Text = Replace(c.firma, "code:", "")
 
@@ -80,6 +79,9 @@ Public Class flexibee
         CType(e.Item.FindControl("lastUpdate"), Label).Text = BO.BAS.FD(c.lastUpdate, True, True)
         CType(e.Item.FindControl("sumCelkem"), Label).Text = BO.BAS.FN(c.sumCelkem) & " " & Replace(c.mena, "code:", "")
 
+        With CType(e.Item.FindControl("linkExport"), HyperLink)
+            .NavigateUrl = "javascript:export_record(" & c.id & ")"
+        End With
     End Sub
 
     Private Sub cmdLoadFaktury_Click(sender As Object, e As EventArgs) Handles cmdLoadFaktury.Click

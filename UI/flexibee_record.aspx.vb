@@ -12,15 +12,15 @@ Public Class flexibee_record
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
             Dim strID As String = Request.Item("id")
-            LoadRecord(strID)
+            ExportRecord(strID)
         End If
     End Sub
 
-    Private Sub LoadRecord(strID As String)
+    Private Sub ExportRecord(strID As String)
         System.Net.ServicePointManager.ServerCertificateValidationCallback = Function() True
 
         Dim strURL As String = BO.ASS.GetConfigVal("flexibee_server") & "/faktura-prijata/" & strID & ".json"
-        
+
         Dim request As System.Net.HttpWebRequest = System.Net.HttpWebRequest.Create(strURL)
         request.ContentType = "application/json"
         request.Credentials = New System.Net.NetworkCredential(BO.ASS.GetConfigVal("flexibee_login"), BO.ASS.GetConfigVal("flexibee_pwd"))
@@ -53,11 +53,24 @@ Public Class flexibee_record
             Return
         End If
         Dim faktura As BO.FakturaPrijata = result.winstrom.fakturaprijata(0)
+        Dim c As New BO.p85TempBox
+        c.p85GUID = BO.BAS.GetGUID
+        With faktura
+            c.p85FreeDate01 = .duzpPuv
+            c.p85FreeText01 = .kod
+            c.p85Message = .popis
+            c.p85FreeFloat01 = .sumZklCelkem
+            c.p85FreeFloat02 = .sumDphCelkem
+            c.p85FreeFloat03 = .sumCelkem
+        End With
+        Master.Factory.p85TempBoxBL.Save(c)
+
+
 
 
         txt1.Text = "DPH: " & faktura.sumDphCelkem & ", bez DPH: " & faktura.sumZklCelkem & ", celkem: " & faktura.sumCelkem
-       
-        
+
+
         'For Each faktura In result.winstrom.fakturaprijata
         '    Me.TextBox1.Text += vbCrLf & "ID: " & faktura.id & ", cena: " & faktura.sumCelkem & ", datum: " & faktura.datVyst & ", popis: " & faktura.popis & ", fima ID: " & faktura.firmainternalId & ", last-changed: " & faktura.lastUpdate
         'Next

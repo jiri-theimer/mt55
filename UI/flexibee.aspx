@@ -3,6 +3,13 @@
 <%@ MasterType VirtualPath="~/Site.Master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
+    <script type="text/javascript">
+        function export_record(id) {
+
+            sw_everywhere("flexibee_record.aspx?id="+id);
+
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -44,7 +51,7 @@
         </tr>
         <asp:Repeater ID="rp1" runat="server">
             <ItemTemplate>
-                <tr>
+                <tr class="trHover">
                     <td>
                         <asp:Label ID="kod" runat="server"></asp:Label>
                         <asp:HiddenField ID="hidID" runat="server" />
@@ -70,7 +77,7 @@
                         <asp:Label ID="lastupdate" runat="server" CssClass="timestamp"></asp:Label>
                     </td>
                     <td>
-                        
+                        <asp:HyperLink ID="linkExport" runat="server" Text="Export"></asp:HyperLink>
                     </td>
                 </tr>
             </ItemTemplate>
