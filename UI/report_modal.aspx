@@ -90,6 +90,9 @@
         function rvprint() {
             <%=rv1.ClientID%>.PrintReport(); 
         }
+        function click_export(){
+            document.getElementById("MainContent_rv1_ReportToolbar_ExportGr_Export").click();
+        }
     </script>
 
 </asp:Content>

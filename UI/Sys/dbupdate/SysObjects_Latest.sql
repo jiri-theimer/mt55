@@ -12756,6 +12756,67 @@ END CATCH
 
 GO
 
+----------P---------------p38_delete-------------------------
+
+if exists (select 1 from sysobjects where  id = object_id('p38_delete') and type = 'P')
+ drop procedure p38_delete
+GO
+
+
+
+
+
+CREATE   procedure [dbo].[p38_delete]
+@j03id_sys int				--přihlášený uživatel
+,@pid int					--p38ID
+,@err_ret varchar(500) OUTPUT		---případná návratová chyba
+
+AS
+--odstranění záznamu  z tabulky p38ActivityTag
+declare @ref_pid int
+
+SELECT TOP 1 @ref_pid=p32ID from p32Activity WHERE p38ID=@pid
+if @ref_pid is not null
+ set @err_ret='Minimálně jedna aktivita má vazbu na tuto kategorii ('+dbo.GetObjectAlias('p32',@ref_pid)+')'
+
+
+
+if isnull(@err_ret,'')<>''
+ return 
+
+BEGIN TRANSACTION
+
+BEGIN TRY
+	DELETE FROM p38ActivityTag where p38ID=@pid
+
+	
+
+	COMMIT TRANSACTION
+
+END TRY
+BEGIN CATCH
+  set @err_ret=dbo.parse_errinfo(ERROR_PROCEDURE(),ERROR_LINE(),ERROR_MESSAGE())
+  ROLLBACK TRANSACTION
+  
+END CATCH  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+GO
+
 ----------P---------------p39_generate_recurrence-------------------------
 
 if exists (select 1 from sysobjects where  id = object_id('p39_generate_recurrence') and type = 'P')

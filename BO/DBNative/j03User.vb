@@ -24,6 +24,7 @@ Public Class j03User
     Public Property j03MobileForwardFlag As j03MobileForwardFlagENUM = j03MobileForwardFlagENUM.Auto
     Public Property j03ModalWindowsFlag As Integer
     Public Property j03ProjectMaskIndex As Integer
+    Public Property j03ActivityMaskIndex As Integer
     Protected Property _j04Name As String
     Protected Property _j02LastName As String
     Protected Property _j02FirstName As String

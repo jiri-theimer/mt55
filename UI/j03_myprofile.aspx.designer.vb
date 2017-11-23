@@ -248,6 +248,15 @@ Partial Public Class j03_myprofile
     Protected WithEvents search_p41_toprecs As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''j03ActivityMaskIndex control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents j03ActivityMaskIndex As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
     '''lblj02Email control.
     '''</summary>
     '''<remarks>

@@ -730,6 +730,9 @@ Class j70QueryTemplateBL
             .Add(AGC(My.Resources.common.FA, "p32IsBillable", BO.cfENUM.Checkbox, , , , , "Aktivita", "min(convert(int,p32.p32IsBillable))", "p32.p32IsBillable"))
             .Add(AGC(My.Resources.common.Sesit, "p34Name", , , , , , "Aktivita", "min(p34Name)", "p32.p34ID"))
             .Add(AGC(My.Resources.common.FakturacniOddil, "p95Name", , , , , , "Aktivita", "min(p95.p95Name)", "p32.p95ID"))
+            .Add(AGC("Kód aktivity", "p32Code", , , , , , "Aktivita", "min(p32Code)", "a.p32ID"))
+            .Add(AGC("Kategorie aktivity", "KategorieAktivity", , True, "p38.p38Name", , , "Aktivita", "min(p38.p38Name)", "p32.p38ID"))
+            .Add(AGC("Kód kategorie", "KodKategorieAktivity", , True, "p38.p38Code", , , "Aktivita", "min(p38.p38Code)", "p32.p38ID"))
 
             .Add(AGC(My.Resources.common.Projekt, "p41Name", , , "isnull(p41NameShort,p41Name)", , , "Projekt", "min(p41Name)", "a.p41ID"))
             '.Add(AGC("Klient+Projekt", "ClientAndProject", , , "isnull(p28Client.p28Name+'-','')+p41Name", , , "Projekt", "min(isnull(p28Client.p28Name+' - ','')+p41Name)", "a.p41ID"))

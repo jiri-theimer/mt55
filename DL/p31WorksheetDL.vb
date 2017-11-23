@@ -745,7 +745,7 @@
         s.Append(" LEFT OUTER JOIN p70BillingStatus p70 ON a.p70ID=p70.p70ID LEFT OUTER JOIN p71ApproveStatus p71 ON a.p71ID=p71.p71ID LEFT OUTER JOIN p72PreBillingStatus p72trim ON a.p72ID_AfterTrimming=p72trim.p72ID LEFT OUTER JOIN p72PreBillingStatus p72approve ON a.p72ID_AfterApprove=p72approve.p72ID")
         s.Append(" LEFT OUTER JOIN j02Person j02owner ON a.j02ID_Owner=j02owner.j02ID LEFT OUTER JOIN j02Person cp ON a.j02ID_ContactPerson=cp.j02ID LEFT OUTER JOIN p28Contact supplier ON a.p28ID_Supplier=supplier.p28ID")
         s.Append(" LEFT OUTER JOIN j27Currency j27billing_orig ON a.j27ID_Billing_Orig=j27billing_orig.j27ID")
-        s.Append(" LEFT OUTER JOIN p95InvoiceRow p95 ON p32.p95ID=p95.p95ID")
+        s.Append(" LEFT OUTER JOIN p95InvoiceRow p95 ON p32.p95ID=p95.p95ID LEFT OUTER JOIN p38ActivityTag p38 ON p32.p38ID=p38.p38ID")
         If strGUID_TempData = "" Then
             s.Append(" LEFT OUTER JOIN p31WorkSheet_FreeField p31free ON a.p31ID=p31free.p31ID")
         Else

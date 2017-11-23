@@ -84,6 +84,10 @@ Public Class report_modal
                 End If
 
                 .AddToolbarButton(Resources.report_modal.OdeslatPostou, "mail", 0, "Images/email.png")
+                If Me.MultiPIDs = "" Then
+                    .AddToolbarButton("Export", "export", 0, "Images/pdf.png", False, "javascript:click_export()")
+                End If
+
                 .AddToolbarButton(Resources.report_modal.Tisk, "print", 0, "Images/report.png", False, "javascript:rvprint()")
                 .RadToolbar.FindItemByValue("merge").CssClass = "show_hide1"
 

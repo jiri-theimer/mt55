@@ -202,6 +202,14 @@
                         </asp:DropDownList>
                         <span class="infoInForm">Má dopad na všechny formuláře/obrazovky, kde se vyplňuje projekt.</span>
                     </div>
+                    <div class="div6">
+                        <span>Maska výběru worksheet aktivity:</span>
+                        <asp:DropDownList ID="j03ActivityMaskIndex" runat="server">
+                            <asp:ListItem Text="Název aktivity" Value="0"></asp:ListItem>
+                            <asp:ListItem Text="Kód aktivity+název aktivity" Value="1"></asp:ListItem>                            
+                        </asp:DropDownList>
+                        
+                    </div>
                     <table cellpadding="10">
 
                         <tr>

@@ -121,7 +121,7 @@
     <value>Template setting</value>
   </data>
   <data name="OdeslatPostou" xml:space="preserve">
-    <value>Send by mail as PDF</value>
+    <value>Send by mail</value>
   </data>
   <data name="Sestava" xml:space="preserve">
     <value>Report:</value>

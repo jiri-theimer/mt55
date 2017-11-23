@@ -74,7 +74,7 @@ Namespace Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Odeslat e-mail s PDF.
+        '''  Looks up a localized string similar to Odeslat e-mail.
         '''</summary>
         Friend Shared ReadOnly Property OdeslatPostou() As String
             Get

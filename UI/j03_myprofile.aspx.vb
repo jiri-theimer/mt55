@@ -65,6 +65,7 @@
             basUI.SelectDropdownlistValue(Me.j03SiteMenuSkin, .j03SiteMenuSkin)
             basUI.SelectDropdownlistValue(Me.j03PageMenuFlag, .j03PageMenuFlag.ToString)
             basUI.SelectDropdownlistValue(Me.j03ProjectMaskIndex, .j03ProjectMaskIndex.ToString)
+            basUI.SelectDropdownlistValue(Me.j03ActivityMaskIndex, .j03ActivityMaskIndex.ToString)
 
         End With
 
@@ -123,6 +124,7 @@
                 .j03SiteMenuSkin = Me.j03SiteMenuSkin.SelectedValue
                 .j03PageMenuFlag = CInt(Me.j03PageMenuFlag.SelectedValue)
                 .j03ProjectMaskIndex = CInt(Me.j03ProjectMaskIndex.SelectedValue)
+                .j03ActivityMaskIndex = CInt(Me.j03ActivityMaskIndex.SelectedValue)
             End With
 
             If Not Master.Factory.j03UserBL.Save(cJ03) Then

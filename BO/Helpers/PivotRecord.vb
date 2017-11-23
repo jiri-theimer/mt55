@@ -28,6 +28,8 @@
     p31Rate_Billing_Approved = 3102
     p31Rate_Billing_Invoiced = 3103
     p31Rate_Internal_Orig = 3104
+    p38Name = 3801
+    p38Code = 3802
 End Enum
 Public Enum PivotSumFieldType
     p31Hours_Orig = 1
@@ -164,6 +166,10 @@ Public Class PivotRowColumnField
                 _SelectField = "min(p95.p95Name)"
                 _GroupByField = "p32.p95ID"
                 s = "Fakturační oddíl"
+            Case PivotRowColumnFieldType.p38Name
+                _SelectField = "min(p38.p38Name)"
+                _GroupByField = "p32.p38ID"
+                s = "Kategorie aktivity"
             Case PivotRowColumnFieldType.p32IsBillable
                 _SelectField = "min(convert(int,p32.p32IsBillable))"
                 _GroupByField = "p32.p32IsBillable"

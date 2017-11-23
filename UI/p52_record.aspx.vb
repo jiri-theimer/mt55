@@ -25,6 +25,7 @@
                     Me.opgSubject.SelectedValue = .Factory.j03UserBL.GetUserParam("p52_record-subject", "j02")
                     Me.p34ID.SelectedValue = .Factory.j03UserBL.GetUserParam("p52_record-p34id")
                 End If
+                If .Factory.SysUser.j03ActivityMaskIndex = 1 Then Me.p32ID.DataTextField = "CodeWithName"
             End With
 
             Me.hidIsp52IsPlusAllTimeSheets.Value = "1"
