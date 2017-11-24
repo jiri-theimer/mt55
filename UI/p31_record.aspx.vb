@@ -79,14 +79,7 @@
             Me.hidP91ID.Value = value.ToString
         End Set
     End Property
-    Private Property CurrentAppGuid As String
-        Get
-            Return Me.hidAppGUID.Value
-        End Get
-        Set(value As String)
-            Me.hidAppGUID.Value = value
-        End Set
-    End Property
+    
     Public Property CurrentP85ID As Integer
         Get
             Return BO.BAS.IsNullInt(Me.hidP85ID.Value)
@@ -221,30 +214,29 @@
             Dim cTask As BO.p56Task = Master.Factory.p56TaskBL.LoadByCode(Request.Item("p56code"))
             If Not cTask Is Nothing Then intDefP56ID = cTask.PID Else Master.Notify("Pro předávaný kód úkolu nebyl nalezen záznam.")
         End If
-        Me.CurrentAppGuid = Request.Item("appguid")
         'dál se pokračuje pouze pro nové záznamy
         If Master.DataPID = 0 Then
-            If Me.CurrentAppGuid <> "" Then
-                'překlopení kalendářové události do worksheet úkonu
-                ''Dim cP48 As BO.p48OperativePlan = Master.Factory.p48OperativePlanBL.Load(Me.CurrentP48ID)
-                ''Me.CurrentJ02ID = cP48.j02ID
-                ''Me.j02ID.Value = cP48.j02ID
-                ''Me.j02ID.Text = cP48.Person
-                ''Me.p31Date.SelectedDate = cP48.p48Date
-                ''Me.p31Text.Text = cP48.p48Text
-                ''Me.p41ID.Value = cP48.p41ID.ToString
-                ''Me.p41ID.Text = cP48.ClientAndProject
-                ''Handle_ChangeP41(False, 0)
-                ''If cP48.p34ID <> 0 Then
-                ''    Me.p34ID.SelectedValue = cP48.p34ID.ToString
-                ''    Handle_ChangeP34()
-                ''    If cP48.p32ID <> 0 Then Me.p32ID.SelectedValue = cP48.p32ID.ToString
-                ''End If
-                ''Me.p31Value_Orig.Text = cP48.p48Hours.ToString
-                ''If Not cP48.p48DateTimeFrom Is Nothing Then
-                ''    Me.CurrentHoursEntryFlag = BO.p31HoursEntryFlagENUM.PresnyCasOdDo
-                ''    Me.TimeFrom.Text = cP48.p48TimeFrom : Me.TimeUntil.Text = cP48.p48TimeUntil
-                ''End If
+            If Request.Item("tempsource") <> "" Then
+                'překlopení temp záznamu do worksheet úkonu
+                Dim cTemp As BO.p85TempBox = Master.Factory.p85TempBoxBL.LoadByGUID(Request.Item("tempsource"))
+                With cTemp
+                    Me.CurrentJ02ID = Master.Factory.SysUser.j02ID
+                    Me.p31Date.SelectedDate = .p85FreeDate01
+                    Me.p31Text.Text = .p85Message
+                    Me.p41ID.Value = .p85OtherKey1.ToString
+                    Me.p41ID.Text = .p85FreeText01
+                    Dim cP32 As BO.p32Activity = Master.Factory.p32ActivityBL.Load(.p85OtherKey2)
+                    If Not cP32 Is Nothing Then
+                        Me.p34ID.SelectedValue = cP32.p34ID.ToString
+                        Handle_ChangeP34()
+                        Me.p32ID.SelectedValue = .p85OtherKey2.ToString
+                    End If
+                    Me.p31Code.Text = .p85FreeText02
+                    Me.p31Amount_WithoutVat_Orig.Value = .p85FreeFloat01
+                    Me.p31Amount_Vat_Orig.Value = .p85FreeFloat02
+                    Me.p31Amount_WithVat_Orig.Value = .p85FreeFloat03
+                End With
+                
                 Return
             End If
 

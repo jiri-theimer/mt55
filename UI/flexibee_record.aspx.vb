@@ -56,25 +56,34 @@ Public Class flexibee_record
         Dim c As New BO.p85TempBox
         c.p85GUID = BO.BAS.GetGUID
         With faktura
-            c.p85FreeDate01 = .duzpPuv
-            c.p85FreeText01 = .kod
-            c.p85Message = .popis
-            c.p85FreeFloat01 = .sumZklCelkem
-            c.p85FreeFloat02 = .sumDphCelkem
-            c.p85FreeFloat03 = .sumCelkem
+            c.p85OtherKey1 = 172                 'p41ID
+            c.p85FreeText01 = Master.Factory.GetRecordCaption(BO.x29IdEnum.p41Project, 172, True)
+            c.p85OtherKey2 = 83                  'p32ID
+
+            c.p85FreeDate01 = .duzpPuv          'duzp
+            c.p85FreeText02 = .kod              'kod dokladu
+            c.p85Message = .popis               'text
+            c.p85FreeFloat01 = .sumZklCelkem    'bez dph
+            c.p85FreeFloat02 = .sumDphCelkem    'částka dph
+            c.p85FreeFloat03 = .sumCelkem       'vč. DPH
         End With
-        Master.Factory.p85TempBoxBL.Save(c)
+
+        reader.Close()
+
+        If Master.Factory.p85TempBoxBL.Save(c) Then
+            Response.Redirect("p31_record.aspx?pid=0&tempsource=" & c.p85GUID, True)
+        End If
 
 
 
 
-        txt1.Text = "DPH: " & faktura.sumDphCelkem & ", bez DPH: " & faktura.sumZklCelkem & ", celkem: " & faktura.sumCelkem
+        ''txt1.Text = "DPH: " & faktura.sumDphCelkem & ", bez DPH: " & faktura.sumZklCelkem & ", celkem: " & faktura.sumCelkem
 
 
         'For Each faktura In result.winstrom.fakturaprijata
         '    Me.TextBox1.Text += vbCrLf & "ID: " & faktura.id & ", cena: " & faktura.sumCelkem & ", datum: " & faktura.datVyst & ", popis: " & faktura.popis & ", fima ID: " & faktura.firmainternalId & ", last-changed: " & faktura.lastUpdate
         'Next
 
-        reader.Close()
+
     End Sub
 End Class
