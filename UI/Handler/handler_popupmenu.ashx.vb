@@ -445,7 +445,7 @@ Public Class handler_popupmenu
         If factory.SysUser.j04IsMenu_Project Then
             Dim ss As String = cRec.p41NameShort
             If ss = "" Then ss = cRec.p41Name
-            If cRec.p28ID_Client > 0 Then ss = cRec.ClientName & " - " & ss
+            ''If cRec.p28ID_Client > 0 Then ss = cRec.ClientName & " - " & ss
             REL(ss, "p41_framework.aspx?pid=" & cRec.p41ID.ToString, "_top", "Images/project.png", True) 'pod odkaz
         End If
         If factory.SysUser.j04IsMenu_Contact And cRec.p28ID_Client > 0 Then

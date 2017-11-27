@@ -134,6 +134,7 @@ Public Class navigator
                         If strParentPrefix = "p41" Then mq.p41ParentID = intParentPID
                         If strParentPrefix = "p28" Then mq.p28ID = intParentPID
                         If strParentPrefix = "j18" Then mq.j18ID = intParentPID
+                        If strParentPrefix = "b02" Then mq.b02ID = intParentPID
                     End If
                     If strParentPrefix <> "p41" Then mq.p41TreeLevel = 0
                     Dim dt As DataTable = Master.Factory.p41ProjectBL.GetGridDataSource(mq)
@@ -234,6 +235,22 @@ Public Class navigator
                         c.IsFinalLevel = IsLastLevel(c.Level)
                         dtss.Add(c)
                     Next
+                Case "b02"
+                    Dim lisB01 As IEnumerable(Of BO.b01WorkflowTemplate) = Master.Factory.b01WorkflowTemplateBL.GetList(New BO.myQuery).Where(Function(p) p.x29ID = BO.x29IdEnum.p41Project)
+                    For Each cB01 In lisB01
+                        Dim lis As IEnumerable(Of BO.b02WorkflowStatus) = Master.Factory.b02WorkflowStatusBL.GetList(cB01.PID)
+                        For Each dbRow In lis
+                            Dim c As New DTS(dbRow.PID, dbRow.b02Name & " (" & cB01.b01Name & ")", "b02", dbRow.IsClosed)
+                            If Not nParent Is Nothing Then
+                                c.ParentPID = intParentPID
+                                If strPrefix <> strParentPrefix Then c.Level = intParentLevel + 1
+                            End If
+                            c.IsFinalLevel = IsLastLevel(c.Level)
+                            dtss.Add(c)
+                        Next
+                    Next
+
+
             End Select
         Next
 

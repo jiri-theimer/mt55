@@ -14,6 +14,15 @@ Option Explicit On
 Partial Public Class entity_framework
 
     '''<summary>
+    '''placeNew control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents placeNew As Global.System.Web.UI.WebControls.PlaceHolder
+
+    '''<summary>
     '''RadSplitter1 control.
     '''</summary>
     '''<remarks>
@@ -30,6 +39,15 @@ Partial Public Class entity_framework
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents navigationPane As Global.Telerik.Web.UI.RadPane
+
+    '''<summary>
+    '''picaDefault control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents picaDefault As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
     '''panSearch control.

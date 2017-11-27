@@ -104,7 +104,8 @@
                 <asp:ListItem Text="Klient->Projekt->Faktura" Value="p28-p41-p91"></asp:ListItem>
                 <asp:ListItem Text="Středisko->Projekt" Value="j18-p41"></asp:ListItem>
                 <asp:ListItem Text="Projekt->Úkol" Value="p41-p56"></asp:ListItem>           
-                <asp:ListItem Text="Osoba->Úkol" Value="j02-p56"></asp:ListItem>                          
+                <asp:ListItem Text="Osoba->Úkol" Value="j02-p56"></asp:ListItem>
+                <asp:ListItem Text="Stav projektu->Projekt" Value="b02-p41"></asp:ListItem>
             </asp:DropDownList>
 
             <button type="button" id="cmdSetting" class="show_hide1" style="float: right; padding: 3px; border-radius: 4px; border-top: solid 1px silver; border-left: solid 1px silver; border-bottom: solid 1px gray; border-right: solid 1px gray; background: buttonface;" title="Nastavit si úrovně navigátora">

@@ -2,6 +2,7 @@
 Public Class entity_framework
     Inherits System.Web.UI.Page
     Protected WithEvents _MasterPage As Site
+
     
     Private Property _x29id As BO.x29IdEnum
     Private Property _needFilterIsChanged As Boolean = False
@@ -53,12 +54,23 @@ Public Class entity_framework
 
     Private Sub entity_framework_Init(sender As Object, e As EventArgs) Handles Me.Init
         _MasterPage = Me.Master
+
         
+
+        'If opgLayout.Value = "3" Then
+        '    navigationPane.Controls.Remove(picaDefault)
+        '    placeNew.Controls.Add(picaDefault)
+        'End If
+        
+
+
+
     End Sub
 
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         designer1.Factory = Master.Factory
+
         If Not Page.IsPostBack Then
             If Request.Item("prefix") <> "" Then
                 Me.CurrentX29ID = BO.BAS.GetX29FromPrefix(Request.Item("prefix"))
@@ -95,7 +107,7 @@ Public Class entity_framework
                     .DataSource = Master.Factory.j70QueryTemplateBL.GroupByPallet(Me.CurrentX29ID)
                     .DataBind()
                 End With
-                
+
                 With .Factory.j03UserBL
                     .InhaleUserParams(lisPars)
                     If basUI.GetCookieValue(Request, "MT50-SAW") = "1" Then
@@ -137,7 +149,6 @@ Public Class entity_framework
 
                     basUI.SelectDropdownlistValue(cbxGroupBy, .GetUserParam(Me.CurrentPrefix + "_framework-groupby"))
 
-                    ''Me.chkGroupsAutoExpanded.Checked = BO.BAS.BG(.GetUserParam(Me.CurrentPrefix + "_framework-groups-autoexpanded", "1"))
                     chkCheckboxSelector.SelectedValue = .GetUserParam(Me.CurrentPrefix + "_framework-checkbox_selector", "1")
                     If .GetUserParam(Me.CurrentPrefix + "_framework-sort") <> "" Then
                         grid1.radGridOrig.MasterTableView.SortExpressions.AddSortExpression(.GetUserParam(Me.CurrentPrefix + "_framework-sort"))
@@ -145,7 +156,6 @@ Public Class entity_framework
                     strDefWidth = ""
                     If Me.CurrentPrefix = "p91" Then strDefWidth = "p91DateSupply"
                     basUI.SelectDropdownlistValue(cbxPeriodType, .GetUserParam(Me.CurrentPrefix + "_framework-periodtype", strDefWidth))
-                    ''If Me.cbxQueryFlag.Visible Then basUI.SelectDropdownlistValue(Me.cbxQueryFlag, .GetUserParam(Me.CurrentPrefix + "_framework-queryflag"))
 
                     If cbxPeriodType.SelectedIndex > 0 Then
                         period1.SetupData(Master.Factory, .GetUserParam("periodcombo-custom_query"))
@@ -165,14 +175,8 @@ Public Class entity_framework
             designer1.Prefix = Me.CurrentPrefix
             designer1.CurrentJ62ID = Me.CurrentJ62ID
             designer1.x36Key = Me.CurrentPrefix + "-j70id"
-            'If Me.CurrentJ62ID <> 0 Then
-            '    _curJ62 = Master.Factory.j62MenuHomeBL.Load(Me.CurrentJ62ID)
-            '    If _curJ62 Is Nothing Then Master.StopPage("j62 record not found")
-            'Else
-            '    Master.SiteMenuValue = Me.CurrentPrefix
-            'End If
-            If Me.CurrentJ62ID <> 0 Then
-            Else
+
+            If Me.CurrentJ62ID = 0 Then
                 Master.SiteMenuValue = Me.CurrentPrefix
             End If
 
@@ -182,7 +186,7 @@ Public Class entity_framework
                 If strJ70ID = "" Then strJ70ID = .GetUserParam(Me.CurrentPrefix + "-j70id")
                 designer1.RefreshData(BO.BAS.IsNullInt(strJ70ID))
 
-               
+
                 SetupGrid(.GetUserParam(Me.CurrentPrefix + "_framework-filter_setting"), .GetUserParam(Me.CurrentPrefix + "_framework-filter_sql"))
             End With
             If Me.CurrentMasterPID > 0 Then
@@ -225,6 +229,14 @@ Public Class entity_framework
                 End With
 
             Case "3"    'pouze jeden panel
+
+                With picaDefault.Style
+                    .Item("position") = "absolute"
+                    .Item("left") = "0px"
+                    .Item("top") = "35px"
+                End With
+                
+
                 RadSplitter1.Orientation = Orientation.Horizontal
                 With navigationPane
                     .Collapsed = False
@@ -238,7 +250,11 @@ Public Class entity_framework
                 Me.contentPane.Collapsed = True
                 Me.contentPane.Visible = False
                 Me.RadSplitbar1.Visible = False
-                
+
+                'RadSplitter1.Controls.Clear()
+                'navigationPane.Visible = False
+                'navigationPane.Controls.Clear()
+                RadSplitter1.OnClientLoad = ""
 
         End Select
         
@@ -250,7 +266,6 @@ Public Class entity_framework
   
 
     Private Sub SetupPeriodQuery()
-        ''Me.cbxQueryFlag.Visible = False
         With cbxPeriodType.Items
             If .Count > 0 Then .Clear()
             .Add(New ListItem("--Nefiltrovat--", ""))
@@ -276,14 +291,10 @@ Public Class entity_framework
 
                 Case BO.x29IdEnum.j02Person
                     .Add(New ListItem("Založení záznamu", "DateInsert"))
-                    ''cbxQueryFlag.Items.Add(New ListItem("Pouze interní osoby", "1"))
-                    ''cbxQueryFlag.Items.Add(New ListItem("Pouze kontaktní osoby", "2"))
-                    ''cbxQueryFlag.Items.Add(New ListItem("Všechny osobní profily", "3"))
             End Select
             .Add(New ListItem("Datum worksheet úkonu", "p31Date"))
         End With
-        
-        ''If Me.cbxQueryFlag.Items.Count > 1 Then cbxQueryFlag.Visible = True
+
     End Sub
 
     Private Sub Handle_Permissions_And_More()
@@ -295,36 +306,24 @@ Public Class entity_framework
             .PageTitle = BO.BAS.GetX29EntityAlias(Me.CurrentX29ID, True)
             Select Case Me.CurrentX29ID
                 Case BO.x29IdEnum.p41Project
-                    ''img1.ImageUrl = "Images/project_32.png"
                     If Not .Factory.SysUser.j04IsMenu_Project Then .StopPage("Nemáte přístup do modulu [PROJEKTY].")
                     FindNode("groupLayout").Text = "Rozvržení panelů v modulu [PROJEKTY]"
-                    ''menu1.FindItemByValue("more").Text = "Akce nad projekty"
                 Case BO.x29IdEnum.p28Contact
                     FindNode("groupLayout").Text = "Rozvržení panelů v modulu [KLIENTI]"
-                    ''img1.ImageUrl = "Images/contact_32.png"
                     If Not .Factory.SysUser.j04IsMenu_Contact Then .StopPage("Nemáte přístup do modulu [KLIENTI].")
-                    ''menu1.FindItemByValue("more").Text = "Akce nad klienty"
                 Case BO.x29IdEnum.o23Doc
                     FindNode("groupLayout").Text = "Rozvržení panelů v modulu [DOKUMENTU]"
                     If Not .Factory.SysUser.j04IsMenu_Notepad Then .StopPage("Nemáte přístup do modulu [DOKUMENTY].")
-                    ''img1.ImageUrl = "Images/notepad_32.png"
-                    ''menu1.FindItemByValue("more").Text = "Akce nad dokumenty"
                     bolSummary = False
                     bolCanInvoice = False
                 Case BO.x29IdEnum.p56Task
-                    ''img1.ImageUrl = "Images/task_32.png"
                     FindNode("groupLayout").Text = "Rozvržení panelů v modulu [ÚKOLY]"
-                    ''menu1.FindItemByValue("more").Text = "Akce nad úkoly"
                     If Not .Factory.SysUser.j04IsMenu_Task Then .StopPage("Nemáte přístup do modulu [ÚKOLY].")
                 Case BO.x29IdEnum.j02Person
                     FindNode("groupLayout").Text = "Rozvržení panelů v modulu [LIDÉ]"
-                    ''menu1.FindItemByValue("more").Text = "Akce nad přehledem"
-                    ''img1.ImageUrl = "Images/person_32.png"
                     If Not .Factory.SysUser.j04IsMenu_People Then .StopPage("Nemáte přístup do modulu [LIDÉ].")
                 Case BO.x29IdEnum.p91Invoice
                     FindNode("groupLayout").Text = "Rozvržení panelů v modulu [FAKTURY]"
-                    ''menu1.FindItemByValue("more").Text = "Akce nad fakturami"
-                    ''img1.ImageUrl = "Images/invoice_32.png"
                     If Not .Factory.SysUser.j04IsMenu_Invoice Then .StopPage("Nemáte přístup do modulu [FAKTURY].")
             End Select
             If Not .Factory.TestPermission(BO.x53PermValEnum.GR_GridTools) Then
@@ -388,12 +387,10 @@ Public Class entity_framework
         Me.hidAdditionalFrom.Value = cG.AdditionalFROM
         Me.hidSumCols.Value = cG.SumCols
 
-        ''Me.hidCols.Value = basUIMT.SetupDataGrid(Master.Factory, Me.grid1, cJ70, BO.BAS.IsNullInt(CType(FindNode("groupOther").FindControl("cbxPaging"), DropDownList).SelectedValue), True, True, BO.BAS.BG(CType(FindNode("groupOther").FindControl("chkCheckboxSelector"), DropDownList).SelectedValue), strFilterSetting, strFilterExpression, , strAddtionalSqlFrom, , strSumCols)
-        ''Me.hidAdditionalFrom.Value = strAddtionalSqlFrom
-        ''Me.hidSumCols.Value = strSumCols
         If cJ70.j70ScrollingFlag > BO.j70ScrollingFlagENUM.NoScrolling Then
             navigationPane.Scrolling = SplitterPaneScrolling.None
         End If
+
         If cJ70.j70PageLayoutFlag > BO.j70PageLayoutFlagENUM._None Then
             Me.opgLayout.Value = CInt(cJ70.j70PageLayoutFlag).ToString
             FindNode("groupLayout").Enabled = False
@@ -442,9 +439,6 @@ Public Class entity_framework
             If TypeOf e.Item Is GridGroupHeaderItem Then
                 e.Item.BackColor = Drawing.Color.WhiteSmoke
             End If
-            'If TypeOf e.Item Is GridDataItem Or TypeOf e.Item Is GridHeaderItem Then
-            '    e.Item.Cells(0).Visible = False
-            'End If
         End If
     End Sub
 
@@ -1111,14 +1105,10 @@ Public Class entity_framework
         Master.Factory.j03UserBL.SetUserParam(Me.CurrentPrefix + "_framework-period", Me.period1.SelectedValue)
         RecalcVirtualRowCount()
         grid1.Rebind(False)
-        ''hidUIFlag.Value = "period"
+
     End Sub
 
-    ''Private Sub cbxQueryFlag_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbxQueryFlag.SelectedIndexChanged
-    ''    Master.Factory.j03UserBL.SetUserParam(Me.CurrentPrefix + "_framework-queryflag", Me.cbxQueryFlag.SelectedValue)
-    ''    RecalcVirtualRowCount()
-    ''    grid1.Rebind(False)
-    ''End Sub
+    
 
     Private Sub entity_framework_LoadComplete(sender As Object, e As EventArgs) Handles Me.LoadComplete
         designer1.ReloadUrl = GetReloadUrl()
@@ -1152,9 +1142,7 @@ Public Class entity_framework
             cmdCĺearFilter.Visible = False
         End If
         Me.CurrentQuery.Text = ""
-        ''If designer1.CurrentJ70ID > 0 Then
-        ''    If opgLayout.SelectedValue = "1" Then Me.CurrentQuery.Text = "<img src='Images/query.png'/>" & designer1.CurrentName
-        ''End If
+      
         If hidX18_value.Value <> "" Then
             Me.CurrentQuery.Text += "<img src='Images/query.png' style='margin-left:20px;'/><img src='Images/label.png'/>" & x18_querybuilder_info.Text & "<a href='javascript:clear_x18()' title='Zrušit filtr kategorií'><img src='Images/delete.png'></a>"
         End If
@@ -1203,23 +1191,6 @@ Public Class entity_framework
     End Sub
 
 
-
-
-
-
-
-
-
-   
-    
-
-
-
-
-
-
-    
-
     Private Sub cmdContextMenuCallback_Click(sender As Object, e As EventArgs) Handles cmdContextMenuCallback.Click
         If hidContextMenuFlag.Value = "" Then Return
         Master.Notify(Me.hidContextMenuFlag.Value)
@@ -1242,12 +1213,6 @@ Public Class entity_framework
                 ReloadPage()
             Case "cbxPeriodType"
                 With Master.Factory.j03UserBL
-                    ''If CType(FindNode("groupOther").FindControl("cbxPeriodType"), DropDownList).SelectedIndex > 0 And Not period1.Visible Then
-                    ''    .InhaleUserParams("periodcombo-custom_query", Me.CurrentPrefix + "_framework-period")
-                    ''    period1.SetupData(Master.Factory, .GetUserParam("periodcombo-custom_query"))
-                    ''    period1.SelectedValue = .GetUserParam(Me.CurrentPrefix + "_framework-period")
-                    ''End If
-
                     .SetUserParam(Me.CurrentPrefix + "_framework-periodtype", cbxPeriodType.SelectedValue)
                 End With
                 ReloadPage()
@@ -1269,4 +1234,7 @@ Public Class entity_framework
 
         hidContextMenuFlag.Value = ""
     End Sub
+
+    
+    
 End Class

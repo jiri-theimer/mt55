@@ -15366,7 +15366,7 @@ AS
 declare @ref_pid int
 
 set @ref_pid=null
-SELECT TOP 1 @ref_pid=p91ID from p99Invoice_Proforma WHERE p90ID=@pid
+SELECT TOP 1 @ref_pid=p91ID from p99Invoice_Proforma WHERE p82ID IN (select p82ID FROM p82Proforma_Payment WHERE p90ID=@pid)
 if @ref_pid is not null
  set @err_ret='Zálohová faktura je svázaná s daňovou fakturou ('+dbo.GetObjectAlias('p91',@ref_pid)+')'
 
@@ -15381,11 +15381,11 @@ BEGIN TRANSACTION
 
 BEGIN TRY
 
-if exists(select p99ID FROM p99Invoice_Proforma WHERE p91ID=@pid)
+if exists(select p99ID FROM p99Invoice_Proforma WHERE p82ID IN (select p82ID FROM p82Proforma_Payment WHERE p90ID=@pid))
  begin
-  select @p91id_bind=p91ID FROM p99Invoice_Proforma WHERE p90ID=@pid
+  select @p91id_bind=p91ID FROM p99Invoice_Proforma WHERE p82ID IN (select p82ID FROM p82Proforma_Payment WHERE p90ID=@pid)
 
-  delete from p99Invoice_Proforma where p90id=@pid
+  delete from p99Invoice_Proforma where p82ID IN (select p82ID FROM p82Proforma_Payment WHERE p90ID=@pid)
  end
 
 
@@ -15425,7 +15425,7 @@ BEGIN CATCH
 END CATCH  
 
 if @p91id_bind is not null
- exec p91_recalc_amount @p91id_bind,0
+ exec p91_recalc_amount @p91id_bind
 
 
 

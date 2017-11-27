@@ -11,16 +11,14 @@
         var _initResizing = "1";
 
         $(document).ready(function () {
-
+            
 
             document.getElementById("<%=Me.hidUIFlag.ClientID%>").value = "";
             <%If _curIsExport = False Then%>
             _initResizing = "0";
             <%End If%>
 
-
-
-
+            
         });
 
 
@@ -47,7 +45,7 @@
             var pane = sender.getPaneById("<%=contentPane.ClientID%>");
             document.getElementById("<%=Me.hidContentPaneWidth.ClientID%>").value = pane.get_width();
             pane.set_contentUrl(document.getElementById("<%=Me.hidContentPaneDefUrl.ClientID%>").value);
-            <%End if%>
+            <%End If%>
             
             <%If grid1.radGridOrig.ClientSettings.Scrolling.UseStaticHeaders Then%>
             pane = sender.getPaneById("<%=navigationPane.ClientID%>");
@@ -346,15 +344,19 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div id="offsetY"></div>
+    
+    <asp:PlaceHolder ID="placeNew" runat="server"></asp:PlaceHolder>
     <telerik:RadSplitter ID="RadSplitter1" runat="server" Width="100%" ResizeMode="Proportional" OnClientLoad="loadSplitter" PanesBorderSize="0" Skin="Default" RenderMode="Auto" Orientation="Vertical">
         <telerik:RadPane ID="navigationPane" runat="server" Width="353px" OnClientResized="AfterPaneResized" OnClientCollapsed="AfterPaneCollapsed" OnClientExpanded="AfterPaneExpanded" BackColor="white">
-
+        <asp:panel ID="picaDefault" runat="server">
+           
+        
             <asp:Panel ID="panSearch" runat="server" Style="min-height: 42px; background-color: #f7f7f7;">
-                
-                <div style="float:left;padding-top:1px;padding-left:1px;">
+
+                <div style="float: left; padding-top: 1px; padding-left: 1px;">
                     <a id="linkMenu" href="javascript:menu1_handle()" class="pp2"></a>
 
-                </div>                
+                </div>
 
                 <asp:Panel ID="panSearchbox" runat="server" CssClass="commandcell" Style="padding-left: 5px;">
                     <telerik:RadComboBox ID="cbx1" runat="server" DropDownWidth="400" EnableTextSelection="true" MarkFirstMatch="true" EnableLoadOnDemand="true" Text="Hledat..." Width="100px" OnClientSelectedIndexChanged="cbx1_OnClientSelectedIndexChanged" OnClientItemsRequesting="cbx1_OnClientItemsRequesting" AutoPostBack="false">
@@ -433,58 +435,59 @@
                     </telerik:RadMenuItem>
                     <telerik:RadMenuItem Text="Operace nad vybranými (zaškrtlými) záznamy" ImageUrl="Images/batch.png" Value="groupBatch">
                     </telerik:RadMenuItem>
-                    <telerik:RadMenuItem Text="Nastavení přehledu" ImageUrl="Images/griddesigner.png" value="groupOther">
+                    <telerik:RadMenuItem Text="Nastavení přehledu" ImageUrl="Images/griddesigner.png" Value="groupOther">
                         <ContentTemplate>
-                            <div style="width: 400px; padding: 10px;background-color:#f0f8ff;border:solid 1px gray;">
-                                        <div>
-                                            <asp:Label ID="lblLayoutMessage" runat="server" CssClass="infoNotificationRed" Text="Z důvodu malého rozlišení displeje (pod 1280px) se automaticky zapnul režim jediného panelu s datovým přehledem." Visible="false"></asp:Label>
-                                        </div>
-                                        <div style="margin-top: 20px;">
-                                            <span>Filtrovat přehled podle období:</span>
-                                            <asp:DropDownList ID="cbxPeriodType" onchange="context_menu_callback('cbxPeriodType')" runat="server" ToolTip="Druh filtrovaného období">
-                                            </asp:DropDownList>
-                                        </div>
-                                        <div style="margin-top: 10px;">
-                                            <button type="button" onclick="o51_querybuilder()" style="width: 90px;">
-                                                <img src="Images/query.png" />Štítky</button>
+                            <div style="width: 400px; padding: 10px; background-color: #f0f8ff; border: solid 1px gray;">
+                                <div>
+                                    <asp:Label ID="lblLayoutMessage" runat="server" CssClass="infoNotificationRed" Text="Z důvodu malého rozlišení displeje (pod 1280px) se automaticky zapnul režim jediného panelu s datovým přehledem." Visible="false"></asp:Label>
+                                </div>
+                                <div style="margin-top: 20px;">
+                                    <span>Filtrovat přehled podle období:</span>
+                                    <asp:DropDownList ID="cbxPeriodType" onchange="context_menu_callback('cbxPeriodType')" runat="server" ToolTip="Druh filtrovaného období">
+                                    </asp:DropDownList>
+                                </div>
+                                <div style="margin-top: 10px;">
+                                    <button type="button" onclick="o51_querybuilder()" style="width: 90px;">
+                                        <img src="Images/query.png" />Štítky</button>
 
-                                            <asp:Label ID="o51_querybuilder_info" runat="server" ForeColor="Red"></asp:Label>
-                                        </div>
-                                        <div>
-                                            <button type="button" onclick="x18_querybuilder()" style="width: 90px;">
-                                                <img src="Images/query.png" />Kategorie</button>
+                                    <asp:Label ID="o51_querybuilder_info" runat="server" ForeColor="Red"></asp:Label>
+                                </div>
+                                <div>
+                                    <button type="button" onclick="x18_querybuilder()" style="width: 90px;">
+                                        <img src="Images/query.png" />Kategorie</button>
 
-                                            <asp:Label ID="x18_querybuilder_info" runat="server" ForeColor="Red"></asp:Label>
-                                        </div>
+                                    <asp:Label ID="x18_querybuilder_info" runat="server" ForeColor="Red"></asp:Label>
+                                </div>
 
-                                        <div style="margin-top: 20px;">
-                                            <asp:DropDownList ID="cbxGroupBy" runat="server" ToolTip="Datové souhrny" DataTextField="ColumnHeader" DataValueField="ColumnField" onchange="context_menu_callback('cbxGroupBy')">
-                                            </asp:DropDownList>
+                                <div style="margin-top: 20px;">
+                                    <asp:DropDownList ID="cbxGroupBy" runat="server" ToolTip="Datové souhrny" DataTextField="ColumnHeader" DataValueField="ColumnField" onchange="context_menu_callback('cbxGroupBy')">
+                                    </asp:DropDownList>
 
-                                            <span class="val" style="margin-left: 50px;">Stránkování záznamů:</span>
-                                            <asp:DropDownList ID="cbxPaging" runat="server" onchange="context_menu_callback('cbxPaging')">
-                                                <asp:ListItem Text="20"></asp:ListItem>
-                                                <asp:ListItem Text="50" Selected="True"></asp:ListItem>
-                                                <asp:ListItem Text="100"></asp:ListItem>
-                                                <asp:ListItem Text="200"></asp:ListItem>
-                                                <asp:ListItem Text="500"></asp:ListItem>
-                                            </asp:DropDownList>
-                                        </div>
+                                    <span class="val" style="margin-left: 50px;">Stránkování záznamů:</span>
+                                    <asp:DropDownList ID="cbxPaging" runat="server" onchange="context_menu_callback('cbxPaging')">
+                                        <asp:ListItem Text="20"></asp:ListItem>
+                                        <asp:ListItem Text="50" Selected="True"></asp:ListItem>
+                                        <asp:ListItem Text="100"></asp:ListItem>
+                                        <asp:ListItem Text="200"></asp:ListItem>
+                                        <asp:ListItem Text="500"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </div>
 
 
-                                        <div style="margin-top: 20px;">
-                                            <asp:DropDownList ID="chkCheckboxSelector" runat="server" onchange="context_menu_callback('chkCheckboxSelector')">
-                                                <asp:ListItem Text="Pro výběr (označení) záznamů nabízet i zaškrátávací checkbox" Value="1"></asp:ListItem>
-                                                <asp:ListItem Text="Výběr záznamů pouze myší a klávesami CTRL+SHFT" Value="0"></asp:ListItem>
-                                            </asp:DropDownList>
+                                <div style="margin-top: 20px;">
+                                    <asp:DropDownList ID="chkCheckboxSelector" runat="server" onchange="context_menu_callback('chkCheckboxSelector')">
+                                        <asp:ListItem Text="Pro výběr (označení) záznamů nabízet i zaškrátávací checkbox" Value="1"></asp:ListItem>
+                                        <asp:ListItem Text="Výběr záznamů pouze myší a klávesami CTRL+SHFT" Value="0"></asp:ListItem>
+                                    </asp:DropDownList>
 
-                                        </div>
+                                </div>
 
-                                    </div>
+                            </div>
                         </ContentTemplate>
                     </telerik:RadMenuItem>
                 </Items>
             </telerik:RadContextMenu>
+        </asp:panel>
         </telerik:RadPane>
         <telerik:RadSplitBar ID="RadSplitbar1" runat="server" CollapseMode="Forward">
         </telerik:RadSplitBar>
