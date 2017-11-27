@@ -504,6 +504,8 @@ Public Class datagrid
                             Case "IsNull" : .Text = "Je prázdné" : i += 1
                             Case "NotIsNull" : .Text = "Není prázdné" : i += 1
                             Case "StartsWith" : .Text = "Začíná na" : i += 1
+                            Case "NotEqualTo" : .Text = "Není rovno" : i += 1
+                            Case "DoesNotContain" : .Text = "Neobsahuje" : i += 1
                             Case Else
                                 menu.Items.RemoveAt(i)
                         End Select
@@ -511,7 +513,7 @@ Public Class datagrid
                 Else
                     With .Item(i)
                         Select Case .Text
-                            Case "NoFilter", "Contains", "EqualTo", "GreaterThan", "LessThan", "IsNull", "NotIsNull", "StartsWith"
+                            Case "NoFilter", "Contains", "EqualTo", "GreaterThan", "LessThan", "IsNull", "NotIsNull", "StartsWith", "NotEqualTo", "DoesNotContain"
                                 i += 1
                             Case Else
                                 menu.Items.RemoveAt(i)
@@ -700,11 +702,13 @@ Public Class datagrid
                         End Select
                         Select Case col.CurrentFilterFunction
                             Case GridKnownFunction.Contains, GridKnownFunction.StartsWith, GridKnownFunction.EndsWith : strOPER = "LIKE"
+                            Case GridKnownFunction.DoesNotContain : strOPER = "NOT LIKE"
                             Case GridKnownFunction.EqualTo : strOPER = "="
                             Case GridKnownFunction.GreaterThan : strOPER = ">"
                             Case GridKnownFunction.GreaterThanOrEqualTo : strOPER = ">="
                             Case GridKnownFunction.LessThan : strOPER = "<"
                             Case GridKnownFunction.LessThanOrEqualTo : strOPER = "<="
+                            Case GridKnownFunction.NotEqualTo : strOPER = "<>"
                             Case GridKnownFunction.IsNull
                                 strOPER = "IS NULL" : strVal = ""
                             Case GridKnownFunction.NotIsNull

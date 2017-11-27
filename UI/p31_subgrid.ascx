@@ -39,6 +39,7 @@
                                     <telerik:RadMenuItem Text="Zahrnout do paušálu" ImageUrl="Images/a16.gif" NavigateUrl="javascript:batch_approve(6);"></telerik:RadMenuItem>
                                     <telerik:RadMenuItem Text="Viditelný odpis" ImageUrl="Images/a12.gif" NavigateUrl="javascript:batch_approve(2);"></telerik:RadMenuItem>
                                     <telerik:RadMenuItem Text="Skrytý odpis" ImageUrl="Images/a13.gif" NavigateUrl="javascript:batch_approve(3);"></telerik:RadMenuItem>
+                                    <telerik:RadMenuItem Text="Fakturovat později" ImageUrl="Images/a17.gif" NavigateUrl="javascript:batch_approve(7);"></telerik:RadMenuItem>
                                     <telerik:RadMenuItem IsSeparator="true"></telerik:RadMenuItem>
                                     <telerik:RadMenuItem Text="Vyčistit schvalování" ImageUrl="Images/clear.png" NavigateUrl="javascript:batch_approve(0);"></telerik:RadMenuItem>
                                 </Items>

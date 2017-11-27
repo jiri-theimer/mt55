@@ -79,6 +79,15 @@ Public Class p32Activity
             End If
         End Get
     End Property
+    Public ReadOnly Property NameWithCode As String
+        Get
+            If p32Code = "" Then
+                Return p32Name
+            Else
+                Return p32Name & " (" & p32Code & ")"
+            End If
+        End Get
+    End Property
 
     Private Property _p95Name As String
     Public ReadOnly Property p95Name As String

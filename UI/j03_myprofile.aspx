@@ -206,7 +206,8 @@
                         <span>Maska výběru worksheet aktivity:</span>
                         <asp:DropDownList ID="j03ActivityMaskIndex" runat="server">
                             <asp:ListItem Text="Název aktivity" Value="0"></asp:ListItem>
-                            <asp:ListItem Text="Kód aktivity+název aktivity" Value="1"></asp:ListItem>                            
+                            <asp:ListItem Text="Kód aktivity+název aktivity" Value="1"></asp:ListItem>
+                            <asp:ListItem Text="Název aktivity + kód aktivity" Value="2"></asp:ListItem>                       
                         </asp:DropDownList>
                         
                     </div>

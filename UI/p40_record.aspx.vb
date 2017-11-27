@@ -26,7 +26,7 @@
                 .DataPID = BO.BAS.IsNullInt(Request.Item("pid"))
                 .HeaderText = "Opakovaná odměna/paušál/úkon | " & .Factory.GetRecordCaption(BO.x29IdEnum.p41Project, Me.CurrentP41ID)
                 If .Factory.SysUser.j03ActivityMaskIndex = 1 Then Me.p32ID.DataTextField = "CodeWithName"
-
+                If .Factory.SysUser.j03ActivityMaskIndex = 2 Then Me.p32ID.DataTextField = "NameWithCode"
             End With
 
             RefreshRecord()

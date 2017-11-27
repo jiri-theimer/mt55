@@ -155,7 +155,10 @@
             With Master
                 .HeaderIcon = "Images/worksheet_32.png"
                 .DataPID = BO.BAS.IsNullInt(Request.Item("pid"))
-                If .Factory.SysUser.j03ActivityMaskIndex = 1 Then Me.p32ID.DataTextField = "CodeWithName"
+                Select Case .Factory.SysUser.j03ActivityMaskIndex
+                    Case 1 : Me.p32ID.DataTextField = "CodeWithName"
+                    Case 2 : Me.p32ID.DataTextField = "NameWithCode"
+                End Select
             End With
             InhaleWorksheetSetting()
 
