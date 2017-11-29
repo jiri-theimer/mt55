@@ -170,7 +170,7 @@
 
             If Master.IsRecordClone Then
                 Master.DataPID = 0
-                If Not (Me.CurrentIsScheduler Or Request.Item("clonedate") = "1") Then p31Date.SelectedDate = MyDefault_p31Date
+                'If Not (Me.CurrentIsScheduler Or Request.Item("clonedate") = "1") Then p31Date.SelectedDate = MyDefault_p31Date
                 If Me.p49ID.Value <> "" Then Me.p49ID.Value = "" : Me.p49_record.Text = ""
                 With Master.Factory.SysUser
                     If Not (.IsMasterPerson Or Master.Factory.TestPermission(BO.x53PermValEnum.GR_P31_Creator)) Then 'není nadřízenou osobu ani nemá právo zapisovat do všech projektů -> tak v kopírovaném záznamu předvyplnit

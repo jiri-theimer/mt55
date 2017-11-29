@@ -83,15 +83,34 @@
             });
 
 
-          
+                                  
             
-
-           
 
         });
 
+        $(window).load(function () {
+            <%If Master.IsRecordClone Then%>
+            <%If Request.Item("p31date")="" and Request.Item("clonedate") = "" then%>
+                        
+            var dp = $find("<%=p31Date.ClientID%>");
 
+            var today = new Date();
+            today.setHours(0, 0, 0, 0);
+            var datCur = dp.get_selectedDate();
 
+            $.confirm("Do nového úkonu zkopírovat dnešní datum?<hr>Původní datum: "+datCur.toLocaleDateString()+"<br>Dnešní datum: "+today.toLocaleDateString(), function (bool) {
+                if (bool)
+                    dp.set_selectedDate(today);
+
+            });
+
+            
+            
+            <%end if%>
+            <%End If%>
+        })
+
+       
 
         function RecalcWithVat() {
             <%If Not Me.p31Amount_WithVat_Orig.Visible Then%>

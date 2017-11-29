@@ -76,7 +76,7 @@
             pars.Add("x40Recipient", Trim(.x40Recipient), DbType.String)
             pars.Add("x40CC", Trim(.x40CC), DbType.String)
             pars.Add("x40BCC", Trim(.x40BCC), DbType.String)
-            pars.Add("x40Attachments", .x40Attachments, DbType.String)
+            pars.Add("x40Attachments", Left(.x40Attachments, 200), DbType.String)
             pars.Add("x40MessageID", .x40MessageID, DbType.String)
             pars.Add("x40ArchiveFolder", .x40ArchiveFolder, DbType.String)
 
