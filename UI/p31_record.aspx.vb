@@ -745,27 +745,26 @@
         Dim lisP32 As List(Of BO.p32Activity) = Master.Factory.p32ActivityBL.GetList(mq).ToList
         If lisP32.Exists(Function(p) p.p38ID > 0) Then
             lisP32 = lisP32.OrderBy(Function(p) p.p38Ordinary).ThenBy(Function(p) p.p38Name).ToList
-            Dim intLastP38ID As Integer = 0, xx As Integer = lisP32.Count - 1
-            For x As Integer = 0 To xx
-                With lisP32(x)
-                    If .p38ID <> intLastP38ID And .PID > -1 And .p38ID > 0 Then
+            Dim lis As New List(Of BO.p32Activity), intLastP38ID As Integer = 0
+
+            For Each c In lisP32
+                With c
+                    If .p38ID <> intLastP38ID And .p38ID > 0 Then
                         Dim cc As New BO.p32Activity
                         cc.SetPID(-1)
                         cc.p32Name = .p38Name
                         cc.p38ID = .p38ID
-                        cc.p38Ordinary = .p38Ordinary
-                        lisP32.Insert(x, cc)
-
-                        xx += 1
+                        lis.Add(cc)
                     End If
                     intLastP38ID = .p38ID
                 End With
-
+                lis.Add(c)
             Next
-
-            ''lisP32 = lisP32.OrderBy(Function(p) p.p38Ordinary).ThenBy(Function(p) p.p38Name).ThenBy(Function(p) p.p32Ordinary).ThenBy(Function(p) p.p32Name).ToList
+            Return lis
+        Else
+            Return lisP32
         End If
-        Return lisP32
+
     End Function
     Private Sub Handle_ChangeP34()
         If Me.CurrentP34ID = 0 Then

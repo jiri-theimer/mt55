@@ -190,6 +190,7 @@ Class o22MilestoneBL
         s.AppendLine("END:VEVENT")
         s.Append("END:VCALENDAR")
 
+        Factory.x35GlobalParam.InhaleParams("Upload_Folder")
         Dim strPath As String = Factory.x35GlobalParam.TempFolder & "\marktime_calendar_event" & c.PID.ToString & ".ics"
         Dim cF As New BO.clsFile
 
