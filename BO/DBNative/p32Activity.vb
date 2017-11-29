@@ -95,18 +95,10 @@ Public Class p32Activity
             Return _p95Name
         End Get
     End Property
-    Private Property _p38Name As String
-    Public ReadOnly Property p38Name As String
-        Get
-            Return _p38Name
-        End Get
-    End Property
-    Private Property _p38Ordinary As Integer
-    Public ReadOnly Property p38Ordinary As Integer
-        Get
-            Return _p38Ordinary
-        End Get
-    End Property
+    Public Property p38Name As String
+    
+    Public Property p38Ordinary As Integer
+    
 
     Private Property _x15Name As String
     Public ReadOnly Property x15Name As String

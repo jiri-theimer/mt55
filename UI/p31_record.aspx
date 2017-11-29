@@ -96,13 +96,18 @@
 
             var today = new Date();
             today.setHours(0, 0, 0, 0);
-            var datCur = dp.get_selectedDate();
+            var datCur = new Date();
+            datCur = dp.get_selectedDate();
+            
 
-            $.confirm("Do nového úkonu zkopírovat dnešní datum?<hr>Původní datum: "+datCur.toLocaleDateString()+"<br>Dnešní datum: "+today.toLocaleDateString(), function (bool) {
-                if (bool)
-                    dp.set_selectedDate(today);
+            if (today.getDate() != datCur.getDate() || today.getMonth() != datCur.getMonth() || today.getFullYear() != datCur.getFullYear()) {
+                $.confirm("Do nového úkonu zkopírovat dnešní datum?<hr>Původní datum: " + datCur.toLocaleDateString() + "<br>Dnešní datum: " + today.toLocaleDateString(), function (bool) {
+                    if (bool)
+                        dp.set_selectedDate(today);
 
-            });
+                });
+            }
+            
 
             
             

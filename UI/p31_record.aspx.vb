@@ -748,18 +748,22 @@
             Dim intLastP38ID As Integer = 0, xx As Integer = lisP32.Count - 1
             For x As Integer = 0 To xx
                 With lisP32(x)
-                    If .p38ID <> intLastP38ID And .PID > -1 Then
+                    If .p38ID <> intLastP38ID And .PID > -1 And .p38ID > 0 Then
                         Dim cc As New BO.p32Activity
                         cc.SetPID(-1)
                         cc.p32Name = .p38Name
                         cc.p38ID = .p38ID
+                        cc.p38Ordinary = .p38Ordinary
                         lisP32.Insert(x, cc)
+
                         xx += 1
                     End If
                     intLastP38ID = .p38ID
                 End With
 
             Next
+
+            ''lisP32 = lisP32.OrderBy(Function(p) p.p38Ordinary).ThenBy(Function(p) p.p38Name).ThenBy(Function(p) p.p32Ordinary).ThenBy(Function(p) p.p32Name).ToList
         End If
         Return lisP32
     End Function
