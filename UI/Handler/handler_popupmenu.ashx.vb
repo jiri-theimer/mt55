@@ -572,17 +572,36 @@ Public Class handler_popupmenu
         End If
 
         Dim lisJ02 As IEnumerable(Of BO.j02Person) = factory.p30Contact_PersonBL.GetList_J02(cRec.PID, 0, True)
-        If cRec.p28ParentID > 0 Or lisJ02.Count > 0 Then
-            CI("[ODKAZ]", "", , "Images/link.png")
-            If cRec.p28ParentID > 0 Then
-                Dim cParent As BO.p28Contact = factory.p28ContactBL.Load(cRec.p28ParentID)
-                REL(cParent.p28Name, "p28_framework.aspx?pid=" & cRec.p28ParentID.ToString, "_top", "Images/tree.png", True)
+        Dim bolLink As Boolean = False
+        With cRec
+            If .p28ParentID > 0 Or lisJ02.Count > 0 Then bolLink = True
+            If .p28RegID <> "" Or .p28VatID <> "" Or .p28Person_BirthRegID <> "" Then bolLink = True
+            If bolLink Then
+                CI("[ODKAZ]", "", , "Images/link.png")
+                If .p28ParentID > 0 Then
+                    Dim cParent As BO.p28Contact = factory.p28ContactBL.Load(cRec.p28ParentID)
+                    REL(cParent.p28Name, "p28_framework.aspx?pid=" & cRec.p28ParentID.ToString, "_top", "Images/tree.png", True)
+                End If
+                If lisJ02.Count > 0 Then
+                    Dim intTOP As Integer = lisJ02.Count : If intTOP > 10 Then intTOP = 10
+                    For Each c In lisJ02.Take(intTOP)
+                        REL(c.FullNameDescWithJobTitle, "j02_framework.aspx?pid=" & c.PID.ToString, "_top", "Images/contactperson.png", True)
+                    Next
+                End If
+                Dim cM As New BO.SubjectMonitoring(cRec)
+                If .p28RegID <> "" Then
+                    REL("JUSTICE.cz", cM.JusticeUrl, "_blank", "Images/link.png", True)
+                    If cM.AresUrl <> "" Then REL("ARES", cM.AresUrl, "_blank", "Images/link.png", True)
+                End If
+                If .p28VatID <> "" Then
+                    CI("DPH registr", "vat_registration.aspx?vat=" & .p28VatID, , "Images/link.png", True)
+                End If
+                If cM.IsirUrl > "" Then
+                    REL("Insolvenční rejstřík", cM.IsirUrl, "_blank", "Images/link.png", True)
+                End If
             End If
-            Dim intTOP As Integer = lisJ02.Count : If intTOP > 10 Then intTOP = 10
-            For Each c In lisJ02.Take(intTOP)
-                REL(c.FullNameDescWithJobTitle, "j02_framework.aspx?pid=" & c.PID.ToString, "_top", "Images/contactperson.png", True)
-            Next
-        End If
+        End With
+
 
         If cRec.o25ID_Calendar > 0 Then
             SEP()
@@ -610,7 +629,7 @@ Public Class handler_popupmenu
             CI("Plugin", "plugin_modal.aspx?prefix=p28&pid=" & cRec.PID.ToString, , "Images/plugin.png", True)
             CI("Čárový kód", "barcode.aspx?prefix=p28&pid=" & cRec.PID.ToString, , "Images/barcode.png", True)
         End If
-        
+
 
 
     End Sub

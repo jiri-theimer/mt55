@@ -81,7 +81,8 @@
         hx1 = parent.clientHeight - gridHeader.clientHeight - 20;        
         <%if grid1.ShowFooter then%>
         hx1 = hx1 - 40;
-        
+        <%Else%>
+        hx1 = hx1 - 10;
         <%End If%>
         scrollArea.style.height = hx1 + "px";
         <%end if%>        
@@ -91,8 +92,7 @@
     function <%=Me.ClientID%>_SetScrollingHeight_Explicit(h) {
         var grid = $find("<%=grid1.ClientID%>");
 
-
-
+        
         <%If grid1.ClientSettings.Scrolling.UseStaticHeaders = True Then%>
         var gridHeader = grid.GridHeaderDiv;
         var scrollArea = grid.GridDataDiv;

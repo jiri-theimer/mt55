@@ -22,21 +22,19 @@
 
 
     <style type="text/css">
-        html .RadNavigation_Windows7 .rnvRootGroupWrapper {
+       html .RadNavigation_Windows7 .rnvRootGroupWrapper {
             background-color: #25a0da;
             background-image: none;
             color: white;
         }
 
         html .RadNavigation .rnvMore,
-        html .RadNavigation .rnvRootLink {
-            padding-top: 10px;
-            padding-bottom: 10px;
+        html .RadNavigation .rnvRootLink  {
+            padding-top: 5px;
+            padding-bottom: 5px;
             padding-right: 10px;
             padding-left: 10px;
         }
-
-
 
         .rnvPopup {
             border-bottom-right-radius: 8px;
