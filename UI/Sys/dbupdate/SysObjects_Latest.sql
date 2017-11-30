@@ -4357,6 +4357,10 @@ CREATE function [dbo].[tview_j02_notinvoiced]
     return (
         select a.j02ID
 ,sum(case when a.p71ID IS NULL AND p32.p32IsBillable=1 THEN a.p31Hours_Orig when a.p71ID=1 THEN a.p31Hours_Approved_Billing end) as Hodiny
+,sum(case when a.p71ID IS NULL THEN a.p31Hours_Orig end) as Hodiny_Rozpracovane
+,sum(case when a.p71ID=1 AND a.p72ID_AfterApprove=4 THEN a.p31Hours_Approved_Billing end) as Hodiny_Fakturovat
+,sum(case when a.p71ID=1 AND a.p72ID_AfterApprove=6 THEN a.p31Hours_Orig end) as Hodiny_Pausal
+,sum(case when a.p71ID=1 AND a.p72ID_AfterApprove IN (2,3) THEN a.p31Hours_Orig end) as Hodiny_Odpis
 ,sum(case when a.p71ID IS NULL AND a.p31Amount_WithoutVat_Orig<>0 then a.p31Amount_WithoutVat_Orig WHEN a.p71ID=1 THEN a.p31Amount_WithoutVat_Approved end) as Castka_Celkem
 ,sum(case when a.p71ID IS NULL AND p34.p33ID=1 then p31Amount_WithoutVat_Orig WHEN a.p71ID=1 AND p34.p33ID=1 THEN a.p31Amount_WithoutVat_Approved end) as Honorar
 ,sum(case when a.p71ID IS NULL AND p34.p33ID=1 and a.j27ID_Billing_Orig=2 then a.p31Amount_WithoutVat_Orig WHEN a.p71ID=1 AND p34.p33ID=1 AND a.j27ID_Billing_Orig=2 THEN a.p31Amount_WithoutVat_Approved end) as Honorar_CZK
@@ -4367,6 +4371,9 @@ CREATE function [dbo].[tview_j02_notinvoiced]
 ,sum(case when a.p71ID IS NULL AND p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 then a.p31Amount_WithoutVat_Orig when a.p71ID=1 AND p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 then a.p31Amount_WithoutVat_Approved end) as Odmeny
 ,sum(case when a.p71ID IS NULL AND p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 AND a.j27ID_Billing_Orig=2 then a.p31Amount_WithoutVat_Orig when a.p71ID=1 AND p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 AND a.j27ID_Billing_Orig=2 then a.p31Amount_WithoutVat_Approved end) as Odmeny_CZK
 ,sum(case when a.p71ID IS NULL AND p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 AND a.j27ID_Billing_Orig=3 then a.p31Amount_WithoutVat_Orig when a.p71ID=1 AND p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 AND a.j27ID_Billing_Orig=3 then a.p31Amount_WithoutVat_Approved end) as Odmeny_EUR
+,max(a.p31Date) as Posledni_Datum
+,min(a.p31Date) as Prvni_Datum
+,count(a.p31ID) as Pocet
 from
 p31WorkSheet a
 INNER JOIN p32Activity p32 ON a.p32ID=p32.p32ID
@@ -4398,6 +4405,8 @@ CREATE function [dbo].[tview_j02_wip]
     return (
         select a.j02ID
 ,sum(a.p31Hours_Orig) as Hodiny
+,sum(case when p32.p32IsBillable=1 then a.p31Hours_Orig end) as Hodiny_Fa
+,sum(case when p32.p32IsBillable=0 then a.p31Hours_Orig end) as Hodiny_NeFa
 ,sum(case when a.p31Amount_WithoutVat_Orig<>0 then a.p31Amount_WithoutVat_Orig end) as Castka_Celkem
 ,sum(case when p34.p33ID=1 then p31Amount_WithoutVat_Orig end) as Honorar
 ,sum(case when p34.p33ID=1 and a.j27ID_Billing_Orig=2 then a.p31Amount_WithoutVat_Orig end) as Honorar_CZK
@@ -4408,6 +4417,9 @@ CREATE function [dbo].[tview_j02_wip]
 ,sum(case when p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 then a.p31Amount_WithoutVat_Orig end) as Odmeny
 ,sum(case when p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 and a.j27ID_Billing_Orig=2 then a.p31Amount_WithoutVat_Orig end) as Odmeny_CZK
 ,sum(case when p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 and a.j27ID_Billing_Orig=3 then a.p31Amount_WithoutVat_Orig end) as Odmeny_EUR
+,max(a.p31Date) as Posledni_Datum
+,min(a.p31Date) as Prvni_Datum
+,count(a.p31ID) as Pocet
 from
 p31WorkSheet a
 INNER JOIN p32Activity p32 ON a.p32ID=p32.p32ID
@@ -4442,6 +4454,10 @@ CREATE function [dbo].[tview_p28_approved]
     return (
         select p41.p28ID_Client as p28ID
 ,sum(a.p31Hours_Approved_Billing) as Hodiny
+,sum(case when a.p72ID_AfterApprove=4 THEN a.p31Hours_Approved_Billing end) as Hodiny_Fakturovat
+,sum(case when a.p72ID_AfterApprove=6 THEN a.p31Hours_Orig end) as Hodiny_Pausal
+,sum(case when a.p72ID_AfterApprove IN (2,3) THEN a.p31Hours_Orig end) as Hodiny_Odpis
+,sum(case when a.p72ID_AfterApprove=7 THEN a.p31Hours_Approved_Billing end) as Hodiny_FakturovatPozdeji
 ,sum(a.p31Amount_WithoutVat_Approved) as Castka_Celkem
 ,sum(case when a.p71ID=1 AND p34.p33ID=1 THEN a.p31Amount_WithoutVat_Approved end) as Honorar
 ,sum(case when a.p71ID=1 AND p34.p33ID=1 AND a.j27ID_Billing_Orig=2 THEN a.p31Amount_WithoutVat_Approved end) as Honorar_CZK
@@ -4453,6 +4469,9 @@ CREATE function [dbo].[tview_p28_approved]
 ,sum(case when a.p71ID=1 AND p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 AND a.j27ID_Billing_Orig=2 then a.p31Amount_WithoutVat_Approved end) as Odmeny_CZK
 ,sum(case when a.p71ID=1 AND p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 AND a.j27ID_Billing_Orig=3 then a.p31Amount_WithoutVat_Approved end) as Odmeny_EUR
 ,count(a.p41ID) as PocetProjektu
+,max(a.p31Date) as Posledni_Datum
+,min(a.p31Date) as Prvni_Datum
+,count(a.p31ID) as Pocet
 from
 p31WorkSheet a
 INNER JOIN p41Project p41 ON a.p41ID=p41.p41ID
@@ -4489,6 +4508,11 @@ CREATE function [dbo].[tview_p28_notinvoiced]
     return (
         select p41.p28ID_Client as p28ID
 ,sum(case when a.p71ID IS NULL AND p32.p32IsBillable=1 THEN a.p31Hours_Orig when a.p71ID=1 THEN a.p31Hours_Approved_Billing end) as Hodiny
+,sum(case when a.p71ID IS NULL THEN a.p31Hours_Orig end) as Hodiny_Rozpracovane
+,sum(case when a.p71ID=1 AND a.p72ID_AfterApprove=4 THEN a.p31Hours_Approved_Billing end) as Hodiny_Fakturovat
+,sum(case when a.p71ID=1 AND a.p72ID_AfterApprove=6 THEN a.p31Hours_Orig end) as Hodiny_Pausal
+,sum(case when a.p71ID=1 AND a.p72ID_AfterApprove IN (2,3) THEN a.p31Hours_Orig end) as Hodiny_Odpis
+,sum(case when a.p71ID=1 AND a.p72ID_AfterApprove=7 THEN a.p31Hours_Approved_Billing end) as Hodiny_FakturovatPozdeji
 ,sum(case when a.p71ID IS NULL AND a.p31Amount_WithoutVat_Orig<>0 then a.p31Amount_WithoutVat_Orig WHEN a.p71ID=1 THEN a.p31Amount_WithoutVat_Approved end) as Castka_Celkem
 ,sum(case when a.p71ID IS NULL AND p34.p33ID=1 then p31Amount_WithoutVat_Orig WHEN a.p71ID=1 AND p34.p33ID=1 THEN a.p31Amount_WithoutVat_Approved end) as Honorar
 ,sum(case when a.p71ID IS NULL AND p34.p33ID=1 and a.j27ID_Billing_Orig=2 then a.p31Amount_WithoutVat_Orig WHEN a.p71ID=1 AND p34.p33ID=1 AND a.j27ID_Billing_Orig=2 THEN a.p31Amount_WithoutVat_Approved end) as Honorar_CZK
@@ -4500,6 +4524,9 @@ CREATE function [dbo].[tview_p28_notinvoiced]
 ,sum(case when a.p71ID IS NULL AND p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 AND a.j27ID_Billing_Orig=2 then a.p31Amount_WithoutVat_Orig when a.p71ID=1 AND p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 AND a.j27ID_Billing_Orig=2 then a.p31Amount_WithoutVat_Approved end) as Odmeny_CZK
 ,sum(case when a.p71ID IS NULL AND p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 AND a.j27ID_Billing_Orig=3 then a.p31Amount_WithoutVat_Orig when a.p71ID=1 AND p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 AND a.j27ID_Billing_Orig=3 then a.p31Amount_WithoutVat_Approved end) as Odmeny_EUR
 ,count(a.p41ID) as PocetProjektu
+,max(a.p31Date) as Posledni_Datum
+,min(a.p31Date) as Prvni_Datum
+,count(a.p31ID) as Pocet
 from
 p31WorkSheet a
 INNER JOIN p41Project p41 ON a.p41ID=p41.p41ID
@@ -4534,6 +4561,8 @@ CREATE function [dbo].[tview_p28_wip]
     return (
         select p41.p28ID_Client as p28ID
 ,sum(a.p31Hours_Orig) as Hodiny
+,sum(case when p32.p32IsBillable=1 then a.p31Hours_Orig end) as Hodiny_Fa
+,sum(case when p32.p32IsBillable=0 then a.p31Hours_Orig end) as Hodiny_NeFa
 ,sum(case when a.p31Amount_WithoutVat_Orig<>0 then a.p31Amount_WithoutVat_Orig end) as Castka_Celkem
 ,sum(case when p34.p33ID=1 then p31Amount_WithoutVat_Orig end) as Honorar
 ,sum(case when p34.p33ID=1 and a.j27ID_Billing_Orig=2 then a.p31Amount_WithoutVat_Orig end) as Honorar_CZK
@@ -4543,6 +4572,9 @@ CREATE function [dbo].[tview_p28_wip]
 ,sum(case when p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 and a.j27ID_Billing_Orig=2 then a.p31Amount_WithoutVat_Orig end) as Odmeny_CZK
 ,sum(case when p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 and a.j27ID_Billing_Orig=3 then a.p31Amount_WithoutVat_Orig end) as Odmeny_EUR
 ,count(a.p41ID) as PocetProjektu
+,max(a.p31Date) as Posledni_Datum
+,min(a.p31Date) as Prvni_Datum
+,count(a.p31ID) as Pocet
 from
 p31WorkSheet a
 INNER JOIN p41Project p41 ON a.p41ID=p41.p41ID
@@ -4575,7 +4607,10 @@ CREATE function [dbo].[tview_p28_worksheet]
     return (
         select p41.p28ID_Client as p28ID
 ,sum(a.p31Hours_Orig) as Vykazano_Hodiny
+,sum(case when p32.p32IsBillable=1 then a.p31Hours_Orig end) as Vykazano_Hodiny_Fa
+,sum(case when p32.p32IsBillable=0 then a.p31Hours_Orig end) as Vykazano_Hodiny_NeFa
 ,sum(case when p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 THEN a.p31Amount_WithoutVat_Orig END) as Vykazano_Vydaje
+,max(a.p31Date) as Vykazano_Posledni_Datum
 ,sum(a.p31Hours_Invoiced) as Vyfakturovano_Hodiny
 ,sum(a.p31Amount_WithoutVat_Invoiced_Domestic) as Vyfakturovano_Celkem_Domestic
 ,sum(case when p34.p33ID=1 THEN a.p31Amount_WithoutVat_Invoiced_Domestic END) as Vyfakturovano_Hodiny_Domestic
@@ -4615,6 +4650,10 @@ CREATE function [dbo].[tview_p41_approved]
     return (
         select a.p41ID
 ,sum(a.p31Hours_Approved_Billing) as Hodiny
+,sum(case when a.p72ID_AfterApprove=4 THEN a.p31Hours_Approved_Billing end) as Hodiny_Fakturovat
+,sum(case when a.p72ID_AfterApprove=6 THEN a.p31Hours_Orig end) as Hodiny_Pausal
+,sum(case when a.p72ID_AfterApprove IN (2,3) THEN a.p31Hours_Orig end) as Hodiny_Odpis
+,sum(case when a.p72ID_AfterApprove=7 THEN a.p31Hours_Approved_Billing end) as Hodiny_FakturovatPozdeji
 ,sum(a.p31Amount_WithoutVat_Approved) as Castka_Celkem
 ,sum(case when a.p71ID=1 AND p34.p33ID=1 THEN a.p31Amount_WithoutVat_Approved end) as Honorar
 ,sum(case when a.p71ID=1 AND p34.p33ID=1 AND a.j27ID_Billing_Orig=2 THEN a.p31Amount_WithoutVat_Approved end) as Honorar_CZK
@@ -4625,6 +4664,9 @@ CREATE function [dbo].[tview_p41_approved]
 ,sum(case when a.p71ID=1 AND p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 then a.p31Amount_WithoutVat_Approved end) as Odmeny
 ,sum(case when a.p71ID=1 AND p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 AND a.j27ID_Billing_Orig=2 then a.p31Amount_WithoutVat_Approved end) as Odmeny_CZK
 ,sum(case when a.p71ID=1 AND p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 AND a.j27ID_Billing_Orig=3 then a.p31Amount_WithoutVat_Approved end) as Odmeny_EUR
+,max(a.p31Date) as Posledni_Datum
+,min(a.p31Date) as Prvni_Datum
+,count(a.p31ID) as Pocet
 from
 p31WorkSheet a
 INNER JOIN p32Activity p32 ON a.p32ID=p32.p32ID
@@ -4655,6 +4697,11 @@ CREATE function [dbo].[tview_p41_notinvoiced]
     return (
         select a.p41ID
 ,sum(case when a.p71ID IS NULL AND p32.p32IsBillable=1 THEN a.p31Hours_Orig when a.p71ID=1 THEN a.p31Hours_Approved_Billing end) as Hodiny
+,sum(case when a.p71ID IS NULL THEN a.p31Hours_Orig end) as Hodiny_Rozpracovane
+,sum(case when a.p71ID=1 AND a.p72ID_AfterApprove=4 THEN a.p31Hours_Approved_Billing end) as Hodiny_Fakturovat
+,sum(case when a.p71ID=1 AND a.p72ID_AfterApprove=6 THEN a.p31Hours_Orig end) as Hodiny_Pausal
+,sum(case when a.p71ID=1 AND a.p72ID_AfterApprove IN (2,3) THEN a.p31Hours_Orig end) as Hodiny_Odpis
+,sum(case when a.p71ID=1 AND a.p72ID_AfterApprove=7 THEN a.p31Hours_Approved_Billing end) as Hodiny_FakturovatPozdeji
 ,sum(case when a.p71ID IS NULL AND a.p31Amount_WithoutVat_Orig<>0 then a.p31Amount_WithoutVat_Orig WHEN a.p71ID=1 THEN a.p31Amount_WithoutVat_Approved end) as Castka_Celkem
 ,sum(case when a.p71ID IS NULL AND p34.p33ID=1 then p31Amount_WithoutVat_Orig WHEN a.p71ID=1 AND p34.p33ID=1 THEN a.p31Amount_WithoutVat_Approved end) as Honorar
 ,sum(case when a.p71ID IS NULL AND p34.p33ID=1 and a.j27ID_Billing_Orig=2 then a.p31Amount_WithoutVat_Orig WHEN a.p71ID=1 AND p34.p33ID=1 AND a.j27ID_Billing_Orig=2 THEN a.p31Amount_WithoutVat_Approved end) as Honorar_CZK
@@ -4665,6 +4712,9 @@ CREATE function [dbo].[tview_p41_notinvoiced]
 ,sum(case when a.p71ID IS NULL AND p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 then a.p31Amount_WithoutVat_Orig when a.p71ID=1 AND p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 then a.p31Amount_WithoutVat_Approved end) as Odmeny
 ,sum(case when a.p71ID IS NULL AND p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 AND a.j27ID_Billing_Orig=2 then a.p31Amount_WithoutVat_Orig when a.p71ID=1 AND p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 AND a.j27ID_Billing_Orig=2 then a.p31Amount_WithoutVat_Approved end) as Odmeny_CZK
 ,sum(case when a.p71ID IS NULL AND p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 AND a.j27ID_Billing_Orig=3 then a.p31Amount_WithoutVat_Orig when a.p71ID=1 AND p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 AND a.j27ID_Billing_Orig=3 then a.p31Amount_WithoutVat_Approved end) as Odmeny_EUR
+,max(a.p31Date) as Posledni_Datum
+,min(a.p31Date) as Prvni_Datum
+,count(a.p31ID) as Pocet
 from
 p31WorkSheet a
 INNER JOIN p32Activity p32 ON a.p32ID=p32.p32ID
@@ -4694,6 +4744,8 @@ CREATE function [dbo].[tview_p41_wip]
     return (
         select a.p41ID
 ,sum(a.p31Hours_Orig) as Hodiny
+,sum(case when p32.p32IsBillable=1 then a.p31Hours_Orig end) as Hodiny_Fa
+,sum(case when p32.p32IsBillable=0 then a.p31Hours_Orig end) as Hodiny_NeFa
 ,sum(case when a.p31Amount_WithoutVat_Orig<>0 then a.p31Amount_WithoutVat_Orig end) as Castka_Celkem
 ,sum(case when p34.p33ID=1 then p31Amount_WithoutVat_Orig end) as Honorar
 ,sum(case when p34.p33ID=1 and a.j27ID_Billing_Orig=2 then a.p31Amount_WithoutVat_Orig end) as Honorar_CZK
@@ -4704,6 +4756,9 @@ CREATE function [dbo].[tview_p41_wip]
 ,sum(case when p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 then a.p31Amount_WithoutVat_Orig end) as Odmeny
 ,sum(case when p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 and a.j27ID_Billing_Orig=2 then a.p31Amount_WithoutVat_Orig end) as Odmeny_CZK
 ,sum(case when p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 and a.j27ID_Billing_Orig=3 then a.p31Amount_WithoutVat_Orig end) as Odmeny_EUR
+,max(a.p31Date) as Posledni_Datum
+,min(a.p31Date) as Prvni_Datum
+,count(a.p31ID) as Pocet
 from
 p31WorkSheet a
 INNER JOIN p32Activity p32 ON a.p32ID=p32.p32ID
@@ -4733,7 +4788,10 @@ CREATE function [dbo].[tview_p41_worksheet]
     return (
         select a.p41ID
 ,sum(a.p31Hours_Orig) as Vykazano_Hodiny
+,sum(case when p32.p32IsBillable=1 then a.p31Hours_Orig end) as Vykazano_Hodiny_Fa
+,sum(case when p32.p32IsBillable=0 then a.p31Hours_Orig end) as Vykazano_Hodiny_NeFa
 ,sum(case when p34.p33ID IN (2,5) AND p34.p34IncomeStatementFlag=2 THEN a.p31Amount_WithoutVat_Orig END) as Vykazano_Vydaje
+,max(a.p31Date) as Vykazano_Posledni_Datum
 ,sum(a.p31Hours_Invoiced) as Vyfakturovano_Hodiny
 ,sum(a.p31Amount_WithoutVat_Invoiced_Domestic) as Vyfakturovano_Celkem_Domestic
 ,sum(case when p34.p33ID=1 THEN a.p31Amount_WithoutVat_Invoiced_Domestic END) as Vyfakturovano_Hodiny_Domestic

@@ -5,6 +5,7 @@ Public Class clsDumpData
     Public Result As String
     Public IsIncludeGO As Boolean
     Public IsMsAccess As Boolean
+    Private Property _UserLogin As String
 
     Private Function IsComputedField(ByVal strField As String, ByVal aCF() As String) As Boolean
         Dim i As Integer
@@ -29,7 +30,7 @@ Public Class clsDumpData
         Dim sb As New System.Text.StringBuilder
         Dim sd As System.Text.StringBuilder
 
-        Dim c As New DL.DbHandler("")
+        Dim c As New DL.DbHandler(_UserLogin)
         Dim strSQL As String, bolIdentity As Boolean
 
         Dim strSQLSys As String = "select a.name from syscolumns a inner join sysobjects b on a.id=b.id where b.xtype='U' and a.iscomputed=1"
@@ -177,5 +178,9 @@ Public Class clsDumpData
             cFile.SaveText2File(strSave2File, sb.ToString, bolAppend2File)
         End If
         Me.Result = sb.ToString
+    End Sub
+
+    Public Sub New(strUserLogin As String)
+        _UserLogin = strUserLogin
     End Sub
 End Class

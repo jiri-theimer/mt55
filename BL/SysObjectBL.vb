@@ -205,7 +205,7 @@
 
 
     Public Function GetDump(ByVal strDumpDefinition As String, Optional ByVal strSave2File As String = "", Optional ByVal bolAppend2File As Boolean = False, Optional bolIncludeGO As Boolean = False) As String
-        Dim cDump As New DL.clsDumpData()
+        Dim cDump As New DL.clsDumpData(_factory.SysUser.j03Login)
         cDump.IsIncludeGO = bolIncludeGO
         cDump.DoDump(strDumpDefinition)
         Return cDump.Result
