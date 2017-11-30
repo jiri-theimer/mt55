@@ -9,7 +9,7 @@
             <td>
                 <asp:HyperLink ID="linkPM" runat="server" CssClass="entity_menu_header" NavigateUrl="#"></asp:HyperLink>
                 <button type="button" id="cmdGo2Grid" runat="server"  onclick="go2grid()" style="font-size:10px;">
-                    Zpět do přehledu
+                    Přejít do přehledu
                 </button>
             </td>
             <td style="text-align: right;">

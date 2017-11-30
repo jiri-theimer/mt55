@@ -617,7 +617,7 @@
         'CreateQuery("Kontaktní média klienta", BO.x29IdEnum.p28Contact, 0, "p28Name,KontaktniMedia")
         'CreateQuery("Fakturační e-mail", BO.x29IdEnum.p28Contact, 0, "p28Name,FakturacniEmail")
         CreateQuery("Kontaktní údaje", BO.x29IdEnum.p28Contact, 0, "p28Name,p28RegID,Adress1_City,Adress1_Street,Adress1_ZIP,KontaktniOsoby,KontaktniMedia", , , , , BO.j70PageLayoutFlagENUM.OnlyOne)
-        CreateQuery("Klient+podřízení klienti", BO.x29IdEnum.p28Contact, 0, "p28Name,ChildContactsInline")
+        ''CreateQuery("Klient+podřízení klienti", BO.x29IdEnum.p28Contact, 0, "p28Name,ChildContactsInline")
         
         strColumnNames = "FullNameDesc"
         CreateQuery("Nevyfakturované hodiny", BO.x29IdEnum.j02Person, 0, "FullNameDesc,NI_Hodiny_Rozpracovane,NI_Hodiny_Fakturovat,NI_Hodiny_Pausal,NI_Hodiny_Odpis,NI_Pocet_Ukonu,NI_Prvni_Datum,NI_Posledni_Datum", "_other", 35, , , BO.j70PageLayoutFlagENUM.OnlyOne)
@@ -696,6 +696,7 @@
         Dim mqJ02 As New BO.myQueryJ02
         mqJ02.IntraPersons = BO.myQueryJ02_IntraPersons.IntraOnly
         mqJ02.Closed = BO.BooleanQueryMode.FalseQuery
+        mqJ02.j04ID = 1
         Dim intJ02ID As Integer = 0
         Try
             intJ02ID = _Factory.j02PersonBL.GetList(mqJ02)(0).PID
@@ -709,7 +710,7 @@
         Try
             intJ03ID = _Factory.j03UserBL.GetList(mq)(0).PID
         Catch ex As Exception
-            Response.Write(ex.Message & "<hr>intJ02ID: " & intJ02ID.ToString)
+            Response.Write(ex.Message & "<hr>intJ03ID: " & intJ03ID.ToString)
             Return
         End Try
 
