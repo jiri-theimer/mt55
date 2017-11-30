@@ -111,12 +111,10 @@ Public Class handler_popupmenu
 
         Dim cDisp As BO.p56RecordDisposition = factory.p56TaskBL.InhaleRecordDisposition(cRec)
         If Not cDisp.ReadAccess Then CI("Nemáte přístup k tomuto úkolu.", "", True) : Return
-        If strFlag <> "pagemenu" Then
-            If factory.SysUser.j04IsMenu_Task Then
-                REL(cRec.FullName, "p56_framework.aspx?pid=" & intPID.ToString, "_top", "Images/fullscreen.png")
-            Else
-                CI(cRec.FullName, "", True, "Images/information.png")
-            End If
+        If factory.SysUser.j04IsMenu_Task Then
+            REL(cRec.FullName, "p56_framework_detail.aspx?source=3&pid=" & intPID.ToString, "_top", "Images/fullscreen.png")
+        Else
+            CI(cRec.FullName, "", True, "Images/information.png")
         End If
 
         If cDisp.OwnerAccess Then
@@ -237,9 +235,10 @@ Public Class handler_popupmenu
 
         Dim cDisp As BO.p91RecordDisposition = factory.p91InvoiceBL.InhaleRecordDisposition(cRec)
         If cDisp.ReadAccess Then
-            If strFlag <> "pagemenu" Then
-                REL(cRec.p92Name & ": " & cRec.p91Code, "p91_framework.aspx?pid=" & intPID.ToString, "_top", "Images/fullscreen.png")
-            End If
+            REL(cRec.p92Name & ": " & cRec.p91Code, "p91_framework_detail.aspx?source=3&pid=" & intPID.ToString, "_top", "Images/fullscreen.png")
+            'If strFlag <> "pagemenu" Then
+
+            'End If
 
             If cDisp.OwnerAccess Then
                 SEP()
@@ -254,8 +253,8 @@ Public Class handler_popupmenu
             CI("[AKCE]", "", , "Images/wizard.png")
             CI("Zapsat úhradu", "p91_pay.aspx?pid=" & intPID.ToString, , "Images/payment.png", True)
             CI("Převést fakturu na jinou měnu", "p91_change_currency.aspx?pid=" & intPID.ToString, , "Images/recalc.png", True)
-            CI("Převést fakturu na jinou DPH sazbu", "p91_change_vat.aspx?pid=" & intPID.ToString, , "Images/recalc.png", True)            
-            CI("Spárovat fakturu s úhradou zálohy", "p91_proforma.aspx?pid=" & intPID.ToString, , "Images/proforma.png", True)            
+            CI("Převést fakturu na jinou DPH sazbu", "p91_change_vat.aspx?pid=" & intPID.ToString, , "Images/recalc.png", True)
+            CI("Spárovat fakturu s úhradou zálohy", "p91_proforma.aspx?pid=" & intPID.ToString, , "Images/proforma.png", True)
             If cRec.p92InvoiceType = BO.p92InvoiceTypeENUM.ClientInvoice Then
                 CI("Vytvořit k faktuře opravný doklad", "p91_creditnote.aspx?pid=" & intPID.ToString, , "Images/correction_down.gif", True)
             End If
@@ -263,18 +262,18 @@ Public Class handler_popupmenu
 
             SEP()
             CI("[ODKAZ]", "", , "Images/link.png")
-            If cRec.p91ID_CreditNoteBind > 0 Then                
+            If cRec.p91ID_CreditNoteBind > 0 Then
                 Dim cP91 As BO.p91Invoice = factory.p91InvoiceBL.Load(cRec.p91ID_CreditNoteBind)
                 REL(cP91.p92Name & ": " & cP91.p91Code, "p91_framework.aspx?pid=" & cP91.PID.ToString, "_top", "Images/invoice.png", True)   'pod odkaz
             Else
                 If cRec.p92InvoiceType = BO.p92InvoiceTypeENUM.ClientInvoice Then
                     Dim cP91 As BO.p91Invoice = factory.p91InvoiceBL.LoadCreditNote(cRec.PID)
-                    If Not cP91 Is Nothing Then                        
+                    If Not cP91 Is Nothing Then
                         REL(cP91.p92Name & ": " & cP91.p91Code, "p91_framework.aspx?pid=" & cP91.PID.ToString, "_top", "Images/correction_down.gif", True)   'pod odkaz
                     End If
                 End If
             End If
-            
+
             If factory.SysUser.j04IsMenu_Contact And cRec.p28ID > 0 Then
                 REL(cRec.p28Name, "p28_framework.aspx?pid=" & cRec.p28ID.ToString, "_top", "Images/contact.png", True)   'pod odkaz
             End If
@@ -490,9 +489,15 @@ Public Class handler_popupmenu
         If Not cDisp.ReadAccess Then CI("Ke klientovi nemáte oprávnění.", "", True) : Return
 
         If factory.SysUser.j04IsMenu_Contact Then
-            If strFlag <> "pagemenu" Then
-                REL(cRec.p28Name, "p28_framework.aspx?pid=" & intPID.ToString, "_top", "Images/fullscreen.png")
-            End If
+            REL(cRec.p28Name, "p28_framework_detail.aspx?source=3&pid=" & intPID.ToString, "_top", "Images/fullscreen.png")
+            ''Select Case strFlag
+            ''    Case "grid"
+            ''        REL(cRec.p28Name, "p28_framework_detail.aspx?source=3&pid=" & intPID.ToString, "_top", "Images/fullscreen.png")
+            ''    Case "pagemenu"
+            ''    Case Else
+            ''        REL(cRec.p28Name, "p28_framework.aspx?pid=" & intPID.ToString, "_top", "Images/fullscreen.png")
+            ''End Select
+
         Else
             CI(cRec.p28Name, "", True, "Images/information.png")
         End If
@@ -637,10 +642,11 @@ Public Class handler_popupmenu
         Dim cRec As BO.p41Project = factory.p41ProjectBL.Load(intPID)
         If cRec Is Nothing Then CI("Záznam nebyl nalezen.", "", True) : Return
         If factory.SysUser.j04IsMenu_Project Then
-            If strFlag <> "pagemenu" Then
-                REL(cRec.PrefferedName, "p41_framework.aspx?pid=" & intPID.ToString, "_top", "Images/fullscreen.png")
-            End If
-            
+            REL(cRec.PrefferedName, "p41_framework_detail.aspx?source=3&pid=" & intPID.ToString, "_top", "Images/fullscreen.png")
+            'If strFlag <> "pagemenu" Then
+            '    REL(cRec.PrefferedName, "p41_framework.aspx?pid=" & intPID.ToString, "_top", "Images/fullscreen.png")
+            'End If
+
         Else
             CI(cRec.PrefferedName, "", True, "Images/information.png")
         End If
@@ -975,13 +981,14 @@ Public Class handler_popupmenu
     Private Sub HandleJ02(intPID As Integer, factory As BL.Factory, strFlag As String)
         Dim cRec As BO.j02Person = factory.j02PersonBL.Load(intPID)
         If cRec Is Nothing Then CI("Záznam nebyl nalezen.", "", True) : Return
-        If strFlag <> "pagemenu" Then
-            If factory.SysUser.j04IsMenu_People Then
-                REL(cRec.FullNameDesc, "j02_framework.aspx?pid=" & intPID.ToString, "_top", "Images/fullscreen.png")
-            Else
-                CI(cRec.FullNameDesc, "", True, "Images/information.png")
-            End If
+        If factory.SysUser.j04IsMenu_People Then
+            REL(cRec.FullNameDesc, "j02_framework_detail.aspx?source=3&pid=" & intPID.ToString, "_top", "Images/fullscreen.png")
+        Else
+            CI(cRec.FullNameDesc, "", True, "Images/information.png")
         End If
+        'If strFlag <> "pagemenu" Then
+
+        'End If
 
         If factory.TestPermission(BO.x53PermValEnum.GR_Admin) Then
             SEP()

@@ -581,19 +581,21 @@
     Private Sub Filtry()
         Dim strColumnNames As String = "Client,p41Name"
         CreateQuery("Můj seznam oblíbených", BO.x29IdEnum.p41Project, 0, strColumnNames, "_other", 20)
-        CreateQuery("Projekty s kontaktní osobou", BO.x29IdEnum.p41Project, 0, strColumnNames, "_other", 16)
-        CreateQuery("Není přiřazen ceník sazeb", BO.x29IdEnum.p41Project, 0, strColumnNames, "_other", 13)
+
+        CreateQuery("Široký přehled", BO.x29IdEnum.p41Project, 0, "Client, p41Name, Role_x67_3, p51Name_Billing, NI_Hodiny, NI_Vydaje, NI_Odmeny", , , , , BO.j70PageLayoutFlagENUM.OnlyOne)
+        'CreateQuery("Projekty s kontaktní osobou", BO.x29IdEnum.p41Project, 0, strColumnNames, "_other", 16)
+        'CreateQuery("Není přiřazen ceník sazeb", BO.x29IdEnum.p41Project, 0, strColumnNames, "_other", 13)
         CreateQuery("Projekty v režimu DRAFT", BO.x29IdEnum.p41Project, 0, strColumnNames, "_other", 11)
         CreateQuery("Projekty s opakovanou paušální odměnou", BO.x29IdEnum.p41Project, 0, strColumnNames, "_other", 10)
         CreateQuery("Matky opakovaných projektů", BO.x29IdEnum.p41Project, 0, strColumnNames, "_other", 22)
-        CreateQuery("Překročen limit rozpracovanosti", BO.x29IdEnum.p41Project, 0, "Client,p41Name,p41LimitHours_Notification,p41LimitFee_Notification,WIP_Hodiny,WIP_Castka", "_other", 4)
+        CreateQuery("Plán rozpracovaných hodin", BO.x29IdEnum.p41Project, 0, "Client,p41Name,p41LimitHours_Notification,p41LimitFee_Notification,WIP_Hodiny,WIP_Castka", "_other", 4, , , BO.j70PageLayoutFlagENUM.OnlyOne)
         CreateQuery("Projekty s vystavenou fakturou", BO.x29IdEnum.p41Project, 0, "Client,p41Name,Vyfakturovano_PocetFaktur,Vyfakturovano_Naposledy_Kdy", "_other", 15)
-        CreateQuery("Stav fakturace", BO.x29IdEnum.p41Project, 0, "Client,p41Name,NI_Castka,Vyfakturovano_Naposledy_Kdy")
-        CreateQuery("Schváleno, čeká na fakturaci", BO.x29IdEnum.p41Project, 0, "Client,p41Name,AP_Hodiny,AP_Castka", "_other", 5)
-        CreateQuery("Rozpracováno, čeká na schválení", BO.x29IdEnum.p41Project, 0, "Client,p41Name,WIP_Hodiny,WIP_Castka", "_other", 3)
-        CreateQuery("Nevyfakturováno", BO.x29IdEnum.p41Project, 0, "Client,p41Name,NI_Hodiny,NI_Castka", "_other", 3)
+        CreateQuery("Fakturační nastavení", BO.x29IdEnum.p41Project, 0, "Client,p41Name,p51Name_Billing,p92Name,p41BillingMemo,Vyfakturovano_Naposledy_Kdy", , , , , BO.j70PageLayoutFlagENUM.OnlyOne)
+        CreateQuery("Schváleno, čeká na fakturaci", BO.x29IdEnum.p41Project, 0, "Client,p41Name,AP_Hodiny_Fakturovat,AP_Hodiny_Pausal,AP_Hodiny_Odpis,AP_Hodiny_FakturovatPozdeji,AP_Castka,AP_Pocet_Ukonu", "_other", 5, , , BO.j70PageLayoutFlagENUM.OnlyOne)
+        CreateQuery("Rozpracováno, čeká na schválení", BO.x29IdEnum.p41Project, 0, "Client,p41Name,WIP_Hodiny,WIP_Castka,WIP_Prvni_Datum,WIP_Posledni_Datum,WIP_Pocet_Ukonu,Vyfakturovano_Naposledy_Kdy", "_other", 3, , , BO.j70PageLayoutFlagENUM.OnlyOne)
+        CreateQuery("Nevyfakturováno", BO.x29IdEnum.p41Project, 0, "Client,p41Name,NI_Hodiny_Rozpracovane,NI_Hodiny_Fakturovat,NI_Hodiny_Pausal,NI_Hodiny_Odpis,NI_Hodiny_FakturovatPozdeji,NI_Castka,NI_Pocet_Ukonu,Vyfakturovano_Naposledy_Kdy", "_other", 3, , , BO.j70PageLayoutFlagENUM.OnlyOne)
         CreateQuery("Otevřené úkoly", BO.x29IdEnum.p41Project, 0, "Client,p41Name,PendingTasks", "_other", 6)
-        CreateQuery("Naposledy založené", BO.x29IdEnum.p41Project, 0, "Client,p41Name,p41DateInsert,p41UserInsert", , , , "a.p41DateInsert DESC")
+        CreateQuery("Naposledy založené", BO.x29IdEnum.p41Project, 0, "Client,p41Name,p41DateInsert,p41UserInsert,Owner", , , , "a.p41DateInsert DESC", BO.j70PageLayoutFlagENUM.OnlyOne)
         CreateQuery("Štítky", BO.x29IdEnum.p41Project, 0, "Client,p41Name,TagsHtml")
         CreateQuery("Strom", BO.x29IdEnum.p41Project, 0, "Client,p41TreePath")
         CreateQuery("Projekty v archivu", BO.x29IdEnum.p41Project, 2, strColumnNames)
@@ -605,20 +607,23 @@
         CreateQuery("Klienti v archivu", BO.x29IdEnum.p28Contact, 2, strColumnNames)
         CreateQuery("Strom", BO.x29IdEnum.p28Contact, 0, "p28TreePath")
         CreateQuery("Štítky", BO.x29IdEnum.p28Contact, 0, "p28Name,TagsHtml")
-        CreateQuery("Naposledy založené", BO.x29IdEnum.p28Contact, 0, "p28Name,p28DateInsert,p28UserInsert", , , , "a.p28DateInsert DESC")
-        CreateQuery("Stav fakturace", BO.x29IdEnum.p28Contact, 0, "p28Name,NI_Castka,Vyfakturovano_Naposledy_Kdy")
-        CreateQuery("Nevyfakturovano", BO.x29IdEnum.p28Contact, 0, "p28Name,NI_Hodiny,NI_Castka", "_other", 35)
-        CreateQuery("Rozpracováno, čeká na schválení", BO.x29IdEnum.p28Contact, 0, "p28Name,WIP_Hodiny,WIP_Castka", "_other", 3)
-        CreateQuery("Schváleno, čeká na fakturaci", BO.x29IdEnum.p28Contact, 0, "p28Name,AP_Hodiny,AP_Castka", "_other", 5)
-        CreateQuery("Kontaktní osoby klienta", BO.x29IdEnum.p28Contact, 0, "p28Name,KontaktniOsoby")
-        CreateQuery("Kontaktní média klienta", BO.x29IdEnum.p28Contact, 0, "p28Name,KontaktniMedia")
-        CreateQuery("Fakturační e-mail", BO.x29IdEnum.p28Contact, 0, "p28Name,FakturacniEmail")
+        CreateQuery("Naposledy založené", BO.x29IdEnum.p28Contact, 0, "p28Name,p28Code,p28DateInsert,p28UserInsert,Owner", , , , "a.p28DateInsert DESC", BO.j70PageLayoutFlagENUM.OnlyOne)
+        'CreateQuery("Stav fakturace", BO.x29IdEnum.p28Contact, 0, "p28Name,NI_Castka,Vyfakturovano_Naposledy_Kdy")
+        CreateQuery("Fakturační nastavení", BO.x29IdEnum.p28Contact, 0, "p28Name,p28VatID,p51Name_Billing,p87Name,p92Name,p28BillingMemo,Vyfakturovano_Naposledy_Kdy", , , , , BO.j70PageLayoutFlagENUM.OnlyOne)
+        CreateQuery("Nevyfakturovano", BO.x29IdEnum.p28Contact, 0, "p28Name,NI_Hodiny_Rozpracovane,NI_Hodiny_Fakturovat,NI_Hodiny_Pausal,NI_Hodiny_Odpis,NI_Hodiny_FakturovatPozdeji,NI_Castka,NI_Pocet_Ukonu,Vyfakturovano_Naposledy_Kdy", "_other", 35, , , BO.j70PageLayoutFlagENUM.OnlyOne)
+        CreateQuery("Rozpracováno, čeká na schválení", BO.x29IdEnum.p28Contact, 0, "p28Name,WIP_Hodiny,WIP_Castka,WIP_Prvni_Datum,WIP_Posledni_Datum,Vyfakturovano_Naposledy_Kdy", "_other", 3, , , BO.j70PageLayoutFlagENUM.OnlyOne)
+        CreateQuery("Schváleno, čeká na fakturaci", BO.x29IdEnum.p28Contact, 0, "p28Name,AP_Hodiny_Fakturovat,AP_Hodiny_Pausal,AP_Hodiny_Odpis,AP_Hodiny_FakturovatPozdeji,AP_Vydaje,AP_Odmeny,AP_Castka", "_other", 5, , , BO.j70PageLayoutFlagENUM.OnlyOne)
+        'CreateQuery("Kontaktní osoby klienta", BO.x29IdEnum.p28Contact, 0, "p28Name,KontaktniOsoby")
+        'CreateQuery("Kontaktní média klienta", BO.x29IdEnum.p28Contact, 0, "p28Name,KontaktniMedia")
+        'CreateQuery("Fakturační e-mail", BO.x29IdEnum.p28Contact, 0, "p28Name,FakturacniEmail")
+        CreateQuery("Kontaktní údaje", BO.x29IdEnum.p28Contact, 0, "p28Name,p28RegID,Adress1_City,Adress1_Street,Adress1_ZIP,KontaktniOsoby,KontaktniMedia", , , , , BO.j70PageLayoutFlagENUM.OnlyOne)
         CreateQuery("Klient+podřízení klienti", BO.x29IdEnum.p28Contact, 0, "p28Name,ChildContactsInline")
         
         strColumnNames = "FullNameDesc"
-        CreateQuery("Nevyfakturované hodiny", BO.x29IdEnum.j02Person, 0, "FullNameDesc,NI_Hodiny", "_other", 35)
-        CreateQuery("Rozpracované hodiny", BO.x29IdEnum.j02Person, 0, "FullNameDesc,WIP_Hodiny", "_other", 3)
+        CreateQuery("Nevyfakturované hodiny", BO.x29IdEnum.j02Person, 0, "FullNameDesc,NI_Hodiny_Rozpracovane,NI_Hodiny_Fakturovat,NI_Hodiny_Pausal,NI_Hodiny_Odpis,NI_Pocet_Ukonu,NI_Prvni_Datum,NI_Posledni_Datum", "_other", 35, , , BO.j70PageLayoutFlagENUM.OnlyOne)
+        CreateQuery("Rozpracované hodiny", BO.x29IdEnum.j02Person, 0, "FullNameDesc,j07Name,WIP_Hodiny,WIP_Hodiny_Fa,WIP_Hodiny_NeFa,WIP_Prvni_Datum,WIP_Posledni_Datum", "_other", 3, , , BO.j70PageLayoutFlagENUM.OnlyOne)
         CreateQuery("Štítky", BO.x29IdEnum.j02Person, 0, "FullNameDesc,TagsHtml")
+        CreateQuery("Široký přehled", BO.x29IdEnum.j02Person, 0, "FullNameDesc,j02Email,j07Name,c21Name,j18Name", "_other", 6, , , BO.j70PageLayoutFlagENUM.OnlyOne)
         CreateQuery("Osoby v archivu", BO.x29IdEnum.j02Person, 2, strColumnNames)
         CreateQuery("Kontaktní osoby", BO.x29IdEnum.j02Person, 0, "FullNameDesc,VazbaKlient", "_other", 7)
         CreateQuery("Interní osoby", BO.x29IdEnum.j02Person, 1, strColumnNames, "_other", 6)
@@ -635,6 +640,7 @@
         CreateQuery("S oficiálním číslem", BO.x29IdEnum.p91Invoice, 0, strColumnNames, "_other", 6)
         CreateQuery("DRAFT doklady", BO.x29IdEnum.p91Invoice, 0, strColumnNames, "_other", 5)
         CreateQuery("Ve splatnosti", BO.x29IdEnum.p91Invoice, 0, strColumnNames, "_other", 3)
+        CreateQuery("Široký přehled", BO.x29IdEnum.p91Invoice, 0, "p91Code,p91Client,p91DateSupply,p91Amount_WithoutVat,j27Code,WithoutVat_Krat_Kurz,p91Amount_Debt,VomKdyOdeslano", , , , , BO.j70PageLayoutFlagENUM.OnlyOne)
         CreateQuery("Neuhrazené po splatnosti", BO.x29IdEnum.p91Invoice, 0, strColumnNames, "_other", 4)
 
         strColumnNames = "p31Date,Person,ClientName,p41Name,p32Name,p31Hours_Orig,p31Rate_Billing_Orig,p31Amount_WithoutVat_Orig,p31Text"
@@ -652,11 +658,12 @@
 
         strColumnNames = "ClientAndProject,p56Name,b02Name"
         CreateQuery("Matky opakovaných úkolů", BO.x29IdEnum.p56Task, 0, strColumnNames, "_other", 13)
-        CreateQuery("Je po termínu dokončení", BO.x29IdEnum.p56Task, 0, strColumnNames, "_other", 7)
-        CreateQuery("Vyplněn termín dokončení", BO.x29IdEnum.p56Task, 0, strColumnNames, "_other", 6)
-        CreateQuery("Vyplněn plán/limit hodin", BO.x29IdEnum.p56Task, 0, strColumnNames, "_other", 9)
-        CreateQuery("Schválené úkony, čeká na fakturaci", BO.x29IdEnum.p56Task, 0, strColumnNames, "_other", 5)
-        CreateQuery("Rozpracované, čeká na schvalování", BO.x29IdEnum.p56Task, 0, strColumnNames, "_other", 3)
+        'CreateQuery("Je po termínu dokončení", BO.x29IdEnum.p56Task, 0, strColumnNames, "_other", 7)
+        'CreateQuery("Vyplněn termín dokončení", BO.x29IdEnum.p56Task, 0, strColumnNames, "_other", 6)
+        CreateQuery("Je po termínu dokončení", BO.x29IdEnum.p56Task, 0, "ClientAndProject,p56Name,b02Name,ReceiversInLine,p56PlanUntil,DnuDoTerminu", "_other", 7, , , BO.j70PageLayoutFlagENUM.OnlyOne)
+        'CreateQuery("Schválené úkony, čeká na fakturaci", BO.x29IdEnum.p56Task, 0, strColumnNames, "_other", 5)
+        CreateQuery("Široký přehled", BO.x29IdEnum.p56Task, 0, "Client,p41Name,p56Name,b02Name,ReceiversInLine,p56PlanUntil,DnuDoTerminu,Hours_Orig", , , , , BO.j70PageLayoutFlagENUM.OnlyOne)
+        CreateQuery("Rozpracované, čeká na schvalování", BO.x29IdEnum.p56Task, 0, "ClientAndProject,p56Name,b02Name,Role_x67_1,Hours_Orig,Expenses_Orig", "_other", 3, , , BO.j70PageLayoutFlagENUM.OnlyOne)
         CreateQuery("Uzavřené úkoly (v archivu)", BO.x29IdEnum.p56Task, 2, strColumnNames)
         CreateQuery("Otevřené úkoly", BO.x29IdEnum.p56Task, 1, strColumnNames)
 
@@ -685,7 +692,7 @@
             Return lisJ11(0).PID
         End If
     End Function
-    Private Sub CreateQuery(strJ70Name As String, x29ID As BO.x29IdEnum, intBinFlag As Integer, strColumnNames As String, Optional strJ71Field As String = "", Optional intJ71RecordPID As Integer = 0, Optional strJ71RecordName As String = "", Optional strJ70OrderBy As String = "")
+    Private Sub CreateQuery(strJ70Name As String, x29ID As BO.x29IdEnum, intBinFlag As Integer, strColumnNames As String, Optional strJ71Field As String = "", Optional intJ71RecordPID As Integer = 0, Optional strJ71RecordName As String = "", Optional strJ70OrderBy As String = "", Optional intPageFlag As BO.j70PageLayoutFlagENUM = BO.j70PageLayoutFlagENUM._None)
         Dim mqJ02 As New BO.myQueryJ02
         mqJ02.IntraPersons = BO.myQueryJ02_IntraPersons.IntraOnly
         mqJ02.Closed = BO.BooleanQueryMode.FalseQuery
@@ -706,7 +713,7 @@
             Return
         End Try
 
-        
+
         Dim c As New BO.j70QueryTemplate
         c.j70Name = strJ70Name
         c.j70BinFlag = intBinFlag
@@ -717,6 +724,7 @@
         c.j70OrderBy = strJ70OrderBy
         c.j70ScrollingFlag = BO.j70ScrollingFlagENUM.StaticHeaders
         c.j70IsFilteringByColumn = True
+        c.j70PageLayoutFlag = intPageFlag
 
         Dim lisJ71 As New List(Of BO.j71QueryTemplate_Item)
         If strJ71Field <> "" Then

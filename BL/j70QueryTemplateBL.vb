@@ -196,7 +196,8 @@ Class j70QueryTemplateBL
         Dim c As New BO.j70QueryTemplate
         c.x29ID = x29id
         c.j70IsSystem = True
-        c.j70Name = BL.My.Resources.common.VychoziDatovyPrehled
+        'c.j70Name = BL.My.Resources.common.VychoziDatovyPrehled
+        c.j70Name = "Výchozí pojmenovaný přehled"
         c.j70MasterPrefix = strMasterPrefix
         c.j70ScrollingFlag = BO.j70ScrollingFlagENUM.NoScrolling
 

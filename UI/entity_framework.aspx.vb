@@ -422,7 +422,7 @@ Public Class entity_framework
             Case BO.x29IdEnum.p41Project
                 basUIMT.p41_grid_Handle_ItemDataBound(sender, e, True, "", "")
             Case BO.x29IdEnum.p28Contact
-                basUIMT.p28_grid_Handle_ItemDataBound(sender, e, True)
+                basUIMT.p28_grid_Handle_ItemDataBound(sender, e, True, )
             Case BO.x29IdEnum.o23Doc
                 basUIMT.o23_grid_Handle_ItemDataBound(sender, e, False, "", "")
             Case BO.x29IdEnum.p56Task
