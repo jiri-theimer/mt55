@@ -83,7 +83,7 @@
         function RowDoubleClick(sender, args) {
 
             var pid = args.getDataKeyValue("pid");
-            location.replace("<%=Me.CurrentPrefix%>_framework_detail.aspx?pid=" + pid + "&source=<%=opgLayout.Value%>");
+            location.href = "<%=Me.CurrentPrefix%>_framework_detail.aspx?pid=" + pid + "&source=<%=opgLayout.Value%>";
 
 
         }
@@ -264,7 +264,7 @@
             location.replace("<%=Me.CurrentPrefix%>_framework.aspx?pid=" + pid);
             <%End If%>
             <%If opgLayout.Value = "3" Then%>
-            location.replace("<%=Me.CurrentPrefix%>_framework_detail.aspx?source=3&pid=" + pid);
+            location.href="<%=Me.CurrentPrefix%>_framework_detail.aspx?source=3&pid=" + pid;
             <%End If%>
         }
         function cbx1_OnClientItemsRequesting(sender, eventArgs) {

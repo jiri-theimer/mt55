@@ -524,7 +524,11 @@ Class j70QueryTemplateBL
             .Add(AGC(My.Resources.common.ExterniKod, "p41ExternalPID", , , "a.p41ExternalPID"))
             If Factory.TestPermission(BO.x53PermValEnum.GR_P31_AllowRates) Then
                 .Add(AGC("Vykázané hodiny", "Vykazano_Hodiny", BO.cfENUM.Numeric2, , "alfa.Vykazano_Hodiny", True, "LEFT OUTER JOIN tview_p41_worksheet(@dp31f1,@dp31f2) alfa ON a.p41ID=alfa.p41ID", "Vykázáno"))
+                .Add(AGC("Vykázané hod.Fa", "Vykazano_Hodiny_Fa", BO.cfENUM.Numeric2, , "alfa.Vykazano_Hodiny_Fa", True, "LEFT OUTER JOIN tview_p41_worksheet(@dp31f1,@dp31f2) alfa ON a.p41ID=alfa.p41ID", "Vykázáno"))
+                .Add(AGC("Vykázané hod.NeFa", "Vykazano_Hodiny_NeFa", BO.cfENUM.Numeric2, , "alfa.Vykazano_Hodiny_NeFa", True, "LEFT OUTER JOIN tview_p41_worksheet(@dp31f1,@dp31f2) alfa ON a.p41ID=alfa.p41ID", "Vykázáno"))
                 .Add(AGC("Vykázané výdaje", "Vykazano_Vydaje", BO.cfENUM.Numeric2, , "alfa.Vykazano_Vydaje", True, "LEFT OUTER JOIN tview_p41_worksheet(@dp31f1,@dp31f2) alfa ON a.p41ID=alfa.p41ID", "Vykázáno"))
+                .Add(AGC("Poslední úkon", "Vykazano_Posledni_Datum", BO.cfENUM.DateOnly, , "alfa.Vykazano_Posledni_Datum", False, "LEFT OUTER JOIN tview_p41_worksheet(@dp31f1,@dp31f2) alfa ON a.p41ID=alfa.p41ID", "Vykázáno"))
+
                 .Add(AGC("Vyfakturované hodiny", "Vyfakturovano_Hodiny", BO.cfENUM.Numeric2, , "alfa.Vyfakturovano_Hodiny", True, "LEFT OUTER JOIN tview_p41_worksheet(@dp31f1,@dp31f2) alfa ON a.p41ID=alfa.p41ID", "Vyfakturováno"))
                 .Add(AGC("Vyfakturovaná částka", "Vyfakturovano_Castka", BO.cfENUM.Numeric2, , "alfa.Vyfakturovano_Celkem_Domestic", True, "LEFT OUTER JOIN tview_p41_worksheet(@dp31f1,@dp31f2) alfa ON a.p41ID=alfa.p41ID", "Vyfakturováno"))
                 .Add(AGC("Faktura naposledy", "Vyfakturovano_Naposledy_Kdy", BO.cfENUM.DateOnly, , "alfa.Vyfakturovano_Naposledy_Kdy", False, "LEFT OUTER JOIN tview_p41_worksheet(@dp31f1,@dp31f2) alfa ON a.p41ID=alfa.p41ID", "Vyfakturováno"))
@@ -532,6 +536,8 @@ Class j70QueryTemplateBL
                 .Add(AGC("Počet faktur", "Vyfakturovano_PocetFaktur", BO.cfENUM.Numeric0, , "alfa.Vyfakturovano_PocetFaktur", False, "LEFT OUTER JOIN tview_p41_worksheet(@dp31f1,@dp31f2) alfa ON a.p41ID=alfa.p41ID", "Vyfakturováno"))
 
                 .Add(AGC("Rozpracované hodiny", "WIP_Hodiny", BO.cfENUM.Numeric2, , "beta.Hodiny", True, "LEFT OUTER JOIN tview_p41_wip(@dp31f1,@dp31f2) beta ON a.p41ID=beta.p41ID", "Rozpracováno"))
+                .Add(AGC("Rozpr.hod.Fa", "WIP_Hodiny_Fa", BO.cfENUM.Numeric2, , "beta.Hodiny_Fa", True, "LEFT OUTER JOIN tview_p41_wip(@dp31f1,@dp31f2) beta ON a.p41ID=beta.p41ID", "Rozpracováno"))
+                .Add(AGC("Rozpr.hod.NeFa", "WIP_Hodiny_NeFa", BO.cfENUM.Numeric2, , "beta.Hodiny_NeFa", True, "LEFT OUTER JOIN tview_p41_wip(@dp31f1,@dp31f2) beta ON a.p41ID=beta.p41ID", "Rozpracováno"))
                 .Add(AGC("Rozpracováno bez DPH", "WIP_Castka", BO.cfENUM.Numeric2, , "beta.Castka_Celkem", True, "LEFT OUTER JOIN tview_p41_wip(@dp31f1,@dp31f2) beta ON a.p41ID=beta.p41ID", "Rozpracováno"))
                 .Add(AGC("Rozpracovanoý honorář", "WIP_Honorar", BO.cfENUM.Numeric2, , "beta.Honorar", True, "LEFT OUTER JOIN tview_p41_wip(@dp31f1,@dp31f2) beta ON a.p41ID=beta.p41ID", "Rozpracováno"))
                 .Add(AGC("Rozpracovanoý honorář CZK", "WIP_Honorar_CZK", BO.cfENUM.Numeric2, , "beta.Honorar_CZK", True, "LEFT OUTER JOIN tview_p41_wip(@dp31f1,@dp31f2) beta ON a.p41ID=beta.p41ID", "Rozpracováno"))
@@ -542,8 +548,17 @@ Class j70QueryTemplateBL
                 .Add(AGC("Rozpracované paušály", "WIP_Odmeny", BO.cfENUM.Numeric2, , "beta.Odmeny", True, "LEFT OUTER JOIN tview_p41_wip(@dp31f1,@dp31f2) beta ON a.p41ID=beta.p41ID", "Rozpracováno"))
                 .Add(AGC("Rozpracované paušály CZK", "WIP_Odmeny_CZK", BO.cfENUM.Numeric2, , "beta.Odmeny_CZK", True, "LEFT OUTER JOIN tview_p41_wip(@dp31f1,@dp31f2) beta ON a.p41ID=beta.p41ID", "Rozpracováno"))
                 .Add(AGC("Rozpracované paušály EUR", "WIP_Odmeny_EUR", BO.cfENUM.Numeric2, , "beta.Odmeny_EUR", True, "LEFT OUTER JOIN tview_p41_wip(@dp31f1,@dp31f2) beta ON a.p41ID=beta.p41ID", "Rozpracováno"))
+                .Add(AGC("Poslední úkon", "WIP_Posledni_Datum", BO.cfENUM.DateOnly, , "beta.Posledni_Datum", False, "LEFT OUTER JOIN tview_p41_wip(@dp31f1,@dp31f2) beta ON a.p41ID=beta.p41ID", "Rozpracováno"))
+                .Add(AGC("První úkon", "WIP_Prvni_Datum", BO.cfENUM.DateOnly, , "beta.Prvni_Datum", False, "LEFT OUTER JOIN tview_p41_wip(@dp31f1,@dp31f2) beta ON a.p41ID=beta.p41ID", "Rozpracováno"))
+                .Add(AGC("Počet úkonů", "WIP_Pocet_Ukonu", BO.cfENUM.Numeric0, , "beta.Pocet", False, "LEFT OUTER JOIN tview_p41_wip(@dp31f1,@dp31f2) beta ON a.p41ID=beta.p41ID", "Rozpracováno"))
+
 
                 .Add(AGC("Nevyfakturované hodiny", "NI_Hodiny", BO.cfENUM.Numeric2, , "gama.Hodiny", True, "LEFT OUTER JOIN tview_p41_notinvoiced(@dp31f1,@dp31f2) gama ON a.p41ID=gama.p41ID", "Nevyfakturováno"))
+                .Add(AGC("Hodiny Rozpracované", "NI_Hodiny_Rozpracovane", BO.cfENUM.Numeric2, , "gama.Hodiny_Rozpracovane", True, "LEFT OUTER JOIN tview_p41_notinvoiced(@dp31f1,@dp31f2) gama ON a.p41ID=gama.p41ID", "Nevyfakturováno"))
+                .Add(AGC("Hodiny Fakturovat", "NI_Hodiny_Fakturovat", BO.cfENUM.Numeric2, , "gama.Hodiny_Fakturovat", True, "LEFT OUTER JOIN tview_p41_notinvoiced(@dp31f1,@dp31f2) gama ON a.p41ID=gama.p41ID", "Nevyfakturováno"))
+                .Add(AGC("Hodiny Paušál", "NI_Hodiny_Pausal", BO.cfENUM.Numeric2, , "gama.Hodiny_Pausal", True, "LEFT OUTER JOIN tview_p41_notinvoiced(@dp31f1,@dp31f2) gama ON a.p41ID=gama.p41ID", "Nevyfakturováno"))
+                .Add(AGC("Hodiny Odpis", "NI_Hodiny_Odpis", BO.cfENUM.Numeric2, , "gama.Hodiny_Odpis", True, "LEFT OUTER JOIN tview_p41_notinvoiced(@dp31f1,@dp31f2) gama ON a.p41ID=gama.p41ID", "Nevyfakturováno"))
+
                 .Add(AGC("Nevyfakturováno bez DPH", "NI_Castka", BO.cfENUM.Numeric2, , "gama.Castka_Celkem", True, "LEFT OUTER JOIN tview_p41_notinvoiced(@dp31f1,@dp31f2) gama ON a.p41ID=gama.p41ID", "Nevyfakturováno"))
                 .Add(AGC("Nevyfakturovaný honorář", "NI_Honorar", BO.cfENUM.Numeric2, , "gama.Honorar", True, "LEFT OUTER JOIN tview_p41_notinvoiced(@dp31f1,@dp31f2) gama ON a.p41ID=gama.p41ID", "Nevyfakturováno"))
                 .Add(AGC("Nevyfakturovaný honorář CZK", "NI_Honorar_CZK", BO.cfENUM.Numeric2, , "gama.Honorar_CZK", True, "LEFT OUTER JOIN tview_p41_notinvoiced(@dp31f1,@dp31f2) gama ON a.p41ID=gama.p41ID", "Nevyfakturováno"))
@@ -552,6 +567,9 @@ Class j70QueryTemplateBL
                 .Add(AGC("Nevyfakturované paušály", "NI_Odmeny", BO.cfENUM.Numeric2, , "gama.Odmeny", True, "LEFT OUTER JOIN tview_p41_notinvoiced(@dp31f1,@dp31f2) gama ON a.p41ID=gama.p41ID", "Nevyfakturováno"))
                 .Add(AGC("Nevyfakturované paušály CZK", "NI_Odmeny_CZK", BO.cfENUM.Numeric2, , "gama.Odmeny_CZK", True, "LEFT OUTER JOIN tview_p41_notinvoiced(@dp31f1,@dp31f2) gama ON a.p41ID=gama.p41ID", "Nevyfakturováno"))
                 .Add(AGC("Nevyfakturované paušály EUR", "NI_Odmeny_EUR", BO.cfENUM.Numeric2, , "gama.Odmeny_EUR", True, "LEFT OUTER JOIN tview_p41_notinvoiced(@dp31f1,@dp31f2) gama ON a.p41ID=gama.p41ID", "Nevyfakturováno"))
+                .Add(AGC("Poslední úkon", "NI_Posledni_Datum", BO.cfENUM.DateOnly, , "gama.Posledni_Datum", False, "LEFT OUTER JOIN tview_p41_notinvoiced(@dp31f1,@dp31f2) gama ON a.p41ID=gama.p41ID", "Nevyfakturováno"))
+                .Add(AGC("První úkon", "NI_Prvni_Datum", BO.cfENUM.DateOnly, , "gama.Prvni_Datum", False, "LEFT OUTER JOIN tview_p41_notinvoiced(@dp31f1,@dp31f2) gama ON a.p41ID=gama.p41ID", "Nevyfakturováno"))
+                .Add(AGC("Počet úkonů", "NI_Pocet_Ukonu", BO.cfENUM.Numeric0, , "gama.Pocet", False, "LEFT OUTER JOIN tview_p41_notinvoiced(@dp31f1,@dp31f2) gama ON a.p41ID=gama.p41ID", "Nevyfakturováno"))
 
                 .Add(AGC("Schválené hodiny", "AP_Hodiny", BO.cfENUM.Numeric2, , "omega.Hodiny", True, "LEFT OUTER JOIN tview_p41_approved(@dp31f1,@dp31f2) omega ON a.p41ID=omega.p41ID", "Schváleno"))
                 .Add(AGC("Schváleno bez DPH", "AP_Castka", BO.cfENUM.Numeric2, , "omega.Castka_Celkem", True, "LEFT OUTER JOIN tview_p41_approved(@dp31f1,@dp31f2) omega ON a.p41ID=omega.p41ID", "Schváleno"))
@@ -619,7 +637,11 @@ Class j70QueryTemplateBL
 
             If Factory.TestPermission(BO.x53PermValEnum.GR_P31_AllowRates) Then
                 .Add(AGC("Vykázané hodiny", "Vykazano_Hodiny", BO.cfENUM.Numeric2, , "alfa.Vykazano_Hodiny", True, "LEFT OUTER JOIN tview_p28_worksheet(@dp31f1,@dp31f2) alfa ON a.p28ID=alfa.p28ID", "Vykázáno"))
+                .Add(AGC("Vykázané hod.Fa", "Vykazano_Hodiny_Fa", BO.cfENUM.Numeric2, , "alfa.Vykazano_Hodiny_Fa", True, "LEFT OUTER JOIN tview_p28_worksheet(@dp31f1,@dp31f2) alfa ON a.p28ID=alfa.p28ID", "Vykázáno"))
+                .Add(AGC("Vykázané hod.NeFa", "Vykazano_Hodiny_NeFa", BO.cfENUM.Numeric2, , "alfa.Vykazano_Hodiny_NeFa", True, "LEFT OUTER JOIN tview_p28_worksheet(@dp31f1,@dp31f2) alfa ON a.p28ID=alfa.p28ID", "Vykázáno"))
                 .Add(AGC("Vykázané výdaje", "Vykazano_Vydaje", BO.cfENUM.Numeric2, , "alfa.Vykazano_Vydaje", True, "LEFT OUTER JOIN tview_p28_worksheet(@dp31f1,@dp31f2) alfa ON a.p28ID=alfa.p28ID", "Vykázáno"))
+                .Add(AGC("Poslední úkon", "Vykazano_Posledni_Datum", BO.cfENUM.DateOnly, , "alfa.Vykazano_Posledni_Datum", False, "LEFT OUTER JOIN tview_p28_worksheet(@dp31f1,@dp31f2) alfa ON a.p28ID=alfa.p28ID", "Vykázáno"))
+
                 .Add(AGC("Vyfakturované hodiny", "Vyfakturovano_Hodiny", BO.cfENUM.Numeric2, , "alfa.Vyfakturovano_Hodiny", True, "LEFT OUTER JOIN tview_p28_worksheet(@dp31f1,@dp31f2) alfa ON a.p28ID=alfa.p28ID", "Vyfakturováno"))
                 .Add(AGC("Vyfakturovaná částka", "Vyfakturovano_Castka", BO.cfENUM.Numeric2, , "alfa.Vyfakturovano_Celkem_Domestic", True, "LEFT OUTER JOIN tview_p28_worksheet(@dp31f1,@dp31f2) alfa ON a.p28ID=alfa.p28ID", "Vyfakturováno"))
                 .Add(AGC("Faktura naposledy", "Vyfakturovano_Naposledy_Kdy", BO.cfENUM.DateOnly, , "alfa.Vyfakturovano_Naposledy_Kdy", False, "LEFT OUTER JOIN tview_p28_worksheet(@dp31f1,@dp31f2) alfa ON a.p28ID=alfa.p28ID", "Vyfakturováno"))
@@ -627,6 +649,8 @@ Class j70QueryTemplateBL
                 .Add(AGC("Počet faktur", "Vyfakturovano_PocetFaktur", BO.cfENUM.Numeric0, , "alfa.Vyfakturovano_PocetFaktur", False, "LEFT OUTER JOIN tview_p28_worksheet(@dp31f1,@dp31f2) alfa ON a.p28ID=alfa.p28ID", "Vyfakturováno"))
 
                 .Add(AGC("Rozpracované hodiny", "WIP_Hodiny", BO.cfENUM.Numeric2, , "beta.Hodiny", True, "LEFT OUTER JOIN tview_p28_wip(@dp31f1,@dp31f2) beta ON a.p28ID=beta.p28ID", "Rozpracováno"))
+                .Add(AGC("Rozpr.hod.Fa", "WIP_Hodiny_Fa", BO.cfENUM.Numeric2, , "beta.Hodiny_Fa", True, "LEFT OUTER JOIN tview_p28_wip(@dp31f1,@dp31f2) beta ON a.p28ID=beta.p28ID", "Rozpracováno"))
+                .Add(AGC("Rozpr.hod.NeFa", "WIP_Hodiny_NeFa", BO.cfENUM.Numeric2, , "beta.Hodiny_NeFa", True, "LEFT OUTER JOIN tview_p28_wip(@dp31f1,@dp31f2) beta ON a.p28ID=beta.p28ID", "Rozpracováno"))
                 .Add(AGC("Rozpracováno bez DPH", "WIP_Castka", BO.cfENUM.Numeric2, , "beta.Castka_Celkem", True, "LEFT OUTER JOIN tview_p28_wip(@dp31f1,@dp31f2) beta ON a.p28ID=beta.p28ID", "Rozpracováno"))
                 .Add(AGC("Rozpraoovaný honorář", "WIP_Honorar", BO.cfENUM.Numeric2, , "beta.Honorar", True, "LEFT OUTER JOIN tview_p28_wip(@dp31f1,@dp31f2) beta ON a.p28ID=beta.p28ID", "Rozpracováno"))
                 .Add(AGC("Rozpracovaný honorář CZK", "WIP_Honorar_CZK", BO.cfENUM.Numeric2, , "beta.Honorar_CZK", True, "LEFT OUTER JOIN tview_p28_wip(@dp31f1,@dp31f2) beta ON a.p28ID=beta.p28ID", "Rozpracováno"))
@@ -637,9 +661,16 @@ Class j70QueryTemplateBL
                 .Add(AGC("Rozpracované paušály", "WIP_Odmeny", BO.cfENUM.Numeric2, , "beta.Odmeny", True, "LEFT OUTER JOIN tview_p28_wip(@dp31f1,@dp31f2) beta ON a.p28ID=beta.p28ID", "Rozpracováno"))
                 .Add(AGC("Rozpracované paušály CZK", "WIP_Odmeny_CZK", BO.cfENUM.Numeric2, , "beta.Odmeny_CZK", True, "LEFT OUTER JOIN tview_p28_wip(@dp31f1,@dp31f2) beta ON a.p28ID=beta.p28ID", "Rozpracováno"))
                 .Add(AGC("Rozpracované paušály EUR", "WIP_Odmeny_EUR", BO.cfENUM.Numeric2, , "beta.Odmeny_EUR", True, "LEFT OUTER JOIN tview_p28_wip(@dp31f1,@dp31f2) beta ON a.p28ID=beta.p28ID", "Rozpracováno"))
+                .Add(AGC("Poslední úkon", "WIP_Posledni_Datum", BO.cfENUM.DateOnly, , "beta.Posledni_Datum", False, "LEFT OUTER JOIN tview_p28_wip(@dp31f1,@dp31f2) beta ON a.p28ID=beta.p28ID", "Rozpracováno"))
+                .Add(AGC("První úkon", "WIP_Prvni_Datum", BO.cfENUM.DateOnly, , "beta.Prvni_Datum", False, "LEFT OUTER JOIN tview_p28_wip(@dp31f1,@dp31f2) beta ON a.p28ID=beta.p28ID", "Rozpracováno"))
 
 
                 .Add(AGC("Nevyfakturované hodiny", "NI_Hodiny", BO.cfENUM.Numeric2, , "gama.Hodiny", True, "LEFT OUTER JOIN tview_p28_notinvoiced(@dp31f1,@dp31f2) gama ON a.p28ID=gama.p28ID", "Nevyfakturováno"))
+                .Add(AGC("Hodiny Rozpracované", "NI_Hodiny_Rozpracovane", BO.cfENUM.Numeric2, , "gama.Hodiny_Rozpracovane", True, "LEFT OUTER JOIN tview_p28_notinvoiced(@dp31f1,@dp31f2) gama ON a.p28ID=gama.p28ID", "Nevyfakturováno"))
+                .Add(AGC("Hodiny Fakturovat", "NI_Hodiny_Fakturovat", BO.cfENUM.Numeric2, , "gama.Hodiny_Fakturovat", True, "LEFT OUTER JOIN tview_p28_notinvoiced(@dp31f1,@dp31f2) gama ON a.p28ID=gama.p28ID", "Nevyfakturováno"))
+                .Add(AGC("Hodiny Paušál", "NI_Hodiny_Pausal", BO.cfENUM.Numeric2, , "gama.Hodiny_Pausal", True, "LEFT OUTER JOIN tview_p28_notinvoiced(@dp31f1,@dp31f2) gama ON a.p28ID=gama.p28ID", "Nevyfakturováno"))
+                .Add(AGC("Hodiny Odpis", "NI_Hodiny_Odpis", BO.cfENUM.Numeric2, , "gama.Hodiny_Odpis", True, "LEFT OUTER JOIN tview_p28_notinvoiced(@dp31f1,@dp31f2) gama ON a.p28ID=gama.p28ID", "Nevyfakturováno"))
+
                 .Add(AGC("Nevyfakturováno bez DPH", "NI_Castka", BO.cfENUM.Numeric2, , "gama.Castka_Celkem", True, "LEFT OUTER JOIN tview_p28_notinvoiced(@dp31f1,@dp31f2) gama ON a.p28ID=gama.p28ID", "Nevyfakturováno"))
                 .Add(AGC("Nevyfakturovaný honorář", "NI_Honorar", BO.cfENUM.Numeric2, , "gama.Honorar", True, "LEFT OUTER JOIN tview_p28_notinvoiced(@dp31f1,@dp31f2) gama ON a.p28ID=gama.p28ID", "Nevyfakturováno"))
                 .Add(AGC("Nevyfakturovaný honorář CZK", "NI_Honorar_CZK", BO.cfENUM.Numeric2, , "gama.Honorar_CZK", True, "LEFT OUTER JOIN tview_p28_notinvoiced(@dp31f1,@dp31f2) gama ON a.p28ID=gama.p28ID", "Nevyfakturováno"))
@@ -648,6 +679,10 @@ Class j70QueryTemplateBL
                 .Add(AGC("Nevyfakturované paušály", "NI_Odmeny", BO.cfENUM.Numeric2, , "gama.Odmeny", True, "LEFT OUTER JOIN tview_p28_notinvoiced(@dp31f1,@dp31f2) gama ON a.p28ID=gama.p28ID", "Nevyfakturováno"))
                 .Add(AGC("Nevyfakturované paušály CZK", "NI_Odmeny_CZK", BO.cfENUM.Numeric2, , "gama.Odmeny_CZK", True, "LEFT OUTER JOIN tview_p28_notinvoiced(@dp31f1,@dp31f2) gama ON a.p28ID=gama.p28ID", "Nevyfakturováno"))
                 .Add(AGC("Nevyfakturované paušály EUR", "NI_Odmeny_EUR", BO.cfENUM.Numeric2, , "gama.Odmeny_EUR", True, "LEFT OUTER JOIN tview_p28_notinvoiced(@dp31f1,@dp31f2) gama ON a.p28ID=gama.p28ID", "Nevyfakturováno"))
+                .Add(AGC("Poslední úkon", "NI_Posledni_Datum", BO.cfENUM.DateOnly, , "gama.Posledni_Datum", False, "LEFT OUTER JOIN tview_p28_notinvoiced(@dp31f1,@dp31f2) gama ON a.p28ID=gama.p28ID", "Nevyfakturováno"))
+                .Add(AGC("První úkon", "NI_Prvni_Datum", BO.cfENUM.DateOnly, , "gama.Prvni_Datum", False, "LEFT OUTER JOIN tview_p28_notinvoiced(@dp31f1,@dp31f2) gama ON a.p28ID=gama.p28ID", "Nevyfakturováno"))
+                .Add(AGC("Počet úkonů", "NI_Pocet_Ukonu", BO.cfENUM.Numeric0, , "gama.Pocet", False, "LEFT OUTER JOIN tview_p28_notinvoiced(@dp31f1,@dp31f2) gama ON a.p28ID=gama.p28ID", "Nevyfakturováno"))
+
 
                 .Add(AGC("Schválené hodiny", "AP_Hodiny", BO.cfENUM.Numeric2, , "omega.Hodiny", True, "LEFT OUTER JOIN tview_p28_approved(@dp31f1,@dp31f2) omega ON a.p28ID=omega.p28ID", "Schváleno"))
                 .Add(AGC("Schváleno bez DPH", "AP_Castka", BO.cfENUM.Numeric2, , "omega.Castka_Celkem", True, "LEFT OUTER JOIN tview_p28_approved(@dp31f1,@dp31f2) omega ON a.p28ID=omega.p28ID", "Schváleno"))
@@ -700,14 +735,27 @@ Class j70QueryTemplateBL
             .Add(AGC("Externí kód", "j02ExternalPID"))
 
             .Add(AGC("Rozpracované hodiny", "WIP_Hodiny", BO.cfENUM.Numeric2, , "beta.Hodiny", True, "LEFT OUTER JOIN tview_j02_wip(@dp31f1,@dp31f2) beta ON a.j02ID=beta.j02ID", "Rozpracováno"))
+            .Add(AGC("Rozpr.hod.Fa", "WIP_Hodiny_Fa", BO.cfENUM.Numeric2, , "beta.Hodiny_Fa", True, "LEFT OUTER JOIN tview_j02_wip(@dp31f1,@dp31f2) beta ON a.j02ID=beta.j02ID", "Rozpracováno"))
+            .Add(AGC("Rozpr.hod.NeFa", "WIP_Hodiny_NeFa", BO.cfENUM.Numeric2, , "beta.Hodiny_NeFa", True, "LEFT OUTER JOIN tview_j02_wip(@dp31f1,@dp31f2) beta ON a.j02ID=beta.j02ID", "Rozpracováno"))
             .Add(AGC("Rozpraoovaný honorář", "WIP_Honorar", BO.cfENUM.Numeric2, , "beta.Honorar", True, "LEFT OUTER JOIN tview_j02_wip(@dp31f1,@dp31f2) beta ON a.j02ID=beta.j02ID", "Rozpracováno"))
             .Add(AGC("Rozpracovaný honorář CZK", "WIP_Honorar_CZK", BO.cfENUM.Numeric2, , "beta.Honorar_CZK", True, "LEFT OUTER JOIN tview_j02_wip(@dp31f1,@dp31f2) beta ON a.j02ID=beta.j02ID", "Rozpracováno"))
             .Add(AGC("Rozpracovaný honorář EUR", "WIP_Honorar_EUR", BO.cfENUM.Numeric2, , "beta.Honorar_EUR", True, "LEFT OUTER JOIN tview_j02_wip(@dp31f1,@dp31f2) beta ON a.j02ID=beta.j02ID", "Rozpracováno"))
+            .Add(AGC("Poslední Datum", "WIP_Posledni_Datum", BO.cfENUM.DateOnly, , "beta.Posledni_Datum", False, "LEFT OUTER JOIN tview_j02_wip(@dp31f1,@dp31f2) beta ON a.j02ID=beta.j02ID", "Rozpracováno"))
+            .Add(AGC("První Datum", "WIP_Prvni_Datum", BO.cfENUM.DateOnly, , "beta.Prvni_Datum", False, "LEFT OUTER JOIN tview_j02_wip(@dp31f1,@dp31f2) beta ON a.j02ID=beta.j02ID", "Rozpracováno"))
+
 
             .Add(AGC("Nevyfakturované hodiny", "NI_Hodiny", BO.cfENUM.Numeric2, , "gama.Hodiny", True, "LEFT OUTER JOIN tview_j02_notinvoiced(@dp31f1,@dp31f2) gama ON a.j02ID=gama.j02ID", "Nevyfakturováno"))
+            .Add(AGC("Hodiny Rozpracované", "NI_Hodiny_Rozpracovane", BO.cfENUM.Numeric2, , "gama.Hodiny_Rozpracovane", True, "LEFT OUTER JOIN tview_j02_notinvoiced(@dp31f1,@dp31f2) gama ON a.j02ID=gama.j02ID", "Nevyfakturováno"))
+            .Add(AGC("Hodiny Fakturovat", "NI_Hodiny_Fakturovat", BO.cfENUM.Numeric2, , "gama.Hodiny_Fakturovat", True, "LEFT OUTER JOIN tview_j02_notinvoiced(@dp31f1,@dp31f2) gama ON a.j02ID=gama.j02ID", "Nevyfakturováno"))
+            .Add(AGC("Hodiny Paušál", "NI_Hodiny_Pausal", BO.cfENUM.Numeric2, , "gama.Hodiny_Pausal", True, "LEFT OUTER JOIN tview_j02_notinvoiced(@dp31f1,@dp31f2) gama ON a.j02ID=gama.j02ID", "Nevyfakturováno"))
+            .Add(AGC("Hodiny Odpis", "NI_Hodiny_Odpis", BO.cfENUM.Numeric2, , "gama.Hodiny_Odpis", True, "LEFT OUTER JOIN tview_j02_notinvoiced(@dp31f1,@dp31f2) gama ON a.j02ID=gama.j02ID", "Nevyfakturováno"))
+
             .Add(AGC("Nevyfakturovaný honorář", "NI_Honorar", BO.cfENUM.Numeric2, , "gama.Honorar", True, "LEFT OUTER JOIN tview_j02_notinvoiced(@dp31f1,@dp31f2) gama ON a.j02ID=gama.j02ID", "Nevyfakturováno"))
             .Add(AGC("Nevyfakturovaný honorář CZK", "NI_Honorar_CZK", BO.cfENUM.Numeric2, , "gama.Honorar_CZK", True, "LEFT OUTER JOIN tview_j02_notinvoiced(@dp31f1,@dp31f2) gama ON a.j02ID=gama.j02ID", "Nevyfakturováno"))
             .Add(AGC("Nevyfakturovaný honodář EUR", "NI_Honorar_EUR", BO.cfENUM.Numeric2, , "gama.Honorar_EUR", True, "LEFT OUTER JOIN tview_j02_notinvoiced(@dp31f1,@dp31f2) gama ON a.j02ID=gama.j02ID", "Nevyfakturováno"))
+            .Add(AGC("Poslední úkon", "NI_Posledni_Datum", BO.cfENUM.DateOnly, , "gama.Posledni_Datum", False, "LEFT OUTER JOIN tview_j02_notinvoiced(@dp31f1,@dp31f2) gama ON a.j02ID=gama.j02ID", "Nevyfakturováno"))
+            .Add(AGC("První úkon", "NI_Prvni_Datum", BO.cfENUM.DateOnly, , "gama.Prvni_Datum", False, "LEFT OUTER JOIN tview_j02_notinvoiced(@dp31f1,@dp31f2) gama ON a.j02ID=gama.j02ID", "Nevyfakturováno"))
+            .Add(AGC("Počet úkonů", "NI_Pocet_Ukonu", BO.cfENUM.Numeric0, , "gama.Pocet", False, "LEFT OUTER JOIN tview_j02_notinvoiced(@dp31f1,@dp31f2) gama ON a.j02ID=gama.j02ID", "Nevyfakturováno"))
 
         End With
         AppendFreeFields(BO.x29IdEnum.j02Person, lis)
