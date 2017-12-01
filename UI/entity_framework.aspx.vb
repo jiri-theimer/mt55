@@ -339,7 +339,7 @@ Public Class entity_framework
 
             If Me.CurrentPrefix = "p91" Then
                 AppendNode("Hromadně odeslat faktury (e-mail)", "javascript:sendmail_batch()", "Images/email.png", "")
-                AppendNode("Export do účetnictví POHODA", "javascript:pohoda_batch()", "Images/email.png", "")
+                AppendNode("Export do účetnictví POHODA", "javascript:pohoda_batch()", "Images/license.png", "")
             Else
                 If bolCanApprove Then
                     AppendNode("Schválit/připravit k fakturaci", "javascript:approve()", "Images/approve.png", "")
