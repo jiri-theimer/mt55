@@ -343,7 +343,7 @@ Class x40MailQueueBL
             End If
 
 
-            mail.From.Clear()
+            mail.From.Clear()            
             mail.From.Add(New Rebex.Mime.Headers.MailAddress(cO40.o40EmailAddress, cO40.o40Name))
         End If
         ''Dim credentials As GssApiProvider = Rebex.Net.GssApiProvider.GetSspiProvider("Ntlm", Nothing, Nothing, Nothing, Nothing)

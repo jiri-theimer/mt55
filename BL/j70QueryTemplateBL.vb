@@ -346,7 +346,9 @@ Class j70QueryTemplateBL
                         c.j70Name = My.Resources.common.VychoziPrehled
                         c.j70ColumnNames = "p56Name"
                     Case Else
-                        c.j70ColumnNames = "ClientAndProject,p56Name,ReceiversInLine,b02Name"
+                        'c.j70ColumnNames = "ClientAndProject,p56Name,ReceiversInLine,b02Name"
+                        c.j70PageLayoutFlag = BO.j70PageLayoutFlagENUM.OnlyOne
+                        c.j70ColumnNames = "Client,p41Name,p56Name,b02Name,ReceiversInLine,p56UserInsert,p56PlanUntil,DnuDoTerminu,Hours_Orig"
                 End Select
             Case BO.x29IdEnum.o23Doc
                 Select Case strMasterPrefix

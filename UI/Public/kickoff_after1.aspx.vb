@@ -656,16 +656,17 @@
         CreateQuery("Pevné (paušální) odměny", BO.x29IdEnum.p31Worksheet, 0, "p31Date,ClientName,p41Name,Person,p32Name,p31Amount_WithoutVat_Orig,j27Code_Billing_Orig,p31Text", "p34id", 4, "Pevné (paušální) odměny")
         CreateQuery("Výdaje", BO.x29IdEnum.p31Worksheet, 0, "p31Date,ClientName,p41Name,Person,p32Name,p31Amount_WithoutVat_Orig,p31VatRate_Orig,j27Code_Billing_Orig,p31Text", "p34id", 3, "Výdaje")
 
-        strColumnNames = "ClientAndProject,p56Name,b02Name"
-        CreateQuery("Matky opakovaných úkolů", BO.x29IdEnum.p56Task, 0, strColumnNames, "_other", 13)
+        'strColumnNames = "ClientAndProject,p56Name,b02Name"
+        strColumnNames = "Client,p41Name,p56Name,b02Name,ReceiversInLine,p56UserInsert,p56PlanUntil,DnuDoTerminu"
+        CreateQuery("Matky opakovaných úkolů", BO.x29IdEnum.p56Task, 0, "ClientAndProject,p56Name,b02Name", "_other", 13)
         'CreateQuery("Je po termínu dokončení", BO.x29IdEnum.p56Task, 0, strColumnNames, "_other", 7)
         'CreateQuery("Vyplněn termín dokončení", BO.x29IdEnum.p56Task, 0, strColumnNames, "_other", 6)
-        CreateQuery("Je po termínu dokončení", BO.x29IdEnum.p56Task, 0, "ClientAndProject,p56Name,b02Name,ReceiversInLine,p56PlanUntil,DnuDoTerminu", "_other", 7, , , BO.j70PageLayoutFlagENUM.OnlyOne)
+        CreateQuery("Je po termínu dokončení", BO.x29IdEnum.p56Task, 0, strColumnNames, "_other", 7, , , BO.j70PageLayoutFlagENUM.OnlyOne)
         'CreateQuery("Schválené úkony, čeká na fakturaci", BO.x29IdEnum.p56Task, 0, strColumnNames, "_other", 5)
-        CreateQuery("Široký přehled", BO.x29IdEnum.p56Task, 0, "Client,p41Name,p56Name,b02Name,ReceiversInLine,p56PlanUntil,DnuDoTerminu,Hours_Orig", , , , , BO.j70PageLayoutFlagENUM.OnlyOne)
+        CreateQuery("Úzký přehled", BO.x29IdEnum.p56Task, 0, "ClientAndProject,p56Name,b02Name")
         CreateQuery("Rozpracované, čeká na schvalování", BO.x29IdEnum.p56Task, 0, "ClientAndProject,p56Name,b02Name,Role_x67_1,Hours_Orig,Expenses_Orig", "_other", 3, , , BO.j70PageLayoutFlagENUM.OnlyOne)
-        CreateQuery("Uzavřené úkoly (v archivu)", BO.x29IdEnum.p56Task, 2, strColumnNames)
-        CreateQuery("Otevřené úkoly", BO.x29IdEnum.p56Task, 1, strColumnNames)
+        CreateQuery("Uzavřené úkoly (v archivu)", BO.x29IdEnum.p56Task, 2, strColumnNames, , , , , BO.j70PageLayoutFlagENUM.OnlyOne)
+        CreateQuery("Otevřené úkoly", BO.x29IdEnum.p56Task, 1, strColumnNames, , , , , BO.j70PageLayoutFlagENUM.OnlyOne)
 
 
 

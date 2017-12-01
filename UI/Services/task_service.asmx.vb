@@ -81,7 +81,12 @@ Public Class task_service
             If c.p57IsHelpdesk Then
                 itemData.Text = c.p56Name & " (" & c.p56Code & ")"
             Else
-                itemData.Text = c.p57Name & ": " & c.p56Name
+                If c.Client = "" Then
+                    itemData.Text = c.ProjectCodeAndName
+                Else
+                    itemData.Text = c.Client & " - " & c.ProjectCodeAndName
+                End If
+                itemData.Text += ": " & c.p56Name
             End If
 
 
