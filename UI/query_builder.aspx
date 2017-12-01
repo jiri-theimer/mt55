@@ -204,7 +204,7 @@
                 </div>
 
 
-                <div style="margin-top: 20px;">
+                <asp:panel ID="panPageLayout" runat="server" style="margin-top: 20px;">
                     <div>
                         Rozvržení panelů tohoto přehledu:
                     </div>
@@ -215,7 +215,7 @@
                         <asp:ListItem Text="Horní + spodní panel -> Přehled na celou šířku stránky" Value="2"></asp:ListItem>
                     </asp:RadioButtonList>
 
-                </div>
+                </asp:panel>
                
             </div>
             <div style="clear:both;"></div>
@@ -246,6 +246,9 @@
     <asp:HiddenField ID="hidNewJ70Name" runat="server" />
     <asp:HiddenField ID="hidModeFlag" runat="server" Value="1" />
     <asp:HiddenField ID="hidMasterprefixFlag" runat="server" />
+    <asp:HiddenField ID="hidMasterPrefix" runat="server" />
+    <asp:HiddenField ID="hidX36Key" runat="server" />
+    <asp:HiddenField ID="hidGUID" runat="server" />
     <asp:Button ID="cmdSaveNewTemplate" runat="server" style="display:none;" />
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="FootContent" runat="server">

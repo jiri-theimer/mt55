@@ -455,6 +455,15 @@ Partial Public Class query_builder
     Protected WithEvents cbxOrderBy2Dir As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''panPageLayout control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents panPageLayout As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
     '''j70PageLayoutFlag control.
     '''</summary>
     '''<remarks>
@@ -552,6 +561,33 @@ Partial Public Class query_builder
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents hidMasterprefixFlag As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
+    '''hidMasterPrefix control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hidMasterPrefix As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
+    '''hidX36Key control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hidX36Key As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
+    '''hidGUID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hidGUID As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
     '''cmdSaveNewTemplate control.

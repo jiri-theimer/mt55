@@ -47,24 +47,24 @@
         roles1.Factory = Master.Factory
 
         If Not Page.IsPostBack Then
-            ViewState("guid") = BO.BAS.GetGUID()
-            ViewState("x36key") = Request.Item("x36key")
+            hidGUID.Value = BO.BAS.GetGUID()
+            hidX36Key.Value = Request.Item("x36key")
             Me.CurrentPrefix = Request.Item("prefix")
             hidModeFlag.Value = Request.Item("modeflag")    '1-filtr + sloupce, 2-pouze filtr, 3-pouze sloupce
             If hidModeFlag.Value = "" Then hidModeFlag.Value = "1"
             hidMasterprefixFlag.Value = Request.Item("masterprefixflag")
-            ViewState("masterprefix") = Request.Item("masterprefix")
-            If ViewState("x36key") = "" Then ViewState("x36key") = Me.CurrentPrefix & "-j70id"
+            hidMasterPrefix.Value = Request.Item("masterprefix")
+            If hidX36Key.Value = "" Then hidX36Key.Value = Me.CurrentPrefix & "-j70id"
             With Master
                 .neededPermission = BO.x53PermValEnum.GR_GridTools
-                .Factory.j03UserBL.InhaleUserParams(CStr(ViewState("x36key")))
+                .Factory.j03UserBL.InhaleUserParams(hidX36Key.Value)
 
                 .DataPID = BO.BAS.IsNullInt(Request.Item("pid"))
                 If Request.Item("j70id") <> "" Then
                     .DataPID = BO.BAS.IsNullInt(Request.Item("j70id"))
                 End If
                 If .DataPID = 0 Then
-                    .DataPID = BO.BAS.IsNullInt(Master.Factory.j03UserBL.GetUserParam(CStr(ViewState("x36key"))))
+                    .DataPID = BO.BAS.IsNullInt(Master.Factory.j03UserBL.GetUserParam(hidX36Key.Value))
                 End If
 
                 .AddToolbarButton("Uložit a spustit", "run", , "Images/ok.png")
@@ -555,7 +555,7 @@
             'filtrování podle datumu
             strj71ValueFrom = Format(period1.DateFrom, "dd.MM.yyyy")
             strj71ValueUntil = Format(period1.DateUntil, "dd.MM.yyyy")
-            If Master.Factory.p85TempBoxBL.GetList(ViewState("guid")).Where(Function(p) p.p85FreeText04 = strField).Count > 0 Then
+            If Master.Factory.p85TempBoxBL.GetList(hidGUID.Value).Where(Function(p) p.p85FreeText04 = strField).Count > 0 Then
                 Master.Notify("Toto datumové pole již bylo do filtru zařazeno.", NotifyLevel.WarningMessage)
                 Return
             End If
@@ -595,7 +595,7 @@
                         If intExtensionValue <> 0 Then
                             strExtensionAlias = cbxItemsExtension.RadCombo.Items.FindItemByValue(strExtItem).Text
                         End If
-                        If Master.Factory.p85TempBoxBL.GetList(ViewState("guid")).Where(Function(p) p.p85OtherKey1 = intj71RecordPID And p.p85FreeText04 = strField And p.p85OtherKey3 = intExtensionValue).Count > 0 Then
+                        If Master.Factory.p85TempBoxBL.GetList(hidGUID.Value).Where(Function(p) p.p85OtherKey1 = intj71RecordPID And p.p85FreeText04 = strField And p.p85OtherKey3 = intExtensionValue).Count > 0 Then
                             ''Master.Notify("Tato hodnota již byla do filtru zařazena.", NotifyLevel.WarningMessage)
                         Else
                             SaveTempValue(intj71RecordPID, strj71RecordName, x29id, strField, cbxQueryField.SelectedItem.Text, intExtensionValue, strExtensionAlias, "", "", strJ71ValueType, "", "", intX28ID)
@@ -603,7 +603,7 @@
                     Next
 
                 Else
-                    If Master.Factory.p85TempBoxBL.GetList(ViewState("guid")).Where(Function(p) p.p85OtherKey1 = intj71RecordPID And p.p85FreeText04 = strField And p.p85OtherKey3 = 0).Count > 0 Then
+                    If Master.Factory.p85TempBoxBL.GetList(hidGUID.Value).Where(Function(p) p.p85OtherKey1 = intj71RecordPID And p.p85FreeText04 = strField And p.p85OtherKey3 = 0).Count > 0 Then
                         ''Master.Notify("Tato hodnota již byla do filtru zařazena.", NotifyLevel.WarningMessage)
                     Else
                         SaveTempValue(intj71RecordPID, strj71RecordName, x29id, strField, cbxQueryField.SelectedItem.Text, 0, "", "", "", strJ71ValueType, "", "", intX28ID)
@@ -623,7 +623,7 @@
     Private Sub SaveTempValue(intj71RecordPID As Integer, strj71RecordName As String, x29id As BO.x29IdEnum, strQueryField As String, strQueryField_Alias As String, intExtensionValue As Integer, strExtensionAlias As String, strj71ValueFrom As String, strj71ValueUntil As String, strJ71ValueType As String, strJ71StringOperator As String, strJ71ValueString As String, intX28ID As Integer)
         Dim cRec As New BO.p85TempBox
         With cRec
-            .p85GUID = ViewState("guid")
+            .p85GUID = hidGUID.Value
             .p85OtherKey1 = intj71RecordPID
             .p85FreeText01 = strj71RecordName
 
@@ -647,7 +647,7 @@
         Master.Factory.p85TempBoxBL.Save(cRec)
     End Sub
     Private Sub RefreshJ71TempList()
-        Dim lisTMP As List(Of BO.p85TempBox) = Master.Factory.p85TempBoxBL.GetList(ViewState("guid")).OrderBy(Function(p) p.p85FreeText04).ThenBy(Function(p) p.p85OtherKey2).ToList
+        Dim lisTMP As List(Of BO.p85TempBox) = Master.Factory.p85TempBoxBL.GetList(hidGUID.Value).OrderBy(Function(p) p.p85FreeText04).ThenBy(Function(p) p.p85OtherKey2).ToList
 
         rpJ71.DataSource = lisTMP
         rpJ71.DataBind()
@@ -748,17 +748,23 @@
             Me.RadTabStrip1.Tabs(2).ForeColor = Nothing
         End If
         Me.RadTabStrip1.Tabs(1).Text = String.Format("Nastavení sloupců ({0})", lt1.Items.Count)
+
+        If Me.CurrentPrefix = "p31" Or Me.hidMasterPrefix.Value <> "" Then
+            panPageLayout.Visible = False
+        Else
+            panPageLayout.Visible = True
+        End If
     End Sub
 
     Private Sub SetupJ70Combo()
         Dim mq As BO.myQuery = Nothing
         Dim onlyQuery As BO.BooleanQueryMode = BO.BooleanQueryMode.NoQuery
         If hidModeFlag.Value = "2" Then onlyQuery = BO.BooleanQueryMode.TrueQuery
-        Dim s As String = ViewState("masterprefix")
-        If hidMasterprefixFlag.Value = "1" And ViewState("masterprefix") <> "" Then s = "-1"
+        Dim s As String = hidMasterPrefix.Value
+        If hidMasterprefixFlag.Value = "1" And hidMasterPrefix.Value <> "" Then s = "-1"
         Dim lisJ70 As IEnumerable(Of BO.j70QueryTemplate) = Master.Factory.j70QueryTemplateBL.GetList(mq, Me.CurrentX29ID, s, onlyQuery)
-        If ViewState("masterprefix") <> "" Then
-            lisJ70 = lisJ70.Where(Function(p) p.j70MasterPrefix = ViewState("masterprefix") Or (p.j70MasterPrefix = "" And p.j70IsSystem = False))
+        If hidMasterPrefix.Value <> "" Then
+            lisJ70 = lisJ70.Where(Function(p) p.j70MasterPrefix = hidMasterPrefix.Value Or (p.j70MasterPrefix = "" And p.j70IsSystem = False))
         End If
         If lisJ70.Count = 0 Then
             'uživatel zatím nemá žádný filtr - založit první j70IsSystem=1
@@ -784,7 +790,7 @@
     Private Sub ClearQuery()
         
         With Master.Factory.p85TempBoxBL
-            .Truncate(ViewState("guid"))
+            .Truncate(hidGUID.Value)
         End With
         RefreshJ71TempList()
 
@@ -836,7 +842,7 @@
 
         basUI.SelectDropdownlistValue(Me.opgBin, cRec.j70BinFlag.ToString)
         basUI.SelectRadiolistValue(Me.j70PageLayoutFlag, CInt(cRec.j70PageLayoutFlag).ToString)
-        Master.Factory.j70QueryTemplateBL.Setupj71TempList(Master.DataPID, ViewState("guid"))
+        Master.Factory.j70QueryTemplateBL.Setupj71TempList(Master.DataPID, hidGUID.Value)
         RefreshJ71TempList()
 
         RefreshRecord_Columns(cRec)
@@ -948,7 +954,7 @@
     End Function
 
     Private Function GetList_j71() As List(Of BO.j71QueryTemplate_Item)
-        Dim lisTMP As List(Of BO.p85TempBox) = Master.Factory.p85TempBoxBL.GetList(ViewState("guid")).ToList
+        Dim lisTMP As List(Of BO.p85TempBox) = Master.Factory.p85TempBoxBL.GetList(hidGUID.Value).ToList
         Dim lisJ71 As New List(Of BO.j71QueryTemplate_Item)
         For Each cTMP In lisTMP
             Dim c As New BO.j71QueryTemplate_Item
@@ -977,11 +983,11 @@
     End Function
 
     Private Sub SubmitQuery()
-        Master.Factory.j03UserBL.SetUserParam(CStr(ViewState("x36key")), Master.DataPID.ToString)
-        If ViewState("x36key") = Me.CurrentPrefix & "-j70id" Then
+        Master.Factory.j03UserBL.SetUserParam(hidX36Key.Value, Master.DataPID.ToString)
+        If hidX36Key.Value = Me.CurrentPrefix & "-j70id" Then
             Master.Factory.j03UserBL.SetUserParam(Me.CurrentPrefix & "_framework-sort", "")
         End If
-        If ViewState("x36key") = Me.CurrentPrefix & "_subgrid-j70id" Then
+        If hidX36Key.Value = Me.CurrentPrefix & "_subgrid-j70id" Then
             Master.Factory.j03UserBL.SetUserParam(Me.CurrentPrefix & "_subgrid-sort", "")
         End If
        
