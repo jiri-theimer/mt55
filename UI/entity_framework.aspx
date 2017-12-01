@@ -221,6 +221,15 @@
             sw_master("<%=Me.CurrentPrefix%>_batch_sendmail.aspx", "Images/email.png");
             return;
         }
+        function pohoda_batch() {
+            var pids = GetAllSelectedPIDs();
+            if (pids == "") {
+                alert("Není vybrán ani jeden záznam.");
+                return;
+            }           
+
+            sw_master("p91_export2pohoda.aspx?pids="+pids, "Images/batch.png");            
+        }
 
         function report() {
             var pids = GetAllSelectedPIDs();

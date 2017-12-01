@@ -59,13 +59,13 @@ Partial Public Class p91_export2pohoda
     Protected WithEvents txtPredkontace As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''period1 control.
+    '''panPeriod control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents period1 As Global.UI.periodcombo
+    Protected WithEvents panPeriod As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
     '''p93ID control.
@@ -77,6 +77,15 @@ Partial Public Class p91_export2pohoda
     Protected WithEvents p93ID As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''period1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents period1 As Global.UI.periodcombo
+
+    '''<summary>
     '''cmdGenerateBatch control.
     '''</summary>
     '''<remarks>
@@ -84,6 +93,33 @@ Partial Public Class p91_export2pohoda
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents cmdGenerateBatch As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''panPIDs control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents panPIDs As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''cmdGenerateByPIDs control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cmdGenerateByPIDs As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''hidPIDs control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hidPIDs As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
     '''Master property.

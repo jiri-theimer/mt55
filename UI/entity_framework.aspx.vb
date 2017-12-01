@@ -336,14 +336,17 @@ Public Class entity_framework
             If bolSummary Then
                 AppendNode("Statistiky", "javascript:drilldown()", "Images/pivot.png", "")
             End If
-            If bolCanApprove Then
-                AppendNode("Schválit/připravit k fakturaci", "javascript:approve()", "Images/approve.png", "")
-            End If
-            If bolCanInvoice Then
-                AppendNode("Fakturovat zrychleně s přeskočením schvalování", "javascript:invoice()", "Images/invoice.png", "")
-            End If
+
             If Me.CurrentPrefix = "p91" Then
                 AppendNode("Hromadně odeslat faktury (e-mail)", "javascript:sendmail_batch()", "Images/email.png", "")
+                AppendNode("Export do účetnictví POHODA", "javascript:pohoda_batch()", "Images/email.png", "")
+            Else
+                If bolCanApprove Then
+                    AppendNode("Schválit/připravit k fakturaci", "javascript:approve()", "Images/approve.png", "")
+                End If
+                If bolCanInvoice Then
+                    AppendNode("Fakturovat zrychleně s přeskočením schvalování", "javascript:invoice()", "Images/invoice.png", "")
+                End If
             End If
             AppendNode("Tisková sestava", "javascript:report()", "Images/report.png", "")
             AppendNode("Oštítkovat", "javascript:tags()", "Images/tag.png", "")

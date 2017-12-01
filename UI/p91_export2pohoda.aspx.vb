@@ -12,6 +12,13 @@ Public Class p91_export2pohoda
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
+            hidPIDs.Value = Request.Item("pids")
+            If hidPIDs.Value = "" Then
+                panPIDs.Visible = False
+            Else
+                panPIDs.Visible = True
+            End If
+            panPeriod.Visible = Not panPIDs.Visible
 
             Dim lisPars As New List(Of String)
             With lisPars
@@ -275,21 +282,22 @@ Public Class p91_export2pohoda
             Master.Notify("Musíte zadat IČ organizace.", NotifyLevel.ErrorMessage)
             Return False
         End If
+        If Not System.IO.File.Exists(BO.ASS.GetApplicationRootFolder & "\Plugins\pohoda_vzor.xml") Then
+            Master.Notify("V nastavení systému chybí soubor Plugins\pohoda_vzor.xml.")
+            Return False
+        End If
         Return True
     End Function
 
     Private Sub cmdGenerateBatch_Click(sender As Object, e As EventArgs) Handles cmdGenerateBatch.Click
         If Not ValidateHeader() Then Return
         Master.Factory.j03UserBL.SetUserParam("p91_export2pohoda_ic", Trim(Me.txtIC.Text))
-
-        If period1.x21ID = BO.x21IdEnum._NoQuery Then
+       
+        If period1.x21ID = BO.x21IdEnum._NoQuery And hidPIDs.Value = "" Then
             Master.Notify("Musíte zvolit časové období.", NotifyLevel.WarningMessage)
             Return
         End If
-        If Not System.IO.File.Exists(BO.ASS.GetApplicationRootFolder & "\Plugins\pohoda_vzor.xml") Then
-            Master.Notify("V nastavení systému chybí soubor Plugins\pohoda_vzor.xml.")
-            Return
-        End If
+       
         Dim strExportDir As String = Master.Factory.x35GlobalParam.TempFolder
         Dim strFilePrefix As String = GetRandomFilePrefix()
 
@@ -298,6 +306,8 @@ Public Class p91_export2pohoda
         mq.DateUntil = period1.DateUntil
         mq.PeriodType = BO.myQueryP91_PeriodType.p91DateSupply
         If Me.p93ID.SelectedValue <> "" Then mq.p93ID = BO.BAS.IsNullInt(Me.p93ID.SelectedValue)
+
+        
 
         Dim lis As IEnumerable(Of BO.p91Invoice) = Master.Factory.p91InvoiceBL.GetList(mq).Where(Function(p) p.p91IsDraft = False)
         If lis.Count = 0 Then
@@ -354,4 +364,31 @@ Public Class p91_export2pohoda
         Return strFilePrefix & "_AllInOne.xml"
 
     End Function
+
+    Private Sub cmdGenerateByPIDs_Click(sender As Object, e As EventArgs) Handles cmdGenerateByPIDs.Click
+        If Not ValidateHeader() Then Return
+        Master.Factory.j03UserBL.SetUserParam("p91_export2pohoda_ic", Trim(Me.txtIC.Text))
+
+        Dim strExportDir As String = Master.Factory.x35GlobalParam.TempFolder
+        Dim strFilePrefix As String = GetRandomFilePrefix()
+
+        Dim mq As New BO.myQueryP91
+        mq.PIDs = BO.BAS.ConvertPIDs2List(hidPIDs.Value)
+        If mq.PIDs.Count = 0 Then
+            Master.Notify("Na vstupu chybí faktury.")
+            Return
+        End If
+
+
+        Dim lis As IEnumerable(Of BO.p91Invoice) = Master.Factory.p91InvoiceBL.GetList(mq).Where(Function(p) p.p91IsDraft = False)
+        If lis.Count = 0 Then
+            Master.Notify("Na vstupu chybí faktury (nelze exportovat DRAFT faktury).", NotifyLevel.WarningMessage)
+            Return
+        End If
+        For Each c In lis
+            CreateOneInvoice(c.PID.ToString, strExportDir, strFilePrefix)
+        Next
+        Dim strTempFile As String = MergeAllInOne(strFilePrefix)
+        Response.Redirect("binaryfile.aspx?tempfile=" & strTempFile)
+    End Sub
 End Class
