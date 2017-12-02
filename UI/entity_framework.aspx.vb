@@ -88,7 +88,6 @@ Public Class entity_framework
                     .Add(Me.CurrentPrefix + "_framework-navigationPane_width")
                     .Add(Me.CurrentPrefix + "_framework-contentPane_height")
                     .Add(Me.CurrentPrefix + "_framework_detail-pid")
-                    .Add(Me.CurrentPrefix + "_framework-groupby")
                     .Add(Me.CurrentPrefix + "_framework-sort")
                     ''.Add(Me.CurrentPrefix + "_framework-groups-autoexpanded")
                     .Add(Me.CurrentPrefix + "_framework-checkbox_selector")
@@ -103,11 +102,7 @@ Public Class entity_framework
                     .Add("x18_querybuilder-text-" & Me.CurrentPrefix & "-grid")
                     .Add("o51_querybuilder-" & Me.CurrentPrefix)
                 End With
-                With cbxGroupBy
-                    .DataSource = Master.Factory.j70QueryTemplateBL.GroupByPallet(Me.CurrentX29ID)
-                    .DataBind()
-                End With
-
+              
                 With .Factory.j03UserBL
                     .InhaleUserParams(lisPars)
                     If basUI.GetCookieValue(Request, "MT50-SAW") = "1" Then
@@ -147,8 +142,7 @@ Public Class entity_framework
                     End Select
 
 
-                    basUI.SelectDropdownlistValue(cbxGroupBy, .GetUserParam(Me.CurrentPrefix + "_framework-groupby"))
-
+                    
                     chkCheckboxSelector.SelectedValue = .GetUserParam(Me.CurrentPrefix + "_framework-checkbox_selector", "1")
                     If .GetUserParam(Me.CurrentPrefix + "_framework-sort") <> "" Then
                         grid1.radGridOrig.MasterTableView.SortExpressions.AddSortExpression(.GetUserParam(Me.CurrentPrefix + "_framework-sort"))
@@ -376,6 +370,9 @@ Public Class entity_framework
         Dim cJ70 As BO.j70QueryTemplate = Master.Factory.j70QueryTemplateBL.Load(designer1.CurrentJ70ID)
 
         Me.hidDefaultSorting.Value = cJ70.j70OrderBy
+        hidGroupByField.Value = cJ70.j70GroupByField
+        hidGroupByAlias.Value = cJ70.j70GroupByAlias
+
 
         Dim cS As New UI.SetupDataGrid(Master.Factory, Me.grid1, cJ70)
         cS.PageSize = BO.BAS.IsNullInt(cbxPaging.SelectedValue)
@@ -408,9 +405,7 @@ Public Class entity_framework
                 .radGridOrig.ShowFooter = True
             End If
         End With
-        With cbxGroupBy.SelectedItem
-            SetupGrouping(.Value, .Text)
-        End With
+        SetupGrouping(hidGroupByField.Value, hidGroupByAlias.Value)
     End Sub
 
     Private Sub grid1_FilterCommand(strFilterFunction As String, strFilterColumn As String, strFilterPattern As String) Handles grid1.FilterCommand
@@ -565,7 +560,7 @@ Public Class entity_framework
     Private Sub InhaleMyQuery_p91(ByRef mq As BO.myQueryP91)
         With mq
             .MG_GridSqlColumns = Me.hidCols.Value
-            .MG_GridGroupByField = cbxGroupBy.SelectedValue
+            .MG_GridGroupByField = hidGroupByField.Value
             .MG_AdditionalSqlFROM = Me.hidAdditionalFrom.Value
             .SpecificQuery = BO.myQueryP91_SpecificQuery.AllowedForRead
             .Closed = BO.BooleanQueryMode.NoQuery
@@ -599,8 +594,8 @@ Public Class entity_framework
                     .MG_SortString = Me.hidDefaultSorting.Value & "," & .MG_SortString
                 End If
             End If
-            If cbxGroupBy.SelectedValue <> "" Then
-                Dim strPrimarySortField As String = cbxGroupBy.SelectedValue
+            If hidGroupByField.Value <> "" Then
+                Dim strPrimarySortField As String = hidGroupByField.Value
                 If .MG_SortString = "" Then
                     .MG_SortString = strPrimarySortField
                 Else
@@ -618,7 +613,7 @@ Public Class entity_framework
     Private Sub InhaleMyQuery_o23(ByRef mq As BO.myQueryO23)
         With mq
             .MG_GridSqlColumns = Me.hidCols.Value
-            .MG_GridGroupByField = cbxGroupBy.SelectedValue
+            .MG_GridGroupByField = hidGroupByField.Value
             .MG_AdditionalSqlFROM = Me.hidAdditionalFrom.Value
             .ColumnFilteringExpression = grid1.GetFilterExpressionCompleteSql()
             Select Case Me.CurrentMasterPrefix
@@ -635,11 +630,11 @@ Public Class entity_framework
                     .MG_SortString = Me.hidDefaultSorting.Value & "," & .MG_SortString
                 End If
             End If
-            If cbxGroupBy.SelectedValue <> "" Then
+            If hidGroupByField.Value <> "" Then
                 If .MG_SortString = "" Then
-                    .MG_SortString = cbxGroupBy.SelectedValue
+                    .MG_SortString = hidGroupByField.Value
                 Else
-                    .MG_SortString = cbxGroupBy.SelectedValue & "," & .MG_SortString
+                    .MG_SortString = hidGroupByField.Value & "," & .MG_SortString
                 End If
             End If
             Select Case cbxPeriodType.SelectedValue
@@ -663,7 +658,7 @@ Public Class entity_framework
     Private Sub InhaleMyQuery_p56(ByRef mq As BO.myQueryP56)
         With mq
             .MG_GridSqlColumns = Me.hidCols.Value
-            .MG_GridGroupByField = cbxGroupBy.SelectedValue
+            .MG_GridGroupByField = hidGroupByField.Value
             .MG_AdditionalSqlFROM = Me.hidAdditionalFrom.Value
             .ColumnFilteringExpression = grid1.GetFilterExpressionCompleteSql()
             Select Case Me.CurrentMasterPrefix
@@ -703,7 +698,7 @@ Public Class entity_framework
     Private Sub InhaleMyQuery_p41(ByRef mq As BO.myQueryP41)
         With mq
             .MG_GridSqlColumns = Me.hidCols.Value
-            .MG_GridGroupByField = cbxGroupBy.SelectedValue
+            .MG_GridGroupByField = hidGroupByField.Value
             .MG_AdditionalSqlFROM = Me.hidAdditionalFrom.Value
             .ColumnFilteringExpression = grid1.GetFilterExpressionCompleteSql()
             Select Case Me.CurrentMasterPrefix
@@ -743,7 +738,7 @@ Public Class entity_framework
     Private Sub InhaleMyQuery_p28(ByRef mq As BO.myQueryP28)
         With mq
             .MG_GridSqlColumns = Me.hidCols.Value
-            .MG_GridGroupByField = cbxGroupBy.SelectedValue
+            .MG_GridGroupByField = hidGroupByField.Value
             .MG_AdditionalSqlFROM = Me.hidAdditionalFrom.Value
             .ColumnFilteringExpression = grid1.GetFilterExpressionCompleteSql()
             .MG_SortString = grid1.radGridOrig.MasterTableView.SortExpressions.GetSortString()
@@ -779,7 +774,7 @@ Public Class entity_framework
         With mq
             .IntraPersons = BO.myQueryJ02_IntraPersons._NotSpecified
             .MG_GridSqlColumns = Me.hidCols.Value
-            .MG_GridGroupByField = cbxGroupBy.SelectedValue
+            .MG_GridGroupByField = hidGroupByField.Value
             .MG_AdditionalSqlFROM = Me.hidAdditionalFrom.Value
             .ColumnFilteringExpression = grid1.GetFilterExpressionCompleteSql()
             Select Case Me.CurrentMasterPrefix
@@ -794,11 +789,11 @@ Public Class entity_framework
                     .MG_SortString = Me.hidDefaultSorting.Value & "," & .MG_SortString
                 End If
             End If
-            If cbxGroupBy.SelectedValue <> "" Then
+            If hidGroupByField.Value <> "" Then
                 If .MG_SortString = "" Then
-                    .MG_SortString = cbxGroupBy.SelectedValue
+                    .MG_SortString = hidGroupByField.Value
                 Else
-                    .MG_SortString = cbxGroupBy.SelectedValue & "," & .MG_SortString
+                    .MG_SortString = hidGroupByField.Value & "," & .MG_SortString
                 End If
             End If
             Select Case cbxPeriodType.SelectedValue
@@ -1205,9 +1200,7 @@ Public Class entity_framework
             Case "chkCheckboxSelector"
                 Master.Factory.j03UserBL.SetUserParam(Me.CurrentPrefix + "_framework-checkbox_selector", chkCheckboxSelector.SelectedValue)
                 ReloadPage()
-            Case "cbxGroupBy"
-                Master.Factory.j03UserBL.SetUserParam(Me.CurrentPrefix + "_framework-groupby", cbxGroupBy.SelectedValue)
-                ReloadPage()
+            
             Case "cbxPaging"
                 Master.Factory.j03UserBL.SetUserParam(Me.CurrentPrefix + "_framework-pagesize", cbxPaging.SelectedValue)
                 ReloadPage()

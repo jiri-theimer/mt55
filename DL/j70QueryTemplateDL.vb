@@ -43,6 +43,8 @@
 
             pars.Add("j70ColumnNames", .j70ColumnNames, DbType.String)
             pars.Add("j70OrderBy", .j70OrderBy, DbType.String)
+            pars.Add("j70GroupByField", .j70GroupByField, DbType.String)
+            pars.Add("j70GroupByAlias", .j70GroupByAlias, DbType.String)
             pars.Add("j70IsFilteringByColumn", .j70IsFilteringByColumn, DbType.Boolean)
             pars.Add("j70ScrollingFlag", CInt(.j70ScrollingFlag), DbType.Int32)
             pars.Add("j70MasterPrefix", .j70MasterPrefix, DbType.String)

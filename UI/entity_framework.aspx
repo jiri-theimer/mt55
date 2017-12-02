@@ -421,6 +421,8 @@
             <asp:HiddenField ID="hidX18_value" runat="server" />
             <asp:HiddenField ID="hidO51IDs" runat="server" />
             <asp:HiddenField ID="opgLayout" runat="server" Value="1" />
+            <asp:HiddenField ID="hidGroupByField" runat="server" />
+            <asp:HiddenField ID="hidGroupByAlias" runat="server" />
             <telerik:RadContextMenu ID="menu1" runat="server" Skin="Metro" ExpandDelay="0" RenderMode="Lightweight" OnClientHidden="menu1_Hidden" OnClientShown="menu1_Shown">
                 <CollapseAnimation Type="None" />
                 <ExpandAnimation Type="None" />
@@ -469,8 +471,7 @@
                                 </div>
 
                                 <div style="margin-top: 20px;">
-                                    <asp:DropDownList ID="cbxGroupBy" runat="server" ToolTip="Datové souhrny" DataTextField="ColumnHeader" DataValueField="ColumnField" onchange="context_menu_callback('cbxGroupBy')">
-                                    </asp:DropDownList>
+                                    
 
                                     <span class="val" style="margin-left: 50px;">Stránkování záznamů:</span>
                                     <asp:DropDownList ID="cbxPaging" runat="server" onchange="context_menu_callback('cbxPaging')">

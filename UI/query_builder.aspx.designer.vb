@@ -455,6 +455,15 @@ Partial Public Class query_builder
     Protected WithEvents cbxOrderBy2Dir As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''cbxGroupBy control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cbxGroupBy As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
     '''panPageLayout control.
     '''</summary>
     '''<remarks>

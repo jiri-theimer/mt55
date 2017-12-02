@@ -265,9 +265,9 @@
 
         function contMenu(url, isTopWindow) {
             var w = window.innerWidth;
-
-
-            if (w < 1100 && window.parent != null) {
+            var h = window.innerHeight;
+            
+            if ((w < 1100 || h<700) && window.parent != null) {
                 window.parent.sw_everywhere(url, "", true);
                 return;
             }

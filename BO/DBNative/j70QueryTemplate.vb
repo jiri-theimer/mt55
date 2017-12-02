@@ -30,6 +30,8 @@ Public Class j70QueryTemplate
 
     Public Property j70ColumnNames As String
     Public Property j70OrderBy As String
+    Public Property j70GroupByField As String
+    Public Property j70GroupByAlias As String
     Public Property j70IsFilteringByColumn As Boolean
     Public Property j70ScrollingFlag As j70ScrollingFlagENUM = j70ScrollingFlagENUM.StaticHeaders
     Public Property j70MasterPrefix As String

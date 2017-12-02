@@ -202,6 +202,11 @@
                         <asp:ListItem Text="<%$Resources:grid_designer,Sestupne %>" Value="DESC"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
+                <div style="margin-top:10px;">
+                    <span>Souhrny podle:</span>
+                    <asp:DropDownList ID="cbxGroupBy" runat="server" ToolTip="Datové souhrny" DataTextField="ColumnHeader" DataValueField="ColumnField">
+                    </asp:DropDownList>
+                </div>
 
 
                 <asp:panel ID="panPageLayout" runat="server" style="margin-top: 20px;">

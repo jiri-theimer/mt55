@@ -74,6 +74,11 @@
             SetupQuery()
             SetupJ70Combo()
 
+            With cbxGroupBy
+                .DataSource = Master.Factory.j70QueryTemplateBL.GroupByPallet(Me.CurrentX29ID)
+                .DataBind()
+            End With
+
             SetupCols()
             RefreshRecord()
 
@@ -839,6 +844,7 @@
         Else
             hidIsOwner.Value = "0"
         End If
+        basUI.SelectDropdownlistValue(Me.cbxGroupBy, cRec.j70GroupByField)
 
         basUI.SelectDropdownlistValue(Me.opgBin, cRec.j70BinFlag.ToString)
         basUI.SelectRadiolistValue(Me.j70PageLayoutFlag, CInt(cRec.j70PageLayoutFlag).ToString)
@@ -928,6 +934,12 @@
                 s += "," & it.Value
             Next
             .j70ColumnNames = BO.BAS.OM1(s)
+            .j70GroupByField = Me.cbxGroupBy.SelectedValue
+            If Me.cbxGroupBy.SelectedValue <> "" Then
+                .j70GroupByAlias = Me.cbxGroupBy.SelectedItem.Text
+            Else
+                .j70GroupByAlias = ""
+            End If
 
             .j70OrderBy = GetOrderBy()
             .j70IsFilteringByColumn = Me.j70IsFilteringByColumn.Checked
@@ -1208,6 +1220,7 @@
                 .j70IsNegation = Me.j70IsNegation.Checked
                 .j70BinFlag = BO.BAS.IsNullInt(Me.opgBin.SelectedValue)
                 .j70IsSystem = False
+                .j70PageLayoutFlag = BO.BAS.IsNullInt(Me.j70PageLayoutFlag.SelectedValue)
 
                 Dim s As String = ""
                 For Each it As Telerik.Web.UI.RadListBoxItem In lt1.Items
