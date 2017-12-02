@@ -322,7 +322,8 @@
         Dim s As String = ""
         With myQuery
             If Not String.IsNullOrEmpty(.MG_GridGroupByField) Then
-                If .MG_GridSqlColumns.ToLower.IndexOf(.MG_GridGroupByField.ToLower) < 0 Or .MG_GridGroupByField = "Client" Then
+                'If .MG_GridSqlColumns.ToLower.IndexOf(.MG_GridGroupByField.ToLower) < 0 Or .MG_GridGroupByField = "Client" Then
+                If .MG_GridSqlColumns.ToLower.IndexOf(.MG_GridGroupByField.ToLower) < 0 Then
                     Select Case .MG_GridGroupByField
                         Case "ProjectCodeAndName" : .MG_GridSqlColumns += ",isnull(p28client.p28Name+char(32)+'-'+char(32),'')+isnull(p41NameShort,p41Name) as ProjectCodeAndName"
                         Case "Client" : .MG_GridSqlColumns += ",p28client.p28Name as Client"

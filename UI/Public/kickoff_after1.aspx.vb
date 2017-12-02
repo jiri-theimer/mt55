@@ -583,6 +583,7 @@
         CreateQuery("Můj seznam oblíbených", BO.x29IdEnum.p41Project, 0, strColumnNames, "_other", 20)
 
         CreateQuery("Široký přehled", BO.x29IdEnum.p41Project, 0, "Client, p41Name, Role_x67_3, p51Name_Billing, NI_Hodiny, NI_Vydaje, NI_Odmeny", , , , , BO.j70PageLayoutFlagENUM.OnlyOne)
+        CreateQuery("Horní a spodní panel", BO.x29IdEnum.p41Project, 0, "Client, p41Name, Role_x67_3, p51Name_Billing, NI_Hodiny, NI_Vydaje, NI_Odmeny", , , , , BO.j70PageLayoutFlagENUM.TopBottom)
         'CreateQuery("Projekty s kontaktní osobou", BO.x29IdEnum.p41Project, 0, strColumnNames, "_other", 16)
         'CreateQuery("Není přiřazen ceník sazeb", BO.x29IdEnum.p41Project, 0, strColumnNames, "_other", 13)
         CreateQuery("Projekty v režimu DRAFT", BO.x29IdEnum.p41Project, 0, strColumnNames, "_other", 11)
@@ -624,6 +625,7 @@
         CreateQuery("Rozpracované hodiny", BO.x29IdEnum.j02Person, 0, "FullNameDesc,j07Name,WIP_Hodiny,WIP_Hodiny_Fa,WIP_Hodiny_NeFa,WIP_Prvni_Datum,WIP_Posledni_Datum", "_other", 3, , , BO.j70PageLayoutFlagENUM.OnlyOne)
         CreateQuery("Štítky", BO.x29IdEnum.j02Person, 0, "FullNameDesc,TagsHtml")
         CreateQuery("Široký přehled", BO.x29IdEnum.j02Person, 0, "FullNameDesc,j02Email,j07Name,c21Name,j18Name", "_other", 6, , , BO.j70PageLayoutFlagENUM.OnlyOne)
+        CreateQuery("Horní a spodní panel", BO.x29IdEnum.j02Person, 0, "FullNameDesc,j02Email,j07Name,c21Name,j18Name", "_other", 6, , , BO.j70PageLayoutFlagENUM.TopBottom)
         CreateQuery("Osoby v archivu", BO.x29IdEnum.j02Person, 2, strColumnNames)
         CreateQuery("Kontaktní osoby", BO.x29IdEnum.j02Person, 0, "FullNameDesc,VazbaKlient", "_other", 7)
         CreateQuery("Interní osoby", BO.x29IdEnum.j02Person, 1, strColumnNames, "_other", 6)
@@ -641,6 +643,7 @@
         CreateQuery("DRAFT doklady", BO.x29IdEnum.p91Invoice, 0, strColumnNames, "_other", 5)
         CreateQuery("Ve splatnosti", BO.x29IdEnum.p91Invoice, 0, strColumnNames, "_other", 3)
         CreateQuery("Široký přehled", BO.x29IdEnum.p91Invoice, 0, "p91Code,p91Client,p91DateSupply,p91Amount_WithoutVat,j27Code,WithoutVat_Krat_Kurz,p91Amount_Debt,VomKdyOdeslano", , , , , BO.j70PageLayoutFlagENUM.OnlyOne)
+        CreateQuery("Horní a spodní panel", BO.x29IdEnum.p91Invoice, 0, "p91Code,p91Client,p91DateSupply,p91Amount_WithoutVat,j27Code,WithoutVat_Krat_Kurz,p91Amount_Debt,VomKdyOdeslano", , , , , BO.j70PageLayoutFlagENUM.TopBottom)
         CreateQuery("Neuhrazené po splatnosti", BO.x29IdEnum.p91Invoice, 0, strColumnNames, "_other", 4)
 
         strColumnNames = "p31Date,Person,ClientName,p41Name,p32Name,p31Hours_Orig,p31Rate_Billing_Orig,p31Amount_WithoutVat_Orig,p31Text"
@@ -667,6 +670,7 @@
         CreateQuery("Rozpracované, čeká na schvalování", BO.x29IdEnum.p56Task, 0, "ClientAndProject,p56Name,b02Name,Role_x67_1,Hours_Orig,Expenses_Orig", "_other", 3, , , BO.j70PageLayoutFlagENUM.OnlyOne)
         CreateQuery("Uzavřené úkoly (v archivu)", BO.x29IdEnum.p56Task, 2, strColumnNames, , , , , BO.j70PageLayoutFlagENUM.OnlyOne)
         CreateQuery("Otevřené úkoly", BO.x29IdEnum.p56Task, 1, strColumnNames, , , , , BO.j70PageLayoutFlagENUM.OnlyOne)
+        CreateQuery("Horní a spodní panel", BO.x29IdEnum.p56Task, 0, strColumnNames, , , , , BO.j70PageLayoutFlagENUM.TopBottom)
 
 
 

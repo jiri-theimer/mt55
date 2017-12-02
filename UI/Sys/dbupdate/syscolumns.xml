@@ -18758,6 +18758,72 @@
     <TableName>j70QueryTemplate</TableName>
   </Table>
   <Table>
+    <name>j70GroupByField</name>
+    <id>1044198770</id>
+    <xtype>167</xtype>
+    <typestat>2</typestat>
+    <xusertype>167</xusertype>
+    <length>255</length>
+    <xprec>0</xprec>
+    <xscale>0</xscale>
+    <colid>21</colid>
+    <xoffset>0</xoffset>
+    <bitpos>0</bitpos>
+    <reserved>0</reserved>
+    <colstat>0</colstat>
+    <cdefault>0</cdefault>
+    <domain>0</domain>
+    <number>0</number>
+    <colorder>21</colorder>
+    <offset>-17</offset>
+    <collationid>53252</collationid>
+    <language>0</language>
+    <status>24</status>
+    <type>39</type>
+    <usertype>2</usertype>
+    <prec>255</prec>
+    <iscomputed>0</iscomputed>
+    <isoutparam>0</isoutparam>
+    <isnullable>1</isnullable>
+    <collation>Czech_CI_AS</collation>
+    <tdscollation>BQTQAAA=</tdscollation>
+    <type_name>varchar</type_name>
+    <TableName>j70QueryTemplate</TableName>
+  </Table>
+  <Table>
+    <name>j70GroupByAlias</name>
+    <id>1044198770</id>
+    <xtype>167</xtype>
+    <typestat>2</typestat>
+    <xusertype>167</xusertype>
+    <length>255</length>
+    <xprec>0</xprec>
+    <xscale>0</xscale>
+    <colid>22</colid>
+    <xoffset>0</xoffset>
+    <bitpos>0</bitpos>
+    <reserved>0</reserved>
+    <colstat>0</colstat>
+    <cdefault>0</cdefault>
+    <domain>0</domain>
+    <number>0</number>
+    <colorder>22</colorder>
+    <offset>-18</offset>
+    <collationid>53252</collationid>
+    <language>0</language>
+    <status>24</status>
+    <type>39</type>
+    <usertype>2</usertype>
+    <prec>255</prec>
+    <iscomputed>0</iscomputed>
+    <isoutparam>0</isoutparam>
+    <isnullable>1</isnullable>
+    <collation>Czech_CI_AS</collation>
+    <tdscollation>BQTQAAA=</tdscollation>
+    <type_name>varchar</type_name>
+    <TableName>j70QueryTemplate</TableName>
+  </Table>
+  <Table>
     <name>j71ID</name>
     <id>1140199112</id>
     <xtype>56</xtype>
