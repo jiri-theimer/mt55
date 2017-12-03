@@ -527,24 +527,6 @@ Partial Public Class p41_record
     Protected WithEvents p72ID_BillableHours As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''lblp51ID_Internal control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblp51ID_Internal As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''p51ID_Internal control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents p51ID_Internal As Global.UI.datacombo
-
-    '''<summary>
     '''p41BillingMemo control.
     '''</summary>
     '''<remarks>
@@ -633,6 +615,24 @@ Partial Public Class p41_record
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents p41NameShort As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''lblp51ID_Internal control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblp51ID_Internal As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''p51ID_Internal control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents p51ID_Internal As Global.UI.datacombo
 
     '''<summary>
     '''lblO25ID control.

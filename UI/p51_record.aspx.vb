@@ -78,7 +78,7 @@
             Me.p51ID_Master.SelectedValue = .p51ID_Master.ToString
 
             Me.p51Code.Text = .p51Code
-            Me.p51IsInternalPriceList.Checked = .p51IsInternalPriceList
+            basUI.SelectDropdownlistValue(Me.p51TypeFlag, CInt(.p51TypeFlag).ToString)
             Me.p51IsMasterPriceList.Checked = .p51IsMasterPriceList
             Me.p51IsCustomTailor.Checked = .p51IsCustomTailor
             If .p51IsCustomTailor Then
@@ -149,7 +149,7 @@
         End If
         If Me.p51IsMasterPriceList.Checked Then
             Me.p51IsCustomTailor.Checked = False
-            Me.p51IsInternalPriceList.Checked = False
+            p51TypeFlag.SelectedValue = "1"
         End If
         With Master.Factory.p51PriceListBL
             Dim cRec As BO.p51PriceList = IIf(Master.DataPID <> 0, .Load(Master.DataPID), New BO.p51PriceList)
@@ -159,7 +159,7 @@
                 .p51DefaultRateT = BO.BAS.IsNullNum(Me.p51DefaultRateT.Value)
                 .p51Code = Me.p51Code.Text
                 .j27ID = BO.BAS.IsNullInt(Me.j27ID.SelectedValue)
-                .p51IsInternalPriceList = Me.p51IsInternalPriceList.Checked
+                .p51TypeFlag = CType(CInt(Me.p51TypeFlag.SelectedValue), BO.p51TypeFlagENUM)
                 .p51IsMasterPriceList = Me.p51IsMasterPriceList.Checked
                 .p51Ordinary = BO.BAS.IsNullInt(Me.p51Ordinary.Value)
                 .p51IsCustomTailor = Me.p51IsCustomTailor.Checked
@@ -253,7 +253,7 @@
         Me.lblp51ID_Master.Visible = b
         Me.p51ID_Master.Visible = b
         Me.p51IsCustomTailor.Visible = b
-        Me.p51IsInternalPriceList.Visible = b
+        Me.p51TypeFlag.Visible = b
 
         
     End Sub

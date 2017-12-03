@@ -6,7 +6,7 @@
 <%@ Register TagPrefix="uc" TagName="datagrid" Src="~/datagrid.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-   
+
     <script type="text/javascript">
         function record_edit() {
             var pid = document.getElementById("<%=hiddatapid.clientid%>").value;
@@ -50,10 +50,10 @@
             return (pids);
         }
 
-        
 
 
-        
+
+
         function hardrefresh(pid, flag) {
 
 
@@ -72,10 +72,19 @@
             <img src="Images/billing_32.png" alt="Ceníky sazeb" />
         </div>
         <div class="commandcell" style="padding-left: 10px;">
-            <asp:Label ID="lblFormHeader" runat="server" CssClass="page_header_span" Text="Ceníky sazeb" Style="vertical-align: top;"></asp:Label>
+            <asp:Label ID="lblFormHeader" runat="server" CssClass="page_header_span" Text="Ceníky hodinových sazeb" Style="vertical-align: top;"></asp:Label>
+        </div>
+        <div class="commandcell" style="padding-left: 50px;">
+            <asp:DropDownList ID="p51TypeFlag" runat="server" AutoPostBack="true">
+                <asp:ListItem Text="--Filtrovat typ ceníku--" Value=""></asp:ListItem>
+                <asp:ListItem Text="Fakturační hodinové sazby" Value="1"></asp:ListItem>
+                <asp:ListItem Text="Nákladové hodinové sazby" Value="2"></asp:ListItem>
+                <asp:ListItem Text="Režijní hodinové sazby" Value="3"></asp:ListItem>
+                <asp:ListItem Text="Efektivní sazby hodin zahrnutých do paušálu" Value="4"></asp:ListItem>
+            </asp:DropDownList>
         </div>
 
-        <div class="commandcell" style="padding-left:50px;">
+        <div class="commandcell" >
             <telerik:RadMenu ID="menu1" RenderMode="Auto" Skin="Metro" runat="server" Style="z-index: 3000;" ExpandAnimation-Duration="0" ExpandAnimation-Type="none" ClickToOpen="true">
                 <Items>
                     <telerik:RadMenuItem Value="cmdNew" Text="Nový" NavigateUrl="javascript:record_new();" ImageUrl="Images/new4menu.png"></telerik:RadMenuItem>
@@ -86,30 +95,30 @@
                         <ContentTemplate>
                             <div class="content-box3">
                                 <div class="content">
-                                <div class="div6">
-                                    <asp:DropDownList ID="cbxValidity" runat="server" AutoPostBack="true">
-                                        <asp:ListItem Text="Zobrazovat otevřené i uzavřené" Value="1"></asp:ListItem>
-                                        <asp:ListItem Text="Zobrazovat pouze otevřené (mimo archiv)" Value="2"></asp:ListItem>
-                                        <asp:ListItem Text="Zobrazovat pouze uzavřené (v archivu)" Value="3"></asp:ListItem>
-                                    </asp:DropDownList>
-                                </div>
-                                <div class="div6">
-                                    <asp:CheckBox ID="chkShowCustomTailor" runat="server" Text="Zobrazovat i ceníky na míru" AutoPostBack="true" />
-                                </div>
-                                <div class="div6">
-                                    <asp:CheckBox ID="chkMasterPriceLists" runat="server" Text="Pouze MASTER ceníky" AutoPostBack="true" />
-                                </div>
-                                <div class="div6">
-                                    <span>Stránkování:</span>
-                                    <asp:DropDownList ID="cbxPaging" runat="server" AutoPostBack="true" ToolTip="Stránkování" TabIndex="3">
-                                        <asp:ListItem Text="20"></asp:ListItem>
-                                        <asp:ListItem Text="50" Selected="True"></asp:ListItem>
-                                        <asp:ListItem Text="100"></asp:ListItem>
-                                        <asp:ListItem Text="200"></asp:ListItem>
-                                        <asp:ListItem Text="500"></asp:ListItem>
-                                    </asp:DropDownList>
-                                </div>
+                                    <div class="div6">
+                                        <asp:DropDownList ID="cbxValidity" runat="server" AutoPostBack="true">
+                                            <asp:ListItem Text="Zobrazovat otevřené i uzavřené" Value="1"></asp:ListItem>
+                                            <asp:ListItem Text="Zobrazovat pouze otevřené (mimo archiv)" Value="2"></asp:ListItem>
+                                            <asp:ListItem Text="Zobrazovat pouze uzavřené (v archivu)" Value="3"></asp:ListItem>
+                                        </asp:DropDownList>
                                     </div>
+                                    <div class="div6">
+                                        <asp:CheckBox ID="chkShowCustomTailor" runat="server" Text="Zobrazovat i ceníky na míru" AutoPostBack="true" />
+                                    </div>
+                                    <div class="div6">
+                                        <asp:CheckBox ID="chkMasterPriceLists" runat="server" Text="Pouze MASTER ceníky" AutoPostBack="true" />
+                                    </div>
+                                    <div class="div6">
+                                        <span>Stránkování:</span>
+                                        <asp:DropDownList ID="cbxPaging" runat="server" AutoPostBack="true" ToolTip="Stránkování" TabIndex="3">
+                                            <asp:ListItem Text="20"></asp:ListItem>
+                                            <asp:ListItem Text="50" Selected="True"></asp:ListItem>
+                                            <asp:ListItem Text="100"></asp:ListItem>
+                                            <asp:ListItem Text="200"></asp:ListItem>
+                                            <asp:ListItem Text="500"></asp:ListItem>
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
                             </div>
                         </ContentTemplate>
                     </telerik:RadMenuItem>

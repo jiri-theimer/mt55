@@ -23,6 +23,24 @@ Partial Public Class p51_record
     Protected WithEvents RadTabStrip1 As Global.Telerik.Web.UI.RadTabStrip
 
     '''<summary>
+    '''Label1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label1 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''p51TypeFlag control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents p51TypeFlag As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
     '''lblJ27ID control.
     '''</summary>
     '''<remarks>
@@ -57,6 +75,24 @@ Partial Public Class p51_record
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents p51Name As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''lblDefaultRate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblDefaultRate As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''p51DefaultRateT control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents p51DefaultRateT As Global.Telerik.Web.UI.RadNumericTextBox
 
     '''<summary>
     '''panWizard control.
@@ -104,24 +140,6 @@ Partial Public Class p51_record
     Protected WithEvents RadPageView1 As Global.Telerik.Web.UI.RadPageView
 
     '''<summary>
-    '''lblDefaultRate control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblDefaultRate As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''p51DefaultRateT control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents p51DefaultRateT As Global.Telerik.Web.UI.RadNumericTextBox
-
-    '''<summary>
     '''boxTitle control.
     '''</summary>
     '''<remarks>
@@ -156,15 +174,6 @@ Partial Public Class p51_record
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents p51IsCustomTailor As Global.System.Web.UI.WebControls.CheckBox
-
-    '''<summary>
-    '''p51IsInternalPriceList control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents p51IsInternalPriceList As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
     '''p51IsMasterPriceList control.

@@ -74,9 +74,9 @@ Public Class remotelist_service
             Case "p29"
                 FillList(factory.p29ContactTypeBL.GetList(New BO.myQuery))
             Case "p51-internal"
-                FillList(factory.p51PriceListBL.GetList(New BO.myQuery).Where(Function(p) p.p51IsInternalPriceList = True And p.p51IsMasterPriceList = False And p.p51IsCustomTailor = False))
+                FillList(factory.p51PriceListBL.GetList(New BO.myQuery).Where(Function(p) p.p51TypeFlag = BO.p51TypeFlagENUM.CostRates And p.p51IsMasterPriceList = False And p.p51IsCustomTailor = False))
             Case "p51-billing"
-                FillList(factory.p51PriceListBL.GetList(New BO.myQuery).Where(Function(p) p.p51IsInternalPriceList = False And p.p51IsMasterPriceList = False And p.p51IsCustomTailor = False))
+                FillList(factory.p51PriceListBL.GetList(New BO.myQuery).Where(Function(p) p.p51TypeFlag = BO.p51TypeFlagENUM.BillingRates And p.p51IsMasterPriceList = False And p.p51IsCustomTailor = False))
             Case "p80"
                 FillList(factory.p80InvoiceAmountStructureBL.GetList(New BO.myQuery))
             Case "p98"

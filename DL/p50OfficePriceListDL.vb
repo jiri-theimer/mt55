@@ -6,7 +6,7 @@
     
 
     Public Function Load(intPID As Integer) As BO.p50OfficePriceList
-        Dim s As String = "select a.*," & bas.RecTail("p50", "a", True, False) & " FROM p50OfficePriceList a INNER JOIN p51PriceList p51 ON a.p51ID=p51.p51ID WHERE a.p50ID=@pid"
+        Dim s As String = "select a.*,p51.p51TypeFlag as _p51TypeFlag," & bas.RecTail("p50", "a", True, False) & " FROM p50OfficePriceList a INNER JOIN p51PriceList p51 ON a.p51ID=p51.p51ID WHERE a.p50ID=@pid"
         Return _cDB.GetRecord(Of BO.p50OfficePriceList)(s, New With {.pid = intPID})
     End Function
 
@@ -29,7 +29,6 @@
         End If
         With cRec
             pars.Add("p51ID", .p51ID, DbType.Int32)
-            pars.Add("p50RatesFlag", .p50RatesFlag, DbType.Int32)
             pars.Add("p50ValidFrom", .ValidFrom, DbType.DateTime)
             pars.Add("p50ValidUntil", .ValidUntil, DbType.DateTime)
         End With
@@ -43,14 +42,14 @@
     End Function
 
     Public Function GetList(Optional myQuery As BO.myQuery = Nothing) As IEnumerable(Of BO.p50OfficePriceList)
-        Dim s As String = "select a.*,p51.p51Name as _p51Name," & bas.RecTail("p50", "a", True, False)
+        Dim s As String = "select a.*,p51.p51Name as _p51Name,p51.p51TypeFlag as _p51TypeFlag," & bas.RecTail("p50", "a", True, False)
         s += " FROM p50OfficePriceList a INNER JOIN p51PriceList p51 ON a.p51ID=p51.p51ID"
         If Not myQuery Is Nothing Then
             Dim strW As String = bas.ParseWhereMultiPIDs("a.p50ID", myQuery)
             strW += bas.ParseWhereValidity("p50", "", myQuery)
             If strW <> "" Then s += " WHERE " & bas.TrimWHERE(strW)
         End If
-        s += " ORDER BY p50ValidUntil DESC"
+        s += " ORDER BY a.p50ValidUntil DESC"
 
         Return _cDB.GetList(Of BO.p50OfficePriceList)(s)
 

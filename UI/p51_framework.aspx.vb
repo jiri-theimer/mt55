@@ -24,6 +24,7 @@ Public Class p51_framework
                     .Add("p51_framework-chkMasterPriceLists")
                     .Add("p51_framework-filter_setting")
                     .Add("p51_framework-filter_sql")
+                    .Add("p51_framework-p51TypeFlag")
                 End With
                 .Factory.j03UserBL.InhaleUserParams(lisPars)
 
@@ -34,6 +35,7 @@ Public Class p51_framework
                 cbxPaging.SelectedValue = .GetUserParam("p51_framework-pagesize", "20")
                 Me.chkShowCustomTailor.Checked = BO.BAS.BG(.GetUserParam("p51_framework-chkShowCustomTailor", "0"))
                 basUI.SelectDropdownlistValue(Me.cbxValidity, .GetUserParam("p51_framework-query-closed", "1"))
+                basUI.SelectDropdownlistValue(Me.p51TypeFlag, .GetUserParam("p51_framework-p51TypeFlag"))
                 Me.chkMasterPriceLists.Checked = BO.BAS.BG(.GetUserParam("p51_framework-chkMasterPriceLists", "0"))
             End With
 
@@ -53,9 +55,10 @@ Public Class p51_framework
             .AddContextMenuColumn(16)
 
             .AddColumn("p51name", "Název ceníku")
-            .AddColumn("j27Code", "Měna sazeb")
+            .AddColumn("j27Code", "Měna sazby")
+            .AddColumn("TypeAlias", "Typ ceníku", , False, , , , , False)
             .AddColumn("p51IsCustomTailor", "Sazby na míru", BO.cfENUM.Checkbox)
-            .AddColumn("p51IsInternalPriceList", "Nákl.ceník", BO.cfENUM.Checkbox)
+
             .AddColumn("p51Ordinary", "#", BO.cfENUM.Numeric0, , , , , , False)
 
             .SetFilterSetting(strFilterSetting, strFilterExpression)
@@ -97,6 +100,10 @@ Public Class p51_framework
         mq.ColumnFilteringExpression = grid1.GetFilterExpression
 
         Dim lis As IEnumerable(Of BO.p51PriceList) = Master.Factory.p51PriceListBL.GetList(mq)
+        If Me.p51TypeFlag.SelectedValue <> "" Then
+            lis = lis.Where(Function(p) p.p51TypeFlag = CType(CInt(Me.p51TypeFlag.SelectedValue), BO.p51TypeFlagENUM))
+        End If
+
         If Not Me.chkShowCustomTailor.Checked Then
             lis = lis.Where(Function(p) p.p51IsCustomTailor = False)
         End If
@@ -134,4 +141,12 @@ Public Class p51_framework
 
 
     
+    Private Sub p51TypeFlag_SelectedIndexChanged(sender As Object, e As EventArgs) Handles p51TypeFlag.SelectedIndexChanged
+        Master.Factory.j03UserBL.SetUserParam("p51_framework-p51TypeFlag", p51TypeFlag.SelectedValue)
+        grid1.Rebind(False)
+    End Sub
+
+    Private Sub p51_framework_LoadComplete(sender As Object, e As EventArgs) Handles Me.LoadComplete
+        basUIMT.RenderQueryCombo(Me.p51TypeFlag)
+    End Sub
 End Class

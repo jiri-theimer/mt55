@@ -844,6 +844,8 @@ Class j70QueryTemplateBL
                 .Add(AGC("Částka vč. DPH", "p31Amount_WithVat_Orig", BO.cfENUM.Numeric2, , , True, , "Vykázáno"))
                 .Add(AGC(My.Resources.common.NakladovaSazba, "p31Rate_Internal_Orig", BO.cfENUM.Numeric2, , , , , "Nákladová cena", "p31Rate_Internal_Orig", "p31Rate_Internal_Orig"))
                 .Add(AGC(My.Resources.common.NakladovaCastka, "p31Amount_Internal", BO.cfENUM.Numeric2, , , True, , "Nákladová cena"))
+                .Add(AGC("Režijní sazba", "p31Rate_Overhead", BO.cfENUM.Numeric2, , , , , "Nákladová cena", "p31Rate_Overhead", "p31Rate_Overhead"))
+                .Add(AGC("Režijní náklad", "p31Amount_Overhead", BO.cfENUM.Numeric2, , , True, , "Nákladová cena"))
 
                 .Add(AGC("Bez DPH dle fixního kurzu", "p31Amount_WithoutVat_FixedCurrency", BO.cfENUM.Numeric2, , , True, , "Vykázáno"))
 

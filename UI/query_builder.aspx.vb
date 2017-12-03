@@ -436,7 +436,7 @@
                 Me.cbxItems.DataSource = Master.Factory.ftBL.GetList_P70()
             Case BO.x29IdEnum.p51PriceList
                 Me.cbxItems.DataTextField = "p51Name"
-                Me.cbxItems.DataSource = Master.Factory.p51PriceListBL.GetList(mq).Where(Function(p) p.p51IsMasterPriceList = False And p.p51IsInternalPriceList = False And p.p51IsCustomTailor = False)
+                Me.cbxItems.DataSource = Master.Factory.p51PriceListBL.GetList(mq).Where(Function(p) p.p51IsMasterPriceList = False And p.p51TypeFlag = BO.p51TypeFlagENUM.BillingRates And p.p51IsCustomTailor = False)
             Case BO.x29IdEnum.x67EntityRole
                 Me.cbxItems.DataTextField = "x67Name"
                 Dim x29Role As BO.x29IdEnum = Me.CurrentX29ID

@@ -106,7 +106,7 @@ Public Class p91_framework_detail
             .Text = "Hledat..."
         End With
         If hidSource.Value = "2" Then
-
+            Image1.Visible = False
             menu1.Skin = "Metro"
             imgIcon32.Visible = False
 
@@ -120,6 +120,7 @@ Public Class p91_framework_detail
             FNO("searchbox").Controls.Add(cbx)
             imgIcon32.Style.Item("top") = "44px"
             cmdGo2Grid.Visible = True
+
         Else
             FNO("searchbox").Visible = False
             cmdGo2Grid.Visible = False

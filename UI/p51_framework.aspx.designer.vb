@@ -23,6 +23,15 @@ Partial Public Class p51_framework
     Protected WithEvents lblFormHeader As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''p51TypeFlag control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents p51TypeFlag As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
     '''menu1 control.
     '''</summary>
     '''<remarks>

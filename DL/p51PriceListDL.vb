@@ -25,7 +25,7 @@
                 pars.Add("j27ID", BO.BAS.IsNullDBKey(.j27ID), DbType.Int32)
                 pars.Add("p51ID_Master", BO.BAS.IsNullDBKey(.p51ID_Master), DbType.Int32)
                 pars.Add("p51IsMasterPriceList", .p51IsMasterPriceList, DbType.Boolean)
-                pars.Add("p51IsInternalPriceList", .p51IsInternalPriceList, DbType.Boolean)
+                pars.Add("p51TypeFlag", CInt(.p51TypeFlag), DbType.Int32)
                 pars.Add("p51IsCustomTailor", .p51IsCustomTailor, DbType.Boolean)
                 pars.Add("p51Ordinary", .p51Ordinary, DbType.Int32)
                 pars.Add("p51DefaultRateT", .p51DefaultRateT, DbType.Double)

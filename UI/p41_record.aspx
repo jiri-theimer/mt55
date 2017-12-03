@@ -279,13 +279,7 @@
                             </asp:DropDownList>
                         </td>
                     </tr>
-                    <tr>
-                        <td colspan="2">
-                            <asp:Label ID="lblp51ID_Internal" runat="server" Text="Ceník nákladových sazeb projektu:" CssClass="lbl"></asp:Label>
-
-                            <uc:datacombo ID="p51ID_Internal" runat="server" DataTextField="NameWithCurr" AutoPostBack="false" DataValueField="pid" IsFirstEmptyRow="true" Width="300px" RemoteListPrefix="p51-internal" />
-                        </td>
-                    </tr>
+                    
                 </table>
                 <div>Fakturační poznámka projektu:</div>
                 <asp:TextBox ID="p41BillingMemo" runat="server" Style="width: 99%; height: 60px;" TextMode="MultiLine"></asp:TextBox>
@@ -330,6 +324,16 @@
                         <asp:TextBox ID="p41NameShort" runat="server" Style="width: 300px;"></asp:TextBox>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="lblp51ID_Internal" runat="server" Text="Ceník nákladových hodinových sazeb:" CssClass="lbl"></asp:Label>
+                    </td>
+                        <td>
+                            
+
+                            <uc:datacombo ID="p51ID_Internal" runat="server" DataTextField="NameWithCurr" AutoPostBack="false" DataValueField="pid" IsFirstEmptyRow="true" Width="300px" RemoteListPrefix="p51-internal" />
+                        </td>
+                    </tr>
                 <tr>
                     <td>
                         <asp:Label ID="lblO25ID" Text="Kalendář projektu:" runat="server" CssClass="lbl"></asp:Label>

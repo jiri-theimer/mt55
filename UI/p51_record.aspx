@@ -48,6 +48,19 @@
 
     <table cellpadding="5" cellspacing="2">
         <tr>
+            <td>
+                <asp:Label ID="Label1" Text="Typ ceníku:" runat="server" CssClass="lbl"></asp:Label>
+            </td>
+            <td>
+                <asp:DropDownList ID="p51TypeFlag" runat="server">
+                    <asp:ListItem Text="Fakturační hodinové sazby" Value="1"></asp:ListItem>
+                    <asp:ListItem Text="Nákladové hodinové sazby" Value="2"></asp:ListItem>
+                    <asp:ListItem Text="Režijní hodinové sazby" Value="3"></asp:ListItem>
+                    <asp:ListItem Text="Efektivní sazby hodin zahrnutých do paušálu" Value="4"></asp:ListItem>
+                </asp:DropDownList>
+            </td>
+        </tr>
+        <tr>
             <td style="width: 150px;">
                 <asp:Label ID="lblJ27ID" Text="Měna sazeb:" runat="server" CssClass="lblReq"></asp:Label>
             </td>
@@ -65,49 +78,54 @@
                 <asp:TextBox ID="p51Name" runat="server" Style="width: 400px;"></asp:TextBox>
             </td>
         </tr>
+        <tr>
+            <td>
+
+                <asp:Label ID="lblDefaultRate" Text="Výchozí hodinová sazba:" runat="server" CssClass="lbl" AssociatedControlID="p51DefaultRateT"></asp:Label>
+            </td>
+            <td>
+                <telerik:RadNumericTextBox ID="p51DefaultRateT" runat="server" Width="90px"></telerik:RadNumericTextBox>
+            </td>
+        </tr>
     </table>
 
-    <asp:Panel ID="panWizard" runat="server" Visible="false">
-     
-        <asp:RadioButtonList ID="opg1" runat="server" RepeatDirection="Horizontal" AutoPostBack="true">
+    <asp:Panel ID="panWizard" runat="server" Visible="false" CssClass="content-box2">
+        <div class="title">
+            Položkové sazby (vyjímky z výchozí sazby ceníku)
+                    
+        </div>
+        <div class="content">
+            <asp:RadioButtonList ID="opg1" runat="server" RepeatDirection="Horizontal" AutoPostBack="true">
                 <asp:ListItem Text="Sazby podle pozic" Value="j07" Selected="true"></asp:ListItem>
                 <asp:ListItem Text="Sazby podle lidí" Value="j02"></asp:ListItem>
             </asp:RadioButtonList>
-        <table cellpadding="6">
-            <tr>
-                <th>Položka</th>
-                <th>Výše sazby</th>
-            </tr>
-            <asp:Repeater ID="rpWizard" runat="server">
-                <ItemTemplate>
-                    <tr>
-                        <td>
-                            <asp:Label ID="item1" runat="server" CssClass="val"></asp:Label>
-                            <asp:HiddenField ID="pid" runat="server" />
-                        </td>
-                        <td>
-                            <telerik:RadNumericTextBox ID="rate1" runat="server" Width="80px"></telerik:RadNumericTextBox>
-                        </td>
-                    </tr>
-                </ItemTemplate>
-            </asp:Repeater>
-        </table>
+            <table cellpadding="6">
+                <tr>
+                    <th>Položka</th>
+                    <th>Výše sazby</th>
+                </tr>
+                <asp:Repeater ID="rpWizard" runat="server">
+                    <ItemTemplate>
+                        <tr>
+                            <td>
+                                <asp:Label ID="item1" runat="server" CssClass="val"></asp:Label>
+                                <asp:HiddenField ID="pid" runat="server" />
+                            </td>
+                            <td>
+                                <telerik:RadNumericTextBox ID="rate1" runat="server" Width="80px"></telerik:RadNumericTextBox>
+                            </td>
+                        </tr>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </table>
+        </div>
+
     </asp:Panel>
 
     <telerik:RadMultiPage ID="RadMultiPage1" runat="server">
         <telerik:RadPageView ID="RadPageView1" runat="server" Selected="true">
 
-            <table cellpadding="5" cellspacing="2">
-                <tr>
-                    <td style="width: 150px;">
 
-                        <asp:Label ID="lblDefaultRate" Text="Výchozí hodinová sazba:" runat="server" CssClass="lbl" AssociatedControlID="p51DefaultRateT"></asp:Label>
-                    </td>
-                    <td>
-                        <telerik:RadNumericTextBox ID="p51DefaultRateT" runat="server" Width="90px"></telerik:RadNumericTextBox>
-                    </td>
-                </tr>
-            </table>
 
 
 
@@ -162,6 +180,7 @@
         </telerik:RadPageView>
         <telerik:RadPageView ID="RadPageView2" runat="server">
             <table cellpadding="10" cellspacing="2">
+
                 <tr>
                     <td colspan="2">
                         <asp:CheckBox ID="p51IsCustomTailor" runat="server" Text="Sazby na míru pouze pro jeden projekt/klient" />
@@ -170,21 +189,14 @@
                     </td>
 
                 </tr>
-                <tr>
-                    <td colspan="2">
-                        <asp:CheckBox ID="p51IsInternalPriceList" runat="server" Text="Jedná ceník interních (nákladových) sazeb" />
 
-
-                    </td>
-
-                </tr>
                 <tr>
                     <td colspan="2">
                         <asp:CheckBox ID="p51IsMasterPriceList" runat="server" Text="Jedná se o MASTER ceník" AutoPostBack="true" />
-                        
+
                     </td>
                 </tr>
-               
+
                 <tr>
                     <td colspan="2">
                         <asp:Label ID="lblp51ID_Master" Text="Vazba na MASTER ceník:" runat="server" CssClass="lbl"></asp:Label>

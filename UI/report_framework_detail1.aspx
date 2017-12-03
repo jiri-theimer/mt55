@@ -79,17 +79,20 @@
         function querybuilder() {
             var j70id = "<%=Me.CurrentJ70ID%>";
             sw_local("query_builder.aspx?prefix=<%=me.hidQueryPrefix.value%>&pid=" + j70id, "Images/query_32.png");
-            return (false);
+            
         }
 
         function rvprint() {
             <%=rv1.ClientID%>.PrintReport(); 
         }
+        function click_export(){
+            document.getElementById("MainContent_rv1_ReportToolbar_ExportGr_Export").click();
+        }
     </script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <div style="background-color: #F1F1F1;border-bottom:solid 1px silver;">
+    <div style="background-color: #F1F1F1; border-bottom: solid 1px silver;">
 
         <div class="commandcell">
             <asp:Image ID="img1" runat="server" ImageUrl="Images/report_32.png" />
@@ -100,26 +103,34 @@
             <table cellpadding="0" cellspacing="0">
                 <tr>
                     <td>
-                        <asp:HyperLink ID="linkPrint" runat="server" NavigateUrl="javascript:rvprint()" Text="Tisk"></asp:HyperLink>
-                        
+
+                        <button type="button" id="cmdPrint" runat="server" onclick="rvprint()">
+                            <img src="Images/report.png" />Tisk</button>
                     </td>
                     <td style="padding-left: 10px;">
-                        <asp:LinkButton ID="cmdPdfExport" runat="server" Text="PDF náhled"></asp:LinkButton>
+
+                        <button type="button" id="cmdExport" runat="server" onclick="click_export()">
+                            <img src="Images/pdf.png" />Export</button>
                     </td>
                     <td style="padding-left: 10px;">
-                        <asp:HyperLink ID="linkMail" runat="server" Text="Odeslat sestavu poštou jako PDF" NavigateUrl="javascript:sendbymail()"></asp:HyperLink>
-                        
+
+                        <asp:Button ID="cmdPdfPreview" runat="server" CssClass="cmd" Text="PDF náhled" />
+                    </td>
+                    <td style="padding-left: 10px;">
+
+                        <button type="button" id="cmdMail" runat="server" onclick="sendbymail()">
+                            <img src="Images/email.png" />Odeslat e-mail</button>
                     </td>
 
                     <td style="padding-left: 10px;">
-                        <uc:periodcombo ID="period1" runat="server" Width="250px"></uc:periodcombo>
+                        <uc:periodcombo ID="period1" runat="server" Width="210px"></uc:periodcombo>
                     </td>
                     <td style="padding: 10px;">
-                        <asp:HyperLink ID="clue_query" runat="server" CssClass="reczoom" ToolTip="Detail filtru" Text="i" Visible="false"></asp:HyperLink>
-                        <asp:DropDownList ID="j70ID" runat="server" AutoPostBack="true" DataTextField="NameWithMark" DataValueField="pid" Style="width: 150px;" ToolTip="Pojmenovaný filtr" Visible="false"></asp:DropDownList>
-                        <asp:ImageButton ID="cmdQuery" runat="server" OnClientClick="return querybuilder()" ImageUrl="Images/query.png" ToolTip="Návrhář filtrů" CssClass="button-link" Visible="false" />
 
-                        <asp:HyperLink ID="cmdSetting" runat="server" Text="Nastavení šablony" NavigateUrl="javascript:x31_record()"></asp:HyperLink>
+
+
+                        <button type="button" id="cmdAdmin" runat="server" onclick="x31_record()">
+                            <img src="Images/setting.png" />Nastavení sestavy</button>
                     </td>
                 </tr>
 
@@ -127,8 +138,23 @@
 
             </table>
         </div>
-
         <div style="clear: both;"></div>
+        <asp:Panel ID="panQuery" runat="server" Visible="false">
+            <table>
+                <tr>
+                    <td style="width:30px;"></td>
+                    <td>
+                        <asp:HyperLink ID="clue_query" runat="server" CssClass="reczoom" ToolTip="Detail filtru" Text="i" ></asp:HyperLink>
+            <asp:DropDownList ID="j70ID" runat="server" AutoPostBack="true" DataTextField="NameWithMark" DataValueField="pid"  ToolTip="Pojmenovaný filtr" ></asp:DropDownList>
+
+            <button type="button" id="cmdFilter" runat="server" onclick="querybuilder()"><img src="Images/query.png" />Návrhář filtrů</button>
+                    </td>
+                </tr>
+            </table>
+            
+        </asp:Panel>
+
+
         <div id="offsetY"></div>
     </div>
     <asp:Panel ID="divReportViewer" runat="server">

@@ -70,7 +70,7 @@
     End Sub
 
     Private Sub SetupPriceList()
-        Me.p51ID_Billing.DataSource = Master.Factory.p51PriceListBL.GetList(New BO.myQuery).Where(Function(p) p.p51IsInternalPriceList = False And p.p51IsMasterPriceList = False And p.p51IsCustomTailor = False)
+        Me.p51ID_Billing.DataSource = Master.Factory.p51PriceListBL.GetList(New BO.myQuery).Where(Function(p) p.p51TypeFlag = BO.p51TypeFlagENUM.BillingRates And p.p51IsMasterPriceList = False And p.p51IsCustomTailor = False)
         Me.p51ID_Billing.DataBind()
         ''Me.p51ID_Billing.ChangeItemText("", "--Sazby dědit z nastavení klienta projektu--")
     End Sub

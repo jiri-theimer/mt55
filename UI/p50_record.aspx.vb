@@ -14,14 +14,14 @@
             With Master
                 .neededPermission = BO.x53PermValEnum.GR_Admin
                 .HeaderIcon = "Images/settings_32.png"
-                .HeaderText = "Nákladové ceníky"
+                .HeaderText = "Interní ceníky"
                 .DataPID = BO.BAS.IsNullInt(Request.Item("pid"))
                 period1.SetupData(.Factory, .Factory.j03UserBL.GetUserParam("periodcombo-custom_query"))
                 period2.SetupData(.Factory, .Factory.j03UserBL.GetUserParam("periodcombo-custom_query"))
             End With
             Dim mq As New BO.myQuery
             mq.Closed = BO.BooleanQueryMode.FalseQuery
-            Me.p51ID.DataSource = Master.Factory.p51PriceListBL.GetList(mq).Where(Function(p) p.p51IsMasterPriceList = False And p.p51IsInternalPriceList = True)
+            Me.p51ID.DataSource = Master.Factory.p51PriceListBL.GetList(mq).Where(Function(p) p.p51IsMasterPriceList = False And p.p51TypeFlag > BO.p51TypeFlagENUM.BillingRates)
             Me.p51ID.DataBind()
 
 
@@ -38,7 +38,6 @@
         Dim cRec As BO.p50OfficePriceList = Master.Factory.p50OfficePriceListBL.Load(Master.DataPID)
         With cRec
             Me.p51ID.SelectedValue = .p51ID.ToString
-            Me.p50RatesFlag.SelectedValue = CInt(.p50RatesFlag).ToString
             Me.p50ValidFrom.SelectedDate = .ValidFrom
             Me.p50ValidUntil.SelectedDate = .ValidUntil
             ''Master.InhaleRecordValidity(.ValidFrom, .ValidUntil, .DateInsert)
@@ -69,7 +68,6 @@
             If Master.DataPID <> 0 Then cRec = .Load(Master.DataPID)
             With cRec
                 .p51ID = BO.BAS.IsNullInt(Me.p51ID.SelectedValue)
-                .p50RatesFlag = BO.BAS.IsNullInt(Me.p50RatesFlag.SelectedValue)
                 .ValidFrom = Me.p50ValidFrom.SelectedDate
                 .ValidUntil = Me.p50ValidUntil.SelectedDate
 
@@ -84,19 +82,24 @@
     End Sub
 
     Private Sub p50_record_LoadComplete(sender As Object, e As EventArgs) Handles Me.LoadComplete
+        Me.panRecalcFPR.Visible = False : panRecalcCostRates.Visible = False
+
         If Me.p51ID.SelectedValue <> "" Then
             Me.clue1.Attributes("rel") = "clue_p51_record.aspx?pid=" & Me.p51ID.SelectedValue
             Me.clue1.Visible = True
+
+            Dim cP51 As BO.p51PriceList = Master.Factory.p51PriceListBL.Load(Me.p51ID.SelectedValue)
+            Select Case cP51.p51TypeFlag
+                Case BO.p51TypeFlagENUM.CostRates
+                    panRecalcCostRates.Visible = True
+                Case BO.p51TypeFlagENUM.EfectiveRates
+                    Me.panRecalcFPR.Visible = True
+            End Select
         Else
             Me.clue1.Visible = False
         End If
-        Me.panRecalcFPR.Visible = False : panRecalcCostRates.Visible = False
-        Select Case Me.p50RatesFlag.SelectedValue
-            Case "1"
-                panRecalcCostRates.Visible = True
-            Case "2"
-                Me.panRecalcFPR.Visible = True
-        End Select
+
+        
     End Sub
 
     Private Sub cmdRecalcFPR_Click(sender As Object, e As EventArgs) Handles cmdRecalcFPR.Click

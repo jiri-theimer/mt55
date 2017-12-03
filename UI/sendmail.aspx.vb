@@ -49,7 +49,7 @@
                 If Me.CurrentX29ID = BO.x29IdEnum.j02Person And Master.DataPID <> Master.Factory.SysUser.j02ID Then
                     If Master.DataPID <> 0 Then Me.txtTo.Text = Master.Factory.j02PersonBL.Load(Master.DataPID).j02Email
                 End If
-
+               
             Else
                 Me.CurrentX29ID = BO.x29IdEnum.j02Person
                 Master.DataPID = Master.Factory.SysUser.j02ID
@@ -70,7 +70,13 @@
                 Case "p41"
                     hidMasterPrefix_p30.Value = "p41"
                     hidMasterPID_p30.Value = Master.DataPID.ToString
-
+                Case "p31"
+                    Dim cP31 As BO.p31Worksheet = Master.Factory.p31WorksheetBL.Load(Master.DataPID)
+                    Me.txtSubject.Text = Master.Factory.GetRecordCaption(BO.x29IdEnum.p31Worksheet, Master.DataPID, True)
+                    If Me.txtTo.Text = "" Then
+                        Me.txtTo.Text = Master.Factory.j02PersonBL.Load(cP31.j02ID).j02Email
+                    End If
+                    Me.txtBody.Text = ""
                 Case "p91"
                     Dim cP91 As BO.p91Invoice = Master.Factory.p91InvoiceBL.Load(Master.DataPID)
                     hidMasterPID_p30.Value = cP91.p28ID.ToString
@@ -85,7 +91,7 @@
                     For Each c In lisJ02
                         tos.Add(c.j02Email)
                     Next
-                    
+
                     If cP91.j02ID_ContactPerson <> 0 Then
                         Dim s As String = Master.Factory.j02PersonBL.Load(cP91.j02ID_ContactPerson).j02Email
                         If s <> "" Then tos.Add(s)
@@ -100,7 +106,7 @@
                             Handle_ChangeJ61ID()
                         End If
                     End If
-                    
+
 
             End Select
             If Me.hidMasterPrefix_p30.Value <> "" Then
@@ -460,6 +466,8 @@
                     Case BO.x29IdEnum.o23Doc
                         objects.Add(Master.Factory.o23DocBL.Load(Master.DataPID))
                         cRoles.RolesInLine = Master.Factory.o23DocBL.GetRolesInline(Master.DataPID)
+                    Case BO.x29IdEnum.p31Worksheet
+                        objects.Add(Master.Factory.p31WorksheetBL.Load(Master.DataPID))
                 End Select
                 objects.Add(cRoles)
                 c.j61PlainTextBody = cM.MergeContent(objects, c.j61PlainTextBody, strLINK)

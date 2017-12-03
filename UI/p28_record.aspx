@@ -463,15 +463,7 @@
                         <uc:datacombo ID="p63ID" runat="server" DataTextField="NameWithRate" DataValueField="pid" IsFirstEmptyRow="true" Width="300px" RemoteListPrefix="p63" />
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <asp:Label ID="lblp51ID_Internal" runat="server" Text="Ceník nákladových sazeb:" CssClass="lbl"></asp:Label>
-
-                    </td>
-                    <td>
-                        <uc:datacombo ID="p51ID_Internal" runat="server" DataTextField="NameWithCurr" AutoPostBack="false" DataValueField="pid" IsFirstEmptyRow="true" Width="300px" RemoteListPrefix="p51-internal" />
-                    </td>
-                </tr>
+                
             </table>
             <div>Fakturační poznámka klienta:</div>
             <asp:TextBox ID="p28BillingMemo" runat="server" Style="width: 99%; height: 60px;" TextMode="MultiLine"></asp:TextBox>
@@ -504,6 +496,15 @@
                 <tr>
                     <td colspan="2">
                         <span class="infoInForm">Pro uživatele systém upřednostňuje zkrácený název před standardním názvem klienta.</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="lblp51ID_Internal" runat="server" Text="Ceník nákladových hodinových sazeb:" CssClass="lbl"></asp:Label>
+
+                    </td>
+                    <td>
+                        <uc:datacombo ID="p51ID_Internal" runat="server" DataTextField="NameWithCurr" AutoPostBack="false" DataValueField="pid" IsFirstEmptyRow="true" Width="300px" RemoteListPrefix="p51-internal" />
                     </td>
                 </tr>
                 <tr>

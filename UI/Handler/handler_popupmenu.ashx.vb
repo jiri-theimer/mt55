@@ -459,6 +459,7 @@ Public Class handler_popupmenu
             REL(cRec.Person, "j02_framework.aspx?pid=" & cRec.j02ID.ToString, "_top", "Images/person.png", True) 'pod odkaz
         End If
         SEP()
+        CI("Odeslat e-mail", "sendmail.aspx?prefix=p31&pid=" & intPID.ToString, , "Images/email.png")
         CI("Oštítkovat", "tag_binding.aspx?prefix=p31&pids=" & intPID.ToString, , "Images/tag.png")
     End Sub
 
@@ -956,7 +957,7 @@ Public Class handler_popupmenu
             SEP()
             CI(String.Join("MASTER ceník: {0}", cRec.p51Name_Master), "p51_record.aspx?pid=" & cRec.p51ID_Master.ToString, , "Images/edit.png")
         End If
-        If cRec.p51IsInternalPriceList And factory.TestPermission(BO.x53PermValEnum.GR_Admin) Then
+        If cRec.p51TypeFlag > BO.p51TypeFlagENUM.BillingRates And factory.TestPermission(BO.x53PermValEnum.GR_Admin) Then
             SEP()
             REL("Nastavení interních ceníků", "admin_framework.aspx?prefix=p50", "_top", "Images/setting.png")
         End If

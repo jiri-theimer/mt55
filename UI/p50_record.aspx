@@ -37,13 +37,7 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="div6">
-        <span class="lbl">Druh počítaných sazeb:</span>
-        <asp:DropDownList ID="p50RatesFlag" runat="server" AutoPostBack="true">
-            <asp:ListItem Text="Nákladové sazby" Value="1"></asp:ListItem>
-            <asp:ListItem Text="Efektivní sazby" Value="2"></asp:ListItem>
-        </asp:DropDownList>
-    </div>
+  
 
     <div class="div6">
         <span class="lbl">Ceník:</span>

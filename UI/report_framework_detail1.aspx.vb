@@ -46,7 +46,7 @@ Public Class report_framework_detail1
 
                 End With
 
-                cmdSetting.Visible = .Factory.TestPermission(BO.x53PermValEnum.GR_Admin)
+                cmdAdmin.Visible = .Factory.TestPermission(BO.x53PermValEnum.GR_Admin)
             End With
 
             Dim cRec As BO.x31Report = Master.Factory.x31ReportBL.Load(Me.CurrentX31ID)
@@ -75,7 +75,7 @@ Public Class report_framework_detail1
     End Sub
 
     Private Sub RenderReport(Optional cRec As BO.x31Report = Nothing, Optional bolFirstRun As Boolean = False)
-        cmdPdfExport.Enabled = False : linkPrint.Enabled = False : linkMail.Enabled = False
+        cmdPdfPreview.Enabled = False : cmdPrint.Disabled = True : cmdMail.Disabled = True : cmdExport.Disabled = True
 
         If cRec Is Nothing Then cRec = Master.Factory.x31ReportBL.Load(Me.CurrentX31ID)
         If cRec Is Nothing Then
@@ -179,7 +179,7 @@ Public Class report_framework_detail1
 
         rv1.ReportSource = xmlRepSource
 
-        cmdPdfExport.Enabled = True : linkPrint.Enabled = True : linkMail.Enabled = True
+        cmdPdfPreview.Enabled = True : cmdPrint.Disabled = False : cmdMail.Disabled = False : cmdExport.Disabled = False
     End Sub
     Private Function GetOutputExportFileName(Optional cRec As BO.x31Report = Nothing) As String
         If cRec Is Nothing Then cRec = Master.Factory.x31ReportBL.Load(Me.CurrentX31ID)
@@ -203,6 +203,7 @@ Public Class report_framework_detail1
             With Me.j70ID
                 If .SelectedIndex > 0 Then
                     .ToolTip = .SelectedItem.Text
+                    Me.clue_query.Visible = True
                     Me.clue_query.Attributes("rel") = "clue_quickquery.aspx?j70id=" & .SelectedValue
                 Else
                     Me.clue_query.Visible = False
@@ -218,12 +219,12 @@ Public Class report_framework_detail1
     
     Private Sub SetupJ70Combo(intDef As Integer, x29id As BO.x29IdEnum)
         Dim mq As New BO.myQuery
-        j70ID.DataSource = Master.Factory.j70QueryTemplateBL.GetList(mq, x29id)
+        j70ID.DataSource = Master.Factory.j70QueryTemplateBL.GetList(mq, x29id, , BO.BooleanQueryMode.TrueQuery)
         j70ID.DataBind()
         j70ID.Items.Insert(0, "--Pojmenovaný filtr--")
         basUI.SelectDropdownlistValue(Me.j70ID, intDef.ToString)
 
-        Me.j70ID.Visible = True : Me.cmdQuery.Visible = True : Me.clue_query.Visible = True
+        Me.panQuery.Visible = True
     End Sub
  
     Private Sub j70ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles j70ID.SelectedIndexChanged
@@ -238,11 +239,7 @@ Public Class report_framework_detail1
         RenderReport(, False)
     End Sub
 
-    Private Sub cmdPdfExport_Click(sender As Object, e As EventArgs) Handles cmdPdfExport.Click
-
-        hidOutputFullPathPdf.Value = GenerateOnePDF2Temp(Me.CurrentX31ID, GenerateOnePDF2Temp(Me.CurrentX31ID, GetOutputExportFileName() & ".pdf"))
-
-    End Sub
+    
 
 
     Private Function GenerateOnePDF2Temp(intX31ID As Integer, Optional strOutputFileName As String = "") As String
@@ -270,4 +267,9 @@ Public Class report_framework_detail1
 
         Return strOutputFileName
     End Function
+
+    Private Sub cmdPdfPreview_Click(sender As Object, e As EventArgs) Handles cmdPdfPreview.Click
+        hidOutputFullPathPdf.Value = GenerateOnePDF2Temp(Me.CurrentX31ID, GenerateOnePDF2Temp(Me.CurrentX31ID, GetOutputExportFileName() & ".pdf"))
+
+    End Sub
 End Class

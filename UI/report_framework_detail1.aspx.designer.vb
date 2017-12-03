@@ -32,31 +32,40 @@ Partial Public Class report_framework_detail1
     Protected WithEvents lblHeader As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''linkPrint control.
+    '''cmdPrint control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents linkPrint As Global.System.Web.UI.WebControls.HyperLink
+    Protected WithEvents cmdPrint As Global.System.Web.UI.HtmlControls.HtmlButton
 
     '''<summary>
-    '''cmdPdfExport control.
+    '''cmdExport control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents cmdPdfExport As Global.System.Web.UI.WebControls.LinkButton
+    Protected WithEvents cmdExport As Global.System.Web.UI.HtmlControls.HtmlButton
 
     '''<summary>
-    '''linkMail control.
+    '''cmdPdfPreview control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents linkMail As Global.System.Web.UI.WebControls.HyperLink
+    Protected WithEvents cmdPdfPreview As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''cmdMail control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cmdMail As Global.System.Web.UI.HtmlControls.HtmlButton
 
     '''<summary>
     '''period1 control.
@@ -66,6 +75,24 @@ Partial Public Class report_framework_detail1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents period1 As Global.UI.periodcombo
+
+    '''<summary>
+    '''cmdAdmin control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cmdAdmin As Global.System.Web.UI.HtmlControls.HtmlButton
+
+    '''<summary>
+    '''panQuery control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents panQuery As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
     '''clue_query control.
@@ -86,22 +113,13 @@ Partial Public Class report_framework_detail1
     Protected WithEvents j70ID As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''cmdQuery control.
+    '''cmdFilter control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents cmdQuery As Global.System.Web.UI.WebControls.ImageButton
-
-    '''<summary>
-    '''cmdSetting control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cmdSetting As Global.System.Web.UI.WebControls.HyperLink
+    Protected WithEvents cmdFilter As Global.System.Web.UI.HtmlControls.HtmlButton
 
     '''<summary>
     '''divReportViewer control.

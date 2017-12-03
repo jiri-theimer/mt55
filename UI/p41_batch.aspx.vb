@@ -217,11 +217,11 @@
                     basUI.SetupP87Combo(Master.Factory, Me.cbx1)
                 Case "p51id_billing"
                     .DataTextField = "p51Name"
-                    .DataSource = Master.Factory.p51PriceListBL.GetList(New BO.myQuery).Where(Function(p) p.p51IsInternalPriceList = False And p.p51IsMasterPriceList = False And p.p51IsCustomTailor = False)
+                    .DataSource = Master.Factory.p51PriceListBL.GetList(New BO.myQuery).Where(Function(p) p.p51TypeFlag = BO.p51TypeFlagENUM.BillingRates And p.p51IsMasterPriceList = False And p.p51IsCustomTailor = False)
 
                 Case "p51id_internal"
                     .DataTextField = "p51Name"
-                    .DataSource = Master.Factory.p51PriceListBL.GetList(New BO.myQuery).Where(Function(p) p.p51IsInternalPriceList = True And p.p51IsMasterPriceList = False And p.p51IsCustomTailor = False)
+                    .DataSource = Master.Factory.p51PriceListBL.GetList(New BO.myQuery).Where(Function(p) p.p51TypeFlag = BO.p51TypeFlagENUM.CostRates And p.p51IsMasterPriceList = False And p.p51IsCustomTailor = False)
                 Case "p42id"
                     .DataTextField = "p42name"
                     .DataSource = Master.Factory.p42ProjectTypeBL.GetList(New BO.myQuery)

@@ -14,15 +14,6 @@ Option Explicit On
 Partial Public Class p50_record
 
     '''<summary>
-    '''p50RatesFlag control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents p50RatesFlag As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
     '''p51ID control.
     '''</summary>
     '''<remarks>
