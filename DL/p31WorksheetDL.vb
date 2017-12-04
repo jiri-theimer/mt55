@@ -931,7 +931,15 @@
             .Add("p51id", intP51ID, DbType.Int32)
         End With
         Return _cDB.RunSP("p31_recalc_internal_rates", pars)
-
+    End Function
+    Public Function Recalc_Overhead_Rates(dat1 As Date, dat2 As Date, intP51ID As Integer) As Boolean
+        Dim pars As New DbParameters
+        With pars
+            .Add("d1", dat1, DbType.DateTime)
+            .Add("d2", dat2, DbType.DateTime)
+            .Add("p51id", intP51ID, DbType.Int32)
+        End With
+        Return _cDB.RunSP("p31_recalc_overhead_rates", pars)
     End Function
     Public Function SplitRecord(intP31ID As Integer, dblRec1Hours As Double, strRec1Text As String, dblRec2Hours As Double, strRec2Text As String) As Integer
         Dim pars As New DbParameters

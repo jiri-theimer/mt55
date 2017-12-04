@@ -18,6 +18,7 @@
                 .DataPID = BO.BAS.IsNullInt(Request.Item("pid"))
                 period1.SetupData(.Factory, .Factory.j03UserBL.GetUserParam("periodcombo-custom_query"))
                 period2.SetupData(.Factory, .Factory.j03UserBL.GetUserParam("periodcombo-custom_query"))
+                period3.SetupData(.Factory, .Factory.j03UserBL.GetUserParam("periodcombo-custom_query"))
             End With
             Dim mq As New BO.myQuery
             mq.Closed = BO.BooleanQueryMode.FalseQuery
@@ -82,7 +83,7 @@
     End Sub
 
     Private Sub p50_record_LoadComplete(sender As Object, e As EventArgs) Handles Me.LoadComplete
-        Me.panRecalcFPR.Visible = False : panRecalcCostRates.Visible = False
+        Me.panRecalcFPR.Visible = False : panRecalcCostRates.Visible = False : panRecalcOverheadRates.Visible = False
 
         If Me.p51ID.SelectedValue <> "" Then
             Me.clue1.Attributes("rel") = "clue_p51_record.aspx?pid=" & Me.p51ID.SelectedValue
@@ -94,6 +95,8 @@
                     panRecalcCostRates.Visible = True
                 Case BO.p51TypeFlagENUM.EfectiveRates
                     Me.panRecalcFPR.Visible = True
+                Case BO.p51TypeFlagENUM.OverheadRates
+                    Me.panRecalcOverheadRates.Visible = True
             End Select
         Else
             Me.clue1.Visible = False
@@ -150,4 +153,18 @@
         End If
         Return True
     End Function
+
+    Private Sub cmdRecalcOverheadRates_Click(sender As Object, e As EventArgs) Handles cmdRecalcOverheadRates.Click
+        If Not ValidateBeforeRun(period3) Then Return
+
+        Dim intP51ID As Integer = BO.BAS.IsNullInt(Me.p51ID.SelectedValue)
+
+        With Master.Factory.p31WorksheetBL
+            If .Recalc_Overhead_Rates(period3.DateFrom, period3.DateUntil, intP51ID) Then
+                Master.Notify("Operace dokončena.")
+            Else
+                Master.Notify(.ErrorMessage, NotifyLevel.ErrorMessage)
+            End If
+        End With
+    End Sub
 End Class

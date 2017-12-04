@@ -8869,8 +8869,8 @@ AS
 set @x45ids=''
 
 declare @p31date datetime,@p32id int,@p41id int,@p34id int,@p71id int,@p70id int,@c11id int,@p33id int,@j02id_rec int
-declare @j27id_billing_orig int,@j27id_internal int,@p31rate_billing_orig float,@p31rate_internal_orig float
-declare @p31value_orig float,@p31amount_withoutvat_orig float,@p31vatrate_orig float,@p31amount_withvat_orig float
+declare @j27id_billing_orig int,@j27id_internal int,@p31rate_billing_orig float,@p31rate_internal_orig float,@p31rate_overhead float,@j27id_overhead int
+declare @p31value_orig float,@p31amount_withoutvat_orig float,@p31vatrate_orig float,@p31amount_withvat_orig float,@p31amount_overhead float
 declare @p31amount_internal float,@p31amount_vat_orig float,@p91id int,@p32ManualFeeFlag int
 
 
@@ -8916,6 +8916,8 @@ if @p33id=1 or @p33id=3	---1 - čas, 3 - kusovník
 
 	exec p31_getrate_tu @p31date,2, @p41id, @j02id_rec, @p32id, @j27id_internal OUTPUT , @p31rate_internal_orig OUTPUT  
 	
+	exec p31_getrate_tu @p31date,3, @p41id, @j02id_rec, @p32id, @j27id_overhead OUTPUT , @p31rate_overhead OUTPUT  
+	
 	select @p31vatrate_orig=dbo.p32_get_vatrate(@p32id,@p41id,@p31date)
 	
 	if @p32ManualFeeFlag=1
@@ -8934,12 +8936,14 @@ if @p33id=1 or @p33id=3	---1 - čas, 3 - kusovník
 	set @p31amount_vat_orig=@p31amount_withoutvat_orig*@p31vatrate_orig/100
 	set @p31amount_withvat_orig=@p31amount_withoutvat_orig+@p31amount_vat_orig
 	set @p31amount_internal=@p31value_orig*@p31rate_internal_orig	
-	
+	set @p31amount_overhead=@p31value_orig*@p31rate_overhead
+
 	update p31WorkSheet set p31amount_withoutvat_orig=@p31amount_withoutvat_orig,p31amount_vat_orig=@p31amount_vat_orig
 	,p31amount_withvat_orig=@p31amount_withvat_orig,p31VatRate_Orig=@p31vatrate_orig
 	,p31Amount_Internal=@p31amount_internal
 	,p31Rate_Billing_Orig=@p31rate_billing_orig,p31Rate_Internal_Orig=@p31rate_internal_orig
 	,j27ID_Billing_Orig=@j27id_billing_orig,j27ID_Internal=@j27id_internal
+	,p31Rate_Overhead=@p31rate_overhead,p31Amount_Overhead=@p31amount_overhead
 	WHERE p31ID=@p31id
 	
  END
@@ -9237,7 +9241,9 @@ INSERT INTO [dbo].[p31Worksheet_Log]
            ,[j02ID_ContactPerson]
            ,[p31ExternalPID]
            ,[p31ApprovingLevel]
-           ,[p31Value_FixPrice])
+           ,[p31Value_FixPrice]
+		   ,[p31Rate_Overhead]
+		   ,[p31Amount_Overhead])
 SELECT [p31ID]
            ,[p41ID]
            ,[j02ID]
@@ -9337,6 +9343,8 @@ SELECT [p31ID]
            ,[p31ExternalPID]
            ,[p31ApprovingLevel]
            ,[p31Value_FixPrice]
+		   ,[p31Rate_Overhead]
+		   ,[p31Amount_Overhead]
 FROM p31Worksheet WHERE p31ID=@p31id
 
 
@@ -9826,21 +9834,22 @@ GO
 
 
 CREATE procedure [dbo].[p31_getrate_tu]
-@date_rate datetime,@pricelisttype int,@p41id int,@j02id int,@p32id int
+@date_rate datetime,@p51TypeFlag int,@p41id int,@j02id int,@p32id int
 ,@ret_j27id int OUTPUT,@ret_rate float OUTPUT
 
----@pricelisttype=1 - fakturační ceník
----@pricelisttype=2 - nákladový ceník
+---@p51TypeFlag=1 - fakturační sazby
+---@p51TypeFlag=2 - nákladové sazby
+---@p51TypeFlag=3 - režijní sazby
 AS
 
-  set @pricelisttype=isnull(@pricelisttype,1)
+  set @p51TypeFlag=isnull(@p51TypeFlag,1)
   set @date_rate=isnull(@date_rate,getdate())
    
   declare @p51id int,@p34id int,@j07id int,@isbillable bit,@p28id int,@p33id int
     
   set @ret_rate=0
   
-  if @pricelisttype=1	--fakturační ceník
+  if @p51TypeFlag=1	--fakturační ceník
    begin
     select @p51id=p51ID_Billing,@p28id=p28id_client from p41Project where p41id=@p41id
     
@@ -9849,7 +9858,7 @@ AS
    end
 
 
-  if @pricelisttype=2	--nákladový ceník
+  if @p51TypeFlag=2	--nákladový ceník
    begin
      select @p51id=p51ID_Internal,@p28id=p28id_client from p41Project where p41id=@p41id
      
@@ -9857,20 +9866,23 @@ AS
       select @p51id=p51ID_Internal from p28contact where p28id=@p28id
 
 	 if @p51id is null	
-	  begin	--zjistit, zda neexistuje výchozí nákladový ceník v globálních proměnných
-	    select @p51id=p51ID FROM p50OfficePriceList WHERE p50RatesFlag=1 AND @date_rate BETWEEN p50ValidFrom AND p50ValidUntil
-		
+	  begin	--zjistit, zda neexistuje výchozí nákladový ceník v [p50OfficePriceList]
+	    select @p51id=a.p51ID FROM p50OfficePriceList a INNER JOIN p51PriceList b ON a.p51ID=b.p51ID WHERE b.p51TypeFlag=2 AND @date_rate BETWEEN a.p50ValidFrom AND a.p50ValidUntil		
 	  end
 	  
 	  
    end
+
+  if @p51TypeFlag=3	--režijní ceník
+   select TOP 1 @p51id=a.p51ID FROM p50OfficePriceList a INNER JOIN p51PriceList b ON a.p51ID=b.p51ID WHERE b.p51TypeFlag=3 AND @date_rate BETWEEN a.p50ValidFrom AND a.p50ValidUntil	  	  
+   
     
   
   if @p51id is null
    begin
     select @ret_j27id=convert(int,x35Value) FROM x35GlobalParam WHERE x35Key LIKE 'j27ID_Invoice'
 
-    return	--není ceník u projektu ani u klienta
+    return	--nenašel se ceník
    end
   
 
@@ -9881,7 +9893,7 @@ AS
   where a.p32id=@p32id
 
   
-  if @isbillable=0 and @pricelisttype=1
+  if @isbillable=0 and @p51TypeFlag=1
    begin
      set @ret_rate=0
 
@@ -10266,6 +10278,8 @@ SELECT a.RowID as pid
 ,a.p31Rate_Internal_Orig as [Nákladová sazba]
 ,a.p31Hours_Approved_Internal as [Interní schválené hodiny]
 ,j27Internal.j27Code as [Měna nákl.sazby]
+,a.p31Rate_Overhead as [Režijní sazba]
+,a.p31Amount_Overhead as [Režijní cena]
 ,a.p31ValidUntil as [Platnost záznamu]
 FROM
 p31Worksheet_Log a
@@ -10570,6 +10584,68 @@ BEGIN
   update p31WorkSheet set p31Amount_Internal=@p31amount_internal,p31Rate_Internal_Orig=@p31rate_internal_orig,j27ID_Internal=@j27id_internal
   ,p31Rate_Internal_Approved=case when p71ID=1 THEN @p31rate_internal_orig else NULL END
   ,p31Amount_Internal_Approved=case when p71ID=1 THEN p31Hours_Approved_Internal*@p31rate_internal_orig else NULL END
+  WHERE p31ID=@p31ID
+
+  FETCH NEXT FROM curCR 
+  INTO @p31ID,@p31Date,@p41id,@j02ID,@p32ID,@p31value_orig
+END
+CLOSE curCR
+DEALLOCATE curCR
+	
+	
+	
+	
+	
+	
+	
+	
+ 
+ 
+
+
+
+
+
+GO
+
+----------P---------------p31_recalc_overhead_rates-------------------------
+
+if exists (select 1 from sysobjects where  id = object_id('p31_recalc_overhead_rates') and type = 'P')
+ drop procedure p31_recalc_overhead_rates
+GO
+
+
+
+
+
+CREATE    PROCEDURE [dbo].[p31_recalc_overhead_rates]
+@d1 datetime
+,@d2 datetime
+,@p51id int
+
+AS
+
+declare @p31ID int,@p31Date datetime,@j02ID int,@p32ID int,@p41id int
+declare @p31amount_overhead float,@p31value_orig float,@p31rate_overhead float
+declare @j27id_overhead int
+
+DECLARE curCR CURSOR FOR 
+SELECT p31ID,p31Date,p41ID,j02ID,p32ID,p31Value_Orig
+from p31Worksheet WHERE p31Date BETWEEN @d1 AND @d2 AND p32ID IN (SELECT p32ID FROM p32Activity a INNER JOIN p34ActivityGroup b ON a.p34ID=b.p34ID WHERE b.p33ID IN (1,3))
+
+OPEN curCR
+FETCH NEXT FROM curCR 
+INTO @p31ID,@p31Date,@p41id,@j02ID,@p32ID,@p31value_orig
+WHILE @@FETCH_STATUS = 0
+BEGIN
+  
+  set @p31rate_overhead=null
+
+  exec p31_getrate_tu @p31date,3, @p41id, @j02ID, @p32ID, @j27id_overhead OUTPUT , @p31rate_overhead OUTPUT  
+
+  set @p31amount_overhead=@p31value_orig*@p31rate_overhead	
+
+  update p31WorkSheet set p31Amount_Overhead=@p31amount_overhead,p31Rate_Overhead=@p31rate_overhead
   WHERE p31ID=@p31ID
 
   FETCH NEXT FROM curCR 
@@ -19596,16 +19672,21 @@ GO
 
 
 
+
 CREATE VIEW [dbo].[view_p31_ocas]
 as
 SELECT a.p31ID
 ,case when p32.p32IsBillable=1 then a.p31Amount_WithoutVat_Orig end as Vykazano_Vynos
 ,case when p34.p34IncomeStatementFlag=1 and p34.p33ID IN (2,5) then a.p31Amount_WithoutVat_Orig when p34.p33ID=1 THEN p31Rate_Internal_Orig*p31Hours_Orig end as Vykazano_Naklad
+,case when p34.p34IncomeStatementFlag=1 and p34.p33ID IN (2,5) then a.p31Amount_WithoutVat_Orig when p34.p33ID=1 THEN p31Rate_Overhead*p31Hours_Orig end as Vykazano_Naklad_Rezije
 ,isnull(case when p32.p32IsBillable=1 then a.p31Amount_WithoutVat_Orig end,0)-isnull(case when p34.p34IncomeStatementFlag=1 and p34.p33ID IN (2,5) then a.p31Amount_WithoutVat_Orig when p34.p33ID=1 THEN p31Rate_Internal_Orig*p31Hours_Orig end,0) as Vykazano_Zisk
+,isnull(case when p32.p32IsBillable=1 then a.p31Amount_WithoutVat_Orig end,0)-isnull(case when p34.p34IncomeStatementFlag=1 and p34.p33ID IN (2,5) then a.p31Amount_WithoutVat_Orig when p34.p33ID=1 THEN p31Rate_Overhead*p31Hours_Orig end,0) as Vykazano_Zisk_Rezije
 ,case when a.p91ID IS NOT NULL THEN a.p31Amount_WithoutVat_Invoiced END as Vyfakturovano_Vynos
 ,case when a.p91ID IS NOT NULL THEN a.p31Amount_WithoutVat_Invoiced_Domestic END as Vyfakturovano_Vynos_Domestic
 ,case when a.p91ID IS NOT NULL THEN isnull(a.p31Amount_WithoutVat_Invoiced_Domestic,0)-isnull(case when p34.p34IncomeStatementFlag=1 and p34.p33ID IN (2,5) then a.p31Amount_WithoutVat_Orig when p34.p33ID=1 THEN p31Rate_Internal_Orig*p31Hours_Orig end,0) END as Vyfakturovano_Zisk
+,case when a.p91ID IS NOT NULL THEN isnull(a.p31Amount_WithoutVat_Invoiced_Domestic,0)-isnull(case when p34.p34IncomeStatementFlag=1 and p34.p33ID IN (2,5) then a.p31Amount_WithoutVat_Orig when p34.p33ID=1 THEN p31Rate_Overhead*p31Hours_Orig end,0) END as Vyfakturovano_Zisk_Rezije
 FROM p31Worksheet a INNER JOIN p32Activity p32 ON a.p32ID=p32.p32ID INNER JOIN p34ActivityGroup p34 ON p32.p34ID=p34.p34ID
+
 
 
 

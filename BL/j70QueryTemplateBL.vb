@@ -845,7 +845,7 @@ Class j70QueryTemplateBL
                 .Add(AGC(My.Resources.common.NakladovaSazba, "p31Rate_Internal_Orig", BO.cfENUM.Numeric2, , , , , "Nákladová cena", "p31Rate_Internal_Orig", "p31Rate_Internal_Orig"))
                 .Add(AGC(My.Resources.common.NakladovaCastka, "p31Amount_Internal", BO.cfENUM.Numeric2, , , True, , "Nákladová cena"))
                 .Add(AGC("Režijní sazba", "p31Rate_Overhead", BO.cfENUM.Numeric2, , , , , "Nákladová cena", "p31Rate_Overhead", "p31Rate_Overhead"))
-                .Add(AGC("Režijní náklad", "p31Amount_Overhead", BO.cfENUM.Numeric2, , , True, , "Nákladová cena"))
+                .Add(AGC("Režijní honorář", "p31Amount_Overhead", BO.cfENUM.Numeric2, , , True, , "Nákladová cena"))
 
                 .Add(AGC("Bez DPH dle fixního kurzu", "p31Amount_WithoutVat_FixedCurrency", BO.cfENUM.Numeric2, , , True, , "Vykázáno"))
 
@@ -856,6 +856,10 @@ Class j70QueryTemplateBL
                 .Add(AGC("Vyfakturovaný výnos", "Vyfakturovano_Vynos", BO.cfENUM.Numeric2, , "p31_ocas.Vyfakturovano_Vynos", True, "LEFT OUTER JOIN dbo.view_p31_ocas p31_ocas ON a.p31ID=p31_ocas.p31ID", "Výsledovka"))
                 .Add(AGC("Vyfakturovaný výnos x Kurz", "Vyfakturovano_Vynos_Domestic", BO.cfENUM.Numeric2, , "p31_ocas.Vyfakturovano_Vynos_Domestic", True, "LEFT OUTER JOIN dbo.view_p31_ocas p31_ocas ON a.p31ID=p31_ocas.p31ID", "Výsledovka"))
                 .Add(AGC("Zisk po fakturaci", "Vyfakturovano_Zisk", BO.cfENUM.Numeric2, , "p31_ocas.Vyfakturovano_Zisk", True, "LEFT OUTER JOIN dbo.view_p31_ocas p31_ocas ON a.p31ID=p31_ocas.p31ID", "Výsledovka"))
+
+                .Add(AGC("Náklad#R", "Vykazano_Naklad_Rezije", BO.cfENUM.Numeric2, , "p31_ocas.Vykazano_Naklad_Rezije", True, "LEFT OUTER JOIN dbo.view_p31_ocas p31_ocas ON a.p31ID=p31_ocas.p31ID", "Výsledovka (režijní náklady)"))
+                .Add(AGC("Odhad zisku#R", "Vykazano_Zisk_Rezije", BO.cfENUM.Numeric2, , "p31_ocas.Vykazano_Zisk_Rezije", True, "LEFT OUTER JOIN dbo.view_p31_ocas p31_ocas ON a.p31ID=p31_ocas.p31ID", "Výsledovka (režijní náklady)"))
+                .Add(AGC("Zisk po fakturaci#R", "Vyfakturovano_Zisk_Rezije", BO.cfENUM.Numeric2, , "p31_ocas.Vyfakturovano_Zisk_Rezije", True, "LEFT OUTER JOIN dbo.view_p31_ocas p31_ocas ON a.p31ID=p31_ocas.p31ID", "Výsledovka (režijní náklady)"))
             End If
 
             .Add(AGC("Číslo faktury", "p91Code", , , , , , "Vyfakturováno", "min(p91Code)", "a.p91ID"))

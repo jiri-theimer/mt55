@@ -812,30 +812,25 @@ Public Class handler_popupmenu
             SEP()
             CI("Tisková sestava", "report_modal.aspx?prefix=p41&pid=" & intPID.ToString, , "Images/report.png")
             CI("Odeslat e-mail", "sendmail.aspx?prefix=p41&pid=" & cRec.PID.ToString, , "Images/email.png")
+        End If
+        SEP()
+        CI("[DALŠÍ]", "", , "Images/more.png")
+        If factory.p41ProjectBL.IsMyFavouriteProject(cRec.PID) Then
+            CI("Vyřadit z mých oblíbených projektů", "javascript:Handle_Project_Favourite(" & cRec.PID.ToString & ")", , "Images/favourite_clear.png", True)
+        Else
+            CI("Zařadit mezi mé oblíbené projekty", "javascript:Handle_Project_Favourite(" & cRec.PID.ToString & ")", , "Images/favourite_add.png", True)
+        End If
 
-        
-
-
-            SEP()
-            CI("[DALŠÍ]", "", , "Images/more.png")
-
-
-
+        If factory.SysUser.j04IsMenu_Project Then            
             CI("Oštítkovat", "tag_binding.aspx?prefix=p41&pids=" & intPID.ToString, , "Images/tag.png", True)
             If cDisp.OwnerAccess Then
                 CI("Kontaktní osoby projektu", "p30_binding.aspx?masterprefix=p41&masterpid=" & cRec.PID.ToString, , "Images/person.png", True)
             End If
 
-            If factory.p41ProjectBL.IsMyFavouriteProject(cRec.PID) Then
-                CI("Vyřadit z mých oblíbených projektů", "javascript:Handle_Project_Favourite(" & cRec.PID.ToString & ")", , "Images/favourite_clear.png", True)
-            Else
-                CI("Zařadit mezi mé oblíbené projekty", "javascript:Handle_Project_Favourite(" & cRec.PID.ToString & ")", , "Images/favourite_add.png", True)
-            End If
 
             If cDisp.OwnerAccess Then
                 CI("Nastavit jako opakovaný projekt", "p41_recurrence.aspx?pid=" & cRec.PID.ToString, , "Images/recurrence.png", True)
             End If
-
 
 
             REL("Historie odeslané pošty", "x40_framework.aspx?masterprefix=p41&masterpid=" & cRec.PID.ToString, "_top", "Images/email.png", True)
@@ -844,9 +839,9 @@ Public Class handler_popupmenu
             End If
             CI("Plugin", "plugin_modal.aspx?prefix=p41&pid=" & cRec.PID.ToString, , "Images/plugin.png", True)
             CI("Čárový kód", "barcode.aspx?prefix=p41&pid=" & cRec.PID.ToString, , "Images/barcode.png", True)
-
-
         End If
+
+        
     End Sub
     Private Sub HandleO23(intPID As Integer, factory As BL.Factory, strFlag As String)
         Dim cRec As BO.o23Doc = factory.o23DocBL.Load(intPID)

@@ -69,6 +69,17 @@
         </div>
     </asp:Panel>
 
+    <asp:Panel ID="panRecalcOverheadRates" runat="server" CssClass="content-box2" Visible="false">
+        <div class="title">
+            Zpětný přepočet režijních sazeb
+        </div>
+        <div class="content">
+            <span>Časové období pro přepočet worksheet úkonů:</span>
+            <uc:periodcombo ID="period3" runat="server" Width="250px"></uc:periodcombo>
+            <asp:Button ID="cmdRecalcOverheadRates" Text="Přepočítat režijní sazby." CssClass="cmd" runat="server" />
+        </div>
+    </asp:Panel>
+
     <asp:Panel ID="panRecalcFPR" runat="server" CssClass="content-box2" Visible="false">
         <div class="title">
             Zpětný přepočet efektivních sazeb

@@ -95,6 +95,33 @@ Partial Public Class p50_record
     Protected WithEvents cmdRecalcCostRates As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
+    '''panRecalcOverheadRates control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents panRecalcOverheadRates As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''period3 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents period3 As Global.UI.periodcombo
+
+    '''<summary>
+    '''cmdRecalcOverheadRates control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cmdRecalcOverheadRates As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
     '''panRecalcFPR control.
     '''</summary>
     '''<remarks>
