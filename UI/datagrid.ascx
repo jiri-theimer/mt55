@@ -60,13 +60,13 @@
         var offset = $(ss).offset();
 
         <%If grid1.ClientSettings.Scrolling.AllowScroll Then%>
-
+        
         var hx1 = new Number;
 
         hx1 = $(window).height();
         var scrollArea = sender.GridDataDiv;
 
-
+        
         hx1 = hx1 - offset.top;
         hx1 = hx1 - 5;
         ss.style.height = hx1 + "px";
@@ -74,22 +74,29 @@
         var scrollArea = sender.GridDataDiv;
         var parent = $get("gridContainer");
         var gridHeader = sender.GridHeaderDiv;
-
+                
         scrollArea.style.height = hx1 + "px";
         <%end if%>
-        <%If grid1.ClientSettings.Scrolling.UseStaticHeaders Then%>
+       
+        <%If grid1.ClientSettings.Scrolling.UseStaticHeaders Then%>             
         hx1 = parent.clientHeight - gridHeader.clientHeight - 20;        
         <%if grid1.ShowFooter then%>
-        hx1 = hx1 - 40;
-        <%Else%>
+        hx1 = hx1 - 35;
+        <%else%>
         hx1 = hx1 - 10;
         <%End If%>
+
+        <%If grid1.MasterTableView.PageCount=1 then%>
+        hx1 = hx1 + 30;
+        <%end if%>
+
         scrollArea.style.height = hx1 + "px";
         <%end if%>        
         
     }
 
     function <%=Me.ClientID%>_SetScrollingHeight_Explicit(h) {
+        
         var grid = $find("<%=grid1.ClientID%>");
 
         
@@ -97,10 +104,13 @@
         var gridHeader = grid.GridHeaderDiv;
         var scrollArea = grid.GridDataDiv;
 
-        h = h - gridHeader.clientHeight - 50;
+        h = h - gridHeader.clientHeight - 45;
         <%if grid1.ShowFooter then%>
-        h = h - 40;
+        h = h - 30;
         <%End If%>
+        <%If grid1.MasterTableView.PageCount=1 then%>
+        h = h + 30;
+        <%end if%>
 
         scrollArea.style.height = h + "px";
         <%end if%>
