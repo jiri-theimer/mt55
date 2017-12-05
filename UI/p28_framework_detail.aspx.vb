@@ -235,7 +235,8 @@
         Else
             chkFFShowFilledOnly.Visible = False
         End If
-        If cRec.p28ParentID <> 0 Then
+        If cRec.p28ParentID <> 0 Or cRec.p28TreePrev < cRec.p28TreeNext Then
+
             RenderTree(cRec, cRecSum)
         End If
 
@@ -281,12 +282,17 @@
         Dim mq As New BO.myQueryP28
         mq.TreeIndexFrom = c.p28TreePrev
         mq.TreeIndexUntil = c.p28TreeNext
-        Dim lis As IEnumerable(Of BO.p28Contact) = Master.Factory.p28ContactBL.GetList(mq).Where(Function(p) (p.p28TreeNext > p.p28TreePrev And p.p28TreeLevel < cRec.p28TreeLevel) Or p.PID = cRec.PID).OrderBy(Function(p) p.p28TreeIndex)
+        'Dim lis As IEnumerable(Of BO.p28Contact) = Master.Factory.p28ContactBL.GetList(mq).Where(Function(p) (p.p28TreeNext > p.p28TreePrev And p.p28TreeLevel < cRec.p28TreeLevel) Or p.PID = cRec.PID).OrderBy(Function(p) p.p28TreeIndex)
+        Dim lis As IEnumerable(Of BO.p28Contact) = Master.Factory.p28ContactBL.GetList(mq).OrderBy(Function(p) p.p28TreeIndex)
+        If lis.Count > 20 Then
+            lis = lis.Where(Function(p) (p.p28TreeNext > p.p28TreePrev And p.p28TreeLevel < cRec.p28TreeLevel) Or p.PID = cRec.PID)
+        End If
         For Each c In lis
             Dim n As Telerik.Web.UI.RadTreeNode = tree1.AddItem(c.p28Name, c.PID.ToString, "p28_framework.aspx?pid=" & c.PID.ToString, c.p28ParentID.ToString, "Images/tree.png", , "_top")
             If c.p28TreeLevel = 1 Then n.ForeColor = basUIMT.TreeColorLevel1
             If c.p28TreeLevel > 1 Then n.ForeColor = basUIMT.TreeColorLevel2
             If c.IsClosed Then n.Font.Strikeout = True
+            If c.PID = cRec.PID Then n.Font.Bold = True : n.ImageUrl = "Images/ok.png" : n.NavigateUrl = "" : n.Selected = True
         Next
         tree1.ExpandAll()
     End Sub

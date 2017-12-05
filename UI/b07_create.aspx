@@ -24,7 +24,7 @@
     <div class="content-box2">
         <div class="title">
             <img src="Images/comment.png" />
-            Poznámka/komentář
+            Poznámka/komentář...
         </div>
         <div class="content">
             <asp:TextBox ID="b07Value" runat="server" TextMode="MultiLine" Style="width: 99%; height: 100px; font-family: 'Courier New';" ToolTip="Zapsaný komentář"></asp:TextBox>
