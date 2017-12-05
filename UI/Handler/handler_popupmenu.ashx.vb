@@ -218,7 +218,7 @@ Public Class handler_popupmenu
             CI("Oštítkovat", "tag_binding.aspx?prefix=p56&pids=" & intPID.ToString, , "Images/tag.png", True)
 
 
-            If cRec.b01ID = 0 Then CI("Doplnit poznámku, komentář, přílohu", "b07_create.aspx?masterprefix=p56&masterpid=" & cRec.PID.ToString, , "Images/comment.png", True)
+            If cRec.b01ID = 0 Then CI("Doplnit poznámku, odkaz, přílohu...", "b07_create.aspx?masterprefix=p56&masterpid=" & cRec.PID.ToString, , "Images/comment.png", True)
 
             REL("Historie odeslané pošty", "x40_framework.aspx?masterprefix=p56&masterpid=" & cRec.PID.ToString, "_top", "Images/email.png", True)
             If cDisp.OwnerAccess Then
@@ -316,7 +316,7 @@ Public Class handler_popupmenu
         End If
 
 
-        If cRec.b01ID = 0 Then CI("Doplnit poznámku, komentář, přílohu", "b07_create.aspx?masterprefix=p91&masterpid=" & cRec.PID.ToString, , "Images/comment.png", True)
+        If cRec.b01ID = 0 Then CI("Doplnit poznámku, odkaz, přílohu...", "b07_create.aspx?masterprefix=p91&masterpid=" & cRec.PID.ToString, , "Images/comment.png", True)
 
 
         REL("Historie odeslané pošty", "x40_framework.aspx?masterprefix=p91&masterpid=" & cRec.PID.ToString, "_top", "Images/email.png", True)
@@ -525,7 +525,7 @@ Public Class handler_popupmenu
             CI("Vytvořit dokument", "o23_record.aspx?masterprefix=p28&masterpid=" & cRec.PID.ToString, , "Images/notepad.png", True)    'pod nový
         End If
         If Not cRec.IsClosed Then CI("Vytvořit kalendářovou událost", "o22_record.aspx?masterprefix=p28&masterpid=" & cRec.PID.ToString, , "Images/calendar.png", True) 'pod nový
-        If cRec.b02ID = 0 Then CI("Doplnit přílohu, komentář, poznámku", "b07_create.aspx?masterprefix=p28&masterpid=" & cRec.PID.ToString, , "Images/comment.png", True) 'pod nový
+        If cRec.b02ID = 0 Then CI("Doplnit poznámku, odkaz, přílohu...", "b07_create.aspx?masterprefix=p28&masterpid=" & cRec.PID.ToString, , "Images/comment.png", True) 'pod nový
 
         
 
@@ -695,7 +695,7 @@ Public Class handler_popupmenu
             CI("Vytvořit předpis opakované odměny/úkonu", "p40_record.aspx?p41id=" & cRec.PID.ToString, , "Images/worksheet_recurrence.png", True)
         End If
         
-        If cRec.b01ID = 0 Then CI("Doplnit přílohu, poznámku, komentář", "b07_create.aspx?masterprefix=p41&masterpid=" & cRec.PID.ToString, , "Images/comment.png", True) 'pod nový
+        If cRec.b01ID = 0 Then CI("Doplnit poznámku, odkaz, přílohu...", "b07_create.aspx?masterprefix=p41&masterpid=" & cRec.PID.ToString, , "Images/comment.png", True) 'pod nový
 
 
         If Not cDisp.ReadAccess Then CI("Nemáte přístup k tomuto projektu.", "", True) : Return
@@ -893,7 +893,7 @@ Public Class handler_popupmenu
         If cX18.b01ID <> 0 Then
             CI("Posunout/Doplnit", "workflow_dialog.aspx?prefix=o23&pid=" & intPID.ToString, , "Images/workflow.png")
         Else
-            CI("Nahrát přílohu, doplnit poznámku/komentář", "b07_create.aspx?masterprefix=o23&masterpid=" & cRec.PID.ToString, , "Images/comment.png")
+            CI("Nahrát přílohu, doplnit poznámku, odkaz...", "b07_create.aspx?masterprefix=o23&masterpid=" & cRec.PID.ToString, , "Images/comment.png")
         End If
 
         SEP()
@@ -1026,7 +1026,7 @@ Public Class handler_popupmenu
             CI("Vytvořit dokument", "o23_record.aspx?masterprefix=j02&masterpid=" & cRec.PID.ToString, , "Images/notepad.png", True)    'pod nový
         End If
         If Not cRec.IsClosed Then CI("Vytvořit kalendářovou událost", "o22_record.aspx?masterprefix=j02&masterpid=" & cRec.PID.ToString, , "Images/calendar.png", True) 'pod nový
-        CI("Doplnit přílohu, komentář, poznámku", "b07_create.aspx?masterprefix=j02&masterpid=" & cRec.PID.ToString, , "Images/comment.png", True)  'pod nový
+        CI("Doplnit poznámku, odkaz, přílohu...", "b07_create.aspx?masterprefix=j02&masterpid=" & cRec.PID.ToString, , "Images/comment.png", True)  'pod nový
 
 
         If cRec.j02IsIntraPerson Then

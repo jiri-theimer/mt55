@@ -4,8 +4,9 @@
 
 <asp:Panel ID="panHeader" runat="server" Style="background: #F1F1F1; border-top: 1px solid silver; border-bottom: 1px solid silver; height: 20px; font-family: Arial; line-height: 20px; padding: 6px; color: black;">
     <img src="Images/comment.png" />
+    <img src="Images/link.png" />
     <img src="Images/attachment.png" />
-    <asp:Label ID="lblHeader" runat="server" Text="Poznámky/komentáře/přílohy"></asp:Label>
+    <asp:Label ID="lblHeader" runat="server" Text="Poznámky/komentáře/odkazy/přílohy"></asp:Label>
     <asp:HyperLink ID="linkAdd" runat="server" NavigateUrl="javascript:comment_new()" Text="[Přidat]" CssClass="wake_link"></asp:HyperLink>
   
 </asp:Panel>
@@ -32,6 +33,7 @@
                         </div>
                         <div>
                             <asp:Label ID="b07WorkflowInfo" runat="server" CssClass="val"></asp:Label>
+                            <asp:HyperLink ID="b07LinkUrl" runat="server" Target="_blank"></asp:HyperLink>
                         </div>
                         <asp:Panel ID="pan100" runat="server" Style="padding-top: 4px; max-height: 100px; overflow: auto; direction: rtl;">
                             <div style="direction: ltr;">

@@ -2974,6 +2974,72 @@
     <TableName>b07Comment</TableName>
   </Table>
   <Table>
+    <name>b07LinkUrl</name>
+    <id>724197630</id>
+    <xtype>167</xtype>
+    <typestat>2</typestat>
+    <xusertype>167</xusertype>
+    <length>255</length>
+    <xprec>0</xprec>
+    <xscale>0</xscale>
+    <colid>19</colid>
+    <xoffset>0</xoffset>
+    <bitpos>0</bitpos>
+    <reserved>0</reserved>
+    <colstat>0</colstat>
+    <cdefault>0</cdefault>
+    <domain>0</domain>
+    <number>0</number>
+    <colorder>19</colorder>
+    <offset>-18</offset>
+    <collationid>53252</collationid>
+    <language>0</language>
+    <status>24</status>
+    <type>39</type>
+    <usertype>2</usertype>
+    <prec>255</prec>
+    <iscomputed>0</iscomputed>
+    <isoutparam>0</isoutparam>
+    <isnullable>1</isnullable>
+    <collation>Czech_CI_AS</collation>
+    <tdscollation>BQTQAAA=</tdscollation>
+    <type_name>varchar</type_name>
+    <TableName>b07Comment</TableName>
+  </Table>
+  <Table>
+    <name>b07LinkName</name>
+    <id>724197630</id>
+    <xtype>231</xtype>
+    <typestat>2</typestat>
+    <xusertype>231</xusertype>
+    <length>100</length>
+    <xprec>0</xprec>
+    <xscale>0</xscale>
+    <colid>20</colid>
+    <xoffset>0</xoffset>
+    <bitpos>0</bitpos>
+    <reserved>0</reserved>
+    <colstat>0</colstat>
+    <cdefault>0</cdefault>
+    <domain>0</domain>
+    <number>0</number>
+    <colorder>20</colorder>
+    <offset>-19</offset>
+    <collationid>53252</collationid>
+    <language>0</language>
+    <status>24</status>
+    <type>39</type>
+    <usertype>0</usertype>
+    <prec>100</prec>
+    <iscomputed>0</iscomputed>
+    <isoutparam>0</isoutparam>
+    <isnullable>1</isnullable>
+    <collation>Czech_CI_AS</collation>
+    <tdscollation>BQTQAAA=</tdscollation>
+    <type_name>nvarchar</type_name>
+    <TableName>b07Comment</TableName>
+  </Table>
+  <Table>
     <name>b08ID</name>
     <id>759673754</id>
     <xtype>56</xtype>

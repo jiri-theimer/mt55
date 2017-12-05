@@ -20,6 +20,43 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
 
 
+    
+    <div class="content-box2">
+        <div class="title">
+            <img src="Images/comment.png" />
+            Poznámka/komentář
+        </div>
+        <div class="content">
+            <asp:TextBox ID="b07Value" runat="server" TextMode="MultiLine" Style="width: 99%; height: 100px; font-family: 'Courier New';" ToolTip="Zapsaný komentář"></asp:TextBox>
+        </div>
+    </div>
+    <div class="content-box2">
+        <div class="title">
+            <img src="Images/link.png" />
+            Odkaz na www stránku, file-system soubor...
+        </div>
+        <div class="content">
+            <table>
+                <tr>
+                    <td>
+                        Název odkazu:
+                    </td>
+                    <td>
+                        <asp:TextBox ID="b07LinkName" runat="server" Width="300px"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Adresa odkazu (url):
+                    </td>
+                    <td>
+                        <asp:TextBox ID="b07LinkUrl" runat="server" Width="600px" Text="http://"></asp:TextBox>
+                    </td>
+                </tr>
+            </table>
+            
+        </div>
+    </div>
     <table>
         <tr>
             <td>
@@ -31,8 +68,6 @@
         </tr>
     </table>
     <p></p>
-    <asp:TextBox ID="b07Value" runat="server" TextMode="MultiLine" Style="width: 100%; height: 100px; font-family: 'Courier New';" ToolTip="Zapsaný komentář"></asp:TextBox>
-
     <div class="content-box2">
         <div class="title">
             <img src="Images/email.png" />

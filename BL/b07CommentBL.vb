@@ -33,8 +33,24 @@ Class b07CommentBL
         End If
         With cRec
             If .PID > 0 And .b07ID_Parent = .PID Then .b07ID_Parent = 0
-            If Len(Trim(.b07Value)) <= 1 And .b07WorkflowInfo = "" And bolIsUploaded = False Then
-                _Error = "Chybí obsah komentáře nebo souborová příloha." : Return False
+            If .b07LinkUrl <> "" Then
+                .b07LinkUrl = Replace(.b07LinkUrl, "http://http://", "http://")
+                .b07LinkUrl = Replace(.b07LinkUrl, "http://https://", "https://")
+                If .b07LinkUrl.IndexOf("://") = -1 Then
+                    .b07LinkUrl = "http://" & .b07LinkUrl
+                End If
+            End If
+            If .b07LinkName = "" And Len(.b07LinkUrl) <= 10 Then
+                .b07LinkUrl = ""
+            End If
+            If .b07LinkUrl <> "" And .b07LinkName = "" Then
+                _Error = "Chybí [Název odkazu]." : Return False
+            End If
+            If .b07LinkUrl = "" And .b07LinkName <> "" Then
+                _Error = "Chybí [Adresa odkazu]." : Return False
+            End If
+            If Len(Trim(.b07Value)) <= 1 And .b07WorkflowInfo = "" And bolIsUploaded = False And .b07LinkUrl = "" Then
+                _Error = "Chybí obsah komentáře, adresa odkazu nebo souborová příloha." : Return False
 
             End If
             If .j02ID_Owner = 0 Then .j02ID_Owner = _cUser.j02ID

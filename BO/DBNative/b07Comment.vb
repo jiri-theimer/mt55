@@ -6,6 +6,9 @@
     Public Property o43ID As Integer        'načtená e-mail zpráva přes IMAP
     Public Property b07Value As String
     Public Property b07WorkflowInfo As String
+    Public Property b07LinkUrl As String
+    Public Property b07LinkName As String
+
 
     Public Property b07ID_Parent As Integer
 

@@ -23,7 +23,7 @@
                     .StopPage("Nelze odstranit, protože se k tomuto komentáři odkazují podřízené komentáře.")
                 End If
 
-                .AddToolbarButton("Nenávratně odstranit záznam komentáře/přílohy", "ok", , "Images/delete.png")
+                .AddToolbarButton("Nenávratně odstranit tento záznam", "ok", , "Images/delete.png")
             End With
             
         End If

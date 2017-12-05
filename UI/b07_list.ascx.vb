@@ -181,6 +181,14 @@
         
 
         CType(e.Item.FindControl("b07WorkflowInfo"), Label).Text = cRec.b07WorkflowInfo
+        If cRec.b07LinkUrl = "" Then
+            e.Item.FindControl("b07LinkUrl").Visible = False
+        Else
+            With CType(e.Item.FindControl("b07LinkUrl"), HyperLink)
+                .Text = cRec.b07LinkName
+                .NavigateUrl = cRec.b07LinkUrl
+            End With
+        End If
 
         ''With CType(e.Item.FindControl("aAnswer"), HyperLink)
         ''    If hidIsClueTip.Value = "1" Then

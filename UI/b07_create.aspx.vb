@@ -66,8 +66,13 @@
             End With
             If Me.CurrentParentID <> 0 Then
                 Dim c As BO.b07Comment = Master.Factory.b07CommentBL.Load(Me.CurrentParentID)
-                Me.b07Value.Text = c.b07Value
-                If hidIsEdit.Value = "" Then
+                If hidIsEdit.Value = "1" Then
+                    'editace
+                    Me.b07Value.Text = c.b07Value
+                    Me.b07LinkUrl.Text = c.b07LinkUrl
+                    Me.b07LinkName.Text = c.b07LinkName
+                Else
+                    'reakce
                     receiver1.AddReceiver(c.j02ID_Owner, 0, False)
                 End If
 
@@ -98,6 +103,8 @@
                 If hidIsEdit.Value = "" Then
                     .b07ID_Parent = Me.CurrentParentID
                 End If
+                .b07LinkName = Me.b07LinkName.Text
+                .b07LinkUrl = Me.b07LinkUrl.Text
 
                 .b07WorkflowInfo = receiver1.GetInlineContent()
             End With

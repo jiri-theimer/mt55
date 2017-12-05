@@ -36,6 +36,8 @@
             pars.Add("o43ID", BO.BAS.IsNullDBKey(.o43ID), DbType.Int32)
             pars.Add("b07Value", .b07Value, DbType.String)
             pars.Add("b07WorkflowInfo", .b07WorkflowInfo, DbType.String)
+            pars.Add("b07LinkUrl", .b07LinkUrl, DbType.String)
+            pars.Add("b07LinkName", .b07LinkName, DbType.String)
             pars.Add("b07ValidFrom", .ValidFrom, DbType.DateTime)
             pars.Add("b07ValidUntil", .ValidUntil, DbType.DateTime)
         End With

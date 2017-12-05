@@ -14,6 +14,33 @@ Option Explicit On
 Partial Public Class b07_create
 
     '''<summary>
+    '''b07Value control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents b07Value As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''b07LinkName control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents b07LinkName As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''b07LinkUrl control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents b07LinkUrl As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
     '''upload1 control.
     '''</summary>
     '''<remarks>
@@ -30,15 +57,6 @@ Partial Public Class b07_create
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents uploadlist1 As Global.UI.fileupload_list
-
-    '''<summary>
-    '''b07Value control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents b07Value As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''cmdAddReceiver control.
