@@ -58,6 +58,8 @@ Public Class handler_popupmenu
                 HandleP90(intPID, factory)
             Case "p51"
                 HandleP51(intPID, factory)
+            Case "b07"
+                HandleB07(intPID, factory, strFlag)
             Case "x40"
                 HandleX40(intPID, factory)
             Case "j07", "j04", "j18", "j17", "c21", "o40", "o25", "p42", "p32", "p92", "p29", "p63", "j61", "j61-invoice", "p92-clientinvoice", "p51-billing", "p51-internal", "p61", "p80", "p98"
@@ -973,6 +975,29 @@ Public Class handler_popupmenu
             
             CI("Založit osobu", "javascript:contact_person_create()", , "Images/new.png")
         End If
+    End Sub
+    Private Sub HandleB07(intPID As Integer, factory As BL.Factory, strFlag As String)
+        Dim cRec As BO.b07Comment = factory.b07CommentBL.Load(intPID)
+
+        If cRec.o43ID = 0 Then
+            CI("Reagovat", "b07_create.aspx?parentpid=" & cRec.PID.ToString & "&masterprefix=" & BO.BAS.GetDataPrefix(cRec.x29ID) & "&masterpid=" & cRec.b07RecordPID.ToString, , "Images/comment.png")
+        End If
+       
+        If (cRec.j02ID_Owner = factory.SysUser.j02ID Or factory.SysUser.IsAdmin) And cRec.b07WorkflowInfo = "" Then
+            SEP()
+            CI("Upravit", "b07_create.aspx?isedit=1&parentpid=" & cRec.PID.ToString & "&masterprefix=" & BO.BAS.GetDataPrefix(cRec.x29ID) & "&masterpid=" & cRec.b07RecordPID.ToString, , "Images/edit.png")
+
+            SEP()
+            CI("Odstranit", "b07_delete.aspx?pid=" & cRec.PID.ToString, , "Images/delete.png")
+        End If
+
+        If cRec.o43ID <> 0 Then
+            SEP()
+
+            REL("Otevřít v MS-OUTLOOK", "binaryfile.aspx?format=msg&prefix=o43&pid=" & cRec.o43ID.ToString, "_self", "Images/outlook.png")
+            REL("EML formát", "binaryfile.aspx?format=eml&prefix=o43&pid=" & cRec.o43ID.ToString, "_self", "Images/email.png")
+        End If
+
     End Sub
     Private Sub HandleJ02(intPID As Integer, factory As BL.Factory, strFlag As String)
         Dim cRec As BO.j02Person = factory.j02PersonBL.Load(intPID)

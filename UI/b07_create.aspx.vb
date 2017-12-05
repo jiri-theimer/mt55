@@ -45,6 +45,7 @@
                 Master.StopPage("masterpid or masterprefix is missing")
             End If
             Me.CurrentParentID = BO.BAS.IsNullInt(Request.Item("parentpid"))
+            Me.hidIsEdit.Value = Request.Item("isedit")
             Me.upload1.GUID = BO.BAS.GetGUID
             Me.uploadlist1.GUID = Me.upload1.GUID
 
@@ -54,13 +55,22 @@
             End If
 
             With Master
-                .HeaderText = "Zapsat poznámku/komentář/přílohu | " & .Factory.GetRecordCaption(BO.BAS.GetX29FromPrefix(Me.CurrentPrefix), Me.CurrentRecordPID)
+                If Me.hidIsEdit.Value = "1" Then
+                    .HeaderText = "Upravit komentář"
+                Else
+                    .HeaderText = "Zapsat poznámku/komentář/přílohu | " & .Factory.GetRecordCaption(BO.BAS.GetX29FromPrefix(Me.CurrentPrefix), Me.CurrentRecordPID)
+                End If
+
                 .HeaderIcon = "Images/comment_32.png"
                 .AddToolbarButton("Uložit", "save", , "Images/save.png")
             End With
             If Me.CurrentParentID <> 0 Then
                 Dim c As BO.b07Comment = Master.Factory.b07CommentBL.Load(Me.CurrentParentID)
-                receiver1.AddReceiver(c.j02ID_Owner, 0, False)
+                Me.b07Value.Text = c.b07Value
+                If hidIsEdit.Value = "" Then
+                    receiver1.AddReceiver(c.j02ID_Owner, 0, False)
+                End If
+
             End If
 
             If Me.CurrentParentID > 0 Then
@@ -78,11 +88,17 @@
 
         If strButtonValue = "save" Then
             Dim cRec As New BO.b07Comment
+            If hidIsEdit.Value = "1" Then
+                cRec = Master.Factory.b07CommentBL.Load(Me.CurrentParentID)
+            End If
             With cRec
                 .x29ID = BO.BAS.GetX29FromPrefix(Me.CurrentPrefix)
                 .b07RecordPID = Me.CurrentRecordPID
                 .b07Value = Me.b07Value.Text
-                .b07ID_Parent = Me.CurrentParentID
+                If hidIsEdit.Value = "" Then
+                    .b07ID_Parent = Me.CurrentParentID
+                End If
+
                 .b07WorkflowInfo = receiver1.GetInlineContent()
             End With
             If receiver1.RowsCount > 0 And receiver1.GetList().Count = 0 Then

@@ -43,26 +43,26 @@
             Return rp1.Items.Count
         End Get
     End Property
-    Public Property JS_Create As String
-        Get
-            Return hidJS_Create.Value
-        End Get
-        Set(value As String)
-            hidJS_Create.Value = value
-        End Set
-    End Property
-    Public Property JS_Reaction As String
-        Get
-            Return hidJS_Reaction.Value
-        End Get
-        Set(value As String)
-            hidJS_Reaction.Value = value
-        End Set
-    End Property
+    ''Public Property JS_Create As String
+    ''    Get
+    ''        Return hidJS_Create.Value
+    ''    End Get
+    ''    Set(value As String)
+    ''        hidJS_Create.Value = value
+    ''    End Set
+    ''End Property
+    ''Public Property JS_Reaction As String
+    ''    Get
+    ''        Return hidJS_Reaction.Value
+    ''    End Get
+    ''    Set(value As String)
+    ''        hidJS_Reaction.Value = value
+    ''    End Set
+    ''End Property
 
-    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        linkAdd.NavigateUrl = "javascript:" & Me.JS_Create
-    End Sub
+    ''Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    ''    linkAdd.NavigateUrl = "javascript:" & Me.JS_Create
+    ''End Sub
 
     Public Sub RefreshOneCommentRecord(factory As BL.Factory, intB07ID As Integer)
         _sysUser = factory.SysUser
@@ -165,62 +165,65 @@
             End If
 
         End With
-
-
-        With CType(e.Item.FindControl("imgPhoto"), Image)
-            If hidIsClueTip.Value = "1" Then
-                .Visible = False
-            Else
-                If cRec.Avatar <> "" Then
-                    .ImageUrl = "Plugins/Avatar/" & cRec.Avatar
-                End If
-            End If
-        End With
+        If hidIsClueTip.Value = "1" Or cRec.Avatar = "" Then
+            e.Item.FindControl("tdPhoto").Controls.Clear()
+            e.Item.FindControl("tdPhoto").Visible = False
+        Else
+            With CType(e.Item.FindControl("imgPhoto"), Image)
+                .ImageUrl = "Plugins/Avatar/" & cRec.Avatar
+            End With
+        End If
+        If hidIsClueTip.Value = "1" Then
+            e.Item.FindControl("linkPP1").Visible = False
+        Else
+            CType(e.Item.FindControl("linkPP1"), HyperLink).Attributes("onclick") = "RCM('b07'," & cRec.PID.ToString & ",this)"
+        End If
+        
 
         CType(e.Item.FindControl("b07WorkflowInfo"), Label).Text = cRec.b07WorkflowInfo
 
-        With CType(e.Item.FindControl("aAnswer"), HyperLink)
-            If hidIsClueTip.Value = "1" Then
-                .Visible = False
-            Else
-                If cRec.o43ID = 0 Then
-                    .NavigateUrl = "javascript:" & Me.hidJS_Reaction.Value & "(" & cRec.PID.ToString & ")"
-                Else
-                    .Visible = False
-                End If
-            End If
+        ''With CType(e.Item.FindControl("aAnswer"), HyperLink)
+        ''    If hidIsClueTip.Value = "1" Then
+        ''        .Visible = False
+        ''    Else
+        ''        If cRec.o43ID = 0 Then
+        ''            .NavigateUrl = "javascript:" & Me.hidJS_Reaction.Value & "(" & cRec.PID.ToString & ")"
+        ''        Else
+        ''            .Visible = False
+        ''        End If
+        ''    End If
 
 
-        End With
-        With CType(e.Item.FindControl("aDelete"), HyperLink)
-            If hidIsClueTip.Value = "1" Then
-                .Visible = False
-            Else
-                If (cRec.j02ID_Owner = _sysUser.j02ID Or _sysUser.IsAdmin) And (cRec.b07Value <> "" Or bolAtts) Then
-                    .Visible = True
-                    .NavigateUrl = "javascript:trydeleteb07(" & cRec.PID.ToString & ")"
-                Else
-                    .Visible = False
-                End If
-            End If
+        ''End With
+        ''With CType(e.Item.FindControl("aDelete"), HyperLink)
+        ''    If hidIsClueTip.Value = "1" Then
+        ''        .Visible = False
+        ''    Else
+        ''        If (cRec.j02ID_Owner = _sysUser.j02ID Or _sysUser.IsAdmin) And (cRec.b07Value <> "" Or bolAtts) Then
+        ''            .Visible = True
+        ''            .NavigateUrl = "javascript:trydeleteb07(" & cRec.PID.ToString & ")"
+        ''        Else
+        ''            .Visible = False
+        ''        End If
+        ''    End If
 
-        End With
-        With CType(e.Item.FindControl("aMSG"), HyperLink)
-            If cRec.o43ID = 0 Then
-                .Visible = False
-            Else
-                .Visible = True
-                .NavigateUrl = "binaryfile.aspx?format=msg&prefix=o43&pid=" & cRec.o43ID.ToString
-            End If
-        End With
-        With CType(e.Item.FindControl("aEML"), HyperLink)
-            If cRec.o43ID = 0 Then
-                .Visible = False
-            Else
-                .Visible = True
-                .NavigateUrl = "binaryfile.aspx?format=eml&prefix=o43&pid=" & cRec.o43ID.ToString
-            End If
-        End With
+        ''End With
+        ''With CType(e.Item.FindControl("aMSG"), HyperLink)
+        ''    If cRec.o43ID = 0 Then
+        ''        .Visible = False
+        ''    Else
+        ''        .Visible = True
+        ''        .NavigateUrl = "binaryfile.aspx?format=msg&prefix=o43&pid=" & cRec.o43ID.ToString
+        ''    End If
+        ''End With
+        ''With CType(e.Item.FindControl("aEML"), HyperLink)
+        ''    If cRec.o43ID = 0 Then
+        ''        .Visible = False
+        ''    Else
+        ''        .Visible = True
+        ''        .NavigateUrl = "binaryfile.aspx?format=eml&prefix=o43&pid=" & cRec.o43ID.ToString
+        ''    End If
+        ''End With
         With CType(e.Item.FindControl("aAtts"), Label)
             If cRec.o43Attachments = "" Then
                 .Visible = False

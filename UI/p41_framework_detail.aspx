@@ -17,14 +17,8 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <script type="text/javascript">
-        function b07_reaction(b07id) {
-            sw_decide("b07_create.aspx?parentpid=" + b07id + "&masterprefix=p41&masterpid=<%=Master.datapid%>", "Images/comment.png", true)
-
-        }
-        function b07_delete(b07id, flag) {
-            sw_decide("b07_delete.aspx?pid=" + b07id, "Images/delete.png", true)
-
-        }
+       
+       
         function hardrefresh(pid, flag) {
             <%If menu1.PageSource <> "navigator" Then%>
             if (flag == "p41-save" || flag == "p41-create") {
@@ -347,7 +341,7 @@
     </div>
     
     <div style="clear:both;">
-    <uc:b07_list ID="comments1" runat="server" JS_Create="menu_b07_record()" JS_Reaction="b07_reaction" />
+    <uc:b07_list ID="comments1" runat="server" />
     </div>
     
     <asp:Panel ID="boxP31Summary" runat="server" CssClass="content-box1" style="clear: both;">

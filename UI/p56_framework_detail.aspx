@@ -14,14 +14,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <script type="text/javascript">
-        function b07_reaction(b07id) {
-            sw_decide("b07_create.aspx?parentpid=" + b07id + "&masterprefix=p56&masterpid=<%=Master.datapid%>", "Images/comment.png", true)
-
-        }
-        function b07_delete(b07id, flag) {
-            sw_decide("b07_delete.aspx?pid=" + b07id, "Images/delete.png", true)
-
-        }
+    
         function hardrefresh(pid, flag) {
             if (parent.window.document.URL.indexOf("p56_framework") > 0) {
                 if (flag == "p56-save" || flag == "workflow-dialog") {
@@ -288,7 +281,7 @@
     <uc:myscheduler ID="cal1" runat="server" Prefix="p56" />
 
     
-        <uc:b07_list ID="comments1" runat="server" JS_Create="menu_b07_record()" JS_Reaction="b07_reaction" />
+        <uc:b07_list ID="comments1" runat="server" />
    
     <asp:HiddenField ID="hidCurP41ID" runat="server" />
 </asp:Content>

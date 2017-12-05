@@ -183,14 +183,7 @@
             sw_decide("b07_create.aspx?masterprefix=p91&masterpid=<%=master.datapid%>","Images/comment.png",true)
             
         }
-        function b07_reaction(b07id) {
-            sw_decide("b07_create.aspx?parentpid="+b07id+"&masterprefix=p91&masterpid=<%=master.datapid%>","Images/comment.png", true)
-           
-        }
-        function b07_delete(b07id, flag) {
-            sw_decide("b07_delete.aspx?pid=" + b07id, "Images/delete.png", true)
-
-        }
+       
       
        
         function proforma() {           
@@ -623,7 +616,7 @@
                 </div>
 
 
-                <uc:b07_list ID="comments1" runat="server" ShowHeader="false" ShowInsertButton="false" JS_Reaction="b07_reaction" />
+                <uc:b07_list ID="comments1" runat="server" ShowHeader="false" ShowInsertButton="false" />
                 <uc:alertbox ID="alert1" runat="server"></uc:alertbox>
                 <div class="div6" style="clear: both;">
                     <asp:Label ID="p92ReportConstantText" runat="server" CssClass="val"></asp:Label>

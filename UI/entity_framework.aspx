@@ -83,7 +83,7 @@
         function RowDoubleClick(sender, args) {
 
             var pid = args.getDataKeyValue("pid");
-            location.href = "<%=Me.CurrentPrefix%>_framework_detail.aspx?pid=" + pid + "&source=<%=opgLayout.Value%>";
+            location.href = "<%=Me.CurrentPrefix%>_framework_detail.aspx?pid=" + pid + "&source=3";
 
 
         }

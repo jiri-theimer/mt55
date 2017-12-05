@@ -51,6 +51,7 @@
     <asp:HiddenField ID="hidPrefix" runat="server" />
     <asp:HiddenField ID="hidRecordPID" runat="server" />
     <asp:HiddenField ID="hidParentID" runat="server" />
+    <asp:HiddenField ID="hidIsEdit" runat="server" />
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="FootContent" runat="server">
 </asp:Content>

@@ -68,24 +68,6 @@ Partial Public Class b07_list
     Protected WithEvents hidRecordPID As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
-    '''hidJS_Create control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents hidJS_Create As Global.System.Web.UI.WebControls.HiddenField
-
-    '''<summary>
-    '''hidJS_Reaction control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents hidJS_Reaction As Global.System.Web.UI.WebControls.HiddenField
-
-    '''<summary>
     '''hidAttachmentsReadonly control.
     '''</summary>
     '''<remarks>

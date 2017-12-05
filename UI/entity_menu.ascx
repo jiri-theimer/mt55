@@ -207,11 +207,7 @@
     }
         
         
-    function menu_b07_record() {
-
-        sw_decide("b07_create.aspx?masterprefix=<%=Me.DataPrefix%>&masterpid=<%=Me.DataPID%>", "Images/comment.png", true);
-
-    }
+    
     function scheduler(){            
         window.open("entity_scheduler.aspx?masterprefix=<%=Me.DataPrefix%>&masterpid=<%=Me.DataPID%>","_top")
     }

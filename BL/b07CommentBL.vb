@@ -32,6 +32,7 @@ Class b07CommentBL
             If lisTempUpload.Where(Function(p) p.p85IsDeleted = False).Count > 0 Then bolIsUploaded = True
         End If
         With cRec
+            If .PID > 0 And .b07ID_Parent = .PID Then .b07ID_Parent = 0
             If Len(Trim(.b07Value)) <= 1 And .b07WorkflowInfo = "" And bolIsUploaded = False Then
                 _Error = "Chybí obsah komentáře nebo souborová příloha." : Return False
 

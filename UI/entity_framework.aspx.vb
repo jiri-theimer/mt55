@@ -221,6 +221,7 @@ Public Class entity_framework
                     .OnClientCollapsed = "AfterPaneCollapsed"
                     .OnClientExpanded = "AfterPaneExpanded"
                 End With
+                grid1.OnRowDblClick = "RowDoubleClick"
 
             Case "3"    'pouze jeden panel
 
