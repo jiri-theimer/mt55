@@ -235,7 +235,7 @@
         Else
             chkFFShowFilledOnly.Visible = False
         End If
-        If cRec.p28ParentID <> 0 Or cRec.p28TreePrev < cRec.p28TreeNext Then
+        If cRec.p28ParentID > 0 Or cRec.p28TreePrev < cRec.p28TreeNext Then
 
             RenderTree(cRec, cRecSum)
         End If

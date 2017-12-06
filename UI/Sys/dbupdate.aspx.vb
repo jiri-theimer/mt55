@@ -57,7 +57,7 @@
         Else
             cBL.RunFixingSQLs_BeforeDbUpdate()  'spustit fixing sql dotazy
             cBL.RunFixingSQLs_AfterDbUpdate()  'spustit fixing sql dotazy
-            Master.Notify("Operace dokončena.", NotifyLevel.InfoMessage)
+            Master.Notify("Operace dokončena (SQL procedury).", NotifyLevel.InfoMessage)
 
         End If
     End Sub
@@ -80,7 +80,7 @@
             SetUpgradeInfoLog()
 
 
-            Master.Notify("Operace dokončena.", NotifyLevel.InfoMessage)
+            Master.Notify("Operace dokončena (DB struktura).", NotifyLevel.InfoMessage)
 
         End If
     End Sub

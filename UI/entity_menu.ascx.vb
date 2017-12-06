@@ -302,6 +302,8 @@ Public Class entity_menu
 
         tab.NavigateUrl = cX61.GetPageUrl(Me.DataPrefix, Me.DataPID, Me.hidIsCanApprove.Value) & "&tab=" & strX61Code & "&source=" & Me.hidSource.Value
         tab.Attributes.Item("myurl") = tab.NavigateUrl
+        ''tab.Attributes.Item("myurl") = cX61.GetPageUrl(Me.DataPrefix, Me.DataPID, Me.hidIsCanApprove.Value) & "&tab=" & strX61Code & "&source=" & Me.hidSource.Value
+
         If tabs1.Tabs.Count = 0 Then tab.Selected = True
 
         

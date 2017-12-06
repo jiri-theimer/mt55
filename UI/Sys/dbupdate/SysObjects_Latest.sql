@@ -16657,7 +16657,7 @@ declare @p91id int
 
 if isnull(@p51id,0)=0
  begin
-  select @p51id=p51ID FROM p50OfficePriceList WHERE p50RatesFlag=2 AND getdate() BETWEEN p50ValidFrom AND p50ValidUntil
+  select @p51id=a.p51ID FROM p50OfficePriceList a INNER JOIN p51PriceList b ON a.p51ID=b.p51ID WHERE b.p51TypeFlag=4 AND getdate() BETWEEN a.p50ValidFrom AND a.p50ValidUntil
 
   if @p51id is null
    return

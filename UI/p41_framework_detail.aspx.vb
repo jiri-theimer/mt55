@@ -190,7 +190,7 @@
             Else
                 panRecurrence.Controls.Clear()
             End If
-            If cRec.p41ParentID <> 0 Then
+            If .p41ParentID > 0 Or .p41TreePrev < .p41TreeNext Then
                 RenderTree(cRec, cRecSum)
             End If
             ''If .p41ParentID <> 0 Then

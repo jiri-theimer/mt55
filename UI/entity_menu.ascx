@@ -39,8 +39,8 @@
 <telerik:RadTabStrip ID="tabs1" runat="server" Skin="Default" Width="100%" AutoPostBack="false" ShowBaseLine="true" EnableViewState="false" OnClientTabSelected="OnClientTabSelected">
     <TabTemplate>
         <button type="button" onclick="lockTabs()" id="cmdLock" runat="server" style="z-index:1;width:16px;height:16px;padding:0px;" title="Ukotvit vybranou záložku"><img src="Images/lock_10.png" /></button>
-        <asp:HyperLink runat="server" ID="link1" CssClass="entity_menu_tablink" Text='<%# DataBinder.Eval(Container, "Text") %>' NavigateUrl='<%# DataBinder.Eval(Container, "NavigateUrl") %>'></asp:HyperLink>
         
+        <a class="entity_menu_tablink" onclick="Tab_ReloadPage('<%# DataBinder.Eval(Container, "NavigateUrl")%>')"><%# DataBinder.Eval(Container, "Text") %></a>
         
     </TabTemplate>
 </telerik:RadTabStrip>
@@ -65,12 +65,25 @@
         location.replace("<%=Me.DataPrefix%>_framework.aspx?pid=<%=Me.DataPID%>&source="+source);
     }
     function OnClientTabSelected(sender, eventArgs)
-    {
-        var tab = eventArgs.get_tab();
+    {        
+        var tab = eventArgs.get_tab();       
         var attributes = tab.get_attributes();
         var url = attributes.getAttribute( "myurl");
         
+        Tab_ReloadPage(url);
+        
+    }
+
+    function Tab_ReloadPage(url){
+        var x = event.clientX;
+        var y = event.clientY+80;
+        
+        var $div = $("<img id = 'cargando' style='z-index:9000;position:absolute;top:"+y+"px;left:"+x+"px;' src='Images/loading.gif'/>");
+        $("body").append($div);
+        $("#cargando").show().css('display', 'block');
+        
         location.replace(url);
+        //location.href=url;
     }
 
     function cbxSearch_OnClientSelectedIndexChanged(sender, eventArgs){
