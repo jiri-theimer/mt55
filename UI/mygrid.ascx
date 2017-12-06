@@ -21,8 +21,11 @@
         
         var url = "query_builder.aspx?prefix=" + prefix + "&pid=" + j70id + "&masterprefix=" + masterprefix + "&modeflag=" + modeflag;
       
-        url = url + "&masterprefixflag="+document.getElementById("<%=Me.hidMasterPrefixFlag.ClientID%>").value;
-        
+        url = url + "&masterprefixflag=" + document.getElementById("<%=Me.hidMasterPrefixFlag.ClientID%>").value;
+
+        contMenu(url, true);
+        return;
+
         if (parent == top) {
             sw_everywhere(url, "Images/griddesigner.png", true);    //top okno
         }
