@@ -73,19 +73,7 @@
                                 .Text = BO.BAS.CrLfText2Html(cRec.DBValue)
                             Else
                                 .Text = cRec.DBValue
-                                If Len(.Text) > 5 Then
-                                    .Text = Trim(.Text)
-                                    If .Text.IndexOf("://") = -1 Then
-                                        .Text = "http://" & .Text
-                                    End If
-                                    If LCase(Left(.Text, 4)) = "http" Then
-                                        .Text = "<a href='" & .Text & "' target='_blank'>Otevřít odkaz</a>"
-                                    End If
-                                    If LCase(Left(.Text, 6)) = "file:/" Then
-                                        .Text = "<a href='" & .Text & "' target='_blank'>Otevřít soubor</a>"
-                                    End If
-
-                                End If
+                                
                             End If
                             If .Text = "" Then DoHide(e)
                         Case "boolean"

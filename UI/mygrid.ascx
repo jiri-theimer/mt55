@@ -23,7 +23,7 @@
       
         url = url + "&masterprefixflag=" + document.getElementById("<%=Me.hidMasterPrefixFlag.ClientID%>").value;
 
-        contMenu(url, true);
+        contMenu(url,false);
         return;
 
         if (parent == top) {

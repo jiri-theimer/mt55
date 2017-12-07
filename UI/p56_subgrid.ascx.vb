@@ -48,7 +48,7 @@ Public Class p56_subgrid
                 
                 basUI.SelectDropdownlistValue(Me.cbxP56Validity, .GetUserParam("p56_subgrid-cbxP56Validity", "1"))
                 basUI.SelectDropdownlistValue(Me.cbxPaging, .GetUserParam("p56_subgrid-pagesize", "10"))
-                basUI.SelectDropdownlistValue(Me.cbxGroupBy, .GetUserParam("p56_subgrid-groupby-" & BO.BAS.GetDataPrefix(Me.x29ID)))
+
             End With
             panExport.Visible = Factory.TestPermission(BO.x53PermValEnum.GR_GridTools)
             RecalcVirtualRowCount()
@@ -77,6 +77,8 @@ Public Class p56_subgrid
         If cJ70.j70ColumnNames.IndexOf("ReceiversInLine") > 0 Then Me.hidReceiversInLine.Value = "1" Else Me.hidReceiversInLine.Value = ""
         If cJ70.j70ColumnNames.IndexOf("Hours_Orig") > 0 Or cJ70.j70ColumnNames.IndexOf("Expenses_Orig") > 0 Then Me.hidTasksWorksheetColumns.Value = "1" Else Me.hidTasksWorksheetColumns.Value = ""
         Me.hidDefaultSorting.Value = cJ70.j70OrderBy
+        hidGroupByField.Value = cJ70.j70GroupByField
+        hidGroupByAlias.Value = cJ70.j70GroupByAlias
 
         Dim cS As New SetupDataGrid(Me.Factory, gridP56, cJ70)
         With cS
@@ -94,9 +96,7 @@ Public Class p56_subgrid
         ''Me.hidCols.Value = basUIMT.SetupDataGrid(Me.Factory, Me.gridP56, cJ70, CInt(Me.cbxPaging.SelectedValue), True, Not _curIsExport, True, , , , strAddSqlFrom, , strSqlSumCols)
         ''Me.hidFrom.Value = strAddSqlFrom
         ''Me.hidSumCols.Value = strSqlSumCols
-        With Me.cbxGroupBy.SelectedItem
-            SetupGrouping(.Value, .Text)
-        End With
+       SetupGrouping(hidGroupByField.Value, hidGroupByAlias.Value)
 
 
 
@@ -138,7 +138,7 @@ Public Class p56_subgrid
                 mq.Closed = BO.BooleanQueryMode.TrueQuery
         End Select
         With mq
-            .MG_GridGroupByField = Me.cbxGroupBy.SelectedValue
+            .MG_GridGroupByField = hidGroupByField.Value
             .MG_GridSqlColumns = Me.hidCols.Value
             .MG_AdditionalSqlFROM = Me.hidFrom.Value
             .MG_SortString = gridP56.radGridOrig.MasterTableView.SortExpressions.GetSortString()
@@ -254,14 +254,7 @@ Public Class p56_subgrid
         End With
     End Sub
 
-    Private Sub cbxGroupBy_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbxGroupBy.SelectedIndexChanged
-        Factory.j03UserBL.SetUserParam("p56_subgrid-groupby-" & BO.BAS.GetDataPrefix(Me.x29ID), Me.cbxGroupBy.SelectedValue)
-        With Me.cbxGroupBy.SelectedItem
-            SetupGrouping(.Value, .Text)
-        End With
-        RecalcVirtualRowCount()
-        gridP56.Rebind(True)
-    End Sub
+   
 
     Private Sub cbxPaging_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbxPaging.SelectedIndexChanged
         Me.Factory.j03UserBL.SetUserParam("p56_subgrid-pagesize", Me.cbxPaging.SelectedValue)

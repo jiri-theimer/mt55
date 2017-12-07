@@ -140,33 +140,6 @@ Partial Public Class p31_subgrid
     Protected WithEvents cmdDOC As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''panGroupBy control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents panGroupBy As Global.System.Web.UI.WebControls.Panel
-
-    '''<summary>
-    '''cbxGroupBy control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cbxGroupBy As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''chkGroupsAutoExpanded control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents chkGroupsAutoExpanded As Global.System.Web.UI.WebControls.CheckBox
-
-    '''<summary>
     '''cbxPaging control.
     '''</summary>
     '''<remarks>
@@ -273,6 +246,24 @@ Partial Public Class p31_subgrid
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents hidDefaultSorting As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
+    '''hidGroupByField control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hidGroupByField As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
+    '''hidGroupByAlias control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hidGroupByAlias As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
     '''hidDrillDownField control.

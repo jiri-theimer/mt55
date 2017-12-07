@@ -126,7 +126,6 @@ Public Class p31_subgrid
                     .Add("p31_grid-period")
                     .Add("p31_subgrid-j70id-" & Me.MasterPrefixWithQueryFlag)
                     .Add("p31_subgrid-pagesize")
-                    .Add("p31_subgrid-groupby-" & Me.MasterPrefixWithQueryFlag)
                     .Add("p31_subgrid-includechilds-" & Me.MasterPrefixWithQueryFlag)
                     ''.Add("p31_subgrid-search")
                     .Add("p31_subgrid-groups-autoexpanded")
@@ -151,9 +150,9 @@ Public Class p31_subgrid
                     grid2.radGridOrig.MasterTableView.SortExpressions.AddSortExpression(.GetUserParam("p31_subgrid-sort"))
                 End If
                 basUI.SelectDropdownlistValue(Me.cbxPaging, .GetUserParam("p31_subgrid-pagesize", "10"))
-                basUI.SelectDropdownlistValue(Me.cbxGroupBy, .GetUserParam("p31_subgrid-groupby-" & Me.MasterPrefixWithQueryFlag))
+
                 ''Me.txtSearch.Text = .GetUserParam("p31_subgrid-search")
-                Me.chkGroupsAutoExpanded.Checked = BO.BAS.BG(.GetUserParam("p31_subgrid-groups-autoexpanded", "1"))
+
                 If Me.EntityX29ID = BO.x29IdEnum.p41Project Then
                     Me.chkIncludeChilds.Checked = BO.BAS.BG(.GetUserParam("p31_subgrid-includechilds-" & Me.MasterPrefixWithQueryFlag))
                 End If
@@ -179,6 +178,8 @@ Public Class p31_subgrid
         Dim cJ70 As BO.j70QueryTemplate = Me.Factory.j70QueryTemplateBL.Load(designer1.CurrentJ70ID)
 
         Me.hidDefaultSorting.Value = cJ70.j70OrderBy
+        hidGroupByField.Value = cJ70.j70GroupByField
+        hidGroupByAlias.Value = cJ70.j70GroupByAlias
         Dim cS As New SetupDataGrid(Me.Factory, grid2, cJ70)
         With cS
             .PageSize = BO.BAS.IsNullInt(Me.cbxPaging.SelectedValue)
@@ -197,9 +198,7 @@ Public Class p31_subgrid
         ''Me.hidFrom.Value = strAddSqlFrom
         ''Me.hidSumCols.Value = strSqlSumCols
         
-        With Me.cbxGroupBy.SelectedItem
-            SetupGrouping(.Value, .Text)
-        End With
+        SetupGrouping(hidGroupByField.Value, hidGroupByAlias.Value)
 
     End Sub
     Private Sub SetupGrouping(strGroupField As String, strFieldHeader As String)
@@ -208,7 +207,7 @@ Public Class p31_subgrid
             .GroupByExpressions.Clear()
             If strGroupField = "" Then Return
             .ShowGroupFooter = True
-            .GroupsDefaultExpanded = chkGroupsAutoExpanded.Checked
+            .GroupsDefaultExpanded = True
             Dim GGE As New GridGroupByExpression
             Dim fld As New GridGroupByField
             fld.FieldName = strGroupField
@@ -434,7 +433,7 @@ Public Class p31_subgrid
 
             .ColumnFilteringExpression = grid2.GetFilterExpressionCompleteSql()
             .MG_SortString = grid2.radGridOrig.MasterTableView.SortExpressions.GetSortString()
-            .MG_GridGroupByField = Me.cbxGroupBy.SelectedValue
+            .MG_GridGroupByField = hidGroupByField.Value
             .MG_AdditionalSqlFROM = Me.hidFrom.Value
             .MG_GridSqlColumns = Me.hidCols.Value
             .x18Value = Me.hidX18_value.Value
@@ -446,18 +445,7 @@ Public Class p31_subgrid
                     .MG_SortString = Me.hidDefaultSorting.Value & "," & .MG_SortString
                 End If
             End If
-            ''If Me.cbxGroupBy.SelectedValue <> "" Then
-            ''    Dim strPrimarySortField As String = Me.cbxGroupBy.SelectedValue
-            ''    If strPrimarySortField = "SupplierName" Then strPrimarySortField = "supplier.p28Name"
-            ''    If strPrimarySortField = "ClientName" Then strPrimarySortField = "p28client.p28Name"
-            ''    If strPrimarySortField = "Person" Then strPrimarySortField = "j02.j02LastName+char(32)+j02.j02Firstname"
-
-            ''    If .MG_SortString = "" Then
-            ''        .MG_SortString = strPrimarySortField
-            ''    Else
-            ''        .MG_SortString = strPrimarySortField & "," & .MG_SortString
-            ''    End If
-            ''End If
+          
         End With
     End Sub
 
@@ -523,7 +511,7 @@ Public Class p31_subgrid
         ''Else
         ''    txtSearch.Style.Item("background-color") = "red"
         ''End If
-        If cbxGroupBy.SelectedValue <> "" Then chkGroupsAutoExpanded.Visible = True Else chkGroupsAutoExpanded.Visible = False
+
         cmdFullScreen.Visible = Me.AllowFullScreen
 
         If Me.AllowFullScreen Or Me.AllowApproving Then
@@ -534,14 +522,6 @@ Public Class p31_subgrid
     End Sub
     
 
-    Private Sub cbxGroupBy_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbxGroupBy.SelectedIndexChanged
-        Factory.j03UserBL.SetUserParam("p31_subgrid-groupby-" & Me.MasterPrefixWithQueryFlag, Me.cbxGroupBy.SelectedValue)
-        ReloadPage()
-        'With Me.cbxGroupBy.SelectedItem
-        '    SetupGrouping(.Value, .Text)
-        'End With
-        'grid2.Rebind(True)
-    End Sub
     
 
     Private Sub cmdExport_Click(sender As Object, e As EventArgs) Handles cmdExport.Click
@@ -578,14 +558,7 @@ Public Class p31_subgrid
     ''    Handle_RunSearch()
     ''End Sub
 
-    Private Sub chkGroupsAutoExpanded_CheckedChanged(sender As Object, e As EventArgs) Handles chkGroupsAutoExpanded.CheckedChanged
-        Factory.j03UserBL.SetUserParam("p31_subgrid-groups-autoexpanded", BO.BAS.GB(Me.chkGroupsAutoExpanded.Checked))
-        With Me.cbxGroupBy.SelectedItem
-            SetupGrouping(.Value, .Text)
-        End With
-        grid2.Rebind(True)
-    End Sub
-
+ 
     
 
    

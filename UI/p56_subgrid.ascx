@@ -38,19 +38,6 @@
                             <img src="Images/griddesigner.png" />Nastavení přehledu
                         </div>
                         <div class="content">
-                            <div class="div6">
-                                <asp:DropDownList ID="cbxGroupBy" runat="server" AutoPostBack="true" ToolTip="Datové souhrny">
-                                    <asp:ListItem Text="Bez souhrnů" Value=""></asp:ListItem>
-                                    <asp:ListItem Text="Typ úkolu" Value="p57Name"></asp:ListItem>
-                                    <asp:ListItem Text="Klient" Value="Client"></asp:ListItem>
-                                    <asp:ListItem Text="Projekt" Value="ProjectCodeAndName"></asp:ListItem>
-                                    <asp:ListItem Text="Příjemce" Value="ReceiversInLine"></asp:ListItem>
-                                    <asp:ListItem Text="Aktuální stav" Value="b02Name"></asp:ListItem>
-                                    <asp:ListItem Text="Milník" Value="o22Name"></asp:ListItem>
-                                    <asp:ListItem Text="Vlastník" Value="Owner"></asp:ListItem>
-                                    <asp:ListItem Text="Uzavřeno" Value="IsClosed"></asp:ListItem>
-                                </asp:DropDownList>
-                            </div>
                             
                             
 
@@ -116,6 +103,8 @@
 <asp:HiddenField ID="hidSumCols" runat="server" />
 <asp:HiddenField ID="hidFrom" runat="server" />
 <asp:HiddenField ID="hidFooterString" runat="server" />
+<asp:HiddenField ID="hidGroupByField" runat="server" />
+<asp:HiddenField ID="hidGroupByAlias" runat="server" />
 
 <div style="clear: both; width: 100%;"></div>
 
