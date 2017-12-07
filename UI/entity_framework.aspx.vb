@@ -166,6 +166,7 @@ Public Class entity_framework
 
             Me.CurrentJ62ID = BO.BAS.IsNullInt(Request.Item("j62id"))
             designer1.AllowSettingButton = Master.Factory.TestPermission(BO.x53PermValEnum.GR_GridTools)
+            FindNode("mygrid").Visible = designer1.AllowSettingButton
             designer1.Prefix = Me.CurrentPrefix
             designer1.CurrentJ62ID = Me.CurrentJ62ID
             designer1.x36Key = Me.CurrentPrefix + "-j70id"
@@ -185,6 +186,7 @@ Public Class entity_framework
             End With
             If Me.CurrentMasterPID > 0 Then
                 Me.designer1.Visible = False
+
                 With Me.MasterEntity
                     .Visible = True
                     .Text = Master.Factory.GetRecordCaption(BO.BAS.GetX29FromPrefix(Me.CurrentMasterPrefix), Me.CurrentMasterPID)

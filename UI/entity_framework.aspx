@@ -427,6 +427,8 @@
                 <CollapseAnimation Type="None" />
                 <ExpandAnimation Type="None" />
                 <Items>
+                    <telerik:RadMenuItem Text="Návrhář sloupců (pojmenované přehledy)" ImageUrl="Images/setting.png" Value="mygrid" NavigateUrl="javascript:mygrid_setting()" >
+                    </telerik:RadMenuItem>
                     <telerik:RadMenuItem Text="Rozvržení panelů" ImageUrl="Images/form.png" Value="groupLayout">
                         <Items>
                             <telerik:RadMenuItem Text="Levý panel (přehled) + pravý panel (detail)" NavigateUrl="javascript:context_menu_callback('layout1')" Value="layout1" ImageUrl="Images/unchecked.png"></telerik:RadMenuItem>
