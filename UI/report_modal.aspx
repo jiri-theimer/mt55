@@ -18,6 +18,11 @@
                 $(".slidingDiv1").slideToggle();
             });
 
+            
+
+        })
+
+        function AdjustHeight(){
             var h1 = new Number;
             var h2 = new Number;
             var hh = new Number;
@@ -30,17 +35,14 @@
             h2 = offset.top;
 
             hh = h1 - h2 - 60 - 10;
-
+            
 
             self.document.getElementById("divReportViewer").style.height = hh + "px";
 
             <%If Me.MultiPIDs<>"" then%>
             self.document.getElementById("divReportViewer").style.display = "none";
             <%end If%>
-
-
-            
-        })
+        }
 
         $(window).load(function () {
             <%If hidOutputFullPathPdf.Value<>"" then%>
@@ -73,7 +75,7 @@
             }
            
             
-
+            AdjustHeight();
         })
 
         function hardrefresh(pid, flag) {

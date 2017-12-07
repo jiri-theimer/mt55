@@ -44,7 +44,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <table cellpadding="3" cellspacing="2">
         <tr>
-            <td style="width: 160px;">
+            <td style="width: 170px;">
                 <asp:Label ID="lblJ03Login" Text="Přihlašovací jméno (login):" runat="server" AssociatedControlID="j03login" CssClass="lblReq"></asp:Label></td>
             <td>
                 <asp:TextBox ID="j03login" runat="server" Style="width: 300px;" Enabled="false"></asp:TextBox>

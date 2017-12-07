@@ -50,7 +50,7 @@
         <div style="margin-bottom:20px;">
             <asp:label ID="lblBuild" runat="server" style="color:gray;"/>
         </div>
-        <span>© 2016 CleverApp <span style="margin-left:25px;margin-right:25px;">|</span> <a href="http://www.marktime.cz" target="_blank">www.marktime.cz</a> <span style="margin-left:25px;margin-right:25px;">|</span> <a href="mailto:info@marktime.cz">info@marktime.cz</a></span>
+        <span>© 2017 CleverApp <span style="margin-left:25px;margin-right:25px;">|</span> <a href="http://www.marktime.cz" target="_blank">www.marktime.cz</a> <span style="margin-left:25px;margin-right:25px;">|</span> <a href="mailto:info@marktime.cz">info@marktime.cz</a></span>
     </div>
     <asp:HiddenField ID="hidIsMobile" runat="server" />
     </form>

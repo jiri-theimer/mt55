@@ -40,7 +40,7 @@
     <TabTemplate>
         <button type="button" onclick="lockTabs()" id="cmdLock" runat="server" style="z-index:1;width:16px;height:16px;padding:0px;" title="Ukotvit vybranou záložku"><img src="Images/lock_10.png" /></button>
         
-        <a class="entity_menu_tablink" onclick="Tab_ReloadPage('<%# DataBinder.Eval(Container, "NavigateUrl")%>')"><%# DataBinder.Eval(Container, "Text") %></a>
+        <a class="entity_menu_tablink" onclick="Tab_ReloadPage('<%# DataBinder.Eval(Container, "NavigateUrl")%>',this)"><%# DataBinder.Eval(Container, "Text") %></a>
         
     </TabTemplate>
 </telerik:RadTabStrip>
@@ -70,14 +70,18 @@
         var attributes = tab.get_attributes();
         var url = attributes.getAttribute( "myurl");
         
-        Tab_ReloadPage(url);
+        Tab_ReloadPage(url,tab.get_element());
         
     }
 
-    function Tab_ReloadPage(url){
-        var x = event.clientX;
-        var y = event.clientY+80;
-        
+    function Tab_ReloadPage(url,ctl){
+        if (url=="" || url==null){
+            return;
+        }
+            
+        var x = ctl.offsetLeft;
+        var y = ctl.offsetTop+100;
+
         var $div = $("<img id = 'cargando' style='z-index:9000;position:absolute;top:"+y+"px;left:"+x+"px;' src='Images/loading.gif'/>");
         $("body").append($div);
         $("#cargando").show().css('display', 'block');

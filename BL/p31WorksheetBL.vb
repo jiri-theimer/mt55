@@ -221,6 +221,10 @@ Class p31WorksheetBL
                     If cRec.VatRate_Orig <> 0 And (cRec.Amount_WithVat_Orig = 0 Or cRec.Amount_Vat_Orig = 0) Then
                         cRec.RecalcEntryAmount(cRec.Amount_WithoutVat_Orig, cRec.VatRate_Orig)  'dopočítat částku vč. DPH
                     End If
+                    If Math.Abs((cRec.p31Amount_WithoutVat_Orig + cRec.p31Amount_Vat_Orig) - cRec.p31Amount_WithVat_Orig) > 0.02 Then
+                        _Error = String.Format("Součet základu a částky DPH se liší od celkové částky vč. DPH! Rozdíl: {0},-.", (cRec.p31Amount_WithoutVat_Orig + cRec.p31Amount_Vat_Orig) - cRec.p31Amount_WithVat_Orig)
+                        Return False
+                    End If
             End Select
 
         End With

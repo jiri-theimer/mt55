@@ -360,14 +360,7 @@
 
                                 </div>
                                 <div class="content">
-                                    <asp:Panel ID="panGroupBy" runat="server" CssClass="div6" Style="float: left;">
-                                        <span class="val"><%=Resources.p31_grid.DatoveSouhrny%></span>
-                                        <asp:DropDownList ID="cbxGroupBy" runat="server" AutoPostBack="true" ToolTip="Datové souhrny" DataTextField="ColumnHeader" DataValueField="ColumnField">
-                                        </asp:DropDownList>
-                                        <div>
-                                            <asp:CheckBox ID="chkGroupsAutoExpanded" runat="server" Text="<%$Resources:p31_framework,AutoRozbaleneSouhrny %>" AutoPostBack="true" Checked="true" />
-                                        </div>
-                                    </asp:Panel>
+                                    
 
 
                                     <div class="div6" style="float: left;">
@@ -457,6 +450,9 @@
     <asp:HiddenField ID="hidUIFlag" runat="server" />
     <asp:HiddenField ID="hidX18_value" runat="server" />
     <asp:HiddenField ID="hidO51IDs" runat="server" />
+
+    <asp:HiddenField ID="hidGroupByField" runat="server" />
+    <asp:HiddenField ID="hidGroupByAlias" runat="server" />
 
     <asp:Button ID="cmdRefresh" runat="server" Style="display: none;" />
 </asp:Content>

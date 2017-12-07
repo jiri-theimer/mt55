@@ -78,8 +78,7 @@ Public Class p31_grid
                     .Add("p31_grid-query-on-top")
                     .Add("o51_querybuilder-p31")
                 End With
-                cbxGroupBy.DataSource = .Factory.j70QueryTemplateBL.GroupByPallet(BO.x29IdEnum.p31Worksheet)
-                cbxGroupBy.DataBind()
+                
                 With .Factory.j03UserBL
                     .InhaleUserParams(lisPars)
                     Dim strDefTabQueryFlag As String = Request.Item("p31tabautoquery")
@@ -92,7 +91,7 @@ Public Class p31_grid
                     period1.SelectedValue = .GetUserParam("p31_grid-period")
                     basUI.SelectDropdownlistValue(Me.cbxPeriodType, .GetUserParam("p31_grid-periodtype", "p31Date"))
 
-                    basUI.SelectDropdownlistValue(Me.cbxGroupBy, .GetUserParam("p31_grid-groupby"))
+
                     hidX18_value.Value = .GetUserParam("x18_querybuilder-value-p31-p31grid")
                     Me.x18_querybuilder_info.Text = .GetUserParam("x18_querybuilder-text-p31-p31grid")
 
@@ -113,7 +112,6 @@ Public Class p31_grid
             End If
 
             With Master.Factory.j03UserBL
-                Me.chkGroupsAutoExpanded.Checked = BO.BAS.BG(.GetUserParam("p31_grid-groups-autoexpanded", "1"))
                 Dim strJ70ID As String = Request.Item("j70id")
                 If strJ70ID = "" Then strJ70ID = .GetUserParam("p31-j70id")
                 designer1.RefreshData(BO.BAS.IsNullInt(strJ70ID))
@@ -246,6 +244,8 @@ Public Class p31_grid
     Private Sub SetupGrid(strFilterSetting As String, strFilterExpression As String, strSortExpression As String)
         Dim cJ70 As BO.j70QueryTemplate = Master.Factory.j70QueryTemplateBL.Load(designer1.CurrentJ70ID)
         Me.hidDefaultSorting.Value = cJ70.j70OrderBy
+        hidGroupByField.Value = cJ70.j70GroupByField
+        hidGroupByAlias.Value = cJ70.j70GroupByAlias
         ''Dim strAddSqlFrom As String = "", strSqlSumCols As String = ""
         Dim cS As New SetupDataGrid(Master.Factory, grid1, cJ70)
         With cS
@@ -266,10 +266,8 @@ Public Class p31_grid
         ''Me.hidFrom.Value = strAddSqlFrom
         ''Me.hidSumCols.Value = strSqlSumCols
         
-
-        With Me.cbxGroupBy.SelectedItem
-            SetupGrouping(.Value, .Text)
-        End With
+        SetupGrouping(hidGroupByField.Value, hidGroupByAlias.Value)
+        
     End Sub
     Private Sub SetupGrouping(strGroupField As String, strFieldHeader As String)
         grid1.radGridOrig.GroupingSettings.RetainGroupFootersVisibility = True
@@ -277,7 +275,7 @@ Public Class p31_grid
             .GroupByExpressions.Clear()
             If strGroupField = "" Then Return
             .ShowGroupFooter = True
-            .GroupsDefaultExpanded = chkGroupsAutoExpanded.Checked
+            .GroupsDefaultExpanded = True
             Dim GGE As New GridGroupByExpression
             Dim fld As New GridGroupByField
             fld.FieldName = strGroupField
@@ -381,7 +379,7 @@ Public Class p31_grid
 
             .MG_AdditionalSqlFROM = Me.hidFrom.Value
             .MG_GridSqlColumns = Me.hidCols.Value
-            .MG_GridGroupByField = Me.cbxGroupBy.SelectedValue
+            .MG_GridGroupByField = hidGroupByField.Value
             .SpecificQuery = BO.myQueryP31_SpecificQuery.AllowedForRead
             If period1.SelectedValue <> "" Then
                 Select Case Me.cbxPeriodType.SelectedValue
@@ -501,7 +499,7 @@ Public Class p31_grid
         
 
 
-        If cbxGroupBy.SelectedValue <> "" Then chkGroupsAutoExpanded.Visible = True Else chkGroupsAutoExpanded.Visible = False
+        ''If cbxGroupBy.SelectedValue <> "" Then chkGroupsAutoExpanded.Visible = True Else chkGroupsAutoExpanded.Visible = False
 
         
     End Sub
@@ -552,17 +550,7 @@ Public Class p31_grid
         
     End Sub
 
-    Private Sub cbxGroupBy_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbxGroupBy.SelectedIndexChanged
-        Me.CurrentJ62ID = 0
-        Master.Factory.j03UserBL.SetUserParam("p31_grid-groupby", Me.cbxGroupBy.SelectedValue)
-        ReloadPage()
-
-        ''With Me.cbxGroupBy.SelectedItem
-        ''    SetupGrouping(.Value, .Text)
-        ''End With
-        ''grid1.Rebind(True)
-    End Sub
-   
+    
   
     
 
@@ -578,10 +566,7 @@ Public Class p31_grid
         End With
         ReloadPage()
     End Sub
-    Private Sub chkGroupsAutoExpanded_CheckedChanged(sender As Object, e As EventArgs) Handles chkGroupsAutoExpanded.CheckedChanged
-        Master.Factory.j03UserBL.SetUserParam("p31_grid-groups-autoexpanded", BO.BAS.GB(Me.chkGroupsAutoExpanded.Checked))
-        ReloadPage()
-    End Sub
+    
 
     Private Sub grid1_SortCommand(SortExpression As String, strOwnerTableName As String) Handles grid1.SortCommand
         ''If strOwnerTableName = "drilldown" Then Return 'neukládat třídění z drill-down

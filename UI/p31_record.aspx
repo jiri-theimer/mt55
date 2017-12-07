@@ -188,6 +188,10 @@
         function p32id_OnClientSelectedIndexChanged(sender, eventArgs) {
             var item = eventArgs.get_item();
             var p32id = item.get_value();
+            if (p32id == "") {
+                return;
+            }            
+
             var p41id_pid = "<%=p41id.value%>";
             var j27id_pid = "";
             <%If panM.Visible Then%>

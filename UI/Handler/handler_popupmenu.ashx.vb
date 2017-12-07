@@ -4,6 +4,8 @@ Imports System.Web.Services
 Public Class handler_popupmenu
     Implements System.Web.IHttpHandler
     Private _lis As New List(Of BO.ContextMenuItem)
+    Private Property _curOdkazIsVisible As Boolean = False
+
     Sub ProcessRequest(ByVal context As HttpContext) Implements IHttpHandler.ProcessRequest
 
         context.Response.ContentType = "application/json"
@@ -420,8 +422,10 @@ Public Class handler_popupmenu
         End Select
 
         SEP()
-        CI("[ODKAZ]", "", , "Images/link.png")
+        HandleOdkaz(True)
+                
         If cRec.j02ID_ContactPerson > 0 Then
+            HandleOdkaz()
             Dim c As BO.j02Person = factory.j02PersonBL.Load(cRec.j02ID_ContactPerson)
             If factory.SysUser.j04IsMenu_People Then
                 REL(c.FullNameDescWithJobTitle, "j02_framework.aspx?pid=" & cRec.j02ID_ContactPerson.ToString, "_top", "Images/contactperson.png", True)
@@ -436,34 +440,51 @@ Public Class handler_popupmenu
             mqO23.MyRecordsDisponible = True
             Dim lisO23 As IEnumerable(Of BO.o23Doc) = factory.o23DocBL.GetList(mqO23)
             For Each c In lisO23
+                HandleOdkaz()
                 REL(c.NameWithComboName, "o23_fixwork.aspx?x18id=" & c.x18ID.ToString & "&pid=" & c.PID.ToString, "_top", "Images/notepad.png", True)
             Next
         End If
 
         If cRec.p56ID > 0 Then
+            HandleOdkaz()
             If factory.SysUser.j04IsMenu_Task Then REL(cRec.p56Name, "p56_framework.aspx?pid=" & cRec.p56ID.ToString, "_top", "Images/task.png", True) 'pod odkaz
         End If
         If factory.SysUser.j04IsMenu_Project Then
+            HandleOdkaz()
             Dim ss As String = cRec.p41NameShort
             If ss = "" Then ss = cRec.p41Name
             ''If cRec.p28ID_Client > 0 Then ss = cRec.ClientName & " - " & ss
             REL(ss, "p41_framework.aspx?pid=" & cRec.p41ID.ToString, "_top", "Images/project.png", True) 'pod odkaz
         End If
         If factory.SysUser.j04IsMenu_Contact And cRec.p28ID_Client > 0 Then
+            HandleOdkaz()
             REL(cRec.ClientName, "p28_framework.aspx?pid=" & cRec.p28ID_Client.ToString, "_top", "Images/contact.png", True) 'pod odkaz
         End If
 
         If factory.SysUser.j04IsMenu_Invoice And cRec.p91ID > 0 Then
+            HandleOdkaz()
             Dim cP91 As BO.p91Invoice = factory.p91InvoiceBL.Load(cRec.p91ID)
             REL(cP91.p92Name & ": " & cP91.p91Code, "p91_framework.aspx?pid=" & cRec.p91ID.ToString, "_top", "Images/invoice.png", True)  'odkaz
         End If
         If factory.SysUser.j04IsMenu_People Then
+            HandleOdkaz()
             REL(cRec.Person, "j02_framework.aspx?pid=" & cRec.j02ID.ToString, "_top", "Images/person.png", True) 'pod odkaz
         End If
         SEP()
         CI("Odeslat e-mail", "sendmail.aspx?prefix=p31&pid=" & intPID.ToString, , "Images/email.png")
         CI("Oštítkovat", "tag_binding.aspx?prefix=p31&pids=" & intPID.ToString, , "Images/tag.png")
     End Sub
+    Private Sub HandleOdkaz(Optional bolInit As Boolean = False)
+        If bolInit Then
+            _curOdkazIsVisible = False
+            Return
+        End If
+        If Not _curOdkazIsVisible Then
+            CI("[ODKAZ]", "", , "Images/link.png")
+        End If
+        _curOdkazIsVisible = True
+    End Sub
+
 
     Private Sub HandleP28_Combo(intPID As Integer, factory As BL.Factory, strFlag As String)
         If intPID > 0 Then

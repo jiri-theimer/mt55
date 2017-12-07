@@ -48,6 +48,14 @@
                 $(".slidingDiv4").slideToggle();
             });
 
+            
+
+
+
+        });
+
+        $(window).load(function () {
+            
             <%if td1.Visible then%>
             var h1 = new Number;
             var h2 = new Number;
@@ -65,10 +73,8 @@
 
             document.getElementById("<%=fraRecord.ClientID%>").style.height = h3 + "px";
             <%End If%>
-
-
-
-        });
+           
+        })
 
 
 
