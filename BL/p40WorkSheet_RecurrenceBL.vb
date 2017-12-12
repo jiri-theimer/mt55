@@ -119,6 +119,7 @@ Class p40WorkSheet_RecurrenceBL
             .Value_Orig_Entried = CStr(cRec.p40Value)
             If cP34.p33ID = BO.p33IdENUM.PenizeBezDPH Or cP34.p33ID = BO.p33IdENUM.PenizeVcDPHRozpisu Then
                 .j27ID_Billing_Orig = cRec.j27ID
+                .x15ID = cRec.x15ID
                 If cRec.x15ID > BO.x15IdEnum.BezDPH Then
                     Dim lisP53 As IEnumerable(Of BO.p53VatRate) = Factory.p53VatRateBL.GetList(New BO.myQuery)
 
@@ -126,10 +127,13 @@ Class p40WorkSheet_RecurrenceBL
                     If lisVR.Count > 0 Then
                         .VatRate_Orig = lisVR(0).p53Value
                     End If
+                Else
+                    .VatRate_Orig = 0
+                    .Amount_Vat_Orig = 0
                 End If
 
                 .Amount_WithoutVat_Orig = cRec.p40Value
-                If cP34.p33ID = BO.p33IdENUM.PenizeVcDPHRozpisu Then
+                If cP34.p33ID = BO.p33IdENUM.PenizeVcDPHRozpisu Or cRec.x15ID > BO.x15IdEnum.Nic Then
                     .Amount_Vat_Orig = .VatRate_Orig / 100 * cRec.p40Value
                     .Amount_WithVat_Orig = .Amount_Vat_Orig + .Amount_WithoutVat_Orig
                 End If

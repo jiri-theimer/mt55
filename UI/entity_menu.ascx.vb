@@ -197,17 +197,23 @@ Public Class entity_menu
             panPM1.Visible = False
             ShowHideMenu(False, False)
         Else
-
+            Dim x As Integer = 70
+            If hidSource.Value = "3" Then x = 120
             ShowHideMenu(False, True)
 
             pm1.Attributes.Item("onclick") = "RCM('p41', " & cRec.PID.ToString & ", this, 'pagemenu')"
             With linkPM
-                .Text = cRec.FullName
-                If Len(.Text) > 70 Then
-                    .ToolTip = cRec.FullName
-                    .Text = Left(.Text, 70) & "..."
+                .Text = cRec.PrefferedName
+                If Len(.Text) < x - 10 And cRec.p28ID_Client > 0 Then
+                    .Text += " (" & cRec.Client & ")"
                 End If
-                .Text += " <span class='lbl'>[" & cRec.p42Name & ": " & cRec.p41Code & "]</span>"
+                If Len(.Text) > x Then
+                    .ToolTip = .Text
+                    .Text = Left(.Text, x) & "..."
+                Else
+                    .Text += " <span class='lbl'>[" & cRec.p42Name & ": " & cRec.p41Code & "]</span>"
+                End If
+
                 .Attributes.Item("onclick") = "RCM('p41', " & cRec.PID.ToString & ", this, 'pagemenu')"
             End With
             Handle_ContextMenuBlackWhite(cRec.IsClosed)
@@ -411,8 +417,17 @@ Public Class entity_menu
         Else
             ShowHideMenu(False, True)
             pm1.Attributes.Item("onclick") = "RCM('p28', " & cRec.PID.ToString & ", this, 'pagemenu')"
+            Dim x As Integer = 70
+            If hidSource.Value = "3" Then x = 120
             With linkPM
-                .Text = cRec.p28Name & " <span class='lbl'>[" & cRec.p28Code & "]</span>"
+                .Text = cRec.p28Name
+                If Len(.Text) > x Then
+                    .ToolTip = .Text
+                    .Text = Left(.Text, x) & "..."
+                Else
+                    .Text += " <span class='lbl'>[" & cRec.p28Code & "]</span>"
+                End If
+                
                 ''.NavigateUrl = "p28_framework_detail.aspx?pid=" & cRec.PID.ToString & "&source=" & Me.hidSource.Value
                 .Attributes.Item("onclick") = "RCM('p28', " & cRec.PID.ToString & ", this, 'pagemenu')"
             End With

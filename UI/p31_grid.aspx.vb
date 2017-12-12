@@ -177,7 +177,7 @@ Public Class p31_grid
             If b(i) = "" Then
                 strLW += " IS NULL"
             Else
-                If strLW.IndexOf("convert") >= 0 Or strLW.IndexOf("stitek_hodnoty") >= 0 Then
+                If strLW.IndexOf("convert") >= 0 Or strLW.IndexOf("stitek_hodnoty") >= 0 Or strLW.IndexOf("role_inline(") >= 0 Then
                     strLW += "='" & b(i) & "'"
                 Else
                     strLW += "=" & b(i)

@@ -1,4 +1,5 @@
 ﻿body {
+    
     background: #F1F1F1;
     font-size: 0.8em;
     font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana, sans-serif;
@@ -179,38 +180,38 @@ td.frif {
 
 
 span.lbl {
-    font-size: 100%;
+    
     color: #696969;
 }
 
 
 
 span.val {
-    font-size: 100%;
+    
     font-weight: normal;
     color: black;
 }
 
 span.valbold {
-    font-size: 100%;
+    
     font-weight: bold;
     color: black;
 }
 
 span.valboldblue {
-    font-size: 100%;
+    
     font-weight: bold;
     color: blue;
 }
 
 span.valboldred {
-    font-size: 100%;
+    
     font-weight: bold;
     color: red;
 }
 
 span.lblReq {
-    font-size: 100%;
+    
     color: #696969;
 }
 
@@ -222,14 +223,14 @@ span.lblReq {
 
 
 label.lbl {
-    font-size: 100%;
+   
     color: #696969;
 }
 
 
 
 label.lblReq {
-    font-size: 100%;
+    
     color: #696969;
 }
 
@@ -241,7 +242,7 @@ label.lblReq {
 
 .chk label {
     color: Black;
-    font-size: 100%;
+    
 }
 
 div.bigtext {
@@ -856,7 +857,7 @@ A.entity_menu_header {
     font-weight:bold;
     color:#25a0da;
     text-decoration: none;
-    font-size:120%;
+    font-size:110%;
 }
 
 a.entity_menu_tablink{

@@ -18,6 +18,7 @@ Public Class p31WorksheetEntryInput
     Public Property TimeUntil As String
     Public Property p31Text As String
     Public Property VatRate_Orig As Double
+    Public Property x15ID As BO.x15IdEnum = x15IdEnum.Nic
 
     Public Property Value_Orig_Entried As String
     Public Property ManualFee As Double

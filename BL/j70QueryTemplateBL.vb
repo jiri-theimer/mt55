@@ -403,7 +403,8 @@ Class j70QueryTemplateBL
                 Case BO.x29IdEnum.p28Contact
                     lis.Add(AGC(c.x67Name, "Role_x67_" & c.PID.ToString, BO.cfENUM.AnyString, , "dbo.p28_getonerole_inline(" & strRefField & "," & c.PID.ToString & ")", , , strTreeGroup))
                 Case BO.x29IdEnum.p41Project
-                    lis.Add(AGC(c.x67Name, "Role_x67_" & c.PID.ToString, BO.cfENUM.AnyString, , "dbo.p41_get_one_role_inline(" & strRefField & "," & c.PID.ToString & ")", , , strTreeGroup))
+                    Dim strSQL As String = "dbo.p41_get_one_role_inline(" & strRefField & "," & c.PID.ToString & ")"
+                    lis.Add(AGC(c.x67Name, "Role_x67_" & c.PID.ToString, BO.cfENUM.AnyString, , strSQL, , , strTreeGroup, "min(" & strSQL & ")", strSQL))
                 Case BO.x29IdEnum.p56Task
                     lis.Add(AGC(c.x67Name, "Role_x67_" & c.PID.ToString, BO.cfENUM.AnyString, , "dbo.p56_get_one_role_inline(" & strRefField & "," & c.PID.ToString & ")", , , strTreeGroup))
             End Select

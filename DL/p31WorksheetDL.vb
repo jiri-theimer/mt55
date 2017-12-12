@@ -78,7 +78,13 @@
                 c.Round2Minutes = pars.Get(Of Int32)("round2minutes")
                 c.j27ID_Domestic = pars.Get(Of Int32)("j27id_domestic")
                 c.p33ID = pars.Get(Of Int32)("p33id")
-                c.VatRate = BO.BAS.IsNullNum(pars.Get(Of Double)("vatrate"))
+                If cRecTU.x15ID = BO.x15IdEnum.Nic Then
+                    'dph sazba vychází implicitně z globálního nastavení
+                    c.VatRate = BO.BAS.IsNullNum(pars.Get(Of Double)("vatrate"))
+                Else
+                    c.VatRate = cRecTU.VatRate_Orig
+                End If
+
             End If
 
         Else
