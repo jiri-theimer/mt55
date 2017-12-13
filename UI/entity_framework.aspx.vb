@@ -1138,9 +1138,9 @@ Public Class entity_framework
 
 
         If grid1.GetFilterExpression <> "" Then
-            cmdCĺearFilter.Visible = True
+            cmdClearFilter.Visible = True
         Else
-            cmdCĺearFilter.Visible = False
+            cmdClearFilter.Visible = False
         End If
         Me.CurrentQuery.Text = ""
       
@@ -1169,13 +1169,7 @@ Public Class entity_framework
         End If
     End Sub
 
-    Private Sub cmdCĺearFilter_Click(sender As Object, e As EventArgs) Handles cmdCĺearFilter.Click
-        With Master.Factory.j03UserBL
-            .SetUserParam(Me.CurrentPrefix + "_framework-filter_setting", "")
-            .SetUserParam(Me.CurrentPrefix + "_framework-filter_sql", "")
-        End With
-        ReloadPage()
-    End Sub
+  
 
     Private Sub grid1_SortCommand(SortExpression As String, strOwnerTableName As String) Handles grid1.SortCommand
         Master.Factory.j03UserBL.SetUserParam(Me.CurrentPrefix + "_framework-sort", SortExpression)
@@ -1236,4 +1230,11 @@ Public Class entity_framework
 
     
     
+    Private Sub cmdClearFilter_Click(sender As Object, e As ImageClickEventArgs) Handles cmdClearFilter.Click
+        With Master.Factory.j03UserBL
+            .SetUserParam(Me.CurrentPrefix + "_framework-filter_setting", "")
+            .SetUserParam(Me.CurrentPrefix + "_framework-filter_sql", "")
+        End With
+        ReloadPage()
+    End Sub
 End Class

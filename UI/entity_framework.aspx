@@ -374,14 +374,14 @@
                 </asp:Panel>
                 <div class="commandcell" style="padding-left: 4px;">
                     <uc:mygrid ID="designer1" runat="server" Prefix="p41" Width="170px"></uc:mygrid>
-
+                    <asp:ImageButton ID="cmdClearFilter" CssClass="button-link" runat="server" ToolTip="Vyčistit sloupcový filtr" ImageUrl="Images/query_clear.png" style="padding:3px;" Visible="false" />
 
                 </div>
                 <div class="commandcell" style="padding-left: 4px;">
                     <uc:periodcombo ID="period1" runat="server" Width="160px"></uc:periodcombo>
                     <asp:Label ID="CurrentQuery" runat="server" ForeColor="Red"></asp:Label>
 
-
+                    
                 </div>
 
             </asp:Panel>
@@ -393,9 +393,7 @@
 
 
 
-            <div style="float: left; padding-left: 6px;">
-                <asp:LinkButton ID="cmdCĺearFilter" runat="server" Text="Vyčistit sloupcový filtr" Style="font-weight: bold; color: red;" Visible="false"></asp:LinkButton>
-            </div>
+          
             <div style="clear: both; width: 100%;"></div>
 
 
