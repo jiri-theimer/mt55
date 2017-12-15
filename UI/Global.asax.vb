@@ -16,12 +16,13 @@ Public Class Global_asax
         End If
 
         Dim factory As New BL.Factory(BO.ASS.GetConfigVal("robot_account", "admin"))
-        Dim strRobotHost As String = factory.x35GlobalParam.GetValueString("robot_host")        
-
-        If strRobotHost <> "" Then
-            Dim intCacheTimeOut As Integer = factory.x35GlobalParam.GetValueInteger("robot_cache_timeout", 300)
-            RegisterCacheEntry(strRobotHost, intCacheTimeOut)
+        Dim strRobotHost As String = factory.x35GlobalParam.GetValueString("robot_host")
+        If strRobotHost = "" Then
+            Return  'v databázi vypnutý robot
         End If
+
+        Dim intCacheTimeOut As Integer = factory.x35GlobalParam.GetValueInteger("robot_cache_timeout", 300)
+        RegisterCacheEntry(strRobotHost, intCacheTimeOut)
 
     End Sub
 

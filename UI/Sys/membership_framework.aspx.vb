@@ -7,6 +7,9 @@
     End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If Not Master.Factory.SysUser.IsAdmin Then
+            Master.StopPage("Pouze pro adminy.") : Return
+        End If
         If Not Page.IsPostBack Then
             ViewState("verify") = "0"
 
@@ -49,14 +52,17 @@
         Dim cRec As BO.j03User = Master.Factory.j03UserBL.Load(CInt(e.CommandArgument))
         Dim cJ02 As BO.j02Person = Master.Factory.j02PersonBL.Load(cRec.j02ID)
 
-        Dim strEmail As String = cRec.j03Login & "@marktime.cz", strPWD As String = "A100000XX."
+        Dim strEmail As String = cRec.j03Login & "@marktime.cz", xx As String = "A123456!"
         If Not cJ02 Is Nothing Then
             strEmail = cJ02.j02Email
         End If
 
-        basMemberShip.RecoveryAccount(cRec.j03Login, strEmail, strPWD)
-        Dim xx As String = basMemberShip.RecoveryPassword(cRec.j03Login)
-        CType(e.Item.FindControl("lblNewPassword"), Label).Text = "Nové heslo: " & xx
+        If basMemberShip.RecoveryAccount(cRec.j03Login, strEmail, xx) = 1 Then
+            basMemberShip.RecoveryPassword(cRec.j03Login, xx)
+        End If
+        ''Dim xx As String = basMemberShip.RecoveryPassword(cRec.j03Login)
+
+        CType(e.Item.FindControl("lblNewPassword"), Label).Text = xx
 
         txtReport.Text += vbCrLf & cRec.j03Login & ": " & xx
     End Sub
