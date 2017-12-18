@@ -37,6 +37,7 @@
                 _Factory = New BL.Factory(BO.ASS.GetConfigVal("robot_account", "admin"))
                 If Not _Factory.SysUser Is Nothing Then
                     RunRobot_OneDb()
+                    _Factory.x35GlobalParam.UpdateValue("robot_cache_lastrequest", Format(Now, "dd.MM.yyyy HH:mm:ss"))
                 Else
                     log4net.LogManager.GetLogger("robotlog").Info("Service user is not inhaled!")
                     Response.Write("Service user not exists!")

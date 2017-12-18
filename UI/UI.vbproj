@@ -427,6 +427,7 @@
     <None Include="My Project\PublishProfiles\marktime55.pubxml" />
     <None Include="Service References\SpolehlivostDPH\rozhraniCRPDPH.wsdl" />
     <Content Include="searchbox.ascx" />
+    <Content Include="sendmail_batch.aspx" />
     <Content Include="Service References\SpolehlivostDPH\UI.SpolehlivostDPH.InformaceOPlatciType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -2441,6 +2442,13 @@
     <Compile Include="searchbox.ascx.vb">
       <DependentUpon>searchbox.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="sendmail_batch.aspx.designer.vb">
+      <DependentUpon>sendmail_batch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="sendmail_batch.aspx.vb">
+      <DependentUpon>sendmail_batch.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Service References\SpolehlivostDPH\Reference.vb">
       <AutoGen>True</AutoGen>

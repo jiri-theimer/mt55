@@ -118,7 +118,7 @@ Public Class p31_grid
 
                 
                 SetupGrid(.GetUserParam("p31_grid-filter_setting"), .GetUserParam("p31_grid-filter_sql"), .GetUserParam("p31_grid-sort"))
-
+               
             End With
 
 
@@ -145,16 +145,8 @@ Public Class p31_grid
             RecalcVirtualRowCount()
             Handle_Permissions()
         End If
-        'If Me.chkQueryOnTop.Checked Then
-        '    Dim ctl As New Control
-        '    ctl = Me.clue_query
-        '    Me.panCurrentQuery.Controls.Remove(Me.clue_query)
-        '    Me.placeQuery.Controls.Add(ctl)
-        '    ctl = New Control
-        '    ctl = Me.j70ID
-        '    Me.panJ70.Controls.Remove(Me.j70ID)
-        '    Me.placeQuery.Controls.Add(ctl)
-        'End If
+
+       
     End Sub
     Private Sub SetupSG()
         panAdditionalQuery.Visible = True : cmdDrillDownClear.Visible = True
@@ -246,7 +238,7 @@ Public Class p31_grid
         Me.hidDefaultSorting.Value = cJ70.j70OrderBy
         hidGroupByField.Value = cJ70.j70GroupByField
         hidGroupByAlias.Value = cJ70.j70GroupByAlias
-        ''Dim strAddSqlFrom As String = "", strSqlSumCols As String = ""
+
         Dim cS As New SetupDataGrid(Master.Factory, grid1, cJ70)
         With cS
             .PageSize = BO.BAS.IsNullInt(Me.cbxPaging.SelectedValue)
@@ -262,10 +254,7 @@ Public Class p31_grid
         Me.hidFrom.Value = cG.AdditionalFROM
         Me.hidSumCols.Value = cG.SumCols
 
-        ''Me.hidCols.Value = basUIMT.SetupDataGrid(Master.Factory, Me.grid1, cJ70, BO.BAS.IsNullInt(Me.cbxPaging.SelectedValue), True, Not _curIsExport, True, strFilterSetting, strFilterExpression, strSortExpression, strAddSqlFrom, , strSqlSumCols)
-        ''Me.hidFrom.Value = strAddSqlFrom
-        ''Me.hidSumCols.Value = strSqlSumCols
-        
+  
         SetupGrouping(hidGroupByField.Value, hidGroupByAlias.Value)
         
     End Sub
@@ -304,12 +293,15 @@ Public Class p31_grid
             If TypeOf e.Item Is GridHeaderItem Then
                 e.Item.BackColor = Drawing.Color.Silver
             End If
+            If TypeOf e.Item Is GridGroupFooterItem Then
+                e.Item.BackColor = Drawing.Color.Gainsboro
+            End If
             If TypeOf e.Item Is GridGroupHeaderItem Then
                 e.Item.BackColor = Drawing.Color.WhiteSmoke
             End If
-            If TypeOf e.Item Is GridDataItem Or TypeOf e.Item Is GridHeaderItem Then
-                e.Item.Cells(0).Visible = False
-            End If
+            ''If TypeOf e.Item Is GridDataItem Or TypeOf e.Item Is GridHeaderItem Then
+            ''    e.Item.Cells(0).Visible = False
+            ''End If
         End If
     End Sub
 

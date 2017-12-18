@@ -9,7 +9,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <script type="text/javascript">
         var _initResizing = "1";
-
+        var _prefix = "<%=Me.CurrentPrefix%>";
+        
         $(document).ready(function () {
             
 
@@ -67,7 +68,7 @@
             var splitter = $find("<%= RadSplitter1.ClientID %>");
             var pane = splitter.getPaneById("<%=contentPane.ClientID%>");
 
-            var url = "<%=Me.CurrentPrefix%>_framework_detail.aspx?pid=" + pid + "&source=<%=opgLayout.Value%>";
+            var url = _prefix+"_framework_detail.aspx?pid=" + pid + "&source=<%=opgLayout.Value%>";
             pane.set_contentUrl(url);
 
 
@@ -83,7 +84,7 @@
         function RowDoubleClick(sender, args) {
 
             var pid = args.getDataKeyValue("pid");
-            location.href = "<%=Me.CurrentPrefix%>_framework_detail.aspx?pid=" + pid + "&source=3";
+            location.href = _prefix+"_framework_detail.aspx?pid=" + pid + "&source=3";
 
 
         }
@@ -111,9 +112,9 @@
 
 
             <%If Me.opgLayout.Value = "1" Then%>
-            var keyname = "<%=Me.CurrentPrefix%>_framework-navigationPane_width";
+            var keyname = _prefix+"_framework-navigationPane_width";
             <%Else%>
-            var keyname = "<%=Me.CurrentPrefix%>_framework-contentPane_height";
+            var keyname = _prefix+"_framework-contentPane_height";
             <%End If%>
 
             $.post("Handler/handler_userparam.ashx", { x36value: w, x36key: keyname, oper: "set" }, function (data) {
@@ -163,17 +164,17 @@
                 var splitter = $find("<%= RadSplitter1.ClientID %>");
                 var pane = splitter.getPaneById("<%=contentPane.ClientID%>");
                 var pid = document.getElementById("<%=hiddatapid.clientid%>").value;
-                var url = "<%=Me.CurrentPrefix%>_framework_detail.aspx?pid=" + pid + "&source=<%=opgLayout.Value%>";
+                var url = _prefix+"_framework_detail.aspx?pid=" + pid + "&source=<%=opgLayout.Value%>";
                 pane.set_contentUrl(url);
                 return;
             }
 
-            if (flag == "<%=Me.CurrentPrefix%>-create" || flag == "<%=Me.CurrentPrefix%>-save") {
-                location.replace("<%=Me.CurrentPrefix%>_framework.aspx?pid=" + pid);
+            if (flag == _prefix+"-create" || flag == _prefix+"-save") {
+                location.replace(_prefix+"_framework.aspx?pid=" + pid);
                 return;
             }
 
-            location.replace("entity_framework.aspx?prefix=<%=Me.CurrentPrefix%>");
+            location.replace("entity_framework.aspx?prefix="+_prefix);
 
 
         }
@@ -187,7 +188,7 @@
                 return;
             }
 
-            $.post("Handler/handler_tempbox.ashx", { guid: "<%=Me.CurrentPrefix%>_batch-pids-<%=Master.Factory.SysUser.PID%>", value: pids, field: "p85Message", oper: "save" }, function (data) {
+            $.post("Handler/handler_tempbox.ashx", { guid: _prefix+"_batch-pids-<%=Master.Factory.SysUser.PID%>", value: pids, field: "p85Message", oper: "save" }, function (data) {
 
                 if (data == " " || data == "0" || data == "") {
                     return;
@@ -198,7 +199,7 @@
 
 
 
-            sw_master("<%=Me.CurrentPrefix%>_batch.aspx", "Images/batch.png");
+            sw_master(_prefix+"_batch.aspx", "Images/batch.png");
             return;
 
         }
@@ -208,8 +209,8 @@
                 alert("Není vybrán ani jeden záznam.");
                 return;
             }
-
-            $.post("Handler/handler_tempbox.ashx", { guid: "<%=Me.CurrentPrefix%>_batch_sendmail-pids-<%=Master.Factory.SysUser.PID%>", value: pids, field: "p85Message", oper: "save" }, function (data) {
+            
+            $.post("Handler/handler_tempbox.ashx", { guid: _prefix+"_batch_sendmail-pids-<%=Master.Factory.SysUser.PID%>", value: pids, field: "p85Message", oper: "save" }, function (data) {
 
                 if (data == " " || data == "0" || data == "") {
                     return;
@@ -217,8 +218,13 @@
 
 
             });
-
-            sw_master("<%=Me.CurrentPrefix%>_batch_sendmail.aspx", "Images/email.png");
+            
+            if (_prefix == "p91") {
+                sw_master("p91_batch_sendmail.aspx", "Images/email.png");            
+            } else {
+                sw_master("sendmail_batch.aspx?prefix="+_prefix, "Images/email.png");
+            }
+            
             return;
         }
         function pohoda_batch() {
@@ -238,9 +244,10 @@
                 return;
             }
 
-            sw_master("report_modal.aspx?prefix=<%=Me.CurrentPrefix%>&pids=" + pids, "Images/report.png", true);
+            sw_master("report_modal.aspx?prefix="+_prefix+"&pids=" + pids, "Images/report.png", true);
 
         }
+        
 
         function periodcombo_setting() {
 
@@ -252,7 +259,7 @@
                 alert("Není vybrán ani jeden záznam.");
                 return;
             }
-            sw_master("p31_approving_step1.aspx?masterprefix=<%=me.CurrentPrefix%>&masterpids=" + pids, "Images/approve.png", true);
+            sw_master("p31_approving_step1.aspx?masterprefix="+_prefix+"&masterpids=" + pids, "Images/approve.png", true);
         }
         function invoice() {
             var pids = GetAllSelectedPIDs();
@@ -260,20 +267,20 @@
                 alert("Není vybrán ani jeden záznam.");
                 return;
             }
-            sw_master("entity_modal_invoicing.aspx?prefix=<%=me.CurrentPrefix%>&pids=" + pids, "Images/invoice.png", true);
+            sw_master("entity_modal_invoicing.aspx?prefix="+_prefix+"&pids=" + pids, "Images/invoice.png", true);
         }
         function cbx1_OnClientSelectedIndexChanged(sender, eventArgs) {
             var combo = sender;
             var pid = combo.get_value();
             <%If opgLayout.Value = "1" Then%>
-            var url = "<%=Me.CurrentPrefix%>_framework_detail.aspx?pid=" + pid + "&source=<%=opgLayout.Value%>";
-            location.replace("<%=Me.CurrentPrefix%>_framework.aspx?pid=" + pid);
+            var url = _prefix+"_framework_detail.aspx?pid=" + pid + "&source=<%=opgLayout.Value%>";
+            location.replace(_prefix+"_framework.aspx?pid=" + pid);
             <%End If%>
             <%If opgLayout.Value = "2" Then%>
-            location.replace("<%=Me.CurrentPrefix%>_framework.aspx?pid=" + pid);
+            location.replace(_prefix+"_framework.aspx?pid=" + pid);
             <%End If%>
             <%If opgLayout.Value = "3" Then%>
-            location.href="<%=Me.CurrentPrefix%>_framework_detail.aspx?source=3&pid=" + pid;
+            location.href=_prefix+"_framework_detail.aspx?source=3&pid=" + pid;
             <%End If%>
         }
         function cbx1_OnClientItemsRequesting(sender, eventArgs) {
@@ -287,9 +294,10 @@
 
             context["j03id"] = "<%=Master.Factory.SysUser.PID%>";
             context["flag"] = "searchbox";
-            <%If Me.CurrentPrefix = "p41" Then%>
-            context["j02id_explicit"] = "<%=Master.Factory.SysUser.j02ID%>";
-            <%End If%>
+            if (_prefix == "p41") {
+                context["j02id_explicit"] = "<%=Master.Factory.SysUser.j02ID%>";
+            }
+            
         }
         function drilldown() {
             var pids = GetAllSelectedPIDs();
@@ -297,15 +305,15 @@
                 alert("Není vybrán ani jeden záznam.");
                 return;
             }
-            location.replace("p31_sumgrid.aspx?masterprefix=<%=me.CurrentPrefix%>&masterpid=" + pids);
+            location.replace("p31_sumgrid.aspx?masterprefix="+_prefix+"&masterpid=" + pids);
 
         }
         function x18_querybuilder() {
-            sw_master("x18_querybuilder.aspx?key=grid&prefix=<%=Me.CurrentPrefix%>", "Images/query.png");
+            sw_master("x18_querybuilder.aspx?key=grid&prefix="+_prefix, "Images/query.png");
 
         }
         function o51_querybuilder() {
-            sw_master("o51_querybuilder.aspx?prefix=<%=Me.CurrentPrefix%>", "Images/query.png");
+            sw_master("o51_querybuilder.aspx?prefix="+_prefix, "Images/query.png");
 
         }
         function clear_o51() {
@@ -322,7 +330,7 @@
                 $.alert("Není vybrán záznam.");
                 return
             }
-            sw_master("tag_binding.aspx?prefix=<%=me.CurrentPrefix%>&pids=" + pids, "Images/tag.png");
+            sw_master("tag_binding.aspx?prefix="+_prefix+"&pids=" + pids, "Images/tag.png");
 
         }
 

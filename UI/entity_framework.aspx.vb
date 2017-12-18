@@ -338,6 +338,7 @@ Public Class entity_framework
                 AppendNode("Hromadně odeslat faktury (e-mail)", "javascript:sendmail_batch()", "Images/email.png", "")
                 AppendNode("Export do účetnictví POHODA", "javascript:pohoda_batch()", "Images/license.png", "")
             Else
+                AppendNode("Hromadně odeslat e-mail", "javascript:sendmail_batch()", "Images/email.png", "")
                 If bolCanApprove Then
                     AppendNode("Schválit/připravit k fakturaci", "javascript:approve()", "Images/approve.png", "")
                 End If
