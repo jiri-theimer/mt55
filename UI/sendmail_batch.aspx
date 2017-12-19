@@ -95,9 +95,11 @@
                         <tr>
                             <td>
                                 <asp:Label ID="EntityRecord" runat="server" CssClass="valbold"></asp:Label>
+                                <asp:HiddenField ID="PID" runat="server" />
                             </td>
                             <td>
-                                <asp:Label ID="Receiver" runat="server" CssClass="valboldblue"></asp:Label>
+                                <asp:TextBox ID="Emails" runat="server" Width="400px"></asp:TextBox>
+                                
                             </td>
                         </tr>
                     </ItemTemplate>

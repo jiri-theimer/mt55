@@ -2,6 +2,17 @@
     Inherits System.Web.UI.Page
     Protected WithEvents _MasterPage As ModalForm
 
+    Private Class EmailReceiver
+        Public Property PID As Integer
+        Public Property Prefix As String
+        Public Property RecordName As String
+        Public Property Emails As String
+        Public Sub New(intPID As Integer, strPrefix As String)
+            Me.PID = intPID
+            Me.Prefix = strPrefix
+        End Sub
+    End Class
+
     Public Property CurrentX29ID As BO.x29IdEnum
         Get
             Return DirectCast(CInt(Me.hidX29ID.Value), BO.x29IdEnum)
@@ -60,6 +71,8 @@
                 .HeaderIcon = "Images/email_32.png"
                 .AddToolbarButton("Zařadit do fronty k odeslání", "ok", , "Images/ok.png", , , , True)
             End With
+
+            RefreshList()
         End If
 
 
@@ -83,8 +96,8 @@
 
             Dim c As BO.j61TextTemplate = Master.Factory.j61TextTemplateBL.Load(intJ61ID)
 
-            Me.txtSubject.Text = c.j61PlainTextBody
-            Me.txtBody.Text = c.j61MailSubject
+            Me.txtBody.Text = c.j61PlainTextBody
+            Me.txtSubject.Text = c.j61MailSubject
         End If
     End Sub
 
@@ -112,52 +125,146 @@
 
     Private Sub RefreshList()
         Dim pids As List(Of Integer) = BO.BAS.ConvertPIDs2List(hidPIDs.Value)
-        'Select Case Me.CurrentPrefix
-        '    Case "p28"
-        '        Dim mq As New BO.myQueryP28
-        '        mq.PIDs = pids
-        '        Dim lis As IEnumerable(Of BO.p28Contact) = Master.Factory.p28ContactBL.GetList(mq)
-        '    Case "p41"
-        '        hidMasterPrefix_p30.Value = "p41"
-        '        hidMasterPID_p30.Value = Master.DataPID.ToString
-        '    Case "p31"
-        '        Dim cP31 As BO.p31Worksheet = Master.Factory.p31WorksheetBL.Load(Master.DataPID)
-        '        Me.txtSubject.Text = Master.Factory.GetRecordCaption(BO.x29IdEnum.p31Worksheet, Master.DataPID, True)
-        '        If Me.txtTo.Text = "" Then
-        '            Me.txtTo.Text = Master.Factory.j02PersonBL.Load(cP31.j02ID).j02Email
-        '        End If
-        '        Me.txtBody.Text = ""
-        '    Case "p91"
-        '        Dim cP91 As BO.p91Invoice = Master.Factory.p91InvoiceBL.Load(Master.DataPID)
-        '        hidMasterPID_p30.Value = cP91.p28ID.ToString
-        '        hidMasterPrefix_p30.Value = "p28"
-        '        Me.txtSubject.Text = String.Format("Faktura {0} | {1}", cP91.p91Code, cP91.p91Client)
-        '        Dim tos As New List(Of String)
-        '        Dim lisO32 As IEnumerable(Of BO.o32Contact_Medium) = Master.Factory.p28ContactBL.GetList_o32(cP91.p28ID).Where(Function(p) p.o33ID = BO.o33FlagEnum.Email And p.o32IsDefaultInInvoice = True)
-        '        For Each c In lisO32
-        '            tos.Add(c.o32Value)
-        '        Next
-        '        Dim lisJ02 As IEnumerable(Of BO.j02Person) = Master.Factory.p30Contact_PersonBL.GetList_J02(cP91.p28ID, cP91.p41ID_First, False).Where(Function(p) p.j02IsInvoiceEmail = True)
-        '        For Each c In lisJ02
-        '            tos.Add(c.j02Email)
-        '        Next
+        Dim recs As New List(Of EmailReceiver)
+        Select Me.CurrentPrefix
+            Case "p28"
+                Dim mq As New BO.myQueryP28
+                mq.PIDs = pids
+                Dim lis As IEnumerable(Of BO.p28Contact) = Master.Factory.p28ContactBL.GetList(mq)
+                For Each c In lis
+                    Dim cc As New EmailReceiver(c.PID, "p28")
+                    cc.RecordName = c.p28Name
+                    cc.Emails = String.Join(",", Master.Factory.p28ContactBL.GetList_o32(c.PID).Where(Function(p) p.o33ID = BO.o33FlagEnum.Email).Select(Function(p) p.o32Value))
 
-        '        If cP91.j02ID_ContactPerson <> 0 Then
-        '            Dim s As String = Master.Factory.j02PersonBL.Load(cP91.j02ID_ContactPerson).j02Email
-        '            If s <> "" Then tos.Add(s)
-        '        End If
-        '        If tos.Count > 0 Then
-        '            Me.txtTo.Text = String.Join(",", tos.Distinct)
-        '        End If
-        '        If cP91.p28ID <> 0 Then
-        '            Dim cP28 As BO.p28Contact = Master.Factory.p28ContactBL.Load(cP91.p28ID)
-        '            If cP28.j61ID_Invoice <> 0 Then
-        '                basUI.SelectDropdownlistValue(Me.j61ID, cP28.j61ID_Invoice)
-        '                Handle_ChangeJ61ID()
-        '            End If
-        '        End If
+                    Dim s As String = String.Join(",", Master.Factory.p30Contact_PersonBL.GetList_J02(c.PID, 0, False).Where(Function(p) p.j02Email <> "").Select(Function(p) p.j02Email))
+                    If s <> "" Then
+                        If cc.Emails = "" Then cc.Emails = s Else cc.Emails += "," & s
+                    End If
+                    recs.Add(cc)
+                Next
+            Case "j02"
+                Dim mq As New BO.myQueryJ02
+                mq.IntraPersons = BO.myQueryJ02_IntraPersons._NotSpecified
+                mq.PIDs = pids
+                Dim lis As IEnumerable(Of BO.j02Person) = Master.Factory.j02PersonBL.GetList(mq)
+                For Each c In lis
+                    Dim cc As New EmailReceiver(c.PID, "j02")
+                    cc.RecordName = c.FullNameDesc
+                    cc.Emails = c.j02Email
+                    recs.Add(cc)
+                Next
+            Case "p41"
+                Dim mq As New BO.myQueryP41
+                mq.PIDs = pids
+                Dim lis As IEnumerable(Of BO.p41Project) = Master.Factory.p41ProjectBL.GetList(mq)
+                For Each c In lis
+                    Dim cc As New EmailReceiver(c.PID, "p41")
+                    cc.RecordName = c.FullName
+                    If c.p28ID_Client > 0 Then
+                        cc.Emails = String.Join(",", Master.Factory.p28ContactBL.GetList_o32(c.p28ID_Client).Where(Function(p) p.o33ID = BO.o33FlagEnum.Email).Select(Function(p) p.o32Value))
+                    End If
+                    
+                    Dim s As String = String.Join(",", Master.Factory.p30Contact_PersonBL.GetList_J02(c.p28ID_Client, c.PID, False).Where(Function(p) p.j02Email <> "").Select(Function(p) p.j02Email))
+                    If s <> "" Then
+                        If cc.Emails = "" Then cc.Emails = s Else cc.Emails += "," & s
+                    End If
+                    recs.Add(cc)
+                Next
 
 
-        'End Select
+        End Select
+
+        rp1.DataSource = recs
+        rp1.DataBind()
+
+    End Sub
+
+    Private Sub rp1_ItemDataBound(sender As Object, e As RepeaterItemEventArgs) Handles rp1.ItemDataBound
+        Dim cRec As EmailReceiver = CType(e.Item.DataItem, EmailReceiver)
+        CType(e.Item.FindControl("EntityRecord"), Label).Text = cRec.RecordName
+        CType(e.Item.FindControl("Emails"), TextBox).Text = cRec.Emails
+        CType(e.Item.FindControl("PID"), HiddenField).Value = cRec.PID.ToString
+    End Sub
+
+    Private Sub _MasterPage_Master_OnToolbarClick(strButtonValue As String) Handles _MasterPage.Master_OnToolbarClick
+        If strButtonValue = "ok" Then
+            If Trim(Me.txtBody.Text) = "" Then
+                Master.Notify("Chybí obsah (BODY) zprávy.", NotifyLevel.ErrorMessage) : Return
+            End If
+            If Trim(Me.txtSubject.Text) = "" Then
+                Master.Notify("Chybí předmět (SUBJECT) zprávy.", NotifyLevel.ErrorMessage) : Return
+            End If
+            For Each ri As RepeaterItem In rp1.Items
+                Dim strName As String = CType(ri.FindControl("EntityRecord"), Label).Text
+                Dim strTo As String = Trim(CType(ri.FindControl("Emails"), TextBox).Text)
+                If strTo = "" Then
+                    Master.Notify(String.Format("U záznamu [{0}] chybí e-mail příjemce zprávy.", strName), NotifyLevel.ErrorMessage) : Return
+                End If
+            Next
+
+            Dim strErrs As String = "", x As Integer = 0
+
+            For Each ri As RepeaterItem In rp1.Items
+                Dim message As New Rebex.Mail.MailMessage
+
+                Dim intPID As Integer = CInt(CType(ri.FindControl("PID"), HiddenField).Value)
+
+                With message
+                    If Me.txtBody.Text.IndexOf("%]") > 0 Or Me.txtSubject.Text.IndexOf("%]") > 0 Then
+                        Dim cM As New BO.clsMergeContent(), objects As New List(Of Object)
+                        Select Case Me.CurrentPrefix
+                            Case "p28"
+                                objects.Add(Master.Factory.p28ContactBL.Load(intPID))
+                            Case "p41"
+                                objects.Add(Master.Factory.p41ProjectBL.Load(intPID))
+                            Case "j02"
+                                objects.Add(Master.Factory.j02PersonBL.Load(intPID))
+                        End Select
+
+                        .BodyText = cM.MergeContent(objects, Me.txtBody.Text, "")
+                        .Subject = cM.MergeContent(objects, Me.txtSubject.Text, "")
+                    Else
+                        .BodyText = Trim(Me.txtBody.Text)
+                        .Subject = Trim(Me.txtSubject.Text)
+                    End If
+
+                    .ReplyTo = Master.Factory.SysUser.PersonEmail
+                End With
+
+
+                Dim strTo As String = CType(ri.FindControl("Emails"), TextBox).Text
+
+                Dim recipients As New List(Of BO.x43MailQueue_Recipient)
+                strTo = Replace(strTo, ",", ";")
+                Dim lisTo As List(Of String) = BO.BAS.ConvertDelimitedString2List(strTo, ";")
+                For Each strOneTo As String In lisTo
+                    Dim cX43 As New BO.x43MailQueue_Recipient()
+                    cX43.x43Email = strOneTo
+                    cX43.x43RecipientFlag = BO.x43RecipientIdEnum.recTO
+                    recipients.Add(cX43)
+                Next
+
+
+
+                With Master.Factory.x40MailQueueBL
+                    .CompleteMailAttachments(message, upload1.GUID)
+                    Dim intMessageID As Integer = .SaveMessageToQueque(message, recipients, Me.CurrentX29ID, intPID, BO.x40StateENUM.InQueque, 0)
+                    If intMessageID = 0 Then
+                        strErrs += "<hr>" & .ErrorMessage
+                    Else
+                        x += 1
+                    End If
+                End With
+
+            Next
+            If strErrs = "" Then
+                Master.CloseAndRefreshParent()
+            Else
+                If x > 0 Then
+                    strErrs = String.Format("Počet zpráv k odeslání bez chyby: {0}.", x) & strErrs
+                End If
+                Master.Notify(strErrs, NotifyLevel.WarningMessage)
+            End If
+        End If
     End Sub
 End Class

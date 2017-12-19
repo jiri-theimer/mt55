@@ -7,6 +7,7 @@ Imports log4net
 
 Public Class DbHandler
     Private Property _conString As String
+    Private Property _strUserLogin As String
     Private Property _IsDebugSql As Boolean = False
     Private Property _Error As String
 
@@ -46,12 +47,12 @@ Public Class DbHandler
     End Property
 
     Private Overloads Sub Handle_OnError(strErrorMessage As String)
-        _Error = strErrorMessage
+        _Error = strErrorMessage & ", user: " & _strUserLogin
         RaiseEvent OnDBError(strErrorMessage)
         LogManager.GetLogger("sqllog").Error(strErrorMessage)
     End Sub
     Private Overloads Sub Handle_OnError(ex As System.Exception)
-        _Error = ex.Message
+        _Error = ex.Message & ", user: " & _strUserLogin
         RaiseEvent OnDBError(ex.Message)
         LogManager.GetLogger("sqllog").Error(ex.Message)
     End Sub
@@ -74,7 +75,7 @@ Public Class DbHandler
 
         End If
 
-        _Error = ex.Message
+        _Error = ex.Message & ", user: " & _strUserLogin
 
         RaiseEvent OnDBError(ex.Message)
         If Not params Is Nothing Then
@@ -86,6 +87,7 @@ Public Class DbHandler
 
     Public Sub New(strUserLogin As String)
         _conString = System.Configuration.ConfigurationManager.ConnectionStrings.Item("ApplicationPrimary").ToString()
+        _strUserLogin = strUserLogin
         Dim x As Integer = _conString.IndexOf("cloud-db-template")
         If x > 0 Then
             _conString = Replace(_conString, "cloud-db-template", BO.BAS.ParseDbNameFromCloudLogin(strUserLogin), , 1, CompareMethod.Binary)
@@ -444,6 +446,7 @@ Public Class DbHandler
             End If
         End If
         If Not params.TestRecordValidity(strTable) Then
+
             Handle_OnError(params.ErrorMessage)
             Return False
         End If

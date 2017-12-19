@@ -89,7 +89,7 @@ Public Class DbParameters
         Next
         If Not (datTestValidUntil Is Nothing And datTestValidFrom Is Nothing) Then
             If datTestValidFrom > datTestValidUntil Then
-                _Error = "Datum konce platnosti záznamu musí být větší než datum začátku platnosti záznamu."
+                _Error = String.Format("Datum konce platnosti záznamu musí být větší než datum začátku platnosti záznamu [{0}]", strTable)
                 Return False
             End If
         End If
