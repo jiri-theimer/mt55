@@ -1107,6 +1107,9 @@
                         basUI.SelectDropdownlistValue(Me.cbxOrderBy2, a(1))
                     End If
                 End If
+            Else
+                Me.cbxOrderBy1.SelectedIndex = 0 : cbxOrderBy1Dir.SelectedIndex = 0
+                Me.cbxOrderBy2.SelectedIndex = 0 : cbxOrderBy2Dir.SelectedIndex = 0
             End If
             basUI.SelectRadiolistValue(Me.j70ScrollingFlag, CInt(.j70ScrollingFlag).ToString)
             Me.j70IsFilteringByColumn.Checked = cRec.j70IsFilteringByColumn

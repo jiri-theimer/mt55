@@ -255,12 +255,21 @@ Public Class p31_subgrid
             Return
         End If
         Dim mq As New BO.myQueryP31
-        p31_InhaleMyQuery(mq)
         With mq
             .MG_PageSize = CInt(Me.cbxPaging.SelectedValue)
             .MG_CurrentPageIndex = grid2.radGridOrig.MasterTableView.CurrentPageIndex
+            .MG_SortString = grid2.radGridOrig.MasterTableView.SortExpressions.GetSortString()
+            If Me.hidDefaultSorting.Value <> "" Then
+                If .MG_SortString = "" Then
+                    .MG_SortString = Me.hidDefaultSorting.Value
+                Else
+                    .MG_SortString = Me.hidDefaultSorting.Value & "," & .MG_SortString
+                End If
+            End If
         End With
-       
+
+        p31_InhaleMyQuery(mq)
+        
         If _curIsExport Then mq.MG_PageSize = 2000
         Dim dt As DataTable = Me.Factory.p31WorksheetBL.GetGridDataSource(mq)
         If dt Is Nothing Then
@@ -435,7 +444,7 @@ Public Class p31_subgrid
             .TabAutoQuery = Me.MasterTabAutoQueryFlag
 
             .ColumnFilteringExpression = grid2.GetFilterExpressionCompleteSql()
-            .MG_SortString = grid2.radGridOrig.MasterTableView.SortExpressions.GetSortString()
+            ''.MG_SortString = grid2.radGridOrig.MasterTableView.SortExpressions.GetSortString()
             .MG_GridGroupByField = hidGroupByField.Value
             .MG_AdditionalSqlFROM = Me.hidFrom.Value
             .MG_GridSqlColumns = Me.hidCols.Value
