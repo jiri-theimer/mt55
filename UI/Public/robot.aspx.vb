@@ -101,7 +101,7 @@
                 _Factory.p85TempBoxBL.Recovery_ClearCompleteTemp()
                 WL(BO.j91RobotTaskFlag.ClearTemp, "", "Clear TEMP")
             End If
-            If IsTime4Run(BO.j91RobotTaskFlag.CentralPing, 60 * 8) Then
+            If IsTime4Run(BO.j91RobotTaskFlag.CentralPing, 60 * 8) Or Request.Item("ping") = "1" Then
                 Handle_CentralPing()
             End If
 
@@ -392,14 +392,18 @@
         Dim pars As New List(Of BO.PluginDbParameter)
         Dim dt As DataTable = _Factory.pluginBL.GetDataTable(s, pars)
 
-        s = "http://www.marktime50.net/mtrc/ping.aspx?guid=" & strGUID & "&name=" & Server.HtmlEncode(strName) & "&verze=" & BO.ASS.GetUIVersion(True)
+        s = "http://mtrc.marktime50.net/ping.aspx"
+        s += "?guid=" & strGUID & "&name=" & Server.HtmlEncode(strName) & "&verze=" & BO.ASS.GetUIVersion(True)
         For Each row As DataRow In dt.Rows
             s += "&poslednizapis=" & BO.BAS.FD(row.Item("PosledniZapis")) & "&pocetzaznamu=" & row.Item("PocetZaznamu").ToString & "&pocetzapisovacu=" & row.Item("PocetZapisovacu").ToString
         Next
 
 
         Dim rq As System.Net.HttpWebRequest = System.Net.HttpWebRequest.Create(s)
+        rq.UserAgent = "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)"
+        rq.Method = "GET"
         Dim rs As System.Net.HttpWebResponse = rq.GetResponse()
+
 
         WL(BO.j91RobotTaskFlag.CentralPing, "", String.Format("Central PING, name={0}", strName))
 

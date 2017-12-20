@@ -475,6 +475,10 @@
         _Factory.x35GlobalParam.UpdateValue("j27ID_Invoice", Me.j27id.SelectedValue)
         _Factory.x35GlobalParam.UpdateValue("j27ID_Domestic", Me.j27id.SelectedValue)
         _Factory.x35GlobalParam.UpdateValue("Round2Minutes", "5")
+        If Trim(Me.txtCompany.Text) <> "" Then
+            _Factory.x35GlobalParam.UpdateValue("AppName", Trim(Me.txtCompany.Text))
+        End If
+
 
         
     End Sub
