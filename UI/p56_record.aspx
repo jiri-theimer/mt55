@@ -131,12 +131,17 @@
                 </tr>
             </table>
             
+            <div class="div6">
+                <asp:CheckBox ID="chkMyPrivateTask" runat="server" AutoPostBack="true" Text="Můj osobní úkol" />
+            </div>
 
             <asp:Panel ID="panRoles" runat="server" CssClass="content-box2">
                 <div class="title">
                     <img src="Images/projectrole.png" width="16px" height="16px" />
                     <asp:Label ID="ph1" runat="server" Text="Příjemci (řešitelé) úkolu"></asp:Label>
                     <asp:Button ID="cmdAddX69" runat="server" CssClass="cmd" Text="Přidat" />
+
+                    
                 </div>
                 <div class="content">
                     <uc:entityrole_assign ID="roles1" runat="server" EntityX29ID="p56Task"></uc:entityrole_assign>

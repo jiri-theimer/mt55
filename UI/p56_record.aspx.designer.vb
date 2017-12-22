@@ -176,6 +176,15 @@ Partial Public Class p56_record
     Protected WithEvents p59ID_Submitter As Global.UI.datacombo
 
     '''<summary>
+    '''chkMyPrivateTask control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkMyPrivateTask As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
     '''panRoles control.
     '''</summary>
     '''<remarks>

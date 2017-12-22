@@ -37,7 +37,6 @@
     Public Property p56RecurMotherID As Integer
     Public Property p56IsStopRecurrence As Boolean
 
-
     Public Property TagsInlineHtml As String
     Friend Property _ReceiversInLine As String
     Public ReadOnly Property ReceiversInLine As String

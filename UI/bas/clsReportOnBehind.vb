@@ -20,7 +20,9 @@ Public Class clsReportOnBehind
             strDbConString = Replace(strDbConString, "cloud-db-template", BO.BAS.ParseDbNameFromCloudLogin(factory.SysUser.j03Login), , 1, CompareMethod.Binary)
             strXML = Replace(strXML, "ApplicationPrimary", strDbConString)
 
-            strFullPathTRDX = factory.x35GlobalParam.TempFolder & "\" & factory.SysUser.PID.ToString & "rep.trdx"
+            'strFullPathTRDX = factory.x35GlobalParam.TempFolder & "\" & factory.SysUser.PID.ToString & "rep.trdx"
+            Randomize()
+            strFullPathTRDX = factory.x35GlobalParam.TempFolder & "\" & factory.SysUser.PID.ToString & "_" & (CInt(Rnd() * 1000000)).ToString & ".trdx"
             cF.SaveText2File(strFullPathTRDX, strXML, , , False)
             ''fileStream = New System.IO.StreamReader(strFullPathTRDX)
         End If

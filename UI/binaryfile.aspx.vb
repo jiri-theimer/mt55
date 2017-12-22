@@ -134,7 +134,9 @@ Public Class binaryfile
     Private Function GetValidArchiveFileName(strFileName As String) As String
         Dim invalidChars As String = Regex.Escape(New String(System.IO.Path.GetInvalidFileNameChars()))
         Dim invalidReStr As String = String.Format("[{0}]+", invalidChars)
-        Return Regex.Replace(strFileName, invalidReStr, "_").Replace(";", "").Replace(",", "")
+        strFileName = Regex.Replace(strFileName, invalidReStr, "_").Replace(";", "").Replace(",", "")
+
+        Return HttpUtility.UrlEncode(strFileName, System.Text.Encoding.UTF8)
 
     End Function
 

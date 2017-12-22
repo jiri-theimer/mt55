@@ -145,7 +145,8 @@ Public Class myscheduler
         mq.Closed = BO.BooleanQueryMode.FalseQuery
         mq.TopRecordsOnly = 100
         mq.MG_SortString = "a.o22DateFrom,a.o22DateUntil"
-        'mq.SpecificQuery = BO.myQueryO22_SpecificQuery.AllowedForRead
+        mq.MyRecordsDisponible = True
+
         Select Case hidPrefix.Value
             Case "p28"
                 mq.p28ID = intRecordPID
@@ -156,7 +157,7 @@ Public Class myscheduler
             Case "p56"
                 mq.p56ID = intRecordPID
             Case Else
-                mq.MyRecordsDisponible = True
+
         End Select
         mq.DateFrom = d1
         Dim lis As IEnumerable(Of BO.o22Milestone) = factory.o22MilestoneBL.GetList(mq)
@@ -230,7 +231,7 @@ Public Class myscheduler
         Dim mq As New BO.myQueryP56
         mq.TopRecordsOnly = 100
         mq.Closed = BO.BooleanQueryMode.NoQuery
-
+        mq.SpecificQuery = BO.myQueryP56_SpecificQuery.AllowedForRead
         mq.MG_SortString = "a.p56PlanUntil"
         Select Case hidPrefix.Value
             Case "p28"
@@ -240,7 +241,7 @@ Public Class myscheduler
             Case "j02"
                 mq.j02ID = intRecordPID
             Case Else
-                mq.MyRecordsDisponible = True
+
         End Select
         mq.p56PlanUntil_D1 = d1 : mq.p56PlanUntil_D2 = d1.AddYears(1)
         Dim lis As IEnumerable(Of BO.p56Task) = factory.p56TaskBL.GetList(mq, True)

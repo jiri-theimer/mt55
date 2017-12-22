@@ -142,6 +142,9 @@
             Me.p56IsStopRecurrence.Checked = .p56IsStopRecurrence
         End With
         roles1.InhaleInitialData(cRec.PID)
+        If roles1.RowsCount = 0 And Me.j02ID_Owner.Value = Master.Factory.SysUser.j02ID.ToString Then
+            Me.chkMyPrivateTask.Checked = True
+        End If
         tags1.RefreshData(cRec.PID)
 
        
@@ -167,7 +170,7 @@
 
         lblDateFrom.Text = "Plánované zahájení:" : lblDateUntil.Text = "Termín splnění úkolu:"
 
-        
+        Dim bolShowRoles As Boolean = True
 
         If Me.p57ID.SelectedIndex > 0 Then
             Master.HeaderText = Me.p57ID.Text & " | " & Me.p41ID.Text
@@ -202,7 +205,7 @@
                 End If
                 panBudget.Visible = .p57IsEntry_Budget
 
-                panRoles.Visible = .p57IsEntry_Receiver
+                bolShowRoles = .p57IsEntry_Receiver
                 lblCompletePercent.Visible = .p57IsEntry_CompletePercent
                 p56CompletePercent.Visible = .p57IsEntry_CompletePercent
                 If .p57Caption_PlanFrom <> "" Then
@@ -216,31 +219,11 @@
             Master.HeaderText = "Úkol | " & Me.p41ID.Text
         End If
 
-        ''If Me.chkMore.Visible Then
-        ''    Dim b As Boolean = Me.chkMore.Checked
-
-        ''    'lblDateFrom.Visible = b : p56PlanFrom.Visible = b
-        ''    panDescription.Visible = b
-        ''    Me.lblOwner.Visible = b : Me.j02ID_Owner.Visible = b
-        ''    Me.p56IsNoNotify.Visible = b
-        ''    lblP59ID_Submitter.Visible = b : p59ID_Submitter.Visible = b
-        ''    lblCompletePercent.Visible = b : p56CompletePercent.Visible = b
-        ''    panBudget.Visible = b
-        ''    If p57ID.Rows = 2 Then
-        ''        p57ID.Visible = b : Me.lblP57ID.Visible = b
-        ''    End If
-
-        ''    If ff1.FieldsCount > 0 Or ff1.TagsCount > 0 Or b Then
-        ''        RadTabStrip1.FindTabByValue("core").Style.Item("display") = "block"
-        ''        RadTabStrip1.FindTabByValue("ff").Style.Item("display") = "block"
-        ''    Else
-        ''        RadTabStrip1.FindTabByValue("ff").Style.Item("display") = "none"
-        ''        RadTabStrip1.FindTabByValue("core").Style.Item("display") = "none"
-        ''    End If
-        ''    RadTabStrip1.FindTabByValue("other").Style.Item("display") = BO.BAS.GB_Display(b)
-        ''End If
-
-        
+        If Me.chkMyPrivateTask.Checked Then
+            panRoles.Visible = False
+        Else
+            panRoles.Visible = bolShowRoles
+        End If
         If Me.p65ID.SelectedIndex > 0 Then
             panRecurrence.Visible = True
         Else
@@ -279,6 +262,10 @@
     End Sub
 
     Private Sub _MasterPage_Master_OnSave() Handles _MasterPage.Master_OnSave
+        If Me.chkMyPrivateTask.Checked And BO.BAS.IsNullInt(Me.j02ID_Owner.Value) <> Master.Factory.SysUser.j02ID Then
+            Master.Notify(String.Format("U osobního úkolu musí být vlastník: {0}.", Master.Factory.SysUser.Person), NotifyLevel.ErrorMessage)
+            Return
+        End If
         roles1.SaveCurrentTempData()
         With Master.Factory.p56TaskBL
             Dim cRec As BO.p56Task = IIf(Master.DataPID <> 0, .Load(Master.DataPID), New BO.p56Task)
@@ -317,6 +304,9 @@
             End With
 
             Dim lisX69 As List(Of BO.x69EntityRole_Assign) = Nothing
+            If chkMyPrivateTask.Checked Then
+                lisX69 = New List(Of BO.x69EntityRole_Assign)
+            End If
             If panRoles.Visible Then
                 lisX69 = roles1.GetData4Save()
                 If roles1.ErrorMessage <> "" Then
@@ -363,4 +353,12 @@
     End Sub
 
     
+    
+    Private Sub chkMyPrivateTask_CheckedChanged(sender As Object, e As EventArgs) Handles chkMyPrivateTask.CheckedChanged
+        If Me.chkMyPrivateTask.Checked Then
+            Me.j02ID_Owner.Value = Master.Factory.SysUser.j02ID.ToString
+            Me.j02ID_Owner.Text = Master.Factory.SysUser.PersonDesc
+        End If
+        
+    End Sub
 End Class

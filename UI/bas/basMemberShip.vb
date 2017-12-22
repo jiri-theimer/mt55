@@ -43,7 +43,7 @@
             Dim strNewPWD As String = strExplicitPassword
             If strNewPWD = "" Then
                 Randomize()
-                strNewPWD = Left((Rnd() * 10000).ToString, 2) & Left(BO.BAS.GetGUID(), 6)
+                strNewPWD = Left((Rnd() * 10000).ToString, 2) & "!" & Left(BO.BAS.GetGUID(), 6)
             End If
             If user.ChangePassword(user.ResetPassword(), strNewPWD) Then
                 Return strNewPWD

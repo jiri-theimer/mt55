@@ -29,6 +29,7 @@
     GR_J02_ContactPerson_Create = 27    'zakládat kontaktní osoby
     ''GR_P48_Creator = 27                    'zapisovat operativní plán
     ''GR_P48_Reader = 28                    'Čtenář všech operativních plánů
+    GR_P56_Reader = 28                    'Čtenář všech úkolů
     GR_P31_Creator = 29                   'Oprávnění zapisovat worksheet do jakéhokoliv projektu bez ohledu na projektovou roli
     GR_O22_Creator = 30                   'Zapisovat události do kalendáře
     GR_P41_Draft_Creator = 31                'Vytvářet DRAFT projekty
