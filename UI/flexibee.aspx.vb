@@ -4,7 +4,7 @@ Imports System.Net.ServicePointManager
 Public Class flexibee
     Inherits System.Web.UI.Page
     Protected WithEvents _MasterPage As Site
-
+    Private _lisP31 As IEnumerable(Of BO.p31Worksheet)
     Private Sub flexibee_Init(sender As Object, e As EventArgs) Handles Me.Init
         _MasterPage = Me.Master
     End Sub
@@ -44,6 +44,10 @@ Public Class flexibee
             Return
         End Try
 
+        Dim mq As New BO.myQueryP31
+        mq.QuickQuery = BO.myQueryP31_QuickQuery.Is_p31Code
+        _lisP31 = Master.Factory.p31WorksheetBL.GetList(mq)
+
         Dim reader As New IO.StreamReader(rs.GetResponseStream())
 
         Dim s As String = reader.ReadToEnd()
@@ -81,6 +85,14 @@ Public Class flexibee
 
         With CType(e.Item.FindControl("linkExport"), HyperLink)
             .NavigateUrl = "javascript:export_record(" & c.id & ")"
+        End With
+        With CType(e.Item.FindControl("linkP31"), HyperLink)
+            If _lisP31.Where(Function(p) p.p31Code = c.kod).Count > 0 Then
+                .NavigateUrl = "javascript:contMenu('p31_record.aspx?pid=" & _lisP31.Where(Function(p) p.p31Code = c.kod)(0).PID.ToString & "',false)"
+            Else
+                .Visible = False
+            End If
+
         End With
     End Sub
 

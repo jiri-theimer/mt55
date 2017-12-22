@@ -58,7 +58,12 @@ Public Class flexibee_record
         With faktura
             c.p85OtherKey1 = 172                 'p41ID
             c.p85FreeText01 = Master.Factory.GetRecordCaption(BO.x29IdEnum.p41Project, 172, True)
-            c.p85OtherKey2 = 83                  'p32ID
+            If .sumDphCelkem = 0 Then
+                c.p85OtherKey2 = 37                  'p32ID, přenesená DPH 0%
+            Else
+                c.p85OtherKey2 = 83                  'p32ID
+            End If
+
 
             c.p85FreeDate01 = .duzpPuv          'duzp
             c.p85FreeText02 = .kod              'kod dokladu
@@ -66,6 +71,7 @@ Public Class flexibee_record
             c.p85FreeFloat01 = .sumZklCelkem    'bez dph
             c.p85FreeFloat02 = .sumDphCelkem    'částka dph
             c.p85FreeFloat03 = .sumCelkem       'vč. DPH
+
         End With
 
         reader.Close()

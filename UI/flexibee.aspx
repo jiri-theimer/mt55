@@ -26,11 +26,11 @@
                     <td>Počet načtených faktur:
                     </td>
                     <td>
-                        <asp:DropDownList ID="cbxTopRecs" runat="server">   
-                            <asp:ListItem Value="500" Text="500"></asp:ListItem>                         
+                        <asp:DropDownList ID="cbxTopRecs" runat="server">                                         
                             <asp:ListItem Value="200" Text="200"></asp:ListItem>
-                            <asp:ListItem Value="100" Text="100" Selected="true"></asp:ListItem>
+                            <asp:ListItem Value="100" Text="100"></asp:ListItem>
                             <asp:ListItem Value="50" Text="50"></asp:ListItem>
+                            <asp:ListItem Value="20" Text="20" Selected="true"></asp:ListItem>
                         </asp:DropDownList>
                     </td>
                 </tr>
@@ -47,7 +47,7 @@
             <th>Vč.DPH</th>
             <th>Popis</th>
             <th>Poslední změna</th>
-            <th>MARKTIME</th>
+            <th colspan="2">MARKTIME</th>
         </tr>
         <asp:Repeater ID="rp1" runat="server">
             <ItemTemplate>
@@ -78,6 +78,9 @@
                     </td>
                     <td>
                         <asp:HyperLink ID="linkExport" runat="server" Text="Export"></asp:HyperLink>
+                    </td>
+                    <td>
+                        <asp:HyperLink ID="linkP31" runat="server" Text="Již exportováno"></asp:HyperLink>
                     </td>
                 </tr>
             </ItemTemplate>

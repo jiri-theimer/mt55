@@ -199,6 +199,9 @@
     End Sub
 
     Private Sub InhaleMyDefault()
+        Dim bolInhaleLastRecord As Boolean = True
+        If Request.Item("clone") = "1" Then bolInhaleLastRecord = False
+
         With Master.Factory.SysUser
             Me.CurrentJ02ID = .j02ID
         End With
@@ -220,27 +223,36 @@
         'dál se pokračuje pouze pro nové záznamy
         If Master.DataPID = 0 Then
             If Request.Item("tempsource") <> "" Then
+                bolInhaleLastRecord = True
                 'překlopení temp záznamu do worksheet úkonu
                 Dim cTemp As BO.p85TempBox = Master.Factory.p85TempBoxBL.LoadByGUID(Request.Item("tempsource"))
                 With cTemp
                     Me.CurrentJ02ID = Master.Factory.SysUser.j02ID
-                    Me.p31Date.SelectedDate = .p85FreeDate01
+                    Me.j02ID.Text = Me.CurrentPerson
+                    Me.MyDefault_p31Date = .p85FreeDate01
+
                     Me.p31Text.Text = .p85Message
                     Me.p41ID.Value = .p85OtherKey1.ToString
                     Me.p41ID.Text = .p85FreeText01
+                    Handle_ChangeP41(False, 0)
                     Dim cP32 As BO.p32Activity = Master.Factory.p32ActivityBL.Load(.p85OtherKey2)
                     If Not cP32 Is Nothing Then
                         Me.p34ID.SelectedValue = cP32.p34ID.ToString
                         Handle_ChangeP34()
                         Me.p32ID.SelectedValue = .p85OtherKey2.ToString
+                        Select Case cP32.x15ID
+                            Case BO.x15IdEnum.ZakladniSazba : Me.p31VatRate_Orig.SetText("21")
+                            Case BO.x15IdEnum.BezDPH : Me.p31VatRate_Orig.SetText("0")
+                            Case BO.x15IdEnum.SnizenaSazba : Me.p31VatRate_Orig.SetText("15")
+                        End Select
                     End If
                     Me.p31Code.Text = .p85FreeText02
                     Me.p31Amount_WithoutVat_Orig.Value = .p85FreeFloat01
                     Me.p31Amount_Vat_Orig.Value = .p85FreeFloat02
                     Me.p31Amount_WithVat_Orig.Value = .p85FreeFloat03
                 End With
-                
-                Return
+
+
             End If
 
             If Request.Item("j02id") <> "" Then
@@ -254,40 +266,43 @@
                 'zápis vyvolaný z rozhraní schvalování
                 Me.GuidApprove = Request.Item("guid_approve")
             End If
-            'načíst mnou naposledy zapsaný worksheet záznam
-            Dim cRecLast As BO.p31Worksheet = Master.Factory.p31WorksheetBL.LoadMyLastCreated(True, intDefP41ID)
-            If Not cRecLast Is Nothing Then
-                With cRecLast
-                    Me.MyDefault_p34ID = .p34ID
-                    If Master.Factory.j03UserBL.GetUserParam("p31_PreFillP32ID", "1") Then
-                        Me.MyDefault_p32ID = .p32ID 'načítat aktivitu z posledního úkonu                    
-                        If .p32ManualFeeFlag = 1 Then
-                            tdManulFee.Style.Item("display") = "block"  'pevný honorář
-                            Dim cP32 As BO.p32Activity = Master.Factory.p32ActivityBL.Load(.p32ID)
-                            Me.ManualFee.Value = cP32.p32ManualFeeDefAmount
+            If bolInhaleLastRecord Then
+                'načíst mnou naposledy zapsaný worksheet záznam
+                Dim cRecLast As BO.p31Worksheet = Master.Factory.p31WorksheetBL.LoadMyLastCreated(True, intDefP41ID)
+                If Not cRecLast Is Nothing Then
+                    With cRecLast
+                        Me.MyDefault_p34ID = .p34ID
+                        If Master.Factory.j03UserBL.GetUserParam("p31_PreFillP32ID", "1") Then
+                            Me.MyDefault_p32ID = .p32ID 'načítat aktivitu z posledního úkonu                    
+                            If .p32ManualFeeFlag = 1 Then
+                                tdManulFee.Style.Item("display") = "block"  'pevný honorář
+                                Dim cP32 As BO.p32Activity = Master.Factory.p32ActivityBL.Load(.p32ID)
+                                Me.ManualFee.Value = cP32.p32ManualFeeDefAmount
+                            End If
                         End If
-                    End If
 
-                    
-                    If DateDiff(DateInterval.Hour, .DateInsert.Value, Now) < 1 Then
-                        'do hodiny starý záznam bere jako výchozí datum posledního úkonu + uživatele posledního úkonu
-                        Me.MyDefault_p31Date = .p31Date
-                    End If
-                    If .p33ID = BO.p33IdENUM.Cas Then
-                        If .p31HoursEntryFlag = BO.p31HoursEntryFlagENUM.NeniCas Then
-                            Me.CurrentHoursEntryFlag = BO.p31HoursEntryFlagENUM.Hodiny
+
+                        If DateDiff(DateInterval.Hour, .DateInsert.Value, Now) < 1 Then
+                            'do hodiny starý záznam bere jako výchozí datum posledního úkonu + uživatele posledního úkonu
+                            Me.MyDefault_p31Date = .p31Date
                         End If
-                    Else
-                        Me.CurrentHoursEntryFlag = BO.p31HoursEntryFlagENUM.NeniCas
-                    End If
+                        If .p33ID = BO.p33IdENUM.Cas Then
+                            If .p31HoursEntryFlag = BO.p31HoursEntryFlagENUM.NeniCas Then
+                                Me.CurrentHoursEntryFlag = BO.p31HoursEntryFlagENUM.Hodiny
+                            End If
+                        Else
+                            Me.CurrentHoursEntryFlag = BO.p31HoursEntryFlagENUM.NeniCas
+                        End If
 
-                    Me.MyDefault_VatRate = .p31VatRate_Orig
-                End With
-            Else
-                'uživatel zatím nezapsal žádný worksheet úkon
-                Me.CurrentHoursEntryFlag = BO.p31HoursEntryFlagENUM.Hodiny
+                        Me.MyDefault_VatRate = .p31VatRate_Orig
+                    End With
+                Else
+                    'uživatel zatím nezapsal žádný worksheet úkon
+                    Me.CurrentHoursEntryFlag = BO.p31HoursEntryFlagENUM.Hodiny
 
+                End If
             End If
+            
         End If
         If Request.Item("p91id") <> "" Then Me.CurrentP91ID = BO.BAS.IsNullInt(Request.Item("p91id"))
 
@@ -298,7 +313,7 @@
         If Request.Item("p32id") <> "" Then
             Me.MyDefault_p32ID = BO.BAS.IsNullInt(Request.Item("p32id"))
         End If
-        
+
         If Request.Item("p31date") <> "" Then
             Me.MyDefault_p31Date = BO.BAS.ConvertString2Date(Request.Item("p31date"))
         End If
@@ -370,7 +385,7 @@
                     p41ID.Text = _Project.ProjectWithMask(Master.Factory.SysUser.j03ProjectMaskIndex)
                 End If
             End If
-           
+
             If Request.Item("t1") <> "" And Request.Item("t2") <> "" Then Me.CurrentIsScheduler = True
             If Master.DataPID = 0 And Me.CurrentIsScheduler Then
                 Me.CurrentHoursEntryFlag = BO.p31HoursEntryFlagENUM.PresnyCasOdDo   'požadavek na zápis hodin z denního kalendáře, přepnout na čas od/do
@@ -386,7 +401,7 @@
 
             End If
         End If
-        
+
 
     End Sub
 

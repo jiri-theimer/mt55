@@ -655,7 +655,7 @@
     <asp:HiddenField ID="hidDefaultJ27ID" runat="server" />
     <asp:HiddenField ID="hidDefaultVatRate" runat="server" />
     <asp:HiddenField ID="hidGuidApprove" runat="server" />
-
+    
 
     <script type="text/javascript">
         $(function () {
