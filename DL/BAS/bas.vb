@@ -386,6 +386,8 @@
                                                 ss = " IS NULL"
                                             Case "NOTEMPTY"
                                                 ss = " IS NOT NULL"
+                                            Case "NOTCONTAIN"
+                                                ss = " NOT LIKE " & BO.BAS.GS("%" & c.j71ValueString & "%")
                                         End Select
                                         If strW = "" Then
                                             strW = strField & ss

@@ -93,6 +93,7 @@
                             <asp:ListItem Value="EQUAL" Text="Je rovno"></asp:ListItem>
                             <asp:ListItem Value="NOTEMPTY" Text="Není prázdné"></asp:ListItem>
                             <asp:ListItem Value="EMPTY" Text="Je prázdné"></asp:ListItem>
+                            <asp:ListItem Value="NOTCONTAIN" Text="Neobsahuje"></asp:ListItem>
                         </asp:DropDownList>
                         <asp:TextBox ID="txtStringValue" runat="server" Width="100px"></asp:TextBox>
                         <asp:Button ID="cmdAdd2QueryString" runat="server" CssClass="cmd" Text="Přidat do podmínky filtru" />

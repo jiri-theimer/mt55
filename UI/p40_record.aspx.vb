@@ -56,7 +56,7 @@
             Me.j27ID.SelectedValue = Master.Factory.x35GlobalParam.j27ID_Invoice.ToString
             Me.p40FirstSupplyDate.SelectedDate = DateSerial(Year(Now), Month(Now) + 1, 1).AddDays(-1)
             Me.p40LastSupplyDate.SelectedDate = DateSerial(Year(Now), Month(Now) + 1, 1).AddMonths(12).AddDays(-1)
-            Me.p40GenerateDayAfterSupply.Value = 1
+            Me.p40GenerateDayAfterSupply.Value = -1
             Me.x15ID.SelectedValue = "3"
             Return
         End If

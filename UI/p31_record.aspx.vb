@@ -220,10 +220,19 @@
             Dim cTask As BO.p56Task = Master.Factory.p56TaskBL.LoadByCode(Request.Item("p56code"))
             If Not cTask Is Nothing Then intDefP56ID = cTask.PID Else Master.Notify("Pro předávaný kód úkolu nebyl nalezen záznam.")
         End If
+        If Request.Item("p34id") <> "" Then
+            'uživatel  požaduje zapisovat napřímo do konkrétního sešitu
+            Me.MyDefault_p34ID = BO.BAS.IsNullInt(Request.Item("p34id"))
+            bolInhaleLastRecord = False
+        End If
+        If Request.Item("p32id") <> "" Then
+            Me.MyDefault_p32ID = BO.BAS.IsNullInt(Request.Item("p32id"))
+            bolInhaleLastRecord = False
+        End If
         'dál se pokračuje pouze pro nové záznamy
         If Master.DataPID = 0 Then
             If Request.Item("tempsource") <> "" Then
-                bolInhaleLastRecord = True
+                bolInhaleLastRecord = False
                 'překlopení temp záznamu do worksheet úkonu
                 Dim cTemp As BO.p85TempBox = Master.Factory.p85TempBoxBL.LoadByGUID(Request.Item("tempsource"))
                 With cTemp
@@ -302,17 +311,11 @@
 
                 End If
             End If
-            
+
         End If
         If Request.Item("p91id") <> "" Then Me.CurrentP91ID = BO.BAS.IsNullInt(Request.Item("p91id"))
 
-        If Request.Item("p34id") <> "" Then
-            'uživatel  požaduje zapisovat napřímo do konkrétního sešitu
-            Me.MyDefault_p34ID = BO.BAS.IsNullInt(Request.Item("p34id"))
-        End If
-        If Request.Item("p32id") <> "" Then
-            Me.MyDefault_p32ID = BO.BAS.IsNullInt(Request.Item("p32id"))
-        End If
+        
 
         If Request.Item("p31date") <> "" Then
             Me.MyDefault_p31Date = BO.BAS.ConvertString2Date(Request.Item("p31date"))
