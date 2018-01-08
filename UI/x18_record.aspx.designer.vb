@@ -320,6 +320,15 @@ Partial Public Class x18_record
     Protected WithEvents x18EntryCodeFlag As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''x38ID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents x38ID As Global.UI.datacombo
+
+    '''<summary>
     '''x18EntryOrdinaryFlag control.
     '''</summary>
     '''<remarks>

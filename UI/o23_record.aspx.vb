@@ -94,7 +94,7 @@ Public Class o23_record
                     Select Case c.x18EntryCodeFlag
                         Case BO.x18EntryCodeENUM.NotUsed
                             lblo23Code.Visible = False : Me.o23Code.Visible = False
-                        Case BO.x18EntryCodeENUM.AutoP41, BO.x18EntryCodeENUM.AutoX18
+                        Case BO.x18EntryCodeENUM.AutoP41, BO.x18EntryCodeENUM.AutoX18, BO.x18EntryCodeENUM.X38ID
                             If Master.DataPID = 0 Then
                                 Me.o23Code.Visible = False : lblo23Code.Visible = False
                             Else

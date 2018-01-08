@@ -41,6 +41,15 @@ Partial Public Class flexibee
     Protected WithEvents rp1 As Global.System.Web.UI.WebControls.Repeater
 
     '''<summary>
+    '''cmdRefresh control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cmdRefresh As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
     '''Master property.
     '''</summary>
     '''<remarks>

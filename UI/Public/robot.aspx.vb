@@ -279,12 +279,14 @@
             If cP34.p33ID = BO.p33IdENUM.PenizeBezDPH Or cP34.p33ID = BO.p33IdENUM.PenizeVcDPHRozpisu Then
                 .j27ID_Billing_Orig = cRec.j27ID
                 .x15ID = cRec.x15ID
-                If cRec.x15ID > BO.x15IdEnum.BezDPH Then
-                    Dim lisVR As IEnumerable(Of BO.p53VatRate) = _lisP53.Where(Function(p) p.j27ID = cRec.j27ID And p.x15ID = cRec.x15ID)
-                    If lisVR.Count > 0 Then
-                        .VatRate_Orig = lisVR(0).p53Value
-                    End If
-                End If
+                .VatRate_Orig = _Factory.p31WorksheetBL.CalculateVatRate(.p41ID, .p31Date, cRec.j27ID, CInt(.x15ID))
+                'If cRec.x15ID > BO.x15IdEnum.BezDPH Then
+                '    Dim cP41 As BO.p41Project = _Factory.p41ProjectBL.Load(.p41ID)
+                '    Dim lisVR As IEnumerable(Of BO.p53VatRate) = _lisP53.Where(Function(p) p.j27ID = cRec.j27ID And p.x15ID = cRec.x15ID)
+                '    If lisVR.Count > 0 Then
+                '        .VatRate_Orig = lisVR(0).p53Value
+                '    End If
+                'End If
 
                 .Amount_WithoutVat_Orig = cRec.p40Value
                 If cP34.p33ID = BO.p33IdENUM.PenizeVcDPHRozpisu Or cRec.x15ID > BO.x15IdEnum.Nic Then

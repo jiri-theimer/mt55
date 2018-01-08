@@ -99,4 +99,27 @@ Public Class flexibee
     Private Sub cmdLoadFaktury_Click(sender As Object, e As EventArgs) Handles cmdLoadFaktury.Click
         RefreshFaktury()
     End Sub
+
+    Private Sub cmdRefresh_Click(sender As Object, e As EventArgs) Handles cmdRefresh.Click
+        Dim mq As New BO.myQueryP31
+        mq.QuickQuery = BO.myQueryP31_QuickQuery.Is_p31Code
+        _lisP31 = Master.Factory.p31WorksheetBL.GetList(mq)
+
+        For Each ri As RepeaterItem In rp1.Items
+            Dim strCode As String = CType(ri.FindControl("kod"), Label).Text
+            
+            If strCode <> "" Then
+                With CType(ri.FindControl("linkP31"), HyperLink)
+                    If _lisP31.Where(Function(p) p.p31Code = strCode).Count > 0 Then
+                        .NavigateUrl = "javascript:contMenu('p31_record.aspx?pid=" & _lisP31.Where(Function(p) p.p31Code = strCode)(0).PID.ToString & "',false)"
+                        .Visible = True
+                    Else
+                        .Visible = False
+                    End If
+
+                End With
+            End If
+            
+        Next
+    End Sub
 End Class

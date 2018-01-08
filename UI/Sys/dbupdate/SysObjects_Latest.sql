@@ -2264,6 +2264,61 @@ END
 
 GO
 
+----------FN---------------p31_get_vatrate-------------------------
+
+if exists (select 1 from sysobjects where  id = object_id('p31_get_vatrate') and type = 'FN')
+ drop function p31_get_vatrate
+GO
+
+
+CREATE  FUNCTION [dbo].[p31_get_vatrate](@p41id int,@dat datetime,@j27id int,@x15id int)
+RETURNS float
+AS
+BEGIN
+   
+  declare @ret float,@j18id int,@p53id int,@j17id int
+
+  if ISNULL(@p41id,0)<>0
+   begin
+    select @j18id=j18id from p41project where p41id=@p41id
+	
+	if @j18id is not null
+	 select @j17id=j17ID FROM j18Region WHERE j18ID=@j18id
+
+   end
+
+  if isnull(@j27id,0)=0
+   select @j27id=convert(int,x35Value) FROM x35GlobalParam WHERE x35Key LIKE 'j27ID_Domestic' AND ISNUMERIC(x35Value)=1
+
+
+  if isnull(@x15id,0)=0
+   select @x15id=convert(int,x35Value) from x35GlobalParam where x35Key LIKE 'x15ID'
+  
+  set @x15id=isnull(@x15id,3)
+
+  
+  if isnull(@j17id,0)<>0 
+    select top 1 @p53id=p53id,@ret=p53value from p53VatRate where j27ID=@j27id AND j17ID=@j17id and x15id=@x15id and p53validfrom<=@dat AND p53validuntil>=@dat ORDER BY p53ValidFrom DESC
+  
+
+  if @p53id is null
+    select top 1 @p53id=p53id,@ret=p53value from p53VatRate where j27ID=@j27id AND j17ID is null and x15id=@x15id and p53validfrom<=@dat AND p53validuntil>=@dat ORDER BY p53ValidFrom DESC
+
+  
+  if @p53id is not null
+    RETURN(@ret)
+    
+  if @ret is null
+   set @ret=0
+
+  RETURN(@ret)
+   
+END
+
+
+
+GO
+
 ----------FN---------------p31_getrate_from_p51id-------------------------
 
 if exists (select 1 from sysobjects where  id = object_id('p31_getrate_from_p51id') and type = 'FN')

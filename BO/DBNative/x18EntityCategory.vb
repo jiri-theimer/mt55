@@ -9,6 +9,7 @@ Public Enum x18EntryCodeENUM
     NotUsed = 2 '2-nepoužívat kód
     AutoX18 = 3 '3-automaticky generovat v rámci štítku
     AutoP41 = 4 '4-automaticky generovat v rámci projektu
+    X38ID = 5     'podle číselné řady
 End Enum
 
 

@@ -46,6 +46,20 @@
 
         Return _cDB.GetRecord(Of BO.p31Worksheet)(s, New With {.j02id_owner = _curUser.j02ID})
     End Function
+
+    Public Function CalculateVatRate(intP41ID As Integer, dat As Date, intJ27ID As Integer, intX15ID As Integer) As Double
+        Dim pars As New DbParameters
+        With pars
+            .Add("p41id", intP41ID, DbType.Int32)
+            .Add("dat", dat, DbType.DateTime)
+            .Add("j27id", intJ27ID, DbType.Int32)
+            .Add("x15id", intX15ID, DbType.Int32)
+        End With
+
+        Dim s As String = "SELECT dbo.p31_get_vatrate(@p41id,@dat,@j27id,@x15id) as Value"
+        Return _cDB.GetRecord(Of BO.GetDouble)(s, pars).Value
+
+    End Function
     Public Function ValidateBeforeSaveOrigRecord(cRecTU As BO.p31WorksheetEntryInput, lisFF As List(Of BO.FreeField)) As BO.p31ValidateBeforeSave
         Dim pars As New DbParameters
         With pars

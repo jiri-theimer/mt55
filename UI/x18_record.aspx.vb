@@ -43,6 +43,10 @@
                 Me.x31ID_Plugin.DataSource = .Factory.x31ReportBL.GetList(New BO.myQuery).Where(Function(p) p.x29ID = BO.x29IdEnum.o23Doc And p.x31FormatFlag = BO.x31FormatFlagENUM.ASPX)
                 Me.x31ID_Plugin.DataBind()
                 Me.x31ID_Plugin.Items.Insert(0, "")
+
+                Dim lisX38 As IEnumerable(Of BO.x38CodeLogic) = Master.Factory.x38CodeLogicBL.GetList(BO.x29IdEnum.o23Doc)
+                Me.x38ID.DataSource = lisX38.Where(Function(p) p.x38IsDraft = False)
+                Me.x38ID.DataBind()
             End With
 
             RefreshRecord()
@@ -98,6 +102,9 @@
             basUI.SelectDropdownlistValue(Me.x18GridColsFlag, CInt(.x18GridColsFlag).ToString)
             basUI.SelectDropdownlistValue(Me.x18EntryNameFlag, CInt(.x18EntryNameFlag).ToString)
             basUI.SelectDropdownlistValue(Me.x18EntryCodeFlag, CInt(.x18EntryCodeFlag).ToString)
+            If .x18EntryCodeFlag = BO.x18EntryCodeENUM.X38ID Then
+                Me.x38ID.SelectedValue = .x38ID.ToString
+            End If
             basUI.SelectDropdownlistValue(Me.x18EntryOrdinaryFlag, CInt(.x18EntryOrdinaryFlag).ToString)
             basUI.SelectDropdownlistValue(Me.x18DashboardFlag, CInt(.x18DashboardFlag).ToString)
             basUI.SelectRadiolistValue(Me.x18UploadFlag, CInt(.x18UploadFlag).ToString)
@@ -311,6 +318,11 @@
             cRec.x18MaxOneFileSize = BO.BAS.IsNullInt(Me.x18MaxOneFileSize.SelectedValue)
             cRec.x18IsAllowEncryption = Me.x18IsAllowEncryption.Checked
             cRec.x31ID_Plugin = BO.BAS.IsNullInt(Me.x31ID_Plugin.SelectedValue)
+            If Me.x38ID.Visible Then
+                cRec.x38ID = BO.BAS.IsNullInt(Me.x38ID.SelectedValue)
+            Else
+                cRec.x38ID = 0
+            End If
 
             If .Save(cRec, lisX20, lisX69, lisX16) Then
                 Master.DataPID = .LastSavedPID
@@ -353,6 +365,11 @@
             Me.panFileSystem.Visible = True
         Else
             Me.panFileSystem.Visible = False
+        End If
+        If x18EntryCodeFlag.SelectedValue = "5" Then
+            Me.x38ID.Visible = True
+        Else
+            Me.x38ID.Visible = False
         End If
     End Sub
 

@@ -1237,16 +1237,24 @@
 
     Private Sub InhaleWorksheetSetting()
         Dim lisPars As New List(Of String)
-        lisPars.Add("p31_default_HoursEntryFlag")
-        lisPars.Add("p31_HoursInputInterval")
-        lisPars.Add("p31_HoursInputFormat")
-        lisPars.Add("p31_TimeInputInterval")
-        lisPars.Add("p31_TimeInput_Start")
-        lisPars.Add("p31_TimeInput_End")
-        lisPars.Add("p31_PreFillP32ID")
+        With lisPars
+            .Add("p31_default_HoursEntryFlag")
+            .Add("p31_HoursInputInterval")
+            .Add("p31_HoursInputFormat")
+            .Add("p31_TimeInputInterval")
+            .Add("p31_TimeInput_Start")
+            .Add("p31_TimeInput_End")
+            .Add("p31_PreFillP32ID")
+            .Add("p31_ppv")
+        End With
+        
+
 
         With Master.Factory.j03UserBL
             .InhaleUserParams(lisPars)
+            If .GetUserParam("p31_ppv", "1") = "2" Then
+                cbxPPV.SelectedValue = "2"
+            End If
             Me.p31_default_HoursEntryFlag.Value = .GetUserParam("p31_default_HoursEntryFlag", "1")
             Me.hidHoursEntryFlag.Value = Me.p31_default_HoursEntryFlag.Value
             Dim intStart As Integer = CInt(.GetUserParam("p31_HoursInputInterval", "30"))
@@ -1409,5 +1417,9 @@
         If Not cRec Is Nothing Then
             strAddMissingItemText = cRec.FullNameDescWithEmail
         End If
+    End Sub
+
+    Private Sub cbxPPV_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbxPPV.SelectedIndexChanged
+        Master.Factory.j03UserBL.SetUserParam("p31_ppv", Me.cbxPPV.SelectedValue)
     End Sub
 End Class

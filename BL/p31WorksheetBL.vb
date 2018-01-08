@@ -50,6 +50,7 @@
     Function SaveFreeFields_Batch_AfterApproving(strP31Guid As String) As Boolean
     Function UpdateTemp_After_EditOrig(intP31ID As Integer, strGUID As String) As Boolean
     Function Get_p72ID_NonBillableWork(intP31ID As Integer) As BO.p72IdENUM
+    Function CalculateVatRate(intP41ID As Integer, dat As Date, intJ27ID As Integer, intX15ID As Integer) As Double
     ''Function GetList_ExpenseSummary(myQuery As BO.myQueryP31) As IEnumerable(Of BO.WorksheetExpenseSummary)
 End Interface
 Class p31WorksheetBL
@@ -473,5 +474,8 @@ Class p31WorksheetBL
     End Function
     Public Function Get_p72ID_NonBillableWork(intP31ID As Integer) As BO.p72IdENUM Implements Ip31WorksheetBL.Get_p72ID_NonBillableWork
         Return _cDL.Get_p72ID_NonBillableWork(intP31ID)
+    End Function
+    Public Function CalculateVatRate(intP41ID As Integer, dat As Date, intJ27ID As Integer, intX15ID As Integer) As Double Implements Ip31WorksheetBL.CalculateVatRate
+        Return _cDL.CalculateVatRate(intP41ID, dat, intJ27ID, intX15ID)
     End Function
 End Class

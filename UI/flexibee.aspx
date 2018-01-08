@@ -9,6 +9,12 @@
             sw_everywhere("flexibee_record.aspx?id="+id);
 
         }
+
+        function hardrefresh(pid, flag) {
+            document.getElementById("<%=me.cmdRefresh.clientid%>").click();
+
+
+        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -86,4 +92,6 @@
             </ItemTemplate>
         </asp:Repeater>
     </table>
+
+    <asp:Button ID="cmdRefresh" runat="server" Style="display: none;" />
 </asp:Content>

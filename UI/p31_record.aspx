@@ -144,13 +144,17 @@
             var withoutvat = new Number;
             var withvat = new Number;
             var vat = new Number;
+            var ppv = document.getElementById("<%=cbxPPV.ClientID%>").value;
+            if (ppv == "")
+                ppv = "1";
 
             pieces_count = $find("<%= p31Calc_Pieces.ClientID%>").get_value();
             pieces_amount = $find("<%= p31Calc_PieceAmount.ClientID%>").get_value();
-            withoutvat = pieces_count * pieces_amount;
 
-            $find("<%= p31Amount_WithoutVat_Orig.ClientID%>").set_value(withoutvat);
-
+            if (ppv == "1") {
+                withoutvat = pieces_count * pieces_amount;
+                $find("<%= p31Amount_WithoutVat_Orig.ClientID%>").set_value(withoutvat);
+            }
             <%If Not Me.p31Amount_WithVat_Orig.Visible Then%>
             return;
             <%End If%>
@@ -158,11 +162,25 @@
             var ss = $find("<%= p31VatRate_Orig.RadComboClientID%>").get_text();
             vatrate = ss.replace(",", ".");
 
-            vat = withoutvat * vatrate / 100;
-            withvat = vat + withoutvat;
+            if (ppv == "2") {
+                //jednotková cena je vč. DPH
+                withvat = pieces_count * pieces_amount;
+                withoutvat = withvat / (1 + vatrate / 100);
+                vat = withvat - withoutvat;
+                $find("<%= p31Amount_WithoutVat_Orig.ClientID%>").set_value(withoutvat);
+                $find("<%= p31Amount_WithVat_Orig.ClientID%>").set_value(withvat);
+                $find("<%= p31Amount_Vat_Orig.ClientID%>").set_value(vat);
+                }
 
-            $find("<%= p31Amount_WithVat_Orig.ClientID%>").set_value(withvat);
-            $find("<%= p31Amount_Vat_Orig.ClientID%>").set_value(vat);
+            if (ppv == "1") {
+                vat = withoutvat * vatrate / 100;
+                withvat = vat + withoutvat;
+                $find("<%= p31Amount_WithVat_Orig.ClientID%>").set_value(withvat);
+                $find("<%= p31Amount_Vat_Orig.ClientID%>").set_value(vat);
+            }
+            
+
+            
         }
 
         function p31Amount_WithoutVat_Orig_OnChanged(sender, eventArgs) {
@@ -234,6 +252,7 @@
                 <%If panM.Visible Then%>
                 if (Number(data.Default_p31Value) != 0) {
                     $find("<%= p31Calc_PieceAmount.ClientID%>").set_value(data.Default_p31Value);
+                    
                     $find("<%= p31Calc_Pieces.ClientID%>").set_value(1);
                     RecalcAmount_ByPieces();
                 }
@@ -545,11 +564,17 @@
                 </td>
                 <td>
                     <asp:Label ID="lblp31Calc_PieceAmount" runat="server" Text="Cena 1 ks:" CssClass="lbl" meta:resourcekey="lblp31Calc_PieceAmount"></asp:Label>
+                    
                 </td>
                 <td>
                     <telerik:RadNumericTextBox ID="p31Calc_PieceAmount" runat="server" Width="100px" NumberFormat-ZeroPattern="n">
                         <ClientEvents OnValueChanged="Calc_OnChanged" />
                     </telerik:RadNumericTextBox>
+
+                    <asp:DropDownList ID="cbxPPV" runat="server" AutoPostBack="true" ToolTip="Povaha kusové ceny z pohledu DPH">
+                        <asp:ListItem Text="Bez DPH" Value="1" Selected="true"></asp:ListItem>
+                        <asp:ListItem Text="Vč.DPH" Value="2"></asp:ListItem>
+                    </asp:DropDownList>
                 </td>
                 <td>
                     <asp:DropDownList ID="j19ID" runat="server" DataValueField="pid" DataTextField="j19Name"></asp:DropDownList>

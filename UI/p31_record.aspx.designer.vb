@@ -410,6 +410,15 @@ Partial Public Class p31_record
     Protected WithEvents p31Calc_PieceAmount As Global.Telerik.Web.UI.RadNumericTextBox
 
     '''<summary>
+    '''cbxPPV control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cbxPPV As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
     '''j19ID control.
     '''</summary>
     '''<remarks>

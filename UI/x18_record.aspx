@@ -398,12 +398,14 @@
                                 <span>Vyplňování kódu položky:</span>
                             </td>
                             <td>
-                                <asp:DropDownList ID="x18EntryCodeFlag" runat="server">
+                                <asp:DropDownList ID="x18EntryCodeFlag" runat="server" AutoPostBack="true">
                                     <asp:ListItem Text="Ručně" Value="1"></asp:ListItem>
                                     <asp:ListItem Text="Nepoužívat" Value="2" Selected="true"></asp:ListItem>
                                     <asp:ListItem Text="Generovat automaticky v rámci všech dokumentů" Value="3"></asp:ListItem>
                                     <asp:ListItem Text="Generovat automaticky v rámci projektu" Value="4"></asp:ListItem>
+                                    <asp:ListItem Text="Podle zvolené číselné řady" Value="5"></asp:ListItem>
                                 </asp:DropDownList>
+                                <uc:datacombo ID="x38ID" runat="server" DataTextField="x38Name" DataValueField="pid" IsFirstEmptyRow="true" Width="300px"></uc:datacombo>
                             </td>
                         </tr>
                         <tr>

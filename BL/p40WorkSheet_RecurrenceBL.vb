@@ -121,12 +121,14 @@ Class p40WorkSheet_RecurrenceBL
                 .j27ID_Billing_Orig = cRec.j27ID
                 .x15ID = cRec.x15ID
                 If cRec.x15ID > BO.x15IdEnum.BezDPH Then
-                    Dim lisP53 As IEnumerable(Of BO.p53VatRate) = Factory.p53VatRateBL.GetList(New BO.myQuery)
+                    .VatRate_Orig = Factory.p31WorksheetBL.CalculateVatRate(.p41ID, .p31Date, cRec.j27ID, CInt(.x15ID))
 
-                    Dim lisVR As IEnumerable(Of BO.p53VatRate) = lisP53.Where(Function(p) p.j27ID = cRec.j27ID And p.x15ID = cRec.x15ID)
-                    If lisVR.Count > 0 Then
-                        .VatRate_Orig = lisVR(0).p53Value
-                    End If
+                    ''Dim lisP53 As IEnumerable(Of BO.p53VatRate) = Factory.p53VatRateBL.GetList(New BO.myQuery)
+
+                    ''Dim lisVR As IEnumerable(Of BO.p53VatRate) = lisP53.Where(Function(p) p.j27ID = cRec.j27ID And p.x15ID = cRec.x15ID)
+                    ''If lisVR.Count > 0 Then
+                    ''    .VatRate_Orig = lisVR(0).p53Value
+                    ''End If
                 Else
                     .VatRate_Orig = 0
                     .Amount_Vat_Orig = 0
