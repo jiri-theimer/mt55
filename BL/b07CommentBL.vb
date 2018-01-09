@@ -72,7 +72,7 @@ Class b07CommentBL
                 End If
             End If
            
-            Me.RaiseAppEvent(BO.x45IDEnum.b07_new, Me.LastSavedPID)
+            ''Me.RaiseAppEvent(BO.x45IDEnum.b07_new, Me.LastSavedPID)
 
             Return True
         Else

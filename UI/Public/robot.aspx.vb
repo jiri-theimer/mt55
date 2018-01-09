@@ -224,7 +224,7 @@
                 With cNew
                     .p56RecurMotherID = intMotherPID
                     .p56RecurBaseDate = cRD.DatBase
-                    .p65ID = 0 : .p56Code = "" : .ValidFrom = _curNow
+                    .p65ID = 0 : .p56Code = "" : .ValidFrom = _curNow : .ValidUntil = DateSerial(3000, 1, 1)
                     If c.p56RecurNameMask <> "" Then .p56Name = c.p56RecurNameMask
                     .p56PlanUntil = cRD.DatPlanUntil
                     .p56PlanFrom = cRD.DatPlanFrom

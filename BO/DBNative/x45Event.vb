@@ -67,7 +67,7 @@
     p30_new = 33001
     p30_delete = 33005
 
-    b07_new = 60701
+    ''b07_new = 60701
 End Enum
 
 Public Class x45Event
