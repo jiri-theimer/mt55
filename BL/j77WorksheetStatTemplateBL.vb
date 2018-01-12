@@ -58,6 +58,8 @@ Class j77WorksheetStatTemplateBL
         Dim lis As New List(Of BO.PivotSumField)
 
         lis.Add(New BO.PivotSumField(BO.PivotSumFieldType.p31Hours_Orig))
+        lis.Add(New BO.PivotSumField(BO.PivotSumFieldType.p31Hours_Orig_Fa))
+        lis.Add(New BO.PivotSumField(BO.PivotSumFieldType.p31Hours_Orig_NeFa))
         If Not bolHideRatesColumns Then
             lis.Add(New BO.PivotSumField(BO.PivotSumFieldType.p31Amount_WithoutVat_Orig))
         End If

@@ -838,6 +838,8 @@ Class j70QueryTemplateBL
             .Add(AGC(My.Resources.common.VykazanaHodnota, "p31Value_Orig", BO.cfENUM.Numeric2, , , True, , "Vykázáno"))
             .Add(AGC(My.Resources.common.VykazaneHodiny, "p31Hours_Orig", BO.cfENUM.Numeric2, , , True, , "Vykázáno"))
             .Add(AGC(My.Resources.common.VykazaneHodinyHHMM, "p31HHMM_Orig", , , "p31Hours_Orig", , , "Vykázáno"))
+            .Add(AGC("Vykázané hodiny Fa", "Vykazano_Hodiny_Fa", BO.cfENUM.Numeric2, , "p31_ocas.Vykazano_Hodiny_Fa", True, "LEFT OUTER JOIN dbo.view_p31_ocas p31_ocas ON a.p31ID=p31_ocas.p31ID", "Vykázáno"))
+            .Add(AGC("Vykázané hodiny NeFa", "Vykazano_Hodiny_NeFa", BO.cfENUM.Numeric2, , "p31_ocas.Vykazano_Hodiny_NeFa", True, "LEFT OUTER JOIN dbo.view_p31_ocas p31_ocas ON a.p31ID=p31_ocas.p31ID", "Vykázáno"))
             If Not bolHideRatesColumns Then
                 .Add(AGC(My.Resources.common.VychoziSazba, "p31Rate_Billing_Orig", BO.cfENUM.Numeric2, , , , , "Vykázáno", "p31Rate_Billing_Orig", "p31Rate_Billing_Orig"))
                 .Add(AGC(My.Resources.common.CastkaBezDPH, "p31Amount_WithoutVat_Orig", BO.cfENUM.Numeric2, , , True, , "Vykázáno"))

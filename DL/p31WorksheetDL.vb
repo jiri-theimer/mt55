@@ -1242,7 +1242,8 @@
             s.Append(" INNER JOIN p56Task p56 ON a.p56ID=p56.p56ID")
         End If
         s.Append(" LEFT OUTER JOIN j27Currency j27 ON a.j27ID_Billing_Orig=j27.j27ID")
-        If Not (BO.BAS.TestPermission(_curUser, BO.x53PermValEnum.GR_P31_Reader) Or BO.BAS.TestPermission(_curUser, BO.x53PermValEnum.GR_P31_Owner)) Then
+        'If Not (BO.BAS.TestPermission(_curUser, BO.x53PermValEnum.GR_P31_Reader) Or BO.BAS.TestPermission(_curUser, BO.x53PermValEnum.GR_P31_Owner)) Then
+        If Not (BO.BAS.TestPermission(_curUser, BO.x53PermValEnum.GR_P31_Approver)) Then
             ''Dim strJ11IDs As String = ""
             ''If _curUser.j11IDs <> "" Then strJ11IDs = "OR x69.j11ID IN (" & _curUser.j11IDs & ")"
 
@@ -1445,14 +1446,20 @@
             For Each c In addCols
                 Dim strField As String = c.ColumnDBName
                 If strField = "" Then strField = c.ColumnName
-                Select Case c.MyTag
-                    Case "all"
-                        s.Append(",max(" & strField & ") AS col" & c.ColumnName)
-                    Case "min"
-                        s.Append(",min(" & strField & ") AS col" & c.ColumnName)
-                    Case "max"
-                        s.Append(",max(" & strField & ") AS col" & c.ColumnName)
-                End Select
+                If c.ColumnType = BO.cfENUM.Checkbox Then
+                    'boolean nemůže mít MAX/MIN operátor
+                    s.Append("," & strField & " AS col" & c.ColumnName)
+                Else
+                    Select Case c.MyTag
+                        Case "all"
+                            s.Append(",max(" & strField & ") AS col" & c.ColumnName)
+                        Case "min"
+                            s.Append(",min(" & strField & ") AS col" & c.ColumnName)
+                        Case "max"
+                            s.Append(",max(" & strField & ") AS col" & c.ColumnName)
+                    End Select
+                End If
+                
                 If c.SqlSyntax_FROM <> "" Then lisSqlFROM.Add(c.SqlSyntax_FROM)
                 
             Next

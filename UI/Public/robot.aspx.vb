@@ -88,9 +88,9 @@
             End If
         End If
 
-        If BO.ASS.GetConfigVal("autobackup", "1") = "1" And Now > Today.AddDays(1).AddMinutes(-60) Then
+        If (BO.ASS.GetConfigVal("autobackup", "1") = "1" And Now > Today.AddDays(1).AddMinutes(-60)) Or Request.Item("backup") = "1" Then
             'zbývá 60 minut do půlnoci na zálohování
-            If IsTime4Run(BO.j91RobotTaskFlag.DbBackup, 60 * 5) Then  'stačí jednou za 5 hodin
+            If IsTime4Run(BO.j91RobotTaskFlag.DbBackup, 60 * 5) Or Request.Item("backup") = "1" Then  'stačí jednou za 5 hodin
                 Handle_DbBackup()
             End If
         End If

@@ -90,6 +90,8 @@ Public Enum PivotSumFieldType
     SI_Profit3 = 62
     SI_Income1 = 63 'odhadované výnosy
 
+    p31Hours_Orig_Fa = 71
+    p31Hours_Orig_NeFa = 72
 End Enum
 Public Class PivotRowColumnField
     Public FieldType As PivotRowColumnFieldType
@@ -262,6 +264,12 @@ Public Class PivotSumField
             Case PivotSumFieldType.p31Hours_Orig
                 _SelectField = "sum(a.p31Hours_Orig)"
                 s = "Vykázané hodiny"
+            Case PivotSumFieldType.p31Hours_Orig_Fa
+                _SelectField = "sum(CASE when p32.p32IsBillable=1 THEN a.p31Hours_Orig END)"
+                s = "Vykázané hodiny Fa"
+            Case PivotSumFieldType.p31Hours_Orig_NeFa
+                _SelectField = "sum(CASE when p32.p32IsBillable=0 THEN a.p31Hours_Orig END)"
+                s = "Vykázané hodiny NeFa"
             Case PivotSumFieldType.p31Hours_WIP
                 _SelectField = "sum(case when a.p71ID IS NULL AND getdate() BETWEEN a.p31ValidFrom AND a.p31ValidUntil THEN a.p31Hours_Orig end)"
                 s = "Rozpracované hodiny"
