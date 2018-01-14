@@ -128,6 +128,7 @@
             pars.Add("p32ID", BO.BAS.IsNullDBKey(.p32ID), DbType.Int32)
             pars.Add("p12TimeStamp", .p12TimeStamp, DbType.DateTime)
             pars.Add("p12Description", .p12Description, DbType.String)
+            pars.Add("p12Duration", .p12Duration, DbType.Int32)
             
             pars.Add("p12validfrom", .ValidFrom, DbType.DateTime)
             pars.Add("p12validuntil", .ValidUntil, DbType.DateTime)

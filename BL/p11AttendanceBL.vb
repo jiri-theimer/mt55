@@ -71,6 +71,13 @@ Class p11AttendanceBL
             If .p12Flag = BO.p12FlagENUM.Aktivita Then
                 If .p32ID = 0 Then _Error = "Aktivita chybí." : Return False
             End If
+            Dim lis As IEnumerable(Of BO.p12Pass) = GetListP12(.p11ID).OrderByDescending(Function(p) p.p12TimeStamp), intDUR As Integer = 0
+            If lis.Count > 0 Then
+                Dim cT As New BO.clsTime
+                intDUR = (cRec.p12TimeStamp.Hour * 60 + cRec.p12TimeStamp.Minute) - (lis(0).p12TimeStamp.Hour * 60 + lis(0).p12TimeStamp.Minute)
+
+            End If
+            cRec.p12Duration = intDUR
 
         End With
         Return _cDL.SaveP12(cRec)

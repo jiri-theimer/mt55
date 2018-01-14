@@ -12,6 +12,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 <div style="background-color:white;">
+    <div class="div6">
+        <asp:Label ID="lblHeader" runat="server" CssClass="page_header_span" Text="Docházka"></asp:Label>
+    </div>
     <telerik:RadDatePicker ID="datToday" runat="server" Width="120px" DateInput-EmptyMessage="Povinný údaj." DateInput-EmptyMessageStyle-ForeColor="red" AutoPostBack="true" SharedCalendarID="SharedCalendar">
         <DateInput ID="DateInput1" DisplayDateFormat="d.M.yyyy ddd" runat="server"></DateInput>
     </telerik:RadDatePicker>

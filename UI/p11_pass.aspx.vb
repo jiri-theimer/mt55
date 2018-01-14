@@ -25,7 +25,7 @@
 
             Dim mq As New BO.myQueryP32
 
-            p32ID.DataSource = Master.Factory.p32ActivityBL.GetList(mq)
+            p32ID.DataSource = Master.Factory.p32ActivityBL.GetList(mq).Where(Function(p) p.p32AttendanceFlag > BO.p32AttendanceFlagENUM._None)
             p32ID.DataBind()
 
 
@@ -120,14 +120,16 @@
         Else
             Me.p32ID.Visible = False
         End If
+        cmdNew.Text = String.Format("Zapsat záznam docházky ({0})", Format(datToday.SelectedDate, "dd.MM.yyyy"))
     End Sub
 
     Private Sub cmdNew_Click(sender As Object, e As EventArgs) Handles cmdNew.Click
         Me.p12Flag.Items.FindByValue("1").Enabled = True
         Me.p12Flag.Items.FindByValue("2").Enabled = True
         Me.p12Flag.Items.FindByValue("3").Enabled = True
+        Me.p12Description.Text = ""
 
-        Dim lis As IEnumerable(Of BO.p12Pass) = Master.Factory.p11AttendanceBL.GetListP12(Me.CurrentP11ID).OrderBy(Function(p) p.p12TimeStamp)
+        Dim lis As IEnumerable(Of BO.p12Pass) = Master.Factory.p11AttendanceBL.GetListP12(Me.CurrentP11ID).OrderByDescending(Function(p) p.p12TimeStamp)
         Dim cRecLast As BO.p12Pass = Nothing
         If lis.Count > 0 Then cRecLast = lis(0)
         If cRecLast Is Nothing Then
@@ -140,9 +142,8 @@
                     Me.p12Flag.Items.FindByValue("1").Enabled = False
                     Me.p12Flag.SelectedValue = "2"
                 Case BO.p12FlagENUM.Odchod
-                    Me.p12Flag.SelectedValue = "1"
-                    Me.p12Flag.Items.FindByValue("2").Enabled = False
-                    Me.p12Flag.Items.FindByValue("3").Enabled = False
+                    Master.Notify("Po odchodu je již docházka uzavřena.", NotifyLevel.InfoMessage)
+                    Return
                 Case BO.p12FlagENUM.Aktivita
                     Me.p12Flag.SelectedValue = "1"
             End Select
