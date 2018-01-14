@@ -105,6 +105,7 @@
     <Compile Include="DBNative\o51Tag.vb" />
     <Compile Include="DBNative\o52TagBinding.vb" />
     <Compile Include="DBNative\p11Attendance.vb" />
+    <Compile Include="DBNative\p12Pass.vb" />
     <Compile Include="DBNative\p27ContactPersonRole.vb" />
     <Compile Include="DBNative\p38ActivityTag.vb" />
     <Compile Include="DBNative\p39WorkSheet_Recurrence_Plan.vb" />

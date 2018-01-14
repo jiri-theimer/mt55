@@ -286,6 +286,7 @@
     <Content Include="o48_record.aspx" />
     <Content Include="o51_querybuilder.aspx" />
     <Content Include="p11_framework.aspx" />
+    <Content Include="p11_pass.aspx" />
     <Content Include="p28_framework.aspx" />
     <Content Include="p28_framework_detail.aspx" />
     <Content Include="p28_framework_detail_p90.aspx" />
@@ -1452,6 +1453,13 @@
     </Compile>
     <Compile Include="p11_framework.aspx.vb">
       <DependentUpon>p11_framework.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="p11_pass.aspx.designer.vb">
+      <DependentUpon>p11_pass.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="p11_pass.aspx.vb">
+      <DependentUpon>p11_pass.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="p28_framework.aspx.designer.vb">

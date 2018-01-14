@@ -7,6 +7,11 @@ Public Interface Ip11AttendanceBL
     Function Delete(intPID As Integer) As Boolean
     Function GetList(mq As BO.myQuery, Optional intJ02ID As Integer = 0) As IEnumerable(Of BO.p11Attendance)
     Function FindDefaultP41ID() As Integer
+
+    Function LoadP12(intP12ID As Integer) As BO.p12Pass
+    Function GetListP12(intP11ID As Integer) As IEnumerable(Of BO.p12Pass)
+    Function DeleteP12(intP12ID As Integer) As Boolean
+    Function SaveP12(cRec As BO.p12Pass) As Boolean
 End Interface
 Class p11AttendanceBL
     Inherits BLMother
@@ -49,5 +54,25 @@ Class p11AttendanceBL
     End Function
     Public Function FindDefaultP41ID() As Integer Implements Ip11AttendanceBL.FindDefaultP41ID
         Return _cDL.FindDefaultP41ID()
+    End Function
+
+    Public Function LoadP12(intP12ID As Integer) As BO.p12Pass Implements Ip11AttendanceBL.LoadP12
+        Return _cDL.LoadP12(intP12ID)
+    End Function
+    Public Function DeleteP12(intP12ID As Integer) As Boolean Implements Ip11AttendanceBL.DeleteP12
+        Return _cDL.DeleteP12(intP12ID)
+    End Function
+    Public Function GetListP12(intP11ID As Integer) As IEnumerable(Of BO.p12Pass) Implements Ip11AttendanceBL.GetListP12
+        Return _cDL.GetListP12(intP11ID)
+    End Function
+    Public Function SaveP12(cRec As BO.p12Pass) As Boolean Implements Ip11AttendanceBL.SaveP12
+        With cRec
+            If .p11ID = 0 Then _Error = "p11ID missing." : Return False
+            If .p12Flag = BO.p12FlagENUM.Aktivita Then
+                If .p32ID = 0 Then _Error = "Aktivita chybí." : Return False
+            End If
+
+        End With
+        Return _cDL.SaveP12(cRec)
     End Function
 End Class
