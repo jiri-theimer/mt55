@@ -66,20 +66,46 @@ Class p11AttendanceBL
         Return _cDL.GetListP12(intP11ID)
     End Function
     Public Function SaveP12(cRec As BO.p12Pass) As Boolean Implements Ip11AttendanceBL.SaveP12
+        Dim cRecPrev As BO.p12Pass = Nothing
         With cRec
+            If .p12TimeStamp > Now Then
+                _Error = "Docházku nelze zapisovat do budoucna!" : Return False
+            End If
             If .p11ID = 0 Then _Error = "p11ID missing." : Return False
             If .p12Flag = BO.p12FlagENUM.Aktivita Then
                 If .p32ID = 0 Then _Error = "Aktivita chybí." : Return False
             End If
-            Dim lis As IEnumerable(Of BO.p12Pass) = GetListP12(.p11ID).OrderByDescending(Function(p) p.p12TimeStamp), intDUR As Integer = 0
+            Dim lis As IEnumerable(Of BO.p12Pass) = GetListP12(cRec.p11ID).OrderByDescending(Function(p) p.p12TimeStamp), intDUR As Integer = 0
             If lis.Count > 0 Then
+                cRecPrev = lis(0)
+                If cRec.p12TimeStamp < cRecPrev.p12TimeStamp Then
+                    _Error = cRec.p12TimeStamp & "#" & String.Format(cRec.p11ID & "Čas musí být větší než {0}", Format(cRecPrev.p12TimeStamp), "dd.MM.yyyy HH:mm") : Return False
+                End If
                 Dim cT As New BO.clsTime
-                intDUR = (cRec.p12TimeStamp.Hour * 60 + cRec.p12TimeStamp.Minute) - (lis(0).p12TimeStamp.Hour * 60 + lis(0).p12TimeStamp.Minute)
+                intDUR = (cRec.p12TimeStamp.Hour * 60 + cRec.p12TimeStamp.Minute) - (cRecPrev.p12TimeStamp.Hour * 60 + cRecPrev.p12TimeStamp.Minute)
 
             End If
             cRec.p12Duration = intDUR
 
         End With
-        Return _cDL.SaveP12(cRec)
+        If _cDL.SaveP12(cRec) Then
+            If Not cRecPrev Is Nothing Then
+                If cRecPrev.p32ID > 0 Then
+                    cRecPrev.p12ActivityDuration = (cRec.p12TimeStamp.Hour * 60 + cRec.p12TimeStamp.Minute) - (cRecPrev.p12TimeStamp.Hour * 60 + cRecPrev.p12TimeStamp.Minute)
+                    _cDL.SaveP12(cRecPrev)
+                End If
+            End If
+            If cRec.p12Flag = BO.p12FlagENUM.Odchod Then
+                Dim cP11 As BO.p11Attendance = Load(cRec.p11ID)
+                cP11.p11TodayEnd = cRec.p12TimeStamp
+                Save(cP11)
+            End If
+
+            Return True
+        Else
+            Return False
+        End If
+
+
     End Function
 End Class

@@ -6,7 +6,11 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <script type="text/javascript">
+        function report() {
 
+            sw_everywhere("report_modal.aspx?prefix=j02&pid=<%=Master.Factory.SysUser.j02ID%>", "Images/reporting.png", true);
+
+        }
 
     </script>
 </asp:Content>
@@ -19,6 +23,8 @@
         <DateInput ID="DateInput1" DisplayDateFormat="d.M.yyyy ddd" runat="server"></DateInput>
     </telerik:RadDatePicker>
     <asp:Button ID="cmdNew" runat="server" CssClass="cmd" Text="Zapsat záznam docházky" />
+
+    <asp:HyperLink ID="cmdReport" runat="server" Text="Tisková sestava" NavigateUrl="javascript:report()" Style="float: right;margin-right:20px;" meta:resourcekey="cmdReport"></asp:HyperLink>
 
     <asp:Panel ID="panRecord" runat="server" CssClass="content-box2" style="width:600px;" Visible="false">
         <div class="title">
@@ -82,9 +88,11 @@
         <tr>
             <th>
             </th>
-            <th>Čas
+            <th>
+                Čas
             </th>
-            <th>Trvání
+            <th style="width:80px;text-align:right;">
+                Trvání
             </th>
         </tr>
         <asp:Repeater ID="rp1" runat="server">
@@ -96,7 +104,7 @@
                     <td>
                         <asp:Label ID="p12TimeStamp" runat="server"></asp:Label>
                     </td>
-                    <td>
+                    <td style="width:80px;text-align:right;">
                         <asp:Label ID="Duration" runat="server"></asp:Label>
                     </td>
                     <td>
@@ -105,6 +113,17 @@
                 </tr>
             </ItemTemplate>
         </asp:Repeater>
+         <tr>
+            <th>
+
+            </th>
+            <th>
+                
+            </th>
+            <th style="width:80px;text-align:right;">
+                <asp:Label ID="TotalDuration" CssClass="valbold" runat="server"></asp:Label>
+            </th>
+        </tr>
     </table>
 
     <asp:HiddenField ID="hidP11ID" runat="server" />

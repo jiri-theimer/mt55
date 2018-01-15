@@ -13,4 +13,5 @@ Public Class p12Pass
     Public Property p32Name As String
     Public Property p12Flag As p12FlagENUM
     Public Property p12Duration As Integer
+    Public Property p12ActivityDuration As Integer
 End Class

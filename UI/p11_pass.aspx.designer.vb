@@ -41,6 +41,15 @@ Partial Public Class p11_pass
     Protected WithEvents cmdNew As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
+    '''cmdReport control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cmdReport As Global.System.Web.UI.WebControls.HyperLink
+
+    '''<summary>
     '''panRecord control.
     '''</summary>
     '''<remarks>
@@ -102,6 +111,15 @@ Partial Public Class p11_pass
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents rp1 As Global.System.Web.UI.WebControls.Repeater
+
+    '''<summary>
+    '''TotalDuration control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents TotalDuration As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''hidP11ID control.

@@ -98,7 +98,7 @@
     Public Function GetListP12(intP11ID As Integer) As IEnumerable(Of BO.p12Pass)
         Dim pars As New DbParameters
         pars.Add("p11id", intP11ID, DbType.Int32)
-        Dim s As String = "SELECT a.*,p32.p32Name FROM p12Pass a INNER JOIN p11Attendance p11 ON a.p11ID=p11.p11ID LEFT OUTER JOIN p32Activity p32 ON a.p32ID=p32.p32ID"
+        Dim s As String = "SELECT a.*,p32.p32Name," & bas.RecTail("p12", "a") & " FROM p12Pass a INNER JOIN p11Attendance p11 ON a.p11ID=p11.p11ID LEFT OUTER JOIN p32Activity p32 ON a.p32ID=p32.p32ID"
         s += " WHERE a.p11ID=@p11id"
         Return _cDB.GetList(Of BO.p12Pass)(s, pars)
     End Function
@@ -129,6 +129,7 @@
             pars.Add("p12TimeStamp", .p12TimeStamp, DbType.DateTime)
             pars.Add("p12Description", .p12Description, DbType.String)
             pars.Add("p12Duration", .p12Duration, DbType.Int32)
+            pars.Add("p12ActivityDuration", .p12ActivityDuration, DbType.Int32)
             
             pars.Add("p12validfrom", .ValidFrom, DbType.DateTime)
             pars.Add("p12validuntil", .ValidUntil, DbType.DateTime)
