@@ -562,7 +562,7 @@
                     </tr>
                     <tr>
                         <td id="rlbl">
-                            <asp:Label ID="lblProforma" runat="server" Text="Částka zálohy:" CssClass="lbl"></asp:Label>
+                            <asp:Label ID="lblProforma" runat="server" Text="Úhrada zálohy:" CssClass="lbl"></asp:Label>
                         </td>
                         <td align="right">
                             <asp:Label ID="p91ProformaAmount" runat="server" CssClass="valboldblue"></asp:Label>

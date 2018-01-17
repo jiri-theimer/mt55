@@ -44,9 +44,16 @@
 
 
                 <asp:Label ID="AfterPerc" runat="server" CssClass="valbold"></asp:Label>
+                <div>
+                <span>Bez DPH ručně:</span>
+                <telerik:RadNumericTextBox ID="p99Amount_WithoutVat" runat="server" Width="100px"></telerik:RadNumericTextBox>
+                
+                </div>
             </td>
         </tr>
     </table>
+
+    
 
 
     <asp:Panel ID="panP99" runat="server" CssClass="content-box2" Visible="false">
@@ -63,6 +70,10 @@
                             </td>
                             <td style="font-weight: bold; text-align: right;">
                                 <%#BO.BAS.FN(Eval("p99Amount"))%>
+                                
+                            </td>
+                            <td>
+                                (bez dph: <%#BO.BAS.FN(Eval("p99Amount_WithoutVat"))%>, dph: <%#BO.BAS.FN(Eval("p99Amount_Vat"))%>)
                             </td>
                             <td>
                                 <asp:Button ID="cmdDelete" runat="server" CssClass="cmd" Text="Odstranit vazbu" />

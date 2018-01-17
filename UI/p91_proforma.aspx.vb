@@ -65,10 +65,13 @@
                 Master.Notify("Chybí úhrada zálohové faktury.", NotifyLevel.ErrorMessage)
                 Return
             End If
-
+            Dim dblPerc As Double = CDbl(perc.SelectedValue), cP90 As BO.p90Proforma = Master.Factory.p90ProformaBL.Load(intP90ID)
+            If Me.p99Amount_WithoutVat.Value > 0 Then
+                dblPerc = 100 * CDbl(Me.p99Amount_WithoutVat.Value) / cP90.p90Amount_WithoutVat
+            End If
 
             With Master.Factory.p91InvoiceBL
-                If .SaveP99(Master.DataPID, intP90ID, BO.BAS.IsNullInt(Me.p82ID.SelectedValue), CDbl(perc.SelectedValue)) Then
+                If .SaveP99(Master.DataPID, intP90ID, BO.BAS.IsNullInt(Me.p82ID.SelectedValue), dblPerc) Then
                     Master.CloseAndRefreshParent("p91-save")
                 Else
                     Master.Notify(.ErrorMessage, NotifyLevel.ErrorMessage)
@@ -145,6 +148,7 @@
         If Me.p82ID.Items.Count = 0 Then Return
         Dim c As RealAmount = InhaleAmount()
         Me.AfterPerc.Text = String.Format("Celkem: {0},-, z toho bez DPH: {1},- + DPH: {2},-", BO.BAS.FN(c.Total), BO.BAS.FN(c.WithoutVat), BO.BAS.FN(c.VatAmount))
+        Me.p99Amount_WithoutVat.Value = c.WithoutVat
 
     End Sub
 

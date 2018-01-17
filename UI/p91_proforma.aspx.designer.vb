@@ -113,6 +113,15 @@ Partial Public Class p91_proforma
     Protected WithEvents AfterPerc As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''p99Amount_WithoutVat control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents p99Amount_WithoutVat As Global.Telerik.Web.UI.RadNumericTextBox
+
+    '''<summary>
     '''panP99 control.
     '''</summary>
     '''<remarks>
