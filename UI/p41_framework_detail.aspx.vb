@@ -234,6 +234,7 @@
             Dim lisP30 As IEnumerable(Of BO.j02Person) = Master.Factory.p30Contact_PersonBL.GetList_J02(cRec.p28ID_Client, Master.DataPID, False)
             If lisP30.Count > 0 Then
                 Me.boxP30.Visible = True
+                cmdEditP30.Visible = Master.Factory.TestPermission(BO.x53PermValEnum.GR_J02_ContactPerson_Create)
                 Me.persons1.FillData(lisP30, Master.Factory.SysUser.j04IsMenu_People)
                 With Me.boxP30Title
                     .Text = BO.BAS.OM2(.Text, lisP30.Count.ToString)
@@ -296,7 +297,7 @@
             imgFavourite.Visible = True
         End If
 
-        RefreshP40(cRecSum)
+        RefreshP40(cRecSum, cDisp)
 
         If cRecSum.b07_Count > 0 Or cRec.b01ID <> 0 Then
             comments1.Visible = True
@@ -358,11 +359,21 @@
     End Sub
   
 
-    Private Sub RefreshP40(cRecSum As BO.p41ProjectSum)
+    Private Sub RefreshP40(cRecSum As BO.p41ProjectSum, cDisp As BO.p41RecordDisposition)
+        If Not Master.Factory.TestPermission(BO.x53PermValEnum.GR_P31_AllowRates) Then
+            boxP40.Visible = False
+            Return
+        End If
         If cRecSum.p40_Exist Then
             Dim lisP40 As IEnumerable(Of BO.p40WorkSheet_Recurrence) = Master.Factory.p40WorkSheet_RecurrenceBL.GetList(Master.DataPID, 0)
             rpP40.DataSource = lisP40
             rpP40.DataBind()
+            If Not cDisp.OwnerAccess Then
+                For Each ri As RepeaterItem In rpP40.Items
+                    CType(ri.FindControl("p40Name"), HyperLink).Enabled = False
+                    ri.FindControl("linkChrono").Visible = False
+                Next
+            End If
         Else
             cRecSum.p40_Exist = False
         End If
