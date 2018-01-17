@@ -29,6 +29,14 @@ Public Class binaryfile
                 strDestFileName = Request.Item("uploadedfile")
                 strContentType = (New BO.clsFile).GetContentType(strFullPath)
             End If
+            If Request.Item("backupfile") <> "" Then
+                strFullPath = BO.ASS.GetConfigVal("baredir")
+                If strFullPath = "" Then
+                    strFullPath = factory.x35GlobalParam.UploadFolder & "\dbBackup"
+                End If
+                strFullPath = strFullPath & "\" & Request.Item("backupfile")
+                strDestFileName = Request.Item("backupfile")
+            End If
             If Request.Item("prefix") <> "" And (Request.Item("pid") <> "" Or Request.Item("guid") <> "") Then
                 Select Case Request.Item("prefix")
                     Case "o27"

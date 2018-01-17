@@ -203,6 +203,7 @@
     <Content Include="b07_delete.aspx" />
     <Content Include="b65_record.aspx" />
     <Content Include="barcode.aspx" />
+    <Content Include="bare.aspx" />
     <Content Include="billingmemo.ascx" />
     <Content Include="blank.aspx" />
     <Content Include="changelog.aspx" />
@@ -835,6 +836,13 @@
     </Compile>
     <Compile Include="barcode.aspx.vb">
       <DependentUpon>barcode.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="bare.aspx.designer.vb">
+      <DependentUpon>bare.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="bare.aspx.vb">
+      <DependentUpon>bare.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="bas\clsMergeDOC.vb" />

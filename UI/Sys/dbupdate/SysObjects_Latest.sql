@@ -8139,6 +8139,60 @@ END CATCH
 
 GO
 
+----------P---------------p12_delete-------------------------
+
+if exists (select 1 from sysobjects where  id = object_id('p12_delete') and type = 'P')
+ drop procedure p12_delete
+GO
+
+
+
+
+CREATE   procedure [dbo].[p12_delete]
+@j03id_sys int				--přihlášený uživatel
+,@pid int					--p12ID
+,@err_ret varchar(500) OUTPUT		---případná návratová chyba
+
+AS
+--odstranění záznamu  z tabulky p12Pass
+
+
+
+BEGIN TRANSACTION
+
+BEGIN TRY
+	
+	delete from p12Pass where p12ID=@pid
+
+	COMMIT TRANSACTION
+
+END TRY
+BEGIN CATCH
+  set @err_ret=dbo.parse_errinfo(ERROR_PROCEDURE(),ERROR_LINE(),ERROR_MESSAGE())
+  ROLLBACK TRANSACTION
+  
+END CATCH  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+GO
+
 ----------P---------------p28_aftersave-------------------------
 
 if exists (select 1 from sysobjects where  id = object_id('p28_aftersave') and type = 'P')
@@ -19728,10 +19782,13 @@ GO
 
 
 
+
 CREATE VIEW [dbo].[view_p31_ocas]
 as
 SELECT a.p31ID
 ,case when p32.p32IsBillable=1 then a.p31Amount_WithoutVat_Orig end as Vykazano_Vynos
+,case when p32.p32IsBillable=1 AND p34.p33ID=1 THEN p31Hours_Orig end as Vykazano_Hodiny_Fa
+,case when p32.p32IsBillable=0 AND p34.p33ID=1 THEN p31Hours_Orig end as Vykazano_Hodiny_NeFa
 ,case when p34.p34IncomeStatementFlag=1 and p34.p33ID IN (2,5) then a.p31Amount_WithoutVat_Orig when p34.p33ID=1 THEN p31Rate_Internal_Orig*p31Hours_Orig end as Vykazano_Naklad
 ,case when p34.p34IncomeStatementFlag=1 and p34.p33ID IN (2,5) then a.p31Amount_WithoutVat_Orig when p34.p33ID=1 THEN p31Rate_Overhead*p31Hours_Orig end as Vykazano_Naklad_Rezije
 ,isnull(case when p32.p32IsBillable=1 then a.p31Amount_WithoutVat_Orig end,0)-isnull(case when p34.p34IncomeStatementFlag=1 and p34.p33ID IN (2,5) then a.p31Amount_WithoutVat_Orig when p34.p33ID=1 THEN p31Rate_Internal_Orig*p31Hours_Orig end,0) as Vykazano_Zisk
@@ -19741,6 +19798,7 @@ SELECT a.p31ID
 ,case when a.p91ID IS NOT NULL THEN isnull(a.p31Amount_WithoutVat_Invoiced_Domestic,0)-isnull(case when p34.p34IncomeStatementFlag=1 and p34.p33ID IN (2,5) then a.p31Amount_WithoutVat_Orig when p34.p33ID=1 THEN p31Rate_Internal_Orig*p31Hours_Orig end,0) END as Vyfakturovano_Zisk
 ,case when a.p91ID IS NOT NULL THEN isnull(a.p31Amount_WithoutVat_Invoiced_Domestic,0)-isnull(case when p34.p34IncomeStatementFlag=1 and p34.p33ID IN (2,5) then a.p31Amount_WithoutVat_Orig when p34.p33ID=1 THEN p31Rate_Overhead*p31Hours_Orig end,0) END as Vyfakturovano_Zisk_Rezije
 FROM p31Worksheet a INNER JOIN p32Activity p32 ON a.p32ID=p32.p32ID INNER JOIN p34ActivityGroup p34 ON p32.p34ID=p34.p34ID
+
 
 
 
