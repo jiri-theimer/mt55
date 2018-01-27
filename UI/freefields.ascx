@@ -99,8 +99,8 @@
     function o23_create_x18(x18id) {
         dialog_master("o23_record.aspx?pid=0&x18id=" + x18id, true)
     }
-    function o23_find_x18(x18id,x20id) {
-        dialog_master("o23_queue.aspx?x18id=" + x18id+"&x20id="+x20id, true)
+    function o23_find_x18(x18id, x20id) {
+        dialog_master("o23_queue.aspx?x18id=" + x18id + "&x20id=" + x20id, true)
     }
     function o23_record_x18(o23id, x18id) {
         dialog_master("o23_record.aspx?pid=" + o23id + "&x18id=" + x18id, true)

@@ -2,6 +2,8 @@
     Inherits BOMother
     Public Property p38Name As String
     Public Property p38Code As String
+    Public Property p38FreeText01 As String
+    Public Property p38FreeText02 As String
     Public Property p38Ordinary As Integer
 
     Public ReadOnly Property CodeWithName As String

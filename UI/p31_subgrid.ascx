@@ -51,6 +51,7 @@
                                 </Items>
                             </telerik:RadMenuItem>
                         <telerik:RadMenuItem Value="cmdMove" Text="Přesunout na jiný projekt" NavigateUrl="javascript:move2project_p31ids();" Visible="false"></telerik:RadMenuItem>
+                        <telerik:RadMenuItem Value="cmdTags" Text="Oštítkovat" NavigateUrl="javascript:tags();"></telerik:RadMenuItem>
                         <telerik:RadMenuItem Value="cmdSummary" Text="Statistiky" NavigateUrl="javascript:drilldown_p31ids();"></telerik:RadMenuItem>
 
                     </Items>
@@ -315,5 +316,14 @@
         sw_decide("p31_move2project.aspx?p31ids=" + pids, "Images/cut.png");
     }
 
-    
+    function tags() {
+        var pids = GetAllSelectedPIDs();
+        if (pids == "") {
+            $.alert("Není vybrán ani jeden záznam.");
+            return;
+        }
+        sw_decide("tag_binding.aspx?prefix=p31&pids=" + pids, "Images/tag.png");
+
+       
+    }
 </script>

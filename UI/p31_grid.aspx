@@ -301,7 +301,7 @@
                                 </Items>
                             </telerik:RadMenuItem>
                             <telerik:RadMenuItem Value="cmdMove" Text="Přesunout na jiný projekt" NavigateUrl="javascript:move2project();" ImageUrl="Images/cut.png" Visible="false"></telerik:RadMenuItem>
-                            <telerik:RadMenuItem Value="cmdApprove" Text="Oštítkovat" NavigateUrl="javascript:tags();" ImageUrl="Images/tag.png"></telerik:RadMenuItem>
+                            <telerik:RadMenuItem Value="cmdTags" Text="Oštítkovat" NavigateUrl="javascript:tags();" ImageUrl="Images/tag.png"></telerik:RadMenuItem>
                             <telerik:RadMenuItem Value="cmdSummary" Text="Statistiky" NavigateUrl="javascript:drilldown_p31ids();" ImageUrl="Images/pivot.png"></telerik:RadMenuItem>
                         </Items>
                     </telerik:RadMenuItem>

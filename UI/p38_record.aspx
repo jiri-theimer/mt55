@@ -34,6 +34,22 @@
                 <telerik:RadNumericTextBox ID="p38Ordinary" runat="server" NumberFormat-DecimalDigits="0" Width="50px" ShowSpinButtons="true"></telerik:RadNumericTextBox>
             </td>
         </tr>
+        <tr>
+            <td>
+                <asp:Label ID="Label1" runat="server" Text="Volné pole 1:" CssClass="lbl"></asp:Label>
+            </td>
+            <td>
+                <asp:TextBox ID="p38FreeText01" runat="server" Style="width: 200px;"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <asp:Label ID="Label2" runat="server" Text="Volné pole 2:" CssClass="lbl"></asp:Label>
+            </td>
+            <td>
+                <asp:TextBox ID="p38FreeText02" runat="server" Style="width: 200px;"></asp:TextBox>
+            </td>
+        </tr>
     </table>
 
     

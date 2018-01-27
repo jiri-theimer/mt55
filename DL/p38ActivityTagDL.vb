@@ -21,6 +21,8 @@
         With cRec
             pars.Add("p38Name", .p38Name, DbType.String, , , True, "Název")
             pars.Add("p38Code", .p38Code, DbType.String, , , True, "Kód")
+            pars.Add("p38FreeText01", .p38FreeText01, DbType.String, , , True, "Volné pole 1")
+            pars.Add("p38FreeText02", .p38FreeText02, DbType.String, , , True, "Volné pole 2")
             pars.Add("p38Ordinary", .p38Ordinary, DbType.Int32)
 
             pars.Add("p38validfrom", .ValidFrom, DbType.DateTime)

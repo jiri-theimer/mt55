@@ -392,23 +392,29 @@ Public Class freefields
                     End If
                 End With
             Case "date", "datetime", "time"
+                ''Me.SharedCalendar.Visible = True
                 With CType(e.Item.FindControl("txtFF_Date"), RadDateInput)
+                    ''.SharedCalendar = Me.SharedCalendar
                     .Visible = True
                     .MinDate = DateSerial(1900, 1, 1)
-                    .MaxDate = DateSerial(2100, 1, 1)
+                    .MaxDate = DateSerial(3000, 1, 1)
                     Select Case cRec.TypeName
                         Case "datetime"
                             .DateFormat = "dd.MM.yyyy HH:mm"
+                            ''.Width = Unit.Parse("140px")
                         Case "time"
                             .DateFormat = "HH:mm"
+
                         Case Else
                             .DateFormat = "dd.MM.yyyy"
                     End Select
+                    ''.DateInput.DisplayDateFormat = .DateInput.DateFormat
 
                     If Not cRec.DBValue Is System.DBNull.Value Then
                         If Year(cRec.DBValue) > 1900 Then .SelectedDate = cRec.DBValue
                     End If
                 End With
+
         End Select
         With cRec
             RaiseEvent RenderField(.x28Name, .x28Field, .TypeName, .DBValue)
@@ -479,6 +485,9 @@ Public Class freefields
                                 cRec.DBValue = Nothing
                             Else
                                 cRec.DBValue = .DbSelectedDate
+                                'cRec.DBValue = .SelectedDate
+                                ''cRec.DBValue = .SelectedDate
+
                             End If
                         End With
                     Case BO.x24IdENUM.tDecimal

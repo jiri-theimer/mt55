@@ -33,6 +33,8 @@
         With cRec
             Me.p38name.Text = .p38Name
             Me.p38Code.Text = .p38Code
+            Me.p38FreeText01.Text = .p38FreeText01
+            Me.p38FreeText02.Text = .p38FreeText02
 
             Master.Timestamp = .Timestamp
             Me.p38Ordinary.Value = .p38Ordinary
@@ -60,6 +62,8 @@
             Dim cRec As BO.p38ActivityTag = IIf(Master.DataPID <> 0, .Load(Master.DataPID), New BO.p38ActivityTag)
             cRec.p38Name = Me.p38name.Text
             cRec.p38Code = Me.p38Code.Text
+            cRec.p38FreeText01 = Me.p38FreeText01.Text
+            cRec.p38FreeText02 = Me.p38FreeText02.Text
             cRec.p38Ordinary = BO.BAS.IsNullInt(Me.p38Ordinary.Value)
 
             If .Save(cRec) Then
