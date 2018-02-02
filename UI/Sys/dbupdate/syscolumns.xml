@@ -58189,44 +58189,44 @@
     <TableName>p38ActivityTag</TableName>
   </Table>
   <Table>
-    <name>p38DateInsert</name>
+    <name>p38FreeText01</name>
     <id>187147712</id>
-    <xtype>61</xtype>
-    <typestat>0</typestat>
-    <xusertype>61</xusertype>
-    <length>8</length>
-    <xprec>23</xprec>
-    <xscale>3</xscale>
+    <xtype>167</xtype>
+    <typestat>2</typestat>
+    <xusertype>167</xusertype>
+    <length>50</length>
+    <xprec>0</xprec>
+    <xscale>0</xscale>
     <colid>5</colid>
     <xoffset>0</xoffset>
     <bitpos>0</bitpos>
     <reserved>0</reserved>
     <colstat>0</colstat>
-    <cdefault>235147883</cdefault>
+    <cdefault>0</cdefault>
     <domain>0</domain>
     <number>0</number>
     <colorder>5</colorder>
     <offset>-3</offset>
-    <collationid>0</collationid>
+    <collationid>53252</collationid>
     <language>0</language>
-    <status>8</status>
-    <type>111</type>
-    <usertype>12</usertype>
-    <prec>23</prec>
-    <scale>3</scale>
+    <status>24</status>
+    <type>39</type>
+    <usertype>2</usertype>
+    <prec>50</prec>
     <iscomputed>0</iscomputed>
     <isoutparam>0</isoutparam>
     <isnullable>1</isnullable>
-    <tdscollation>AAAAAAA=</tdscollation>
-    <type_name>datetime</type_name>
+    <collation>Czech_CI_AS</collation>
+    <tdscollation>BQTQAAA=</tdscollation>
+    <type_name>varchar</type_name>
     <TableName>p38ActivityTag</TableName>
   </Table>
   <Table>
-    <name>p38UserInsert</name>
+    <name>p38FreeText02</name>
     <id>187147712</id>
-    <xtype>231</xtype>
+    <xtype>167</xtype>
     <typestat>2</typestat>
-    <xusertype>231</xusertype>
+    <xusertype>167</xusertype>
     <length>50</length>
     <xprec>0</xprec>
     <xscale>0</xscale>
@@ -58244,18 +58244,18 @@
     <language>0</language>
     <status>24</status>
     <type>39</type>
-    <usertype>0</usertype>
+    <usertype>2</usertype>
     <prec>50</prec>
     <iscomputed>0</iscomputed>
     <isoutparam>0</isoutparam>
     <isnullable>1</isnullable>
     <collation>Czech_CI_AS</collation>
     <tdscollation>BQTQAAA=</tdscollation>
-    <type_name>nvarchar</type_name>
+    <type_name>varchar</type_name>
     <TableName>p38ActivityTag</TableName>
   </Table>
   <Table>
-    <name>p38DateUpdate</name>
+    <name>p38DateInsert</name>
     <id>187147712</id>
     <xtype>61</xtype>
     <typestat>0</typestat>
@@ -58268,7 +58268,7 @@
     <bitpos>0</bitpos>
     <reserved>0</reserved>
     <colstat>0</colstat>
-    <cdefault>0</cdefault>
+    <cdefault>235147883</cdefault>
     <domain>0</domain>
     <number>0</number>
     <colorder>7</colorder>
@@ -58288,7 +58288,7 @@
     <TableName>p38ActivityTag</TableName>
   </Table>
   <Table>
-    <name>p38UserUpdate</name>
+    <name>p38UserInsert</name>
     <id>187147712</id>
     <xtype>231</xtype>
     <typestat>2</typestat>
@@ -58321,7 +58321,7 @@
     <TableName>p38ActivityTag</TableName>
   </Table>
   <Table>
-    <name>p38ValidFrom</name>
+    <name>p38DateUpdate</name>
     <id>187147712</id>
     <xtype>61</xtype>
     <typestat>0</typestat>
@@ -58334,11 +58334,77 @@
     <bitpos>0</bitpos>
     <reserved>0</reserved>
     <colstat>0</colstat>
-    <cdefault>251147940</cdefault>
+    <cdefault>0</cdefault>
     <domain>0</domain>
     <number>0</number>
     <colorder>9</colorder>
     <offset>-7</offset>
+    <collationid>0</collationid>
+    <language>0</language>
+    <status>8</status>
+    <type>111</type>
+    <usertype>12</usertype>
+    <prec>23</prec>
+    <scale>3</scale>
+    <iscomputed>0</iscomputed>
+    <isoutparam>0</isoutparam>
+    <isnullable>1</isnullable>
+    <tdscollation>AAAAAAA=</tdscollation>
+    <type_name>datetime</type_name>
+    <TableName>p38ActivityTag</TableName>
+  </Table>
+  <Table>
+    <name>p38UserUpdate</name>
+    <id>187147712</id>
+    <xtype>231</xtype>
+    <typestat>2</typestat>
+    <xusertype>231</xusertype>
+    <length>50</length>
+    <xprec>0</xprec>
+    <xscale>0</xscale>
+    <colid>10</colid>
+    <xoffset>0</xoffset>
+    <bitpos>0</bitpos>
+    <reserved>0</reserved>
+    <colstat>0</colstat>
+    <cdefault>0</cdefault>
+    <domain>0</domain>
+    <number>0</number>
+    <colorder>10</colorder>
+    <offset>-8</offset>
+    <collationid>53252</collationid>
+    <language>0</language>
+    <status>24</status>
+    <type>39</type>
+    <usertype>0</usertype>
+    <prec>50</prec>
+    <iscomputed>0</iscomputed>
+    <isoutparam>0</isoutparam>
+    <isnullable>1</isnullable>
+    <collation>Czech_CI_AS</collation>
+    <tdscollation>BQTQAAA=</tdscollation>
+    <type_name>nvarchar</type_name>
+    <TableName>p38ActivityTag</TableName>
+  </Table>
+  <Table>
+    <name>p38ValidFrom</name>
+    <id>187147712</id>
+    <xtype>61</xtype>
+    <typestat>0</typestat>
+    <xusertype>61</xusertype>
+    <length>8</length>
+    <xprec>23</xprec>
+    <xscale>3</xscale>
+    <colid>11</colid>
+    <xoffset>0</xoffset>
+    <bitpos>0</bitpos>
+    <reserved>0</reserved>
+    <colstat>0</colstat>
+    <cdefault>251147940</cdefault>
+    <domain>0</domain>
+    <number>0</number>
+    <colorder>11</colorder>
+    <offset>-9</offset>
     <collationid>0</collationid>
     <language>0</language>
     <status>8</status>
@@ -58362,7 +58428,7 @@
     <length>8</length>
     <xprec>23</xprec>
     <xscale>3</xscale>
-    <colid>10</colid>
+    <colid>12</colid>
     <xoffset>0</xoffset>
     <bitpos>0</bitpos>
     <reserved>0</reserved>
@@ -58370,8 +58436,8 @@
     <cdefault>267147997</cdefault>
     <domain>0</domain>
     <number>0</number>
-    <colorder>10</colorder>
-    <offset>-8</offset>
+    <colorder>12</colorder>
+    <offset>-10</offset>
     <collationid>0</collationid>
     <language>0</language>
     <status>8</status>

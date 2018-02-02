@@ -58,6 +58,7 @@
         If Request.Item("now") <> "" Then
             bolNowExplicit = True
             _curNow = BO.BAS.ConvertString2Date(Request.Item("now"))
+            log4net.LogManager.GetLogger("robotlog").Info("Explicit _curNow = " & Format(_curNow, "dd.MM.yyyy"))
         End If
 
         Handle_MailQueque()
@@ -214,10 +215,14 @@
         For Each c In lisMothers
             Dim cP65 As BO.p65Recurrence = lisP65.First(Function(p) p.PID = c.p65ID)
             Dim cRD As BO.RecurrenceCalculation = _Factory.p65RecurrenceBL.CalculateDates(cP65, _curNow)
+
+            log4net.LogManager.GetLogger("robotlog").Info("c.PID=" & c.PID.ToString & ", cRD.DatGen=" & cRD.DatGen.ToString & ", cRD.DatBase=" & cRD.DatBase.ToString & ", c.p56RecurBaseDate=" & c.p56RecurBaseDate.ToString)
             
-            If lisChilds.Where(Function(p) p.p56RecurMotherID = c.PID And p.p56RecurBaseDate = cRD.DatBase).Count = 0 And cRD.DatGen <= _curNow And cRD.DatBase > c.p56RecurBaseDate Then
+            If lisChilds.Where(Function(p) p.p56RecurMotherID = c.PID And p.p56RecurBaseDate = cRD.DatBase).Count = 0 And cRD.DatGen <= Now And cRD.DatBase > c.p56RecurBaseDate Then
                 'potomek ještě neexistuje a nastal čas ho vygenerovat
                 'ještě musí platit, že rozhodné datum potomka je větší než rozhodné datum matky
+
+                WL(BO.j91RobotTaskFlag.RecurrenceP56, "", String.Format("Opakovaný úkol k automatickému generování = p56RecurMotherID: {0}, p56RecurBaseDate: {1}, p56RecurNameMask: {2}", c.PID, cRD.DatBase, c.p56RecurNameMask))
 
                 Dim cNew As New BO.p56Task, intMotherPID As Integer = c.PID
                 cNew = c

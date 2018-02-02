@@ -13645,7 +13645,11 @@ BEGIN TRY
 	
 
 	if exists(SELECT o22ID FROM o22Milestone WHERE p41ID=@pid)
+	begin
+	 DELETE FROM o20Milestone_Receiver WHERE o22ID IN (select o22ID FROM o22Milestone WHERE p41ID=@pid)
+
 	 DELETE FROM o22Milestone WHERE p41ID=@pid
+	end
 
 	if exists(select p41ID FROM p41Project_FreeField WHERE p41ID=@pid)
 	 DELETE FROM p41Project_FreeField WHERE p41ID=@pid
@@ -17400,6 +17404,9 @@ else
  begin
   select @amount=p82Amount*@percentage/100,@amount_withoutvat=p82Amount_WithoutVat*@percentage/100 FROM p82Proforma_Payment WHERE p82ID=@p82id
 
+  set @amount=ROUND(@amount,2)
+  set @amount_withoutvat=ROUND(@amount_withoutvat,2)
+
   set @amount_vat=@amount-@amount_withoutvat
  end
 
@@ -17414,7 +17421,7 @@ declare @test_amount1 float,@test_amount2 float
 select @test_amount1=p91Amount_WithVat+isnull(p91RoundFitAmount,0) FROM p91Invoice WHERE p91ID=@p91id
 select @test_amount2=p99Amount FROM p99Invoice_Proforma WHERE p91ID=@p91id
 
-if @test_amount1<(isnull(@test_amount2,0)+@amount)
+if ROUND(@test_amount1,2)<ROUND((isnull(@test_amount2,0)+@amount),2)
  begin
   set @err_ret='Částky úhrad záloh ('+convert(varchar(10),isnull(@test_amount2,0)+@amount)+',-) by dohromady přesáhli částku daňové faktury ('+convert(varchar(10),@test_amount1)+',-)!'
   return
