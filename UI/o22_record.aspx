@@ -141,7 +141,7 @@
             <td>
                 <asp:Label ID="lblReminder" Text="Připomenout událost:" runat="server" CssClass="lbl"></asp:Label></td>
             <td>
-                <telerik:RadNumericTextBox ID="o22ReminderBeforeUnits" runat="server" NumberFormat-DecimalDigits="0" Width="50px" ShowSpinButtons="true" IncrementSettings-Step="1" MinValue="0" MaxValue="100"></telerik:RadNumericTextBox>
+                <telerik:RadNumericTextBox ID="o22ReminderBeforeUnits" runat="server" NumberFormat-DecimalDigits="0" Width="50px" ShowSpinButtons="true" IncrementSettings-Step="1" MinValue="0" MaxValue="180"></telerik:RadNumericTextBox>
                 <asp:DropDownList ID="o22ReminderBeforeMetric" runat="server">
                     <asp:ListItem Text="minut předem" Value="m" Selected="true"></asp:ListItem>
                     <asp:ListItem Text="hodin předem" Value="h"></asp:ListItem>

@@ -254,6 +254,20 @@ Public Class o23_record
                 End If
 
             End If
+            If Request.Item("guid_import") <> "" Then
+                'import z MS-OUTLOOK přes PLUGIN
+                Dim lis As IEnumerable(Of BO.p85TempBox) = Master.Factory.p85TempBoxBL.GetList(Request.Item("guid_import"))
+                If lis.Where(Function(p) p.p85FreeText02 = "o23Name").Count > 0 Then
+                    Me.o23Name.Text = lis.Where(Function(p) p.p85FreeText02 = "o23Name")(0).p85Message
+                End If
+                If lis.Where(Function(p) p.p85FreeText02 = "o23BigText").Count > 0 Then
+                    For Each ri As RepeaterItem In rpX16.Items
+                        If CType(ri.FindControl("x16Field"), HiddenField).Value = "o23BigText" Then
+                            CType(ri.FindControl("txtFF_Text"), TextBox).Text = lis.Where(Function(p) p.p85FreeText02 = "o23BigText")(0).p85Message
+                        End If
+                    Next
+                End If
+            End If
 
             Return      'konec pro režim nového záznamu
         End If

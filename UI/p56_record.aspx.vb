@@ -71,6 +71,20 @@
             Me.p57ID.SelectedValue = Request.Item("p57id")
             Return
         End If
+        If Request.Item("guid_import") <> "" Then
+            'import z MS-OUTLOOK přes PLUGIN
+            Dim lis As IEnumerable(Of BO.p85TempBox) = Master.Factory.p85TempBoxBL.GetList(Request.Item("guid_import"))
+            If lis.Where(Function(p) p.p85FreeText02 = "p56Name").Count > 0 Then
+                Me.p56Name.Text = lis.Where(Function(p) p.p85FreeText02 = "p56Name")(0).p85Message
+            End If
+            If lis.Where(Function(p) p.p85FreeText02 = "p56Description").Count > 0 Then
+                Me.p56Description.Text = lis.Where(Function(p) p.p85FreeText02 = "p56Description")(0).p85Message
+            End If
+            If lis.Where(Function(p) p.p85FreeText02 = "p56PlanUntil").Count > 0 Then
+                Me.p56PlanUntil.SelectedDate = lis.Where(Function(p) p.p85FreeText02 = "p56PlanUntil")(0).p85FreeDate01
+            End If
+            Return
+        End If
 
         Dim cRecLast As BO.p56Task = Master.Factory.p56TaskBL.LoadMyLastCreated()
         If cRecLast Is Nothing Then

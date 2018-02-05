@@ -311,7 +311,16 @@
 
                 End If
             End If
-
+            If Request.Item("guid_import") <> "" Then
+                'import z MS-OUTLOOK přes PLUGIN
+                Dim lis As IEnumerable(Of BO.p85TempBox) = Master.Factory.p85TempBoxBL.GetList(Request.Item("guid_import"))
+                If lis.Where(Function(p) p.p85FreeText02 = "p31Date").Count > 0 Then
+                    Me.p31Date.SelectedDate = lis.Where(Function(p) p.p85FreeText02 = "p31Date")(0).p85FreeDate01
+                End If
+                If lis.Where(Function(p) p.p85FreeText02 = "p31Text").Count > 0 Then
+                    Me.p31Text.Text = lis.Where(Function(p) p.p85FreeText02 = "p31Text")(0).p85Message
+                End If
+            End If
         End If
         If Request.Item("p91id") <> "" Then Me.CurrentP91ID = BO.BAS.IsNullInt(Request.Item("p91id"))
 
