@@ -83,6 +83,7 @@
             If lis.Where(Function(p) p.p85FreeText02 = "p56PlanUntil").Count > 0 Then
                 Me.p56PlanUntil.SelectedDate = lis.Where(Function(p) p.p85FreeText02 = "p56PlanUntil")(0).p85FreeDate01
             End If
+            Me.p56ExternalPID.Text = lis.Where(Function(p) p.p85Prefix = "p56")(0).p85FreeText01
             Return
         End If
 

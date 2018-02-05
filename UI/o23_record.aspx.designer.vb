@@ -410,6 +410,15 @@ Partial Public Class o23_record
     Protected WithEvents hidJavascriptFile As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
+    '''hido23ExternalPID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hido23ExternalPID As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
     '''SharedCalendar control.
     '''</summary>
     '''<remarks>

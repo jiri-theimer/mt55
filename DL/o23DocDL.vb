@@ -115,6 +115,7 @@
                 pars.Add("o23IsDraft", .o23IsDraft, DbType.Boolean)
                 pars.Add("o23IsEncrypted", .o23IsEncrypted, DbType.Boolean)
                 pars.Add("o23Password", .o23Password, DbType.String)
+                pars.Add("o23ExternalPID", .o23ExternalPID, DbType.String)
 
                 pars.Add("o23FreeText01", .o23FreeText01, DbType.String, , , True, "Text 1")
                 pars.Add("o23FreeText02", .o23FreeText02, DbType.String, , , True, "Text 2")

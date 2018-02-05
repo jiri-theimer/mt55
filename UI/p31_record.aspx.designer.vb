@@ -797,6 +797,15 @@ Partial Public Class p31_record
     Protected WithEvents hidGuidApprove As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
+    '''hidp31ExternalPID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hidp31ExternalPID As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
     '''Master property.
     '''</summary>
     '''<remarks>

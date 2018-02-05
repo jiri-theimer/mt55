@@ -320,6 +320,7 @@
                 If lis.Where(Function(p) p.p85FreeText02 = "p31Text").Count > 0 Then
                     Me.p31Text.Text = lis.Where(Function(p) p.p85FreeText02 = "p31Text")(0).p85Message
                 End If
+                hidp31ExternalPID.Value = lis.Where(Function(p) p.p85Prefix = "p31")(0).p85FreeText01
             End If
         End If
         If Request.Item("p91id") <> "" Then Me.CurrentP91ID = BO.BAS.IsNullInt(Request.Item("p91id"))
@@ -619,6 +620,7 @@
                 If Me.j19ID.Items.Count = 0 Then SetupJ19Combo()
                 basUI.SelectDropdownlistValue(Me.j19ID, .j19ID.ToString)
             End If
+
             
             If .p49ID > 0 Then
                 Me.p49ID.Value = .p49ID.ToString
@@ -1025,7 +1027,9 @@
                         .p35ID = BO.BAS.IsNullInt(Me.p35ID.SelectedValue)
                         If Me.j19ID.Visible Then .j19ID = BO.BAS.IsNullInt(Me.j19ID.SelectedValue)
                 End Select
-
+                If Me.hidp31ExternalPID.Value <> "" Then
+                    .p31ExternalPID = Me.hidp31ExternalPID.Value
+                End If
             End With
 
             If Me.MultiDateInput.Visible And Me.MultiDateInput.Text <> "" Then

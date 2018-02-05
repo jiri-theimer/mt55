@@ -267,6 +267,7 @@ Public Class o23_record
                         End If
                     Next
                 End If
+                hido23ExternalPID.Value = lis.Where(Function(p) p.p85Prefix = "o23")(0).p85FreeText01
             End If
 
             Return      'konec pro režim nového záznamu
@@ -292,6 +293,7 @@ Public Class o23_record
 
             Master.InhaleRecordValidity(.ValidFrom, .ValidUntil, .DateInsert)
             Me.o23IsEncrypted.Checked = .o23IsEncrypted
+            Me.hido23ExternalPID.Value = .o23ExternalPID
         End With
 
         If panUpload.Visible And _curRec.o23LockedFlag <> BO.o23LockedTypeENUM.LockAllFiles Then
@@ -417,6 +419,7 @@ Public Class o23_record
             cRec.ValidFrom = Master.RecordValidFrom
             cRec.ValidUntil = Master.RecordValidUntil
             cRec.j02ID_Owner = BO.BAS.IsNullInt(Me.j02ID_Owner.Value)
+            cRec.o23ExternalPID = hido23ExternalPID.Value
             If panColors.Visible Then
                 cRec.o23BackColor = basUI.GetColorFromPicker(Me.o23BackColor)
                 cRec.o23ForeColor = basUI.GetColorFromPicker(Me.o23ForeColor)
