@@ -693,6 +693,28 @@ Class mtService
         If strEntryID = "" Then Return Nothing
         VerifyUser(strLogin, strPassword)
         'Return _factory.o23DocBL.LoadMsOfficeBinding(strEntryID)
+
+        Dim c As New BO.MsOfficeBinding
+
+        Dim cTask As BO.p56Task = _factory.p56TaskBL.LoadByExternalPID(strEntryID)
+        If Not cTask Is Nothing Then
+            c.p56ID = cTask.PID
+            c.Task = cTask.FullName
+            Return c
+        End If
+        Dim cDoc As BO.o23Doc = _factory.o23DocBL.LoadByExternalPID(strEntryID)
+        If Not cDoc Is Nothing Then
+            c.o23ID = cDoc.PID
+            c.DocName = cDoc.o23Name
+            Return c
+        End If
+        Dim cP31 As BO.p31Worksheet = _factory.p31WorksheetBL.LoadByExternalPID(strEntryID)
+        If Not cP31 Is Nothing Then
+            c.p31ID = cP31.PID
+            c.Ukon = cP31.p41Name
+            Return c
+        End If
+
         Return Nothing
     End Function
 End Class

@@ -7,6 +7,7 @@
     Function LoadTempRecord(intPID As Integer, strGUID_TempData As String) As BO.p31Worksheet
     Function LoadMyLastCreated(bolLoadTheSameTypeIfNoData As Boolean, intP41ID As Integer) As BO.p31Worksheet
     Function LoadMyLastCreated_TimeRecord() As BO.p31Worksheet
+    Function LoadByExternalPID(strExternalPID As String) As BO.p31Worksheet
     Function LoadSumRow(myQuery As BO.myQueryP31, bolIncludeWaiting4Approval As Boolean, bolIncludeWaiting4Invoice As Boolean, Optional strGUID_TempData As String = "") As BO.p31WorksheetSum
     Function GetGridFooterSums(myQuery As BO.myQueryP31, strSumFields As String, Optional strGUID_TempData As String = "") As DataTable
     Function GetList_BigSummary(myQuery As BO.myQueryP31) As IEnumerable(Of BO.p31WorksheetBigSummary)
@@ -113,6 +114,9 @@ Class p31WorksheetBL
     End Function
     Public Function LoadMyLastCreated_TimeRecord() As BO.p31Worksheet Implements Ip31WorksheetBL.LoadMyLastCreated_TimeRecord
         Return _cDL.LoadMyLastCreated_TimeRecord()
+    End Function
+    Public Function LoadByExternalPID(strExternalPID As String) As BO.p31Worksheet Implements Ip31WorksheetBL.LoadByExternalPID
+        Return _cDL.LoadByExternalPID(strExternalPID)
     End Function
     Public Function LoadSumRow(myQuery As BO.myQueryP31, bolIncludeWaiting4Approval As Boolean, bolIncludeWaiting4Invoice As Boolean, Optional strGUID_TempData As String = "") As BO.p31WorksheetSum Implements Ip31WorksheetBL.LoadSumRow
         Return _cDL.LoadSumRow(myQuery, bolIncludeWaiting4Approval, bolIncludeWaiting4Invoice, strGUID_TempData)

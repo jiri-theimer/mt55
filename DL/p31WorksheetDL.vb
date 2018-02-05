@@ -11,6 +11,12 @@
 
         Return _cDB.GetRecord(Of BO.p31Worksheet)(s, New With {.p31id = intPID})
     End Function
+    Public Function LoadByExternalPID(strExternalPID As String) As BO.p31Worksheet
+        Dim s As String = GetSQLPart1(0) & " " & GetSQLPart2()
+        s += " WHERE a.p31ExternalPID LIKE @externalpid"
+        Return _cDB.GetRecord(Of BO.p31Worksheet)(s, New With {.externalpid = strExternalPID})
+
+    End Function
     Public Function LoadTempRecord(intPID As Integer, strGUID_TempData As String) As BO.p31Worksheet
         Dim pars As New DbParameters
         pars.Add("p31id", intPID, DbType.Int32)
