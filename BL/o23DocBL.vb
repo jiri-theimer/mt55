@@ -100,6 +100,20 @@ Class o23DocBL
                 Factory.x18EntityCategoryBL.SaveX19Binding(into23ID, lisX19, x20IDs)
             End If
 
+            If cRec.o23ExternalPID <> "" Then
+                If System.IO.File.Exists(Factory.x35GlobalParam.TempFolder & "\" & cRec.o23ExternalPID & ".msg") Then
+                    'zdrojový MS-OUTLOOK MSG soubor přes plugin
+                    Dim cTMP As BO.p85TempBox = Factory.p85TempBoxBL.LoadByOutlookFileName(cRec.o23ExternalPID & ".msg")
+                    If Not cTMP Is Nothing Then
+                        Dim cB07 As New BO.b07Comment
+                        cB07.x29ID = BO.x29IdEnum.o23Doc
+                        cB07.b07RecordPID = intO23ID
+                        Factory.b07CommentBL.Save(cB07, cTMP.p85GUID, Nothing)
+                    End If
+
+                End If
+            End If
+
             _cDL.RunSp_AfterSave(into23ID)
 
             If strUploadGUID <> "" Then

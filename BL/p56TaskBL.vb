@@ -123,17 +123,32 @@ Class p56TaskBL
         If Not Me.RaiseAppEvent_TailoringTestBeforeSave(cRec, lisFF, "p56_beforesave") Then Return False
 
         If _cDL.Save(cRec, lisX69, lisFF) Then
+            Dim intP56ID As Integer = _LastSavedPID
             If strUploadGUID <> "" Then
-                Me.Factory.o27AttachmentBL.UploadAndSaveUserControl(lisTempUpload, BO.x29IdEnum.p56Task, _LastSavedPID)
+                Me.Factory.o27AttachmentBL.UploadAndSaveUserControl(lisTempUpload, BO.x29IdEnum.p56Task, intP56ID)
             End If
-            Me.RaiseAppEvent_TailoringAfterSave(_LastSavedPID, "p56_aftersave")
+            If cRec.p56ExternalPID <> "" Then
+                If System.IO.File.Exists(Factory.x35GlobalParam.TempFolder & "\" & cRec.p56ExternalPID & ".msg") Then
+                    'zdrojový MS-OUTLOOK MSG soubor přes plugin
+                    Dim cTMP As BO.p85TempBox = Factory.p85TempBoxBL.LoadByOutlookFileName(cRec.p56ExternalPID & ".msg")
+                    If Not cTMP Is Nothing Then
+                        Dim cB07 As New BO.b07Comment
+                        cB07.x29ID = BO.x29IdEnum.p56Task
+                        cB07.b07RecordPID = intP56ID
+                        Factory.b07CommentBL.Save(cB07, cTMP.p85GUID, Nothing)
+                    End If
+                    
+                End If
+            End If
+
+            Me.RaiseAppEvent_TailoringAfterSave(intP56ID, "p56_aftersave")
             If cRec.PID = 0 Then
                 If cP57.b01ID > 0 Then
-                    InhaleDefaultWorkflowMove(_LastSavedPID, cP57.b01ID)    'je třeba nahodit výchozí workflow stav
+                    InhaleDefaultWorkflowMove(intP56ID, cP57.b01ID)    'je třeba nahodit výchozí workflow stav
                 End If
-                Me.RaiseAppEvent(BO.x45IDEnum.p56_new, _LastSavedPID, , , cRec.p56IsNoNotify)
+                Me.RaiseAppEvent(BO.x45IDEnum.p56_new, intP56ID, , , cRec.p56IsNoNotify)
             Else
-                Me.RaiseAppEvent(BO.x45IDEnum.p56_update, _LastSavedPID, , , cRec.p56IsNoNotify)
+                Me.RaiseAppEvent(BO.x45IDEnum.p56_update, intP56ID, , , cRec.p56IsNoNotify)
             End If
             Return True
         Else

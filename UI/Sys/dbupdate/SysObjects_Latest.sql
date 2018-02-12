@@ -11007,6 +11007,12 @@ if @p33code='MV'	--DPH sazba se u schvalování testuje jenom u finančních wor
   if @vatisok=0
     set @err_ret='Sazba DPH ['+convert(varchar(10),@vatrate_approved)+'%] není platná pro dané období, projekt a měnu!'
  end
+
+if (@p33code='T' or @p33code='U') and @vatrate_approved=0
+ begin
+  select @vatrate_approved=dbo.p32_get_vatrate(@p32id,@p41id,@p31date)
+ end
+
 -----------------------------------------
 
 if @err_ret<>''
@@ -17356,7 +17362,6 @@ GO
 
 
 
-
 CREATE     procedure [dbo].[p91_proforma_save]
 @p91id int
 ,@p90id int
@@ -17417,13 +17422,25 @@ if @amount<>(@amount_withoutvat+@amount_vat)
   set @amount_vat=@amount-@amount_withoutvat
  end
 
-declare @test_amount1 float,@test_amount2 float
+declare @test_amount1 float,@test_amount2 float,@diff float
 select @test_amount1=p91Amount_WithVat+isnull(p91RoundFitAmount,0) FROM p91Invoice WHERE p91ID=@p91id
 select @test_amount2=p99Amount FROM p99Invoice_Proforma WHERE p91ID=@p91id
 
-if ROUND(@test_amount1,2)<ROUND((isnull(@test_amount2,0)+@amount),2)
- begin
+if ROUND((isnull(@test_amount2,0)+@amount),2) > ROUND(@test_amount1,2)
+begin
+ set @diff=ROUND((isnull(@test_amount2,0)+@amount),2)-ROUND(@test_amount1,2)
+
+ if @diff>0 and @diff<1
+  begin
+   select @amount=p91Amount_TotalDue,@amount_withoutvat=p91Amount_WithVat,@amount_vat=p91Amount_Vat FROM p91Invoice WHERE p91ID=@p91id
+   set @diff=0
+  end
+end
+
+if @diff>0
+ begin   
   set @err_ret='Částky úhrad záloh ('+convert(varchar(10),isnull(@test_amount2,0)+@amount)+',-) by dohromady přesáhli částku daňové faktury ('+convert(varchar(10),@test_amount1)+',-)!'
+  set @err_ret=@err_ret+'<hr>Rozdíl: '+convert(varchar(10),@diff)
   return
  end
 

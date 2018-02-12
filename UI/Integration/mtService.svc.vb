@@ -471,7 +471,7 @@ Class mtService
                 c.p85FreeText03 = cF.GetContentType(_factory.x35GlobalParam.TempFolder & "\" & strFileName)
                 If Right(LCase(strFileName), 3) = "msg" Then
                     c.p85FreeText04 = "MS-Outlook"
-                    c.p85FreeText01 = "MS-OUTLOOK-MESSAGE.msg"
+                    c.p85FreeText01 = "MS-OUTLOOK.msg"
                 End If
 
                 bolOK = _factory.p85TempBoxBL.Save(c)

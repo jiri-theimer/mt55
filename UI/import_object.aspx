@@ -26,9 +26,18 @@
 
         }
 
-        function hardrefresh(pid, flag) {
-            //nic
-
+        function hardrefresh(pid, flag) {            
+            if (flag == "p41-save" || flag == "p41-create") {
+                location.replace("p41_framework.aspx?pid=" + pid);
+            }
+            if (flag == "p56-save") {
+                location.replace("p56_framework.aspx?pid=" + pid);
+                return;
+            }
+            if (flag == "p31-save") {
+                location.replace("p31_grid.aspx");
+                return;
+            }
         }
 
 

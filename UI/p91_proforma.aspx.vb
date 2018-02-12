@@ -56,6 +56,7 @@
     Private Sub _MasterPage_Master_OnToolbarClick(strButtonValue As String) Handles _MasterPage.Master_OnToolbarClick
         If strButtonValue = "save" Then
             Dim intP90ID As Integer = BO.BAS.IsNullInt(Me.p90ID.SelectedValue)
+            Dim intP82ID As Integer = BO.BAS.IsNullInt(Me.p82ID.SelectedValue)
 
             If intP90ID = 0 Then
                 Master.Notify("Musíte vybrat zálohovou fakturu.", NotifyLevel.WarningMessage)
@@ -65,9 +66,9 @@
                 Master.Notify("Chybí úhrada zálohové faktury.", NotifyLevel.ErrorMessage)
                 Return
             End If
-            Dim dblPerc As Double = CDbl(perc.SelectedValue), cP90 As BO.p90Proforma = Master.Factory.p90ProformaBL.Load(intP90ID)
+            Dim dblPerc As Double = CDbl(perc.SelectedValue), cP82 As BO.p82Proforma_Payment = Master.Factory.p90ProformaBL.LoadP82(intP82ID)
             If Me.p99Amount_WithoutVat.Value > 0 Then
-                dblPerc = 100 * CDbl(Me.p99Amount_WithoutVat.Value) / cP90.p90Amount_WithoutVat
+                dblPerc = 100 * CDbl(Me.p99Amount_WithoutVat.Value) / cP82.p82Amount_WithoutVat
             End If
 
             With Master.Factory.p91InvoiceBL

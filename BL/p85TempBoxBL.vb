@@ -3,6 +3,7 @@
     Function Save(cRec As BO.p85TempBox) As Boolean
     Function Load(intPID As Integer) As BO.p85TempBox
     Function LoadByGUID(strGUID As String) As BO.p85TempBox
+    Function LoadByOutlookFileName(strMsgFileName As String) As BO.p85TempBox
     Function Delete(cRec As BO.p85TempBox) As Boolean
     Function UnDelete(cRec As BO.p85TempBox) As Boolean
     Function CloneOneRecord(intP85ID As Integer, strGUID_Dest As String) As Boolean
@@ -78,6 +79,9 @@ Class p85TempBoxBL
     End Function
     Public Function LoadByGUID(strGUID As String) As BO.p85TempBox Implements Ip85TempBoxBL.LoadByGUID
         Return _cDL.LoadByGUID(strGUID)
+    End Function
+    Public Function LoadByOutlookFileName(strMsgFileName As String) As BO.p85TempBox Implements Ip85TempBoxBL.LoadByOutlookFileName
+        Return _cDL.LoadByOutlookFileName(strMsgFileName)
     End Function
 
     Public Function Save(cRec As BO.p85TempBox) As Boolean Implements Ip85TempBoxBL.Save

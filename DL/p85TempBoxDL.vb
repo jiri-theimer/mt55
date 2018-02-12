@@ -17,6 +17,10 @@ Public Class p85TempBoxDL
         Dim s As String = "SELECT TOP 1 *," & bas.RecTail("p85") & " FROM p85Tempbox WHERE p85GUID=@myguid"
         Return _cDB.GetRecord(Of BO.p85TempBox)(s, New With {.myguid = strGUID})
     End Function
+    Public Function LoadByOutlookFileName(strMsgFileName As String) As BO.p85TempBox
+        Dim s As String = "SELECT TOP 1 *," & bas.RecTail("p85") & " FROM p85Tempbox WHERE p85FreeText02 LIKE @msgfilename"
+        Return _cDB.GetRecord(Of BO.p85TempBox)(s, New With {.msgfilename = strMsgFileName})
+    End Function
     Public Function LoadFromDeposit(strGUID As String) As Integer
         Dim c As BO.GetInteger = _cDB.GetRecord(Of BO.GetInteger)("select p85DataPID as Value FROM p85TempBox WHERE p85GUID=@myguid", New With {.myguid = strGUID})
         If Not c Is Nothing Then
