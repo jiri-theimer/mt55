@@ -79,6 +79,8 @@
             End If
             If lis.Where(Function(p) p.p85FreeText02 = "p56Description").Count > 0 Then
                 Me.p56Description.Text = lis.Where(Function(p) p.p85FreeText02 = "p56Description")(0).p85Message
+                Me.p56Description.Text = Trim(Me.p56Description.Text).Replace("<", "[").Replace(">", "]")
+                
             End If
             If lis.Where(Function(p) p.p85FreeText02 = "p56PlanUntil").Count > 0 Then
                 Me.p56PlanUntil.SelectedDate = lis.Where(Function(p) p.p85FreeText02 = "p56PlanUntil")(0).p85FreeDate01

@@ -319,6 +319,7 @@
                 End If
                 If lis.Where(Function(p) p.p85FreeText02 = "p31Text").Count > 0 Then
                     Me.p31Text.Text = lis.Where(Function(p) p.p85FreeText02 = "p31Text")(0).p85Message
+                    Me.p31Text.Text = Trim(Me.p31Text.Text).Replace("<", "[").Replace(">", "]")
                 End If
                 hidp31ExternalPID.Value = lis.Where(Function(p) p.p85Prefix = "p31")(0).p85FreeText01
             End If

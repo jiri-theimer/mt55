@@ -264,6 +264,8 @@ Public Class o23_record
                     For Each ri As RepeaterItem In rpX16.Items
                         If CType(ri.FindControl("x16Field"), HiddenField).Value = "o23BigText" Then
                             CType(ri.FindControl("txtFF_Text"), TextBox).Text = lis.Where(Function(p) p.p85FreeText02 = "o23BigText")(0).p85Message
+                            CType(ri.FindControl("txtFF_Text"), TextBox).Text = Trim(CType(ri.FindControl("txtFF_Text"), TextBox).Text).Replace("<", "[").Replace(">", "]")
+
                         End If
                     Next
                 End If
