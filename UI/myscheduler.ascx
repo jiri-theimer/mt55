@@ -68,6 +68,7 @@
                         <td style="border-top:solid 1px #e1e1e1;">
                             <asp:HyperLink ID="pm2" runat="server" CssClass="pp1"></asp:HyperLink>
                             <asp:HyperLink ID="linkProject" runat="server" Target="_top" CssClass="value_link"></asp:HyperLink>
+                            <asp:HyperLink ID="clue_project" runat="server" CssClass="reczoom" Text="i" Visible="false"></asp:HyperLink>
                         </td>
                         
                     </tr>
@@ -99,6 +100,7 @@
                     <tr>
                         <td colspan="2">
                             <asp:Label ID="Project" runat="server" Font-Italic="true"></asp:Label>
+                            
                         </td>
                     </tr>
                     <tr valign="top" style="background-color: white;">

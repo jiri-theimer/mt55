@@ -346,11 +346,16 @@ Public Class myscheduler
                     If cRec.Client <> "" Then
                         .Text = cRec.Client & " - " & .Text
                     End If
+                    
                 End If
             End With
         Else
-            e.Item.FindControl("Project").Visible = False
+            e.Item.FindControl("Project").Visible = False            
         End If
+        
+        
+
+
         With CType(e.Item.FindControl("pm1"), HyperLink)
             .Attributes.Item("onclick") = "RCM('p56'," & cRec.PID.ToString & ",this)"
         End With
@@ -459,6 +464,10 @@ Public Class myscheduler
             With CType(e.Item.FindControl("linkProject"), HyperLink)
                 .Text = cRec.Project
                 .NavigateUrl = "p41_framework.aspx?pid=" & cRec.p41ID.ToString
+            End With
+            With CType(e.Item.FindControl("clue_project"), HyperLink)
+                .Visible = True
+                .Attributes("rel") = "clue_p41_record.aspx?pid=" & cRec.p41ID.ToString
             End With
         Else
             e.Item.FindControl("pm2").Visible = False
