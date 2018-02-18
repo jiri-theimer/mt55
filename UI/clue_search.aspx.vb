@@ -4,8 +4,7 @@
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
             With Master
-                If Request.Item("blank") = "1" Then panCommands.Visible = True
-
+                
                 Dim lis As New List(Of String)
                 lis.Add("handler_search_project-toprecs")
                 lis.Add("handler_search_project-bin")

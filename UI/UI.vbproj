@@ -209,6 +209,7 @@
     <Content Include="changelog.aspx" />
     <Content Include="clue_b07_record.aspx" />
     <Content Include="clue_help.aspx" />
+    <Content Include="clue_navigator.aspx" />
     <Content Include="clue_p61_record.aspx" />
     <Content Include="clue_popup.aspx" />
     <Content Include="clue_x18_record.aspx" />
@@ -888,6 +889,13 @@
     </Compile>
     <Compile Include="clue_help.aspx.vb">
       <DependentUpon>clue_help.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="clue_navigator.aspx.designer.vb">
+      <DependentUpon>clue_navigator.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="clue_navigator.aspx.vb">
+      <DependentUpon>clue_navigator.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="clue_p61_record.aspx.designer.vb">

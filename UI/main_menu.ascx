@@ -13,6 +13,17 @@
     <a href="Default.aspx" title="MARKTIME" style="position:absolute;top:5px;left:4px;"><img src="Images/logo_transparent.png" border="0" /></a>
 </asp:Panel>
 
+<div id="divFrameBox" class="content-box2" style="position:absolute;width:500px;top:35px;z-index:5000;display:none;background-color:#F1F1F1;">
+    <div class="title" style="background-color:ButtonFace; !important;">        
+        <span id="divFrameBoxTitle">Hovado</span>
+        <button type="button" style="width:400px;margin-left:100px;" onclick="close_framebox()">Zavřít</button>
+    </div>
+    <div class="content">
+        <iframe id="fraBox" frameborder="0" width="100%"></iframe>
+    </div>
+    
+</div>
+
 
 <asp:HiddenField ID="hidAllowSearch1" runat="server" Value="0" />
 <asp:HiddenField ID="hidMasterPageName" runat="server" Value="Site" />
@@ -48,10 +59,55 @@
     }
 
     
+    function close_framebox() {
+        document.getElementById("divFrameBox").style.display = "none";
+    }
+    function handle_framebox(url) {
+        var h = new Number;
+        h = $(window).height();
+        h = h - 40;
 
+        var ctl = document.getElementById("divFrameBox");
+        if (ctl.style.display == "block" && document.getElementById("fraBox").src.indexOf(url) > 0) {
+            ctl.style.display = "none";
+            return (1);
+        }
+        if (ctl.style.display == "none" && document.getElementById("fraBox").src.indexOf(url) > 0) {
+            ctl.style.display = "block";
+            ctl.style.width = "700px";
+            document.getElementById("fraBox").style.height = (h - 80) + "px";
+            return (1);
+        }
 
-    function mysearch() {
-        sw_menu_decide("clue_search.aspx", "Images/search.png")
+        
+
+        ctl.style.width = "700px";
+        ctl.style.height = h + "px";
+        ctl.style.display = "block";
+        
+        document.getElementById("fraBox").style.height = (h - 80) + "px";
+        return (2);
+    }
+
+    function mysearch() {        
+        if (handle_framebox("search.aspx") == 1) {            
+            return;
+        }
+        $("#divFrameBoxTitle").html("<img src='Images/search.png'/> HLEDÁNÍ");
+        
+
+        var ctl = document.getElementById("fraBox");        
+        ctl.src = "clue_search.aspx";
+        
+    }
+
+    function mynavigator() {
+        if (handle_framebox("navigator.aspx") == 1)
+            return;
+
+        $("#divFrameBoxTitle").html("<img src='Images/tree.png'/> NAVIGATOR");
+        var ctl = document.getElementById("fraBox");        
+        ctl.src = "clue_navigator.aspx";
 
     }
 

@@ -67,6 +67,9 @@ Public Class main_menu
 
                 ai("", "searchbox", "javascript:mysearch()", "Images/search_silver.png", , "Najít projekt, klienta, fakturu, osobu nebo fulltext")
             End If
+            If factory.TestPermission(BO.x53PermValEnum.GR_Navigator) Then
+                ai("", "navigator", "javascript:mynavigator()", "Images/tree.png", , "Navigátor")
+            End If
 
             ai("", "newrec", "javascript:RCM('newrec')", "Images/new4menu.png", , Resources.common.Novy)
             

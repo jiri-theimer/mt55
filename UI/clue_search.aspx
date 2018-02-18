@@ -62,12 +62,10 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:Panel ID="panCommands" runat="server" CssClass="div6">
-        <button type="button" onclick="window.close()">Zavřít</button>
-    </asp:Panel>
+   
     <telerik:RadTabStrip ID="RadTabStrip1" runat="server" MultiPageID="RadMultiPage1" ShowBaseLine="true">
         <Tabs>
-            <telerik:RadTab Text="Hledat" Selected="true" Value="search"></telerik:RadTab>
+            <telerik:RadTab Text="Najít" Selected="true" Value="search"></telerik:RadTab>
             <telerik:RadTab Text="Nastavení hledání" Value="fulltext"></telerik:RadTab>
         </Tabs>
     </telerik:RadTabStrip>
@@ -82,7 +80,7 @@
                     <td>Projekt:
                     </td>
                     <td>
-                        <uc:project ID="p41id_search" runat="server" Width="690px" Flag="searchbox" AutoPostBack="false" OnClientSelectedIndexChanged="p41id_search" />
+                        <uc:project ID="p41id_search" runat="server" Width="590px" Flag="searchbox" AutoPostBack="false" OnClientSelectedIndexChanged="p41id_search" />
                     </td>
 
 
@@ -94,7 +92,7 @@
                     <td>Klient:
                     </td>
                     <td>
-                        <uc:contact ID="p28id_search" runat="server" Width="690px" Flag="searchbox" AutoPostBack="false" />
+                        <uc:contact ID="p28id_search" runat="server" Width="590px" Flag="searchbox" AutoPostBack="false" />
                     </td>
 
 
@@ -106,7 +104,7 @@
                     <td>Faktura:
                     </td>
                     <td>
-                        <uc:invoice ID="p91id_search" runat="server" Width="690px" Flag="searchbox" />
+                        <uc:invoice ID="p91id_search" runat="server" Width="590px" Flag="searchbox" />
 
                     </td>
 
@@ -119,7 +117,7 @@
                     </td>
 
                     <td>
-                        <uc:person ID="j02id_search" runat="server" Width="690px" Flag="searchbox" AutoPostBack="false" />
+                        <uc:person ID="j02id_search" runat="server" Width="590px" Flag="searchbox" AutoPostBack="false" />
 
                     </td>
 
@@ -133,7 +131,7 @@
                 </div>
                 <div class="content">
                     <img src="Images/search_20.png" />
-                    <telerik:RadComboBox ID="cbx1" runat="server" RenderMode="Auto" DropDownWidth="700px" EnableTextSelection="true" MarkFirstMatch="true" EnableLoadOnDemand="true" ShowToggleImage="false" Text="Hledat..." Width="700px" OnClientFocus="cbx1_OnClientFocus" OnClientSelectedIndexChanged="cbx1_OnClientSelectedIndexChanged" OnClientItemsRequesting="cbx1_OnClientItemsRequesting" AutoPostBack="false">
+                    <telerik:RadComboBox ID="cbx1" runat="server" RenderMode="Auto" DropDownWidth="610px" EnableTextSelection="true" MarkFirstMatch="true" EnableLoadOnDemand="true" ShowToggleImage="false" Text="Hledat..." Width="630px" OnClientFocus="cbx1_OnClientFocus" OnClientSelectedIndexChanged="cbx1_OnClientSelectedIndexChanged" OnClientItemsRequesting="cbx1_OnClientItemsRequesting" AutoPostBack="false">
                         <WebServiceSettings Method="LoadComboData" UseHttpGet="false" Path="~/Services/fulltext_service.asmx" />
                     </telerik:RadComboBox>
 

@@ -403,7 +403,7 @@
                 <a href="log_app_update.aspx">Historie novinek a změn v systému</a>
 
                 <span style="padding-left: 30px;">&nbsp</span>
-                <a href="https://www.marktime.cz/l/integrace-s-microsoft-outlook/">Integrace s MS OUTLOOK</a>
+                <a href="https://www.marktime.cz/l/integrace-s-microsoft-outlook/" target="_blank">Integrace s MS OUTLOOK</a>
             </div>
         </div>
 
