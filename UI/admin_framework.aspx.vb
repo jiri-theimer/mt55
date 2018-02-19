@@ -238,6 +238,7 @@ Public Class admin_framework
 
             .AddItem("Číselné řady", "x38", NU("x38"), "other")
             .AddItem("Střediska", "j18", NU("j18"), "other")
+            .AddItem("Štítky", "o51", NU("o51"), "other")
 
             .AddItem("Pravidla opakovaných úkolů a projektů", "p65", NU("p65"), "other")
             .AddItem("Regiony", "j17", NU("j17"), "other")
@@ -358,7 +359,15 @@ Public Class admin_framework
                 Case "j18"
                     .AddColumn("j18Name", "Název střediska")
                     .AddColumn("j18Ordinary", "#", BO.cfENUM.Numeric0)
-               
+                Case "o51"
+                    .AddColumn("o51Name", "Název štítku")
+                    
+                    .AddColumn("o51IsP41", "Projekt", BO.cfENUM.Checkbox)
+                    .AddColumn("o51IsP28", "Klient", BO.cfENUM.Checkbox)
+                    .AddColumn("o51IsP91", "Faktura", BO.cfENUM.Checkbox)
+                    .AddColumn("o51IsP31", "Worksheet", BO.cfENUM.Checkbox)
+                    .AddColumn("o51IsJ02", "Osoba", BO.cfENUM.Checkbox)
+                    .AddColumn("o51IsO23", "Dokument", BO.cfENUM.Checkbox)
                 Case "j61"
                     .AddColumn("j61Name", "Název šablony")
                     .AddColumn("Owner", "Vlastník")
@@ -624,6 +633,14 @@ Public Class admin_framework
                     Case BO.p33IdENUM.Kusovnik
                         dataItem.ForeColor = Drawing.Color.Green
                 End Select
+            Case "o51"
+                Dim cRec As BO.o51Tag = CType(e.Item.DataItem, BO.o51Tag)
+                If cRec.o51BackColor <> "" Then
+                    dataItem("o51Name").Style.Item("background-color") = cRec.o51BackColor
+                End If
+                If cRec.o51ForeColor <> "" Then
+                    dataItem("o51Name").Style.Item("color") = cRec.o51ForeColor
+                End If
             Case "p32"
                 Dim cRec As BO.p32Activity = CType(e.Item.DataItem, BO.p32Activity)
                 If cRec.p32Color <> "" Then
@@ -704,6 +721,9 @@ Public Class admin_framework
                     grid1.DataSource = lis
                 Case "j18"
                     Dim lis As IEnumerable(Of BO.j18Region) = .j18RegionBL.GetList(mqDef)
+                    grid1.DataSource = lis
+                Case "o51"
+                    Dim lis As IEnumerable(Of BO.o51Tag) = .o51TagBL.GetList(mqDef, "all", BO.BooleanQueryMode.NoQuery)
                     grid1.DataSource = lis
                 Case "c21"
                     Dim lis As IEnumerable(Of BO.c21FondCalendar) = .c21FondCalendarBL.GetList(mqDef)

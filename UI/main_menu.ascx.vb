@@ -62,13 +62,14 @@ Public Class main_menu
 
             If .j03SiteMenuSkin > "" Then menu1.Skin = .j03SiteMenuSkin
             'If menu1.Nodes.Count > 0 Then menu1.Nodes.Clear()
+            ''ai("", "menu", "javascript:mymenu()", "Images/menu.png", , "Menu")
 
             If .j04IsMenu_Project Or .j04IsMenu_Contact Or .j04IsMenu_Invoice Or .j04IsMenu_People Then
 
                 ai("", "searchbox", "javascript:mysearch()", "Images/search_silver.png", , "Najít projekt, klienta, fakturu, osobu nebo fulltext")
             End If
             If factory.TestPermission(BO.x53PermValEnum.GR_Navigator) Then
-                ai("", "navigator", "javascript:mynavigator()", "Images/tree.png", , "Navigátor")
+                ai("", "navigator", "javascript:mynavigator()", "Images/navigator.png", , "Navigátor")
             End If
 
             ai("", "newrec", "javascript:RCM('newrec')", "Images/new4menu.png", , Resources.common.Novy)

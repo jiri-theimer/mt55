@@ -105,7 +105,7 @@
         if (handle_framebox("navigator.aspx") == 1)
             return;
 
-        $("#divFrameBoxTitle").html("<img src='Images/tree.png'/> NAVIGATOR");
+        $("#divFrameBoxTitle").html("<img src='Images/navigator.png'/> NAVIGATOR");
         var ctl = document.getElementById("fraBox");        
         ctl.src = "clue_navigator.aspx";
 
