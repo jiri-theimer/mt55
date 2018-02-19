@@ -40,9 +40,12 @@ Class o51TagBL
                 End If
             End If
             If .o51ScopeFlag = 0 Then
-                If Not (.o51IsJ02 Or .o51IsO23 Or .o51IsP28 Or .o51IsP31 Or .o51IsP41 Or .o51IsP56 Or .o51IsP56 Or .o51IsP90 Or .o51IsP91) Then
+                If Not (.o51IsJ02 Or .o51IsO23 Or .o51IsP28 Or .o51IsP31 Or .o51IsP41 Or .o51IsP56 Or .o51IsP90 Or .o51IsP91) Then
                     .o51ScopeFlag = 1
-                End If
+                End If                
+            End If
+            If .o51ScopeFlag = 1 Then
+                .o51IsJ02 = False : .o51IsO23 = False : .o51IsP28 = False : .o51IsP31 = False : .o51IsP41 = False : .o51IsP56 = False : .o51IsP90 = False : .o51IsP91 = False
             End If
         End With
         

@@ -927,7 +927,8 @@ Class j70QueryTemplateBL
 
             .Add(AGC("Měna", "j27Code"))
             .Add(AGC("Typ faktury", "p92Name"))
-            .Add(AGC("Projekt", "p41Name", , , "isnull(p41NameShort,p41Name)"))
+            .Add(AGC("Projekt (první)", "p41Name", , , "isnull(p41NameShort,p41Name)"))
+            .Add(AGC("Projekty", "InvoicedProjects", , , "dbo.p41_invoiced_projects_inline(a.p91ID)"))
             .Add(AGC("DPH region", "j17Name"))
 
             .Add(AGC("Bez dph", "p91Amount_WithoutVat", BO.cfENUM.Numeric, , , True))

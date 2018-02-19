@@ -3142,6 +3142,36 @@ END
 
 GO
 
+----------FN---------------p41_invoiced_projects_inline-------------------------
+
+if exists (select 1 from sysobjects where  id = object_id('p41_invoiced_projects_inline') and type = 'FN')
+ drop function p41_invoiced_projects_inline
+GO
+
+
+
+CREATE    FUNCTION [dbo].[p41_invoiced_projects_inline](@p91id int)
+RETURNS nvarchar(2000)
+AS
+BEGIN
+  ---vrací čárkou oddělené názvy projektů vyfakturované ve faktuře @p91id
+
+ DECLARE @s nvarchar(2000) 
+
+select @s=COALESCE(@s + ', ', '')+isnull(a.p41NameShort,a.p41Name)
+  FROM p41Project a LEFT OUTER JOIN p28Contact b ON a.p28ID_Client=b.p28ID
+  WHERE a.p41ID IN (SELECT p41ID FROM p31Worksheet WHERE p91ID=@p91id)
+
+
+
+RETURN(@s)
+   
+END
+
+
+
+GO
+
 ----------FN---------------p41_ko_inline-------------------------
 
 if exists (select 1 from sysobjects where  id = object_id('p41_ko_inline') and type = 'FN')
